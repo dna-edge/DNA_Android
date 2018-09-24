@@ -1,19 +1,28 @@
 package com.konkuk.dna.dearneighboranyone;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class ActivityLogin extends AppCompatActivity {
 
     private Button button;
     private EditText UserMail;
     private EditText UserPW;
+
+    private TextView MissPW;
+    private TextView SignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,25 +34,54 @@ public class ActivityLogin extends AppCompatActivity {
         button = (Button) findViewById(R.id.button_login);
         UserMail = (EditText) findViewById(R.id.editText_mail);
         UserPW = (EditText) findViewById(R.id.editText_pw);
+        MissPW = (TextView)findViewById(R.id.miss_pw);
+        SignUp = (TextView)findViewById(R.id.sign_up);
 
+        //링크에 밑줄처리하기
+        String udata="비밀번호가 기억나지 않는다면?";
+        SpannableString content = new SpannableString(udata);
+        content.setSpan(new UnderlineSpan(), 0, udata.length(), 0);
+        MissPW.setText(content);
+
+        udata="회원가입하기";
+        content = new SpannableString(udata);
+        content.setSpan(new UnderlineSpan(), 0, udata.length(), 0);
+        SignUp.setText(content);
+
+        //로그인 부분
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //UserMail.getText();
-                //UserPW.getText();
-
                 // 받아온 메일과 비밀번호로 Auth받아오기
-                if(UserMail.getText().equals("aa")){
+                if(UserMail.getText().toString().equals("aa")){
                     // 받아온다면?
                     startActivity(new Intent(ActivityLogin.this, ActivityChat.class));
+                    ActivityLogin.this.finish();
                 }else{
                     //못받아오면?
                     showDenyDialog();
                 }
+            }
+        });
 
+        //비밀번호가 기억나지 않는다면?
+        MissPW.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActivityLogin.this, ActivityMissPW.class));
+            }
+        });
+
+        //회원가입하기
+        SignUp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+               // startActivity(new Intent(ActivityLogin.this, ActivityChat.class));
             }
         });
     }
+
+    //로그인 실패 대화상자 출력
     public void showDenyDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
