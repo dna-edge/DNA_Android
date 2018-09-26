@@ -1,11 +1,7 @@
 package com.konkuk.dna.dearneighboranyone;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
@@ -29,7 +25,7 @@ public class ActivityLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         button = (Button) findViewById(R.id.button_login);
         UserMail = (EditText) findViewById(R.id.editText_mail);
@@ -76,7 +72,7 @@ public class ActivityLogin extends AppCompatActivity {
         SignUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-               // startActivity(new Intent(ActivityLogin.this, ActivityChat.class));
+               startActivity(new Intent(ActivityLogin.this, ActivitySignup1.class));
             }
         });
     }

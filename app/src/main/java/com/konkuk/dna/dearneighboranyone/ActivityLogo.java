@@ -22,7 +22,7 @@ public class ActivityLogo extends AppCompatActivity {
         setContentView(R.layout.activity_logo);
 
         prgDialog = new ProgressDialog(this);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         AuthAsyncTask aat = new AuthAsyncTask(this);
         aat.execute();
@@ -32,6 +32,7 @@ public class ActivityLogo extends AppCompatActivity {
     public static void showProgressDialog(){
         prgDialog.setIcon(R.mipmap.dna_round);
         prgDialog.setTitle("DNA");
+        prgDialog.setProgressStyle(0);
         prgDialog.setMessage("로그인 정보를 확인 중입니다.");
         prgDialog.show();
     }
@@ -56,7 +57,7 @@ class AuthAsyncTask extends AsyncTask<Integer, Integer, Integer> {
         //결과를 리턴
 
         try {
-            Thread.sleep(3000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
