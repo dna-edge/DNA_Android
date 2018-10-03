@@ -25,7 +25,8 @@
                 android:text="서울시, 강동구"
                 android:textSize="18dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="125dp" />
+                android:layout_marginRight="125dp"
+                android:tag="menu"/>
 
             <ImageButton
                 android:id="@+id/msgFindBtn"
@@ -176,18 +177,20 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout android:id="@+id/right_drawer"
-        android:layout_width="240dp"
+    <!-- 우측 메뉴 시작 -->
+    <LinearLayout
+        android:id="@+id/right_drawer"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/grayLighter">
+        android:background="@color/grayLighter"
         android:layout_gravity="right"
-        android:choiceMode="singleChoice"
+        android:choiceMode="singleChoice">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/ivory"
             android:padding="15dp"
             android:orientation="vertical">
 
@@ -221,7 +224,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:textSize="18dp"
+                        android:textSize="19dp"
                         android:text="nickname"
                         android:tag="bold" />
 
@@ -253,11 +256,11 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:padding="5dp"
-            android:background="@color/white">
+            android:background="@color/ivory">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="35dp"
                 android:gravity="center_vertical"
                 android:text="@string/fa_setting"
                 android:layout_marginLeft="10dp"
@@ -282,11 +285,11 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:padding="5dp"
-            android:background="@color/white">
+            android:background="@color/ivory">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="35dp"
                 android:gravity="center_vertical"
                 android:text="@string/fa_clock"
                 android:layout_marginLeft="10dp"
@@ -308,10 +311,10 @@
             android:id="@+id/ccuList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="5dp"
+            android:divider="@color/grayLighter"
+            android:dividerHeight="1dp"
             android:layout_marginTop="1dp"
-            android:background="@color/white" />
+            android:background="@color/ivory" />
 
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

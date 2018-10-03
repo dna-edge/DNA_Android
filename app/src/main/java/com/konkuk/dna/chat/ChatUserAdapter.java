@@ -60,7 +60,13 @@ public class ChatUserAdapter extends ArrayAdapter<ChatUser> {
         TextView nickname = v.findViewById(R.id.ccuNickname);
         TextView status = v.findViewById(R.id.ccuStatus);
 
+        // TODO avatar src 링크 설정해줘야 합니다.
+        if (user.getAvatar() != null) {
+
+        }
+
         nickname.setText(user.getNickname());
+        status.setTypeface(fontAwesomeS);
         if (user.getInside()) { // 초록불 켜기!
             status.setTextColor(context.getResources().getColor(R.color.green));
         } else {

@@ -27,7 +27,6 @@ import java.util.Locale;
 public class ChatActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
     private LinearLayout drawerList;
-    private ActionBarDrawerToggle drawerToggle;
     private ImageView pfAvatar;
     private TextView pfNickname, pfID, pfInfo;
     private LinearLayout settingBtn;
@@ -75,26 +74,6 @@ public class ChatActivity extends BaseActivity {
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (LinearLayout) findViewById(R.id.right_drawer);
 
-//        drawerToggle = new ActionBarDrawerToggle(this, menuDrawer, 0, 1) {
-//
-//            /** Called when a drawer has settled in a completely closed state. */
-//            public void onDrawerClosed(View view) {
-//                super.onDrawerClosed(view);
-//                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-//            }
-//
-//            /** Called when a drawer has settled in a completely open state. */
-//            public void onDrawerOpened(View drawerView) {
-//                super.onDrawerOpened(drawerView);
-//                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-//            }
-//        };
-
-        // Set the drawer toggle as the DrawerListener
-        menuDrawer.setDrawerListener(drawerToggle);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setHomeButtonEnabled(true);
-
         // TODO chatUsers 배열에 실제 접속중인 유저 리스트 추가해야 합니다.
         chatUsers = new ArrayList<ChatUser>();
         chatUsers.add(new ChatUser("3457soso", null, true));
@@ -128,13 +107,6 @@ public class ChatActivity extends BaseActivity {
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = menuDrawer.isDrawerOpen(drawerList);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
     public void onClick(View v) {
 
         switch(v.getId()) {
@@ -143,7 +115,7 @@ public class ChatActivity extends BaseActivity {
                 break;
 
             case R.id.msgMenuBtn: // 메뉴 버튼 클릭
-                if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) { menuDrawer.openDrawer(Gravity.RIGHT) ; }
+                if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) { menuDrawer.openDrawer(Gravity.RIGHT); }
 
                 break;
 
@@ -167,29 +139,4 @@ public class ChatActivity extends BaseActivity {
                 break;
         }
     }
-//
-//    @Override
-//    protected void onPostCreate(Bundle savedInstanceState) {
-//        super.onPostCreate(savedInstanceState);
-//        // Sync the toggle state after onRestoreInstanceState has occurred.
-//        drawerToggle.syncState();
-//    }
-//
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        drawerToggle.onConfigurationChanged(newConfig);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Pass the event to ActionBarDrawerToggle, if it returns
-//        // true, then it has handled the app icon touch event
-//        if (drawerToggle.onOptionsItemSelected(item)) {
-//            return true;
-//        }
-//        // Handle your other action bar items...
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 }

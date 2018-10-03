@@ -56,7 +56,7 @@ public class BaseActivity extends AppCompatActivity {
                         } else if (String.valueOf(v.getTag()).equals("fas")) {
                             ((Button) v).setTypeface(fontAwesomeS);
                         } else if (String.valueOf(v.getTag()).equals("menu")) {
-                            ((Button) v).setTypeface(fontAwesomeS);
+                            ((Button) v).setTypeface(typefaceMenu);
                         } else {
                             ((Button) v).setTypeface(typefaceBold);
                         }
@@ -66,6 +66,8 @@ public class BaseActivity extends AppCompatActivity {
                             ((TextView) v).setTypeface(fontAwesomeR);
                         } else if (String.valueOf(v.getTag()).equals("fas")) {
                             ((TextView) v).setTypeface(fontAwesomeS);
+                        } else if (String.valueOf(v.getTag()).equals("menu")) {
+                            ((TextView) v).setTypeface(typefaceMenu);
                         } else if (String.valueOf(v.getTag()).equals("bold")) {
                             ((TextView) v).setTypeface(typefaceBold);
                         } else {
