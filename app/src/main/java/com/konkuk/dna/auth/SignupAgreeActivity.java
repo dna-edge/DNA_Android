@@ -1,4 +1,4 @@
-package com.konkuk.dna;
+package com.konkuk.dna.auth;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.R;
 
 public class SignupAgreeActivity extends BaseActivity {

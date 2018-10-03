@@ -21,8 +21,8 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name="com.konkuk.dna.LoginActivity" />
-        <activity android:name="com.konkuk.dna.ChatActivity">
+        <activity android:name="com.konkuk.dna.auth.LoginActivity" />
+        <activity android:name="com.konkuk.dna.chat.ChatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,27 +31,27 @@
         </activity>
 
         <activity
-            android:name="com.konkuk.dna.ActivityMissPW"
-            android:parentActivityName="com.konkuk.dna.LoginActivity">
+            android:name="com.konkuk.dna.auth.ActivityMissPW"
+            android:parentActivityName="com.konkuk.dna.auth.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.konkuk.dna.LoginActivity" />
+                android:value="com.konkuk.dna.auth.LoginActivity" />
         </activity>
 
         <activity
-            android:name="com.konkuk.dna.SignupAgreeActivity"
-            android:parentActivityName="com.konkuk.dna.ChatActivity">
+            android:name="com.konkuk.dna.auth.SignupAgreeActivity"
+            android:parentActivityName="com.konkuk.dna.chat.ChatActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.konkuk.dna.LoginActivity" />
+                android:value="com.konkuk.dna.auth.LoginActivity" />
         </activity>
 
         <activity
-            android:name="com.konkuk.dna.SignupFormActivity"
-            android:parentActivityName="com.konkuk.dna.SignupAgreeActivity">
+            android:name="com.konkuk.dna.auth.SignupFormActivity"
+            android:parentActivityName="com.konkuk.dna.auth.SignupAgreeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.konkuk.dna.SignupAgreeActivity" />
+                android:value="com.konkuk.dna.auth.SignupAgreeActivity" />
         </activity>
     </application>
 </manifest>

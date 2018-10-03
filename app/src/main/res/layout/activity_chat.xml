@@ -5,23 +5,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/tb_signup1"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:background="#5F4B8B"-->
-        <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light">-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@color/colorPrimary">
 
-        <!--<TextView-->
-            <!--android:id="@+id/addressText"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="서울시, 강동구"-->
-            <!--android:tag="bold"-->
-            <!--android:textSize="18dp"-->
-            <!--android:layout_gravity="center" />-->
-    <!--</android.support.v7.widget.Toolbar>-->
+        <TextView
+            android:id="@+id/addressText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="서울시, 강동구"
+            android:textSize="18dp"
+            android:layout_marginLeft="20dp"/>
+
+        <ImageButton
+            android:id="@+id/chatFindBtn"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/find"
+            android:src="@drawable/find"
+            android:layout_marginRight="65dp"
+            android:layout_alignParentRight="true"
+            android:onClick="onClick" />
+
+        <ImageButton
+            android:id="@+id/chatMenuBtn"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/menu"
+            android:src="@drawable/menu"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:onClick="onClick" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +54,7 @@
             android:layout_weight="2">
             <fragment
                 android:id="@+id/mapFragment"
-                android:name="com.konkuk.dna.ChatMapFragment"
+                android:name="com.konkuk.dna.chat.ChatMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
             <View
@@ -44,11 +64,89 @@
                 android:background="@drawable/shadow_view">
             </View>
         </RelativeLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_chat"
+
+        <ListView
+            android:id="@+id/msgListView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:background="@drawable/layout_border"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/msgSpeakerBtn"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:textSize="22dp"
+                android:textColor="@color/grayLight"
+                android:background="@drawable/transparent"
+                android:text="@string/fa_speaker"
+                android:tag="fas"
+                android:layout_marginLeft="10dp"
+                android:onClick="onClick" />
+
+            <EditText
+                android:id="@+id/msgEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="120dp"
+                android:paddingLeft="3dp"
+                android:textColor="@color/grayDarker"
+                android:textSize="17dp"
+                android:hint="메시지를 입력하세요"
+                android:theme="@style/chatEditTextTheme" />
+
+            <Button
+                android:id="@+id/msgLocationBtn"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:textSize="22dp"
+                android:textColor="@color/grayLight"
+                android:background="@drawable/transparent"
+                android:text="@string/fa_compass"
+                android:tag="far"
+                android:layout_marginRight="90dp"
+                android:layout_alignParentRight="true"
+                android:onClick="onClick" />
+
+            <Button
+                android:id="@+id/msgImageBtn"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:textSize="22dp"
+                android:textColor="@color/grayLight"
+                android:background="@drawable/transparent"
+                android:text="@string/fa_image"
+                android:tag="far"
+                android:layout_marginRight="55dp"
+                android:layout_alignParentRight="true"
+                android:onClick="onClick" />
+
+            <Button
+                android:id="@+id/msgSendBtn"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="22dp"
+                android:textColor="@color/grayLight"
+                android:background="@color/grayLighter"
+                android:text="@string/fa_send"
+                android:tag="fas"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_alignParentRight="true"
+                android:onClick="onClick" />
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/msgContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="55dp">
+
+    <TextView
+        android:id="@+id/msgText"
+        android:textColor="@color/grayDarker"
+        android:textSize="15dp"
+        android:background="@color/colorChatGray"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:tag="chat"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="8dp">
+
+        <LinearLayout
+            android:id="@+id/likeWrapper"
+            android:layout_width="40dp"
+            android:layout_height="21dp"
+            android:layout_marginBottom="2dp"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center_horizontal"
+            android:background="@drawable/like_button_default">
+
+            <TextView
+                android:id="@+id/likeStar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/grayLighter"
+                android:gravity="center_vertical"
+                android:text="@string/fa_star"
+                android:textSize="12dp"/>
+            <TextView
+                android:id="@+id/likeCount"
+                android:textColor="@color/grayDark"
+                android:textSize="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="5dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dateText"
+            android:textColor="@color/gray"
+            android:textSize="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</LinearLayout>

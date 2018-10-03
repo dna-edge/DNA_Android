@@ -1,4 +1,4 @@
-package com.konkuk.dna;
+package com.konkuk.dna.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.R;
+import com.konkuk.dna.chat.ChatActivity;
 
 public class LoginActivity extends BaseActivity {
 

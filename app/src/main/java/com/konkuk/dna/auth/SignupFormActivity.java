@@ -1,9 +1,10 @@
-package com.konkuk.dna;
+package com.konkuk.dna.auth;
 
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.R;
 
 public class SignupFormActivity extends BaseActivity {

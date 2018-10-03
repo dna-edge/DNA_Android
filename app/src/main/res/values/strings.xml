@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">DearNeighborAnyone</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">DNA</string>
+    <string name="fa_star">&#xf005;</string>
+    <string name="fa_image">&#xf302;</string>
+    <string name="fa_send">&#xf124;</string>
+    <string name="fa_compass">&#xf14e;</string>
+    <string name="fa_speaker">&#xf028;</string>
 </resources>

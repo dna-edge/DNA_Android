@@ -7,14 +7,17 @@
     <color name="colorPrimaryDarker">#422e63</color>
     <color name="colorAccent">#E71D36</color>
 
-    <color name="colorChat">#6632B5</color>
+    <color name="colorChatGray">#e9eaea</color>
+    <color name="colorChatPurple">#6632B5</color>
 
     <color name="white">#FFFFFF</color>
-    <color name="grayLighter">#E3E8EA</color>
+    <color name="grayLighter">#d5d9da</color>
     <color name="grayLight">#9aa0a1</color>
     <color name="gray">#454545</color>
+    <color name="grayDark">#2e2e2e</color>
     <color name="grayDarker">#26262B</color>
     <color name="green">#00A000</color>
-    <color name="yellow">#FF8000</color>
+    <color name="yellow">#FFA700</color>
+    <color name="red">#D62D20</color>
 
 </resources>

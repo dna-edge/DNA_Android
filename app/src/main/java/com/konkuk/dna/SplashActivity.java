@@ -8,7 +8,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.konkuk.dna.R;
+import com.konkuk.dna.auth.LoginActivity;
 
 import static com.konkuk.dna.SplashActivity.prgDialog;
 import static com.konkuk.dna.SplashActivity.showProgressDialog;

@@ -7,4 +7,13 @@
         <item name="android:layout_marginLeft">0dp</item>
         <item name="android:paddingLeft">0dp</item>
     </style>
+
+    <style name="chatEditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="colorControlActivated">@android:color/transparent</item>
+        <item name="android:textCursorDrawable">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/grayLight</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+    </style>
 </resources>

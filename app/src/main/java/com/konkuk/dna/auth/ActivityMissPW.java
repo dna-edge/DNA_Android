@@ -1,4 +1,4 @@
-package com.konkuk.dna;
+package com.konkuk.dna.auth;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
