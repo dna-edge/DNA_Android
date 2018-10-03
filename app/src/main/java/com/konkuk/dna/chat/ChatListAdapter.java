@@ -27,12 +27,11 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
     private static Typeface boldTypeface;
     private static Typeface fontAwesomeS;
 
-    public ChatListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<ChatMessage> objects, String currentUserId) {
+    public ChatListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<ChatMessage> objects) {
         super(context, resource, objects);
 
         this.context = context;
         this.messages = objects;
-        this.currentUserId = currentUserId;
 
         init();
     }

@@ -16,6 +16,7 @@
     <color name="gray">#454545</color>
     <color name="grayDark">#2e2e2e</color>
     <color name="grayDarker">#26262B</color>
+    <color name="black">#000000</color>
     <color name="green">#00A000</color>
     <color name="yellow">#FFA700</color>
     <color name="red">#D62D20</color>

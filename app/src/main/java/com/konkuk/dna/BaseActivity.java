@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class BaseActivity extends AppCompatActivity {
+    private static Typeface typefaceMenu;
     private static Typeface typefaceBold;
     private static Typeface typefaceRegular;
     private static Typeface fontAwesomeR;
@@ -24,6 +25,9 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
+        if(typefaceMenu == null) {
+            typefaceMenu = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareB.ttf");
+        }
         if(typefaceBold == null) {
             typefaceBold = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareRoundEB.ttf");
         }
@@ -50,6 +54,8 @@ public class BaseActivity extends AppCompatActivity {
                         if (String.valueOf(v.getTag()).equals("far")) {
                             ((Button) v).setTypeface(fontAwesomeR);
                         } else if (String.valueOf(v.getTag()).equals("fas")) {
+                            ((Button) v).setTypeface(fontAwesomeS);
+                        } else if (String.valueOf(v.getTag()).equals("menu")) {
                             ((Button) v).setTypeface(fontAwesomeS);
                         } else {
                             ((Button) v).setTypeface(typefaceBold);

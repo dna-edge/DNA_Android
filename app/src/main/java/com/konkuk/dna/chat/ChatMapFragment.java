@@ -16,10 +16,14 @@ import com.nhn.android.maps.NMapProjection;
 import com.nhn.android.maps.NMapView;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.nmapmodel.NMapError;
+import com.nhn.android.maps.overlay.NMapCircleData;
+import com.nhn.android.maps.overlay.NMapCircleStyle;
 import com.nhn.android.maps.overlay.NMapPOIdata;
 import com.nhn.android.maps.overlay.NMapPOIitem;
+import com.nhn.android.maps.overlay.NMapPathData;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
+import com.nhn.android.mapviewer.overlay.NMapPathDataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
 /**
@@ -31,7 +35,7 @@ public class ChatMapFragment extends Fragment
     private NMapContext mapContext;
     private NMapView mapView;
     private NMapController mapController;
-    private NMapOverlayManager mOverlayManger;
+    private NMapOverlayManager mOverlayManager;
     private NMapResourceProvider mMapViewerResourceProvider;
     private NMapView.OnMapStateChangeListener nMapstateListener;
 
@@ -72,7 +76,7 @@ public class ChatMapFragment extends Fragment
         mapView.setOnMapStateChangeListener(OnMapViewStateChangeListener); //리스너 등록
         mapController = mapView.getMapController();
         mMapViewerResourceProvider = new NMapViewerResourceProvider(getActivity());
-        mOverlayManger = new NMapOverlayManager(getActivity(),mapView,mMapViewerResourceProvider);
+        mOverlayManager = new NMapOverlayManager(getActivity(),mapView,mMapViewerResourceProvider);
         NMapProjection nMapProjection;
     }
 
@@ -82,13 +86,29 @@ public class ChatMapFragment extends Fragment
             if (nMapError == null) {
                 // TODO : GPS로 현재 위치 잡아서 지정해줘야 합니다.
                 // 지도를 내위치로 초기화합니다.
+                double longitude = 127.07934279999995;
+                double latitude = 37.5407625;
+                float radius = 500;
+
                 NMapPOIdata poiData = new NMapPOIdata(2,mMapViewerResourceProvider);
-                poiData.addPOIitem(127.07934279999995, 37.5407625, "", NMapPOIflagType.PIN, 0);
+                poiData.addPOIitem(longitude, latitude, "", NMapPOIflagType.PIN, 0);
                 poiData.endPOIdata();
 
-                NMapPOIdataOverlay poiDataOverlay = mOverlayManger.createPOIdataOverlay(poiData, null);
+                NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
                 poiDataOverlay.showAllPOIdata(0);
-                mapController.setZoomLevel(12);
+                mapController.setZoomLevel(11);
+
+                NMapCircleData circleData = new NMapCircleData(1);
+                circleData.initCircleData();
+                circleData.addCirclePoint(longitude, latitude, radius);
+                NMapCircleStyle circleStyle = new NMapCircleStyle(getActivity());
+                circleStyle.setStrokeColor(getResources().getColor(R.color.grayLight), 50);
+                circleStyle.setStrokeWidth(0.5F);
+                circleStyle.setFillColor(getResources().getColor(R.color.red), 50);
+                circleData.setCircleStyle(circleStyle);
+                NMapPathDataOverlay pathDataOverlay = mOverlayManager.createPathDataOverlay();
+                pathDataOverlay.addCircleData(circleData);
+
             } else {
                 Log.d("초기화 중 에러 발생", nMapError.toString());
             }
