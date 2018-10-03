@@ -1,17 +1,17 @@
-package com.konkuk.dna.dearneighboranyone;
+package com.konkuk.dna;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
-public class ActivitySignup1 extends AppCompatActivity {
+import com.konkuk.dna.R;
+
+public class SignupAgreeActivity extends BaseActivity {
 
     private Button btnAgree;
     private CheckBox cbDNA;
@@ -56,7 +56,7 @@ public class ActivitySignup1 extends AppCompatActivity {
         btnAgree.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ActivitySignup1.this, ActivitySignup2.class));
+                startActivity(new Intent(SignupAgreeActivity.this, SignupFormActivity.class));
             }
 
         });

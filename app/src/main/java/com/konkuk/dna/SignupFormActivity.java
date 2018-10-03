@@ -1,11 +1,12 @@
-package com.konkuk.dna.dearneighboranyone;
+package com.konkuk.dna;
 
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-public class ActivitySignup2 extends AppCompatActivity {
+import com.konkuk.dna.R;
+
+public class SignupFormActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

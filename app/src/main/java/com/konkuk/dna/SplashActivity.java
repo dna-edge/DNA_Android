@@ -1,4 +1,4 @@
-package com.konkuk.dna.dearneighboranyone;
+package com.konkuk.dna;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -8,18 +8,18 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import static android.support.v4.content.ContextCompat.startActivity;
-import static com.konkuk.dna.dearneighboranyone.ActivityLogo.prgDialog;
-import static com.konkuk.dna.dearneighboranyone.ActivityLogo.showProgressDialog;
+import com.konkuk.dna.R;
 
-public class ActivityLogo extends AppCompatActivity {
+import static com.konkuk.dna.SplashActivity.prgDialog;
+import static com.konkuk.dna.SplashActivity.showProgressDialog;
 
+public class SplashActivity extends AppCompatActivity {
     static ProgressDialog prgDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_logo);
+        setContentView(R.layout.splash_activity);
 
         prgDialog = new ProgressDialog(this);
         //getSupportActionBar().hide();
@@ -71,7 +71,7 @@ class AuthAsyncTask extends AsyncTask<Integer, Integer, Integer> {
         //안 되어있으면 ActivityLogin
 
         prgDialog.dismiss();
-        Intent intent = new Intent(context, ActivityLogin.class);
+        Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
         ((Activity)context).finish();
     }

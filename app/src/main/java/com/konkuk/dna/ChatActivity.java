@@ -1,11 +1,13 @@
-package com.konkuk.dna.dearneighboranyone;
+package com.konkuk.dna;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-public class ActivityChat extends AppCompatActivity {
+import com.konkuk.dna.R;
+
+public class ChatActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     protected RecyclerView.LayoutManager layoutManager;

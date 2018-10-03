@@ -1,4 +1,4 @@
-package com.konkuk.dna.dearneighboranyone;
+package com.konkuk.dna;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.konkuk.dna.dearneighboranyone;
+package com.konkuk.dna;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;

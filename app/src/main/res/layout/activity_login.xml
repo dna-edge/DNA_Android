@@ -12,14 +12,15 @@
         android:id="@+id/iv_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="60dp"
         app:srcCompat="@mipmap/dna_foreground" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="이메일 로그인"
+        android:tag="bold"
         android:textColor="#FFF"
         android:textStyle="bold" />
 
@@ -27,6 +28,8 @@
         android:id="@+id/editText_mail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/EditTextTheme"
+        android:textColor="#FFF"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
@@ -34,18 +37,20 @@
         android:id="@+id/editText_pw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/EditTextTheme"
+        android:textColor="#FFF"
         android:ems="10"
         android:inputType="textPassword" />
 
-    <TextView
-        android:id="@+id/miss_pw"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:gravity="right"
-        android:linksClickable="false"
-        android:text="비밀번호가 생각나지 않는다면?"
-        android:textColor="#FFF" />
+    <!--<TextView-->
+        <!--android:id="@+id/miss_pw"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:clickable="false"-->
+        <!--android:gravity="right"-->
+        <!--android:linksClickable="false"-->
+        <!--android:text="비밀번호가 생각나지 않는다면?"-->
+        <!--android:textColor="#FFF" />-->
 
     <Button
         android:id="@+id/button_login"
@@ -53,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
+        android:textColor="@color/gray"
         android:text="로그인" />
 
     <TextView
@@ -60,6 +66,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="DNA에 처음이세요?"
+        android:layout_marginBottom="10dp"
         android:textColor="#FFF" />
 
     <TextView
@@ -68,5 +75,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="회원가입하기"
+        android:tag="bold"
         android:textColor="#FFF" />
 </LinearLayout>

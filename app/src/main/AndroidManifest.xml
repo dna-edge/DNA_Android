@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.konkuk.dna.dearneighboranyone">
+    package="com.konkuk.dna">
+    <!--반드시 추가--><uses-permission android:name="android.permission.INTERNET" />
+    <!--위치정보활용시 추가--><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--위치정보활용시 추가--><uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--WIFI 상태활용시 추가--><uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--WIFI 상태활용시 추가--><uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -9,39 +14,44 @@
         android:roundIcon="@mipmap/dna"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ActivityLogo">
+        <activity android:name="com.konkuk.dna.SplashActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name="com.konkuk.dna.LoginActivity" />
+        <activity android:name="com.konkuk.dna.ChatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityLogin" />
-        <activity android:name=".ActivityChat" />
 
         <activity
-            android:name=".ActivityMissPW"
-            android:parentActivityName=".ActivityLogin">
+            android:name="com.konkuk.dna.ActivityMissPW"
+            android:parentActivityName="com.konkuk.dna.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.konkuk.dna.dearneighboranyone.ActivityLogin" />
+                android:value="com.konkuk.dna.LoginActivity" />
         </activity>
 
         <activity
-            android:name=".ActivitySignup1"
-            android:parentActivityName=".ActivityLogin">
+            android:name="com.konkuk.dna.SignupAgreeActivity"
+            android:parentActivityName="com.konkuk.dna.ChatActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.konkuk.dna.dearneighboranyone.ActivityLogin" />
+                android:value="com.konkuk.dna.LoginActivity" />
         </activity>
 
         <activity
-            android:name=".ActivitySignup2"
-            android:parentActivityName=".ActivitySignup1">
+            android:name="com.konkuk.dna.SignupFormActivity"
+            android:parentActivityName="com.konkuk.dna.SignupAgreeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.konkuk.dna.dearneighboranyone.ActivitySignup1" />
+                android:value="com.konkuk.dna.SignupAgreeActivity" />
         </activity>
     </application>
-
 </manifest>

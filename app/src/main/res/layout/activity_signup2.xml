@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="기본정보입력"
+            android:tag="bold"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_gravity="center" />
 
@@ -38,7 +39,8 @@
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFF"
+                android:background="@color/grayLight"
+                android:lineSpacingMultiplier="1.15"
                 android:text="필수 입력 사항만 작성해도 회원가입이 진행되며, 선택 입력 사항은 추후 옵션을 통해 수정할 수 있습니다." />
 
             <TextView
@@ -46,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#FFF"
                 android:textSize="16dp"
-                android:textStyle="bold"
+                android:tag="bold"
                 android:layout_marginBottom="5dp"
                 android:text="필수 입력 사항" />
 
@@ -60,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="15dp">
 
                 <EditText
                     android:id="@+id/editText"
@@ -70,6 +72,9 @@
                     android:layout_gravity="start"
                     android:ems="10"
                     android:inputType="textPersonName"
+                    android:theme="@style/EditTextTheme"
+                    android:textColor="@color/white"
+
                     android:hint="아이디"/>
 
                 <Button
@@ -78,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_gravity="end"
+                    android:textColor="@color/gray"
                     android:text="중복 확인" />
 
             </LinearLayout>
@@ -93,10 +99,12 @@
                 android:id="@+id/editText3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="15dp"
                 android:ems="10"
                 android:hint="이메일 주소"
-                android:inputType="textEmailAddress" />
+                android:theme="@style/EditTextTheme"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -109,9 +117,11 @@
                 android:id="@+id/editText4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="15dp"
                 android:ems="10"
                 android:inputType="textPassword"
+                android:theme="@style/EditTextTheme"
+                android:textColor="@color/white"
                 android:hint="비밀번호"/>
 
             <TextView
@@ -125,9 +135,11 @@
                 android:id="@+id/editText5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="15dp"
                 android:ems="10"
                 android:inputType="textPassword"
+                android:theme="@style/EditTextTheme"
+                android:textColor="@color/white"
                 android:hint="비밀번호 확인"/>
 
             <TextView
@@ -136,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#FFF"
                 android:textSize="16dp"
-                android:textStyle="bold"
+                android:tag="bold"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="5dp"
                 android:text="선택 입력 사항" />
@@ -152,9 +164,11 @@
                 android:id="@+id/editText6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="15dp"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:theme="@style/EditTextTheme"
+                android:textColor="@color/white"
                 android:hint="닉네임"/>
 
             <TextView
@@ -168,9 +182,11 @@
                 android:id="@+id/editText7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="15dp"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:theme="@style/EditTextTheme"
+                android:textColor="@color/white"
                 android:hint="자기소개"/>
 
             <TextView
@@ -182,7 +198,8 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp ">
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -196,6 +213,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|end"
+                    android:textColor="@color/gray"
                     android:text="이미지 찾기" />
 
             </FrameLayout>
@@ -204,6 +222,7 @@
                 android:id="@+id/button3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/gray"
                 android:text="가입하기" />
 
 
