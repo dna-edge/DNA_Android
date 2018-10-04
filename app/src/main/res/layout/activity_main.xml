@@ -10,24 +10,79 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
-            android:id="@+id/mapFragment"
-            android:name="com.konkuk.dna.chat.ChatMapFragment"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/msgMenuBtn"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:scaleType="fitXY"
-                android:background="@drawable/menu"
-                android:src="@drawable/menu"
-                android:layout_marginTop="1dp"
-                android:layout_marginRight="15dp"
-                android:layout_alignParentRight="true"
-                android:onClick="onClick" />
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="@color/colorPrimary">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/dna"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimaryLighter"
+                    android:textSize="23dp"
+                    android:text="DNA"
+                    android:tag="menu"/>
+
+                <ImageButton
+                    android:id="@+id/msgMenuBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/menu"
+                    android:src="@drawable/menu"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignParentRight="true"
+                    android:onClick="onClick" />
+            </RelativeLayout>
+
+            <fragment
+                android:id="@+id/mapFragment"
+                android:name="com.konkuk.dna.chat.ChatMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/gotoChatBtn"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="100dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/transparent"
+            android:src="@drawable/btn_chat"
+            android:scaleType="fitXY"
+            android:onClick="onClick" />
+
+        <ImageButton
+            android:id="@+id/postWriteBtn"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/transparent"
+            android:src="@drawable/btn_write"
+            android:scaleType="fitXY"
+            android:onClick="onClick" />
+    </RelativeLayout>
 
     <include
         android:id="@+id/right_drawer"
