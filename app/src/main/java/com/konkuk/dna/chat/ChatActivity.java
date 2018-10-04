@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.konkuk.dna.BaseActivity;
+import com.konkuk.dna.Helpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.dm.DMActivity;
 import com.konkuk.dna.dm.RoomActivity;
@@ -29,17 +30,10 @@ import java.util.Locale;
 
 public class ChatActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
-    private LinearLayout drawerList;
-    private ImageView pfAvatar;
-    private TextView pfNickname, pfID, pfInfo, addressText;
-    private ListView ccuListView;
-    private ArrayList<ChatUser> chatUsers;
-    private ChatUserAdapter chatUserAdapter;
 
     private ListView messageListView;
     private EditText messageEditText;
-    private ImageButton menuBtn, findBtn, friendBtn;
-    private Button speakerBtn, locationBtn, imageBtn, sendBtn;
+    private Button speakerBtn, locationBtn, imageBtn;
     private ArrayList<ChatMessage> chatMessages;
     private ChatListAdapter chatListAdapter;
 
@@ -55,45 +49,14 @@ public class ChatActivity extends BaseActivity {
     }
 
     public void init() {
-        pfAvatar = (ImageView) findViewById(R.id.msgPfAvatar);
-        pfNickname = (TextView) findViewById(R.id.msgPfNickname);
-        pfID = (TextView) findViewById(R.id.msgPfID);
-        pfInfo = (TextView) findViewById(R.id.msgPfInfo);
-        ccuListView = (ListView) findViewById(R.id.ccuList);
-
-        addressText = (TextView) findViewById(R.id.addressText);
+        menuDrawer = findViewById(R.id.drawer_layout);
+        Helpers.initDrawer(this, menuDrawer, 0);
 
         messageListView = (ListView) findViewById(R.id.msgListView);
         messageEditText = (EditText) findViewById(R.id.msgEditText);
-        menuBtn = (ImageButton) findViewById(R.id.msgMenuBtn);
-        findBtn = (ImageButton) findViewById(R.id.msgFindBtn);
-        friendBtn = (ImageButton) findViewById(R.id.msgFriendBtn);
         speakerBtn = (Button) findViewById(R.id.msgSpeakerBtn);
         locationBtn = (Button) findViewById(R.id.msgLocationBtn);
         imageBtn = (Button) findViewById(R.id.msgImageBtn);
-        sendBtn = (Button) findViewById(R.id.msgSendBtn);
-
-        // 우측 메뉴 생성
-        menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (LinearLayout) findViewById(R.id.right_drawer);
-
-
-        // TODO 프로필 및 현재 주소 값 채우기
-        addressText.setText("서울시 광진구");
-//        pfAvatar =
-        pfNickname.setText("soyoungpark");
-        pfID.setText("3457soso");
-        pfInfo.setText("이것은 자기소개인 것입니다. 길게 써야 그럴 듯 하니까 길게 쓰도록 하겠습니다. 할 말이 떨어져 가니까 그만 써야지!");
-
-
-        // TODO chatUsers 배열에 실제 접속중인 유저 리스트 추가해야 합니다.
-        chatUsers = new ArrayList<ChatUser>();
-        chatUsers.add(new ChatUser("3457soso", null, true));
-        chatUsers.add(new ChatUser("test", null, true));
-        chatUsers.add(new ChatUser("test2", null, false));
-        chatUserAdapter = new ChatUserAdapter(this, R.layout.chat_item_ccu, chatUsers);
-        ccuListView.setAdapter(chatUserAdapter);
-
 
         // TODO chatMessages 배열에 실제 메시지 추가해야 합니다.
         chatMessages = new ArrayList<ChatMessage>();
@@ -126,7 +89,9 @@ public class ChatActivity extends BaseActivity {
                 break;
 
             case R.id.msgMenuBtn: // 메뉴 버튼 클릭
-                if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) { menuDrawer.openDrawer(Gravity.RIGHT); }
+                if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) {
+                    menuDrawer.openDrawer(Gravity.RIGHT);
+                }
 
                 break;
 
@@ -155,9 +120,6 @@ public class ChatActivity extends BaseActivity {
                 break;
 
             case R.id.msgSettingBtn: // 채팅 환경 설정 버튼 클릭
-                break;
-
-            case R.id.pfModifyBtn: // 프로필 설정 버튼 클릭
                 break;
         }
     }

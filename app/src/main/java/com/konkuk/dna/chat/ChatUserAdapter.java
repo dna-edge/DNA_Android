@@ -54,6 +54,10 @@ public class ChatUserAdapter extends ArrayAdapter<ChatUser> {
             LayoutInflater layoutInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = layoutInflater.inflate(R.layout.chat_item_ccu, null);
+
+            if (position % 2 == 0) {
+                v.setBackgroundColor(context.getResources().getColor(R.color.white));
+            }
         }
 
         ImageView avatar = v.findViewById(R.id.ccuAvatar);

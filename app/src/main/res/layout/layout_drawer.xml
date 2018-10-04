@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grayLighter">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ivory"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:elevation="12dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                app:cardCornerRadius="20dp">
+                <ImageView
+                    android:id="@+id/msgPfAvatar"
+                    android:layout_height="45dp"
+                    android:layout_width="match_parent"
+                    android:src="@drawable/avatar">
+                </ImageView>
+            </android.support.v7.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/msgPfNickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        android:tag="bold" />
+
+                    <TextView
+                        android:id="@+id/msgPfID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:textColor="@color/grayDarker"
+                        android:textSize="14dp" />
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/fa_right"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/grayLight"
+                    android:textSize="25dp"
+                    android:layout_alignParentRight="true"
+                    android:tag="fas"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:textSize="13dp"
+        android:paddingLeft="15dp"
+        android:textColor="@color/gray"
+        android:text="현재 채팅 환경"
+        android:tag="menu"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:background="@color/ivory">
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:textSize="15dp"
+            android:textColor="@color/grayDark"
+            android:background="@color/ivory"
+            android:text="위치"
+            android:tag="menu"/>
+
+        <TextView
+            android:id="@+id/drawerPosition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="15dp"
+            android:textColor="@color/grayDarker"
+            android:background="@color/ivory"
+            android:text="서울시 광진구 화양동 1 건국대학교"
+            android:tag="default"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:background="@color/ivory">
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:textSize="15dp"
+            android:textColor="@color/grayDark"
+            android:background="@color/ivory"
+            android:text="반경"
+            android:tag="menu"/>
+
+        <TextView
+            android:id="@+id/drawerRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimary"
+            android:background="@color/ivory"
+            android:text="500m"
+            android:tag="default"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/msgSettingBtn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:background="@color/ivory">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/fa_setting"
+            android:layout_marginLeft="11dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="21dp"
+            android:tag="fas"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:layout_marginLeft="50dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/grayDarker"
+            android:text="채팅 환경 설정"
+            android:tag="menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/fa_right"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/grayLight"
+            android:textSize="25dp"
+            android:layout_alignParentRight="true"
+            android:tag="fas"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/msgFriendBtn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:background="@color/ivory">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/fa_friend"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+            android:tag="fas"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:layout_marginLeft="50dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/grayDarker"
+            android:text="친구 관리"
+            android:tag="menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/fa_right"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/grayLight"
+            android:textSize="25dp"
+            android:layout_alignParentRight="true"
+            android:tag="fas"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/drawerForUserList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:textSize="13dp"
+            android:paddingLeft="15dp"
+            android:textColor="@color/gray"
+            android:text="접속중인 주변 유저"
+            android:tag="menu"/>
+
+        <ListView
+            android:id="@+id/ccuList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/grayLighter"
+            android:dividerHeight="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/grayLighter" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/drawerForFriend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="3dp"
+            android:gravity="center_vertical"
+            android:textSize="13dp"
+            android:paddingLeft="15dp"
+            android:textColor="@color/gray"
+            android:text="친구의 프로필"
+            android:tag="menu"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@color/ivory">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:elevation="12dp"
+                app:cardCornerRadius="17.5dp">
+                <ImageView
+                    android:id="@+id/friendAvatar"
+                    android:layout_height="45dp"
+                    android:layout_width="match_parent"
+                    android:src="@drawable/avatar">
+                </ImageView>
+            </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/friendNickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="17dp"
+                android:textColor="@color/grayDarker"
+                android:tag="bold" />
+
+            <TextView
+                android:id="@+id/friendInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingMultiplier="1.15"
+                android:layout_margin="10dp"
+                android:padding="15dp"
+                android:textSize="15dp"
+                android:textColor="@color/grayDarker"
+                android:background="@color/colorPrimaryLighter"
+                android:tag="default" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
