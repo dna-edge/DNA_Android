@@ -44,7 +44,7 @@
                 android:scaleType="fitXY"
                 android:background="@drawable/find"
                 android:src="@drawable/find"
-                android:layout_marginRight="100dp"
+                android:layout_marginRight="105dp"
                 android:layout_alignParentRight="true"
                 android:onClick="onClick" />
 

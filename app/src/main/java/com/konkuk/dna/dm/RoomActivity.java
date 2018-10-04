@@ -1,6 +1,7 @@
 package com.konkuk.dna.dm;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.GestureDetector;
@@ -12,6 +13,7 @@ import android.widget.FrameLayout;
 
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.R;
+import com.konkuk.dna.chat.ChatActivity;
 import com.konkuk.dna.dm.fragments.FriendFragment;
 import com.konkuk.dna.dm.fragments.NotifyFragment;
 import com.konkuk.dna.dm.fragments.RoomFragment;
@@ -62,7 +64,7 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
             public void onSwipeRight() { // to left
                 if (currentFragment > 1) {
                     callFragment(currentFragment - 1);
-                    SlideAnimationUtil.slideInFromLeft(RoomActivity.this, roomFragContainer);
+                    SlideAnimationUtil.slideInToRight(RoomActivity.this, roomFragContainer);
                 }
             }
 
@@ -78,6 +80,10 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.msgChatBtn:
+                Intent chatIntent = new Intent(this, ChatActivity.class);
+                startActivity(chatIntent);
+                break;
             case R.id.roomBtn:
                 callFragment(ROOM_FRAGMENT);
                 break;
@@ -95,6 +101,11 @@ public class RoomActivity extends BaseActivity implements View.OnClickListener {
 
     private void callFragment(int fragmentNumber) {
         if (fragmentNumber != currentFragment) {
+            if (fragmentNumber > currentFragment) {
+                SlideAnimationUtil.slideInFromRight(RoomActivity.this, roomFragContainer);
+            } else {
+                SlideAnimationUtil.slideInToRight(RoomActivity.this, roomFragContainer);
+            }
             roomBtn.setSelected(false);
             friendBtn.setSelected(false);
             notifyBtn.setSelected(false);
@@ -198,7 +209,7 @@ class OnSwipeTouchListener implements View.OnTouchListener {
 }
 
 class SlideAnimationUtil {
-    public static void slideInFromLeft(Context context, View view) {
+    public static void slideInToRight(Context context, View view) {
         runSimpleAnimation(context, view, R.anim.slide_to_right);
     }
 

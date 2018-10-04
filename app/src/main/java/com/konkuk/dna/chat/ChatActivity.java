@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.R;
+import com.konkuk.dna.dm.DMActivity;
 import com.konkuk.dna.dm.RoomActivity;
 
 import java.text.SimpleDateFormat;
@@ -129,9 +130,9 @@ public class ChatActivity extends BaseActivity {
 
                 break;
 
-            case R.id.msgChatBtn: // 친구 리스트 (DM 채팅 리스트) 버튼 클릭
-                Intent intent = new Intent(this, RoomActivity.class);
-                startActivity(intent);
+            case R.id.msgFriendBtn: // 친구 리스트 (DM 채팅 리스트) 버튼 클릭
+                Intent DMIntent = new Intent(this, DMActivity.class);
+                startActivity(DMIntent);
                 break;
 
             case R.id.msgSpeakerBtn: // 확성기 버튼 클릭

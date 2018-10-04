@@ -23,16 +23,14 @@
         </activity>
         <activity android:name="com.konkuk.dna.auth.LoginActivity" />
         <activity android:name="com.konkuk.dna.chat.ChatActivity">
-
-        </activity>
-
-        <activity android:name="com.konkuk.dna.dm.RoomActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.konkuk.dna.dm.RoomActivity" />
         <activity android:name="com.konkuk.dna.dm.DMActivity" />
 
         <activity

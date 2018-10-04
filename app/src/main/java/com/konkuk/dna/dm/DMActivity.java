@@ -113,6 +113,9 @@ public class DMActivity extends BaseActivity {
     public void onClick(View v) {
 
         switch(v.getId()) {
+            case R.id.msgBackBtn:
+                Intent roomIntent = new Intent(this, RoomActivity.class);
+                startActivity(roomIntent);
 
             case R.id.msgFindBtn: // 검색 버튼 클릭
                 break;
@@ -123,8 +126,8 @@ public class DMActivity extends BaseActivity {
                 break;
 
             case R.id.msgChatBtn: // 채팅 버튼 클릭
-                Intent intent = new Intent(this, ChatActivity.class);
-                startActivity(intent);
+                Intent chatIntent = new Intent(this, ChatActivity.class);
+                startActivity(chatIntent);
                 break;
 
             case R.id.msgLocationBtn: // 장소 전송 버튼 클릭

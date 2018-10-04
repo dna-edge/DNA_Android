@@ -41,7 +41,7 @@
             <TextView
                 android:id="@+id/msgText"
                 android:textColor="@color/grayDarker"
-                android:textSize="14.5dp"
+                android:textSize="15dp"
                 android:background="@color/colorChatGray"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
