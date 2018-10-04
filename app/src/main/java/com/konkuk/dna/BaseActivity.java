@@ -70,6 +70,7 @@ public class BaseActivity extends AppCompatActivity {
                             ((TextView) v).setTypeface(typefaceMenu);
                         } else if (String.valueOf(v.getTag()).equals("bold")) {
                             ((TextView) v).setTypeface(typefaceBold);
+                        } else if (String.valueOf(v.getTag()).equals("default")) {
                         } else {
                             ((TextView) v).setTypeface(typefaceRegular);
                         }

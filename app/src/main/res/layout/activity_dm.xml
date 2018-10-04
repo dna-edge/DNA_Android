@@ -17,14 +17,24 @@
             android:gravity="center_vertical"
             android:background="@color/colorPrimary">
 
+            <ImageButton
+                android:id="@+id/msgBackBtn"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/back"
+                android:src="@drawable/back"
+                android:layout_marginLeft="15dp"
+                android:onClick="onClick" />
+
             <TextView
                 android:id="@+id/addressText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="서울시, 강동구"
+                android:text="3457soso"
                 android:textSize="18dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginRight="125dp"
                 android:tag="menu"/>
 
@@ -40,12 +50,12 @@
                 android:onClick="onClick" />
 
             <ImageButton
-                android:id="@+id/msgFriendBtn"
+                android:id="@+id/msgChatBtn"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:scaleType="fitXY"
-                android:background="@drawable/friends"
-                android:src="@drawable/friends"
+                android:background="@drawable/chat"
+                android:src="@drawable/chat"
                 android:layout_marginRight="65dp"
                 android:layout_alignParentRight="true"
                 android:onClick="onClick" />
@@ -75,23 +85,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2">
-                <fragment
-                    android:id="@+id/mapFragment"
-                    android:name="com.konkuk.dna.chat.ChatMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@drawable/shadow_view">
-                </View>
-            </RelativeLayout>
-
             <ListView
                 android:id="@+id/msgListView"
                 android:layout_width="match_parent"
@@ -109,24 +102,12 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <Button
-                    android:id="@+id/msgSpeakerBtn"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:textSize="22dp"
-                    android:textColor="@color/grayLight"
-                    android:background="@drawable/transparent"
-                    android:text="@string/fa_speaker"
-                    android:tag="fas"
-                    android:layout_marginLeft="10dp"
-                    android:onClick="onClick" />
-
                 <EditText
                     android:id="@+id/msgEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="45dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginRight="120dp"
                     android:paddingLeft="3dp"
                     android:textColor="@color/grayDarker"
@@ -247,8 +228,7 @@
                 android:lineSpacingMultiplier="1.15"
                 android:textSize="15dp"
                 android:textColor="@color/grayDarker"
-                android:text="집 에 가고싶다 집에 가 고 싶다집에 가 고 싶다집에 가 고.싶다 집에 가 고싶ㄷ다!"
-                android:tag="default" />
+                android:text="집 에 가고싶다 집에 가 고 싶다집에 가 고 싶다집에 가 고.싶다 집에 가 고싶ㄷ다!"/>
         </LinearLayout>
 
         <LinearLayout

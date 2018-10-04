@@ -5,7 +5,7 @@ public class ChatUser {
     private String avatar;
     private Boolean inside;
 
-    ChatUser(String nickname, String avatar, Boolean inside) {
+    public ChatUser(String nickname, String avatar, Boolean inside) {
         this.nickname = nickname;
         this.avatar = avatar;
         this.inside = inside;

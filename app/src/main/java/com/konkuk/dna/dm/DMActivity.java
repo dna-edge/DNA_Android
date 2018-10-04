@@ -1,14 +1,9 @@
-package com.konkuk.dna.chat;
+package com.konkuk.dna.dm;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,13 +15,17 @@ import android.widget.TextView;
 
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.R;
-import com.konkuk.dna.dm.RoomActivity;
+import com.konkuk.dna.chat.ChatActivity;
+import com.konkuk.dna.chat.ChatListAdapter;
+import com.konkuk.dna.chat.ChatMessage;
+import com.konkuk.dna.chat.ChatUser;
+import com.konkuk.dna.chat.ChatUserAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ChatActivity extends BaseActivity {
+public class DMActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
     private LinearLayout drawerList;
     private ImageView pfAvatar;
@@ -38,7 +37,7 @@ public class ChatActivity extends BaseActivity {
 
     private ListView messageListView;
     private EditText messageEditText;
-    private ImageButton menuBtn, findBtn, friendBtn;
+    private ImageButton menuBtn, findBtn, chatBtn;
     private Button speakerBtn, locationBtn, imageBtn, sendBtn;
     private ArrayList<ChatMessage> chatMessages;
     private ChatListAdapter chatListAdapter;
@@ -49,7 +48,7 @@ public class ChatActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_dm);
 
         init();
     }
@@ -66,7 +65,7 @@ public class ChatActivity extends BaseActivity {
         messageEditText = (EditText) findViewById(R.id.msgEditText);
         menuBtn = (ImageButton) findViewById(R.id.msgMenuBtn);
         findBtn = (ImageButton) findViewById(R.id.msgFindBtn);
-        friendBtn = (ImageButton) findViewById(R.id.msgFriendBtn);
+        chatBtn = (ImageButton) findViewById(R.id.msgChatBtn);
         speakerBtn = (Button) findViewById(R.id.msgSpeakerBtn);
         locationBtn = (Button) findViewById(R.id.msgLocationBtn);
         imageBtn = (Button) findViewById(R.id.msgImageBtn);
@@ -104,7 +103,7 @@ public class ChatActivity extends BaseActivity {
         messageListView.post(new Runnable(){
             public void run() {
                 messageListView.setSelection(messageListView.getCount() - 1);
-        }});
+            }});
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
     }
@@ -121,14 +120,9 @@ public class ChatActivity extends BaseActivity {
 
                 break;
 
-            case R.id.msgChatBtn: // 친구 리스트 (DM 채팅 리스트) 버튼 클릭
-                Intent intent = new Intent(this, RoomActivity.class);
+            case R.id.msgChatBtn: // 채팅 버튼 클릭
+                Intent intent = new Intent(this, ChatActivity.class);
                 startActivity(intent);
-                break;
-
-            case R.id.msgSpeakerBtn: // 확성기 버튼 클릭
-                // TODO 현재 유저의 포인트를 계산해서 사용 가능할 경우에만 활성화해야 합니다.
-                speakerBtn.setTextColor(getResources().getColor(R.color.red));
                 break;
 
             case R.id.msgLocationBtn: // 장소 전송 버튼 클릭

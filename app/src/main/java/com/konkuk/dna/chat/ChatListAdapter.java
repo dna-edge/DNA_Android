@@ -88,7 +88,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
         messageLike.setText(message.getLike());
         messageTime.setText(message.getTime());
 
-        messageText.setTypeface(chatTypeface);
+//        messageText.setTypeface(chatTypeface);
         messageLike.setTypeface(boldTypeface);
         messageTime.setTypeface(chatTypeface);
         likeStar.setTypeface(fontAwesomeS);
