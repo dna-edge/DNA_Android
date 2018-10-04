@@ -27,13 +27,8 @@ import java.util.Locale;
 
 public class DMActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
-    private LinearLayout drawerList;
-    private ImageView pfAvatar;
-    private TextView pfNickname, pfID, pfInfo;
-    private LinearLayout settingBtn;
-    private ListView ccuListView;
-    private ArrayList<ChatUser> chatUsers;
-    private ChatUserAdapter chatUserAdapter;
+    private ImageView pfAvatar, friendAvatar;
+    private TextView pfNickname, pfID, pfInfo, friendNickname, friendInfo, friendNicknameText;
 
     private ListView messageListView;
     private EditText messageEditText;
@@ -58,8 +53,12 @@ public class DMActivity extends BaseActivity {
         pfNickname = (TextView) findViewById(R.id.msgPfNickname);
         pfID = (TextView) findViewById(R.id.msgPfID);
         pfInfo = (TextView) findViewById(R.id.msgPfInfo);
-        settingBtn = (LinearLayout) findViewById(R.id.msgSettingBtn);
-        ccuListView = (ListView) findViewById(R.id.ccuList);
+
+        friendAvatar = (ImageView) findViewById(R.id.friendAvatar);
+        friendNickname = (TextView) findViewById(R.id.friendNickname);
+        friendInfo = (TextView) findViewById(R.id.friendInfo);
+
+        friendNicknameText = (TextView) findViewById(R.id.friendNicknameText);
 
         messageListView = (ListView) findViewById(R.id.msgListView);
         messageEditText = (EditText) findViewById(R.id.msgEditText);
@@ -73,15 +72,18 @@ public class DMActivity extends BaseActivity {
 
         // 우측 메뉴 생성
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (LinearLayout) findViewById(R.id.right_drawer);
 
-        // TODO chatUsers 배열에 실제 접속중인 유저 리스트 추가해야 합니다.
-        chatUsers = new ArrayList<ChatUser>();
-        chatUsers.add(new ChatUser("3457soso", null, true));
-        chatUsers.add(new ChatUser("test", null, true));
-        chatUsers.add(new ChatUser("test2", null, false));
-        chatUserAdapter = new ChatUserAdapter(this, R.layout.chat_item_ccu, chatUsers);
-        ccuListView.setAdapter(chatUserAdapter);
+        // TODO 프로필 값 채우기
+//        pfAvatar =
+        pfNickname.setText("soyoungpark");
+        pfID.setText("3457soso");
+        pfInfo.setText("이것은 자기소개인 것입니다. 길게 써야 그럴 듯 하니까 길게 쓰도록 하겠습니다. 할 말이 떨어져 가니까 그만 써야지!");
+
+        // TODO 현재 DM 중인 친구의 프로필 값 채우기
+//        friendAvatar =
+        friendNickname.setText("fakerzzang");
+        friendNicknameText.setText("fakerzzang"); // 바로 위에꺼랑 같은 값으로 세팅해주세요!
+        friendInfo.setText("이번 롤드컵에 페이커가 출전하지 못해서 굉장히 유감입니다. 사실 롤을 본 지는 오래 돼서 지금 봐도 뭐가 뭔지는 모릅니다.");
 
 
         // TODO chatMessages 배열에 실제 메시지 추가해야 합니다.
@@ -137,6 +139,12 @@ public class DMActivity extends BaseActivity {
                 break;
 
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
+                break;
+
+            case R.id.msgSettingBtn: // 채팅 환경 설정 버튼 클릭
+                break;
+
+            case R.id.pfModifyBtn: // 프로필 설정 버튼 클릭
                 break;
         }
     }

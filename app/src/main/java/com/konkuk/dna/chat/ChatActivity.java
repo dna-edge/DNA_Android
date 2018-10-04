@@ -30,8 +30,7 @@ public class ChatActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
     private LinearLayout drawerList;
     private ImageView pfAvatar;
-    private TextView pfNickname, pfID, pfInfo;
-    private LinearLayout settingBtn;
+    private TextView pfNickname, pfID, pfInfo, addressText;
     private ListView ccuListView;
     private ArrayList<ChatUser> chatUsers;
     private ChatUserAdapter chatUserAdapter;
@@ -59,8 +58,9 @@ public class ChatActivity extends BaseActivity {
         pfNickname = (TextView) findViewById(R.id.msgPfNickname);
         pfID = (TextView) findViewById(R.id.msgPfID);
         pfInfo = (TextView) findViewById(R.id.msgPfInfo);
-        settingBtn = (LinearLayout) findViewById(R.id.msgSettingBtn);
         ccuListView = (ListView) findViewById(R.id.ccuList);
+
+        addressText = (TextView) findViewById(R.id.addressText);
 
         messageListView = (ListView) findViewById(R.id.msgListView);
         messageEditText = (EditText) findViewById(R.id.msgEditText);
@@ -75,6 +75,15 @@ public class ChatActivity extends BaseActivity {
         // 우측 메뉴 생성
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (LinearLayout) findViewById(R.id.right_drawer);
+
+
+        // TODO 프로필 및 현재 주소 값 채우기
+        addressText.setText("서울시 광진구");
+//        pfAvatar =
+        pfNickname.setText("soyoungpark");
+        pfID.setText("3457soso");
+        pfInfo.setText("이것은 자기소개인 것입니다. 길게 써야 그럴 듯 하니까 길게 쓰도록 하겠습니다. 할 말이 떨어져 가니까 그만 써야지!");
+
 
         // TODO chatUsers 배열에 실제 접속중인 유저 리스트 추가해야 합니다.
         chatUsers = new ArrayList<ChatUser>();
@@ -112,7 +121,6 @@ public class ChatActivity extends BaseActivity {
     public void onClick(View v) {
 
         switch(v.getId()) {
-
             case R.id.msgFindBtn: // 검색 버튼 클릭
                 break;
 
@@ -143,6 +151,12 @@ public class ChatActivity extends BaseActivity {
                 break;
 
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
+                break;
+
+            case R.id.msgSettingBtn: // 채팅 환경 설정 버튼 클릭
+                break;
+
+            case R.id.pfModifyBtn: // 프로필 설정 버튼 클릭
                 break;
         }
     }

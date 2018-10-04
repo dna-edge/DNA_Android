@@ -6,11 +6,26 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46a1d0a8-2e71-462c-8d0f-841e47b837cf" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/fragments/NotifyFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/fragments/RoomFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/fragments/SettingFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_from_left.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_from_right.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_to_left.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_to_right.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/color/room_menu_color.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/room_menu_button.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/room_menu_not_selected.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/room_menu_selected.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_notify.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_room.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_setting.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values/integer.xml" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
@@ -19,15 +34,18 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatRecyclerViewAdapter.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatUser.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatUser.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/DMActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/DMActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/RoomActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/RoomActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/chat.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/chat.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/location.png" afterPath="" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_dm.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_dm.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/chat_item_ccu.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/chat_item_ccu.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,62 +79,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="activity_chat.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="568">
-              <caret line="250" column="38" lean-forward="false" selection-start-line="250" selection-start-column="38" selection-end-line="250" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatListAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1107">
-              <caret line="91" column="46" lean-forward="false" selection-start-line="91" selection-start-column="46" selection-end-line="91" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="RoomActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/RoomActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="2" column="25" lean-forward="false" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="123" column="55" lean-forward="false" selection-start-line="123" selection-start-column="55" selection-end-line="123" selection-end-column="55" />
+            <state relative-caret-position="148">
+              <caret line="64" column="54" lean-forward="false" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="54" />
               <folding>
-                <marker date="1538614969189" expanded="true" signature="2087:2686" ph="//..." />
-                <marker date="1538614969189" expanded="true" signature="4239:4498" ph="//..." />
-                <marker date="1538614969189" expanded="true" signature="4637:5872" ph="//..." />
+                <element signature="imports" expanded="true" />
+                <element signature="e#5861#5862#0" expanded="true" />
+                <element signature="e#5896#5897#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DMActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/DMActivity.java">
+      <file leaf-file-name="slide_to_right.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/slide_to_right.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="122" column="12" lean-forward="false" selection-start-line="122" selection-start-column="12" selection-end-line="125" selection-end-column="22" />
+            <state relative-caret-position="108">
+              <caret line="4" column="62" lean-forward="false" selection-start-line="4" selection-start-column="62" selection-end-line="4" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="slide_to_left.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/slide_to_left.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#4315#4455#0" expanded="true" />
-                <element signature="e#4454#4455#0" expanded="true" />
+                <element signature="e#273#308#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="slide_from_left.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/slide_from_left.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+              <folding>
+                <element signature="e#273#308#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -127,10 +132,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="valueResourceFile" />
-        <option value="resourceFile" />
-        <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="valueResourceFile" />
+        <option value="Class" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -161,6 +166,11 @@
       <find>1dp</find>
       <find>MenuBtn</find>
       <find>&quot;메시지</find>
+      <find>메시지</find>
+      <find>modify</find>
+      <find>집에가고</find>
+      <find>집에</find>
+      <find>text=&quot;</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2182,22 +2192,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dearneighboranyone/ActivityLogo.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dearneighboranyone/SplashActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dearneighboranyone/Signup_AgreeActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dearneighboranyone/Signup_FormActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dearneighboranyone/BaseActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_signup2.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_signup1.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dearneighboranyone/ActivityChat.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dearneighboranyone/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dna/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Chat_MapFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_chat_map.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/ChatActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/SplashActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/ActivityMissPW.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/SignupFormActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/SignupAgreeActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/LoginActivity.java" />
@@ -2219,20 +2213,36 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMapFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_drawer.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatUser.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatUserAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_ccu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_with_avatar.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_right.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_left.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_dm.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_ccu.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_dm.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/DMActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/layout_primary_border_bottom.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/room_menu_selected.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/room_menu_button.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/color/room_menu_color.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/room_menu_not_selected.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_room.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/anim/slide_from_right.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/integer.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/fragments/FriendFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_friend.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_notify.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_room.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_setting.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/RoomActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/anim/slide_to_left.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/anim/slide_from_left.xml" />
       </list>
     </option>
   </component>
@@ -2291,7 +2301,29 @@
             <path>
               <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="dna" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="dm" type="462c0819:PsiDirectoryNode" />
+              <item name="fragments" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="dna" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="dm" type="462c0819:PsiDirectoryNode" />
+              <item name="RoomActivity.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="anim" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
@@ -2551,11 +2583,11 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39289558" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39289558" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2586,133 +2618,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dna/LoginActivity.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/SplashActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/SignupAgreeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_chat_map.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="32" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-99">
-          <caret line="16" column="26" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/SignupFormActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-133">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/NMapPOIflagType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/naver-map-api-2.1.2.aar/ecaac2cc0885438f2005f3148aaec018/jars/classes.jar!/com/nhn/android/mapviewer/overlay/NMapCalloutCustomOverlay.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/marker.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/naver-map-api-2.1.2.aar/ecaac2cc0885438f2005f3148aaec018/jars/classes.jar!/com/nhn/android/mapviewer/overlay/NMapCalloutOverlay.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="19" column="43" lean-forward="false" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/ActivityMissPW.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/like_button_grayxml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/like_button_gray.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/like_button_yellow.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="27" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="407">
@@ -2746,17 +2651,6 @@
           <caret line="30" column="18" lean-forward="false" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/layout_border.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_rv_item.xml" />
@@ -2841,17 +2735,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_item_ccu.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatUserAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
@@ -2901,14 +2784,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="12" column="32" lean-forward="false" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
@@ -2917,11 +2792,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/RoomActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatRecyclerViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="25" lean-forward="false" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+        <state relative-caret-position="108">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="56" column="60" lean-forward="false" selection-start-line="56" selection-start-column="60" selection-end-line="56" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_item_ccu.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="30" column="48" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="30" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_dm.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="30" column="51" lean-forward="false" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="51" />
+          <folding>
+            <element signature="e#5660#5678#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/DMActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="143" column="35" lean-forward="false" selection-start-line="143" selection-start-column="35" selection-end-line="143" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="155" column="35" lean-forward="false" selection-start-line="155" selection-start-column="35" selection-end-line="155" selection-end-column="35" />
+          <folding>
+            <marker date="1538619357783" expanded="true" signature="2059:2658" ph="//..." />
+            <marker date="1538619357783" expanded="true" signature="4479:4738" ph="//..." />
+            <marker date="1538619357783" expanded="true" signature="4876:6111" ph="//..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2936,45 +2863,18 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_dm.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="114" column="41" lean-forward="false" selection-start-line="114" selection-start-column="41" selection-end-line="114" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatRecyclerViewAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1107">
-          <caret line="91" column="46" lean-forward="false" selection-start-line="91" selection-start-column="46" selection-end-line="91" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="72" column="77" lean-forward="false" selection-start-line="72" selection-start-column="70" selection-end-line="72" selection-end-column="77" />
+        <state relative-caret-position="324">
+          <caret line="21" column="32" lean-forward="false" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="250" column="38" lean-forward="false" selection-start-line="250" selection-start-column="38" selection-end-line="250" selection-end-column="38" />
+        <state relative-caret-position="180">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2982,26 +2882,216 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/DMActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/layout_primary_border_bottom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/layout_border.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
-          <caret line="122" column="12" lean-forward="false" selection-start-line="122" selection-start-column="12" selection-end-line="125" selection-end-column="22" />
+          <caret line="12" column="13" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/room_menu_selected.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/room_menu_button.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="2" column="41" lean-forward="false" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/color/room_menu_color.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="2" column="74" lean-forward="false" selection-start-line="2" selection-start-column="74" selection-end-line="2" selection-end-column="74" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/room_menu_not_selected.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="52" lean-forward="false" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/slide_from_right.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/integer.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_room.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="95" column="44" lean-forward="false" selection-start-line="95" selection-start-column="44" selection-end-line="95" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/fragments/RoomFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="17" column="27" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/fragments/FriendFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="26" column="56" lean-forward="false" selection-start-line="26" selection-start-column="56" selection-end-line="26" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/fragments/SettingFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_friend.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_notify.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="11" column="28" lean-forward="false" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_room.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="11" column="26" lean-forward="false" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_setting.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/fragments/NotifyFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dm/RoomActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="64" column="54" lean-forward="false" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4315#4455#0" expanded="true" />
-            <element signature="e#4454#4455#0" expanded="true" />
+            <element signature="e#5861#5862#0" expanded="true" />
+            <element signature="e#5896#5897#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/slide_to_right.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="123" column="55" lean-forward="false" selection-start-line="123" selection-start-column="55" selection-end-line="123" selection-end-column="55" />
+        <state relative-caret-position="108">
+          <caret line="4" column="62" lean-forward="false" selection-start-line="4" selection-start-column="62" selection-end-line="4" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/slide_to_left.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1538614969189" expanded="true" signature="2087:2686" ph="//..." />
-            <marker date="1538614969189" expanded="true" signature="4239:4498" ph="//..." />
-            <marker date="1538614969189" expanded="true" signature="4637:5872" ph="//..." />
+            <element signature="e#273#308#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/slide_from_left.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <folding>
+            <element signature="e#273#308#0" expanded="true" />
           </folding>
         </state>
       </provider>

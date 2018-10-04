@@ -22,7 +22,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="서울시, 강동구"
                 android:textSize="18dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="125dp"
@@ -133,7 +132,7 @@
                     android:textSize="17dp"
                     android:hint="메시지 입력 ..."
                     android:theme="@style/chatEditTextTheme"
-                    android:tag="chat" />
+                    android:tag="default" />
 
                 <Button
                     android:id="@+id/msgLocationBtn"
@@ -227,7 +226,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:textSize="19dp"
-                        android:text="nickname"
                         android:tag="bold" />
 
                     <TextView
@@ -236,8 +234,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:textColor="@color/grayDarker"
-                        android:textSize="14dp"
-                        android:text="3457soso" />
+                        android:textSize="14dp" />
                 </LinearLayout>
             </LinearLayout>
             <TextView
@@ -247,8 +244,38 @@
                 android:lineSpacingMultiplier="1.15"
                 android:textSize="15dp"
                 android:textColor="@color/grayDarker"
-                android:text="집 에 가고싶다 집에 가 고 싶다집에 가 고 싶다집에 가 고.싶다 집에 가 고싶ㄷ다!"
                 android:tag="default" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/pfModifyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:background="@color/ivory"
+            android:onClick="onClick">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="@string/fa_pen"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                android:tag="fas"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/grayDarker"
+                android:text="프로필 수정하기"
+                android:tag="menu" />
         </LinearLayout>
 
         <LinearLayout

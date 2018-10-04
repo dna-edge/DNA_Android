@@ -36,7 +36,7 @@
         android:layout_height="49dp"
         android:gravity="center_vertical"
         android:text="@string/fa_circle"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_marginRight="15dp"
         android:layout_alignParentRight="true"
         android:tag="fas"/>
