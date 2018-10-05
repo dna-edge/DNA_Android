@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -69,8 +70,9 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                 ImageView messageAvatar = (ImageView) v.findViewById(R.id.msgAvatar);
 
                 if (message.getAvatar() != null) {
-                    // TODO 프로필의 url으로 이미지를 설정해줘야 합니다.
+                    Picasso.get().load(message.getAvatar()).into(messageAvatar);
                 }
+
             } else if (position < 3 || position > 6) {
                 v = layoutInflater.inflate(R.layout.chat_item_left, null);
             } else {
@@ -97,12 +99,12 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
         if (position % 2 == 0) {
             messageLike.setTextColor(context.getResources().getColor(R.color.yellow));
             likeStar.setTextColor(context.getResources().getColor(R.color.yellow));
-            messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.like_button_yellow));
+            messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_like_clicked));
 
         } else {
             messageLike.setTextColor(context.getResources().getColor(R.color.grayDark));
             likeStar.setTextColor(context.getResources().getColor(R.color.grayLighter));
-            messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.like_button_default));
+            messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_like_default));
         }
 
 

@@ -85,7 +85,7 @@
                 android:dividerHeight="5dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:background="@drawable/layout_border"/>
+                android:background="@drawable/layout_border_horizontal"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

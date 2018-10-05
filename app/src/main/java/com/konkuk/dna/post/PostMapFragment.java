@@ -25,6 +25,9 @@ import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapPathDataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -37,6 +40,8 @@ public class PostMapFragment extends Fragment
     private NMapOverlayManager mOverlayManager;
     private NMapResourceProvider mMapViewerResourceProvider;
     private NMapView.OnMapStateChangeListener nMapstateListener;
+
+    private ArrayList<Post> posts; // 포스트의 리스트
 
     private static final String CLIENT_ID = "d58JXyIkF7YXEmOLrYSD"; // 애플리케이션 클라이언트 아이디 값
 
@@ -52,8 +57,35 @@ public class PostMapFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        init();
+    }
+
+    public void init() {
         mapContext = new NMapContext(super.getActivity());
         mapContext.onCreate();
+
+        posts = new ArrayList<Post>();
+
+        // TODO 포스트의 리스트를 서버에서 불러와서 넣어줘야 합니다.
+        posts.add(new Post("http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
+                "3457soso", "2018.10.05", "제목입니다",
+                "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
+                127.081958, 37.537484, 1, 2, 3,
+                new ArrayList<Comment>(
+                        Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
+                                new Comment(null,"test","2018.10.05","이건 댓글입니다."))
+                )
+        ));
+        posts.add(new Post("http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
+                "3457soso", "2018.10.05", "제목입니다",
+                "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
+                127.070635, 37.540762, 1, 2, 3,
+                new ArrayList<Comment>(
+                        Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
+                                new Comment(null,"test","2018.10.05","이건 댓글입니다."))
+                )
+        ));
     }
 
     @Override
@@ -86,19 +118,23 @@ public class PostMapFragment extends Fragment
         @Override
         public void onMapInitHandler(NMapView nMapView, NMapError nMapError) {
             if (nMapError == null) {
-                // TODO : GPS로 현재 위치 잡아서 지정해줘야 합니다.
-                // 지도를 내위치로 초기화합니다.
+                // TODO gps를 이용해 현재 위치로 초기화해줘야 합니다.
                 double longitude = 127.07934279999995;
                 double latitude = 37.5407625;
                 float radius = 500;
+                mapController.setMapCenter(new NGeoPoint(longitude, latitude), 11);
 
                 NMapPOIdata poiData = new NMapPOIdata(2,mMapViewerResourceProvider);
                 poiData.addPOIitem(longitude, latitude, "", NMapPOIflagType.SPOT, 0);
                 poiData.endPOIdata();
 
+                for(Post post: posts) {
+                    poiData.addPOIitem(post.getLongitude(), post.getLatitude(), post.getTitle(),
+                            NMapPOIflagType.POST, poiData.count());
+                }
+
                 NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
-                poiDataOverlay.showAllPOIdata(0);
-                mapController.setZoomLevel(11);
+                mapController.setZoomLevel(12);
 
                 NMapCircleData circleData = new NMapCircleData(1);
                 circleData.initCircleData();

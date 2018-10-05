@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -60,9 +61,8 @@ public class ChatUserAdapter extends ArrayAdapter<ChatUser> {
         TextView nickname = v.findViewById(R.id.ccuNickname);
         TextView status = v.findViewById(R.id.ccuStatus);
 
-        // TODO avatar src 링크 설정해줘야 합니다.
         if (user.getAvatar() != null) {
-
+            Picasso.get().load(user.getAvatar()).into(avatar);
         }
 
         nickname.setText(user.getNickname());

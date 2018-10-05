@@ -30,4 +30,5 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
     implementation 'com.naver.maps.open:naver-map-api:2.1.2@aar'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

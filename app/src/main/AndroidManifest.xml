@@ -2,15 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.konkuk.dna">
 
-    <!-- 반드시 추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 위치정보활용시 추가 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- 위치정보활용시 추가 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- WIFI 상태활용시 추가 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- WIFI 상태활용시 추가 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
@@ -20,7 +17,8 @@
         android:roundIcon="@mipmap/dna"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".SplashActivity"></activity>
+
+        <activity android:name=".SplashActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,22 +45,25 @@
         </activity>
 
         <!-- chat package -->
-        <activity android:name=".chat.ChatActivity"></activity>
+        <activity android:name=".chat.ChatActivity" />
 
         <!-- friend package -->
-        <activity android:name=".friend.FriendActivity"></activity>
-        <activity android:name=".friend.DMActivity"></activity>
+        <activity android:name=".friend.FriendActivity" />
+        <activity android:name=".friend.DMActivity" />
 
         <!-- post package -->
-        <activity android:name=".post.PostFormActivity"></activity>
+        <activity android:name=".post.PostFormActivity">
+        </activity>
+        <activity android:name=".post.PostDetailActivity">
+        </activity>
 
-        <!--<activity-->
-            <!--android:name=".auth.ActivityMissPW"-->
-            <!--android:parentActivityName=".auth.LoginActivity">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value="com.konkuk.dna.auth.LoginActivity" />-->
-        <!--</activity>-->
+        <!-- <activity -->
+        <!-- android:name=".auth.ActivityMissPW" -->
+        <!-- android:parentActivityName=".auth.LoginActivity"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.support.PARENT_ACTIVITY" -->
+        <!-- android:value="com.konkuk.dna.auth.LoginActivity" /> -->
+        <!-- </activity> -->
     </application>
 
 </manifest>
