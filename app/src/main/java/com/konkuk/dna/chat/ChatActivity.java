@@ -90,7 +90,7 @@ public class ChatActivity extends BaseActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        height = size.y - Helpers.dpToPx(this, 50);
+        height = size.y;
 
         slideAnimator = ValueAnimator
                 .ofInt(Helpers.dpToPx(this, 150), height).setDuration(300);

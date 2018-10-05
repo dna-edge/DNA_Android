@@ -372,17 +372,16 @@ public class NMapViewerResourceProvider extends NMapResourceProvider implements
 
     @Override
     public Drawable getCalloutBackground(NMapOverlayItem item) {
-
         if (item instanceof NMapPOIitem) {
             NMapPOIitem poiItem = (NMapPOIitem)item;
 
             if (poiItem.showRightButton()) {
-                Drawable drawable = mContext.getResources().getDrawable(R.drawable.marker);
+                Drawable drawable = mContext.getResources().getDrawable(R.drawable.balloon);
                 return drawable;
             }
         }
 
-        Drawable drawable = mContext.getResources().getDrawable(R.drawable.marker);
+        Drawable drawable = mContext.getResources().getDrawable(R.drawable.balloon);
 
         return drawable;
     }
@@ -421,23 +420,23 @@ public class NMapViewerResourceProvider extends NMapResourceProvider implements
 
     @Override
     public Drawable[] getCalloutRightAccessory(NMapOverlayItem item) {
-//        if (item instanceof NMapPOIitem) {
-//            NMapPOIitem poiItem = (NMapPOIitem)item;
-//
-//            if (poiItem.hasRightAccessory() && (poiItem.getRightAccessoryId() > 0)) {
-//                Drawable[] drawable = new Drawable[3];
-//
-//                switch (poiItem.getRightAccessoryId()) {
-//                    case NMapPOIflagType.CLICKABLE_ARROW:
-//                        drawable[0] = mContext.getResources().getDrawable(R.drawable.pin_ballon_arrow);
-//                        drawable[1] = mContext.getResources().getDrawable(R.drawable.pin_ballon_on_arrow);
-//                        drawable[2] = mContext.getResources().getDrawable(R.drawable.pin_ballon_on_arrow);
-//                        break;
-//                }
-//
-//                return drawable;
-//            }
-//        }
+        if (item instanceof NMapPOIitem) {
+            NMapPOIitem poiItem = (NMapPOIitem)item;
+
+            if (poiItem.hasRightAccessory() && (poiItem.getRightAccessoryId() > 0)) {
+                Drawable[] drawable = new Drawable[3];
+
+                switch (poiItem.getRightAccessoryId()) {
+                    case NMapPOIflagType.CLICKABLE_ARROW:
+                        drawable[0] = mContext.getResources().getDrawable(R.drawable.balloon_arrow);
+                        drawable[1] = mContext.getResources().getDrawable(R.drawable.balloon_on_arrow);
+                        drawable[2] = mContext.getResources().getDrawable(R.drawable.balloon_on_arrow);
+                        break;
+                }
+
+                return drawable;
+            }
+        }
 
         return null;
     }

@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.nhn.android.maps.NMapOverlay;
 import com.nhn.android.maps.NMapOverlayItem;
@@ -34,11 +35,15 @@ import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 /**
  * Customized callout overlay.
  *
- * @author kyjkim
  */
 public class NMapCalloutCustomOldOverlay extends NMapCalloutOverlay {
     private static final String LOG_TAG = "NMapCalloutCustomOverlay";
     private static final boolean DEBUG = false;
+
+    @Override
+    public void setOnClickListener(OnClickListener onClickListener) {
+        super.setOnClickListener(onClickListener);
+    }
 
     private static final int CALLOUT_TEXT_COLOR = 0xFFFFFFFF;
     private static final float CALLOUT_TEXT_SIZE = 16.0F;
@@ -77,6 +82,7 @@ public class NMapCalloutCustomOldOverlay extends NMapCalloutOverlay {
     private final int mCalloutRightButtonWidth;
     private final int mCalloutRightButtonHeight;
     private Drawable[] mDrawableRightButton;
+
     private final int mCalloutButtonCount = 1;
 
     private String mTitleTruncated;

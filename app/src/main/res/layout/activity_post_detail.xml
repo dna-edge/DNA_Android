@@ -203,9 +203,10 @@
                                 <ImageView
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
+                                    android:layout_marginTop="45dp"
                                     android:scaleType="fitXY"
                                     android:src="@drawable/pin"
-                                    android:layout_centerInParent="true" />
+                                    android:layout_centerHorizontal="true"/>
                             </RelativeLayout>
 
                             <!--<View-->
@@ -298,6 +299,7 @@
                                     android:onClick="onClick">
 
                                     <TextView
+                                        android:id="@+id/postLikeBtnIcon"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginRight="7dp"
@@ -307,6 +309,7 @@
                                         android:tag="fas"/>
 
                                     <TextView
+                                        android:id="@+id/postLikeBtnText"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textColor="@color/concrete"
@@ -352,6 +355,7 @@
                                     android:onClick="onClick">
 
                                     <TextView
+                                        android:id="@+id/postScrapBtnIcon"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginRight="7dp"
@@ -361,11 +365,12 @@
                                         android:tag="fas"/>
 
                                     <TextView
+                                        android:id="@+id/postScrapBtnText"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textColor="@color/concrete"
                                         android:textSize="15dp"
-                                        android:text="스크랩하기"
+                                        android:text="스크랩"
                                         android:tag="menu"/>
                                 </LinearLayout>
                             </LinearLayout>

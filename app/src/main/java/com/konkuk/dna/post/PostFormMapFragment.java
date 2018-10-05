@@ -39,8 +39,6 @@ public class PostFormMapFragment extends Fragment
     private NMapController mapController;
     private NMapOverlayManager mOverlayManager;
     private NMapResourceProvider mMapViewerResourceProvider;
-    private NMapView.OnMapStateChangeListener nMapstateListener;
-    private NMapPOIdata poiData;
     private JSONObject centerPosition;
     private String centerAddress;
 
@@ -85,14 +83,18 @@ public class PostFormMapFragment extends Fragment
         super.onStart();
         mapContext.onStart();
 
-        mapView.setClickable(true);
+        // DetailView에서 만들었을 경우에는 클릭하지 못하게 막습니다.
+        if (getActivity().getClass().getSimpleName().equals("PostDetailActivity")) {
+            mapView.setClickable(false);
+        } else {
+            mapView.setClickable(true);
+            mapView.setOnMapStateChangeListener(OnMapViewStateChangeListener); //리스너 등록
+        }
         mapView.displayZoomControls(true);
         mapView.setEnabled(true);
-        mapView.setOnMapStateChangeListener(OnMapViewStateChangeListener); //리스너 등록
         mapController = mapView.getMapController();
         mMapViewerResourceProvider = new NMapViewerResourceProvider(getActivity());
         mOverlayManager = new NMapOverlayManager(getActivity(),mapView,mMapViewerResourceProvider);
-        NMapProjection nMapProjection;
 
         OnMapViewStateChangeListener.onMapInitHandler(mapView, null);
     }
@@ -103,17 +105,24 @@ public class PostFormMapFragment extends Fragment
         public void onMapInitHandler(NMapView nMapView, NMapError nMapError) {
 
             if (nMapError == null) {
-                // TODO gps를 이용해 현재 위치로 초기화해줘야 합니다.
-                double longitude = 127.07934279999995;
-                double latitude = 37.5407625;
-                mapController.setMapCenter(new NGeoPoint(longitude, latitude), 11);
+                double longitude = 0, latitude = 0;
+                if (getActivity().getClass().getSimpleName().equals("PostDetailActivity")) {
+                    Post post = (Post) getActivity().getIntent().getSerializableExtra("post");
+                    longitude = post.getLongitude();
+                    latitude = post.getLatitude();
+                } else {
+                    // TODO gps를 이용해 현재 위치로 초기화해줘야 합니다.
+                    longitude = 127.07934279999995;
+                    latitude = 37.5407625;
 
-                try {
-                    centerPosition.put("longitude", longitude);
-                    centerPosition.put("latitude", latitude);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    try {
+                        centerPosition.put("longitude", longitude);
+                        centerPosition.put("latitude", latitude);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+                mapController.setMapCenter(new NGeoPoint(longitude, latitude), 11);
                 mapController.setZoomLevel(11);
             } else {
                 Log.d("초기화 중 에러 발생", nMapError.toString());
@@ -128,8 +137,6 @@ public class PostFormMapFragment extends Fragment
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            //getActivity().findViewById(R.id.)
         }
 
         @Override

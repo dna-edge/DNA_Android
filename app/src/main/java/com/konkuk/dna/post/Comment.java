@@ -1,6 +1,9 @@
 package com.konkuk.dna.post;
 
-public class Comment {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Comment implements Serializable {
     private String avatar;
     private String nickname;
 

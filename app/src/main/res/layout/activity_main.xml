@@ -11,52 +11,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <fragment
+            android:id="@+id/mapFragment"
+            android:name="com.konkuk.dna.post.PostMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent"/>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/dna"/>
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:background="@color/colorPrimary">
+                android:textColor="@color/colorPrimaryLighter"
+                android:textSize="23dp"
+                android:text="DNA"
+                android:tag="menu"/>
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/dna"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimaryLighter"
-                    android:textSize="23dp"
-                    android:text="DNA"
-                    android:tag="menu"/>
-
-                <ImageButton
-                    android:id="@+id/msgMenuBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/menu"
-                    android:src="@drawable/menu"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_alignParentRight="true"
-                    android:onClick="onClick" />
-            </RelativeLayout>
-
-            <fragment
-                android:id="@+id/mapFragment"
-                android:name="com.konkuk.dna.post.PostMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/msgMenuBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/menu"
+                android:src="@drawable/menu"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"
+                android:onClick="onClick" />
+        </RelativeLayout>
 
         <ImageButton
             android:id="@+id/gotoChatBtn"
@@ -92,5 +86,4 @@
         android:layout_gravity="right"
         android:choiceMode="singleChoice"
         layout="@layout/layout_drawer" />
-
 </android.support.v4.widget.DrawerLayout>

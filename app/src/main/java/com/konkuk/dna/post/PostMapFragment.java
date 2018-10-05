@@ -1,5 +1,6 @@
 package com.konkuk.dna.post;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -78,9 +79,9 @@ public class PostMapFragment extends Fragment
                 )
         ));
         posts.add(new Post("http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
-                "3457soso", "2018.10.05", "제목입니다",
+                "3457soso", "2018.10.05", "제목입니다22",
                 "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
-                127.070635, 37.540762, 1, 2, 3,
+                127.083559, 37.536543, 1, 2, 3,
                 new ArrayList<Comment>(
                         Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
                                 new Comment(null,"test","2018.10.05","이건 댓글입니다."))
@@ -129,11 +130,24 @@ public class PostMapFragment extends Fragment
                 poiData.endPOIdata();
 
                 for(Post post: posts) {
-                    poiData.addPOIitem(post.getLongitude(), post.getLatitude(), post.getTitle(),
+                    NMapPOIitem item = poiData.addPOIitem(post.getLongitude(), post.getLatitude(), post.getTitle(),
                             NMapPOIflagType.POST, poiData.count());
+                    item.setRightAccessory(true, NMapPOIflagType.CLICKABLE_ARROW);
                 }
 
                 NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+                poiDataOverlay.setOnStateChangeListener(new NMapPOIdataOverlay.OnStateChangeListener() {
+                    @Override
+                    public void onFocusChanged(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {}
+
+                    @Override
+                    public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
+                        Intent postIntent = new Intent(getActivity(), PostDetailActivity.class);
+                        postIntent.putExtra("post", (Post) posts.get(nMapPOIitem.getId() -1));
+                        getActivity().startActivity(postIntent);
+                        nMapPOIdataOverlay.setHidden(true);
+                    }
+                });
                 mapController.setZoomLevel(12);
 
                 NMapCircleData circleData = new NMapCircleData(1);
@@ -209,5 +223,5 @@ public class PostMapFragment extends Fragment
     public void onFocusChanged(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {}
 
     @Override
-    public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {return;}
+    public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {}
 }

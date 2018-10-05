@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,16 +19,19 @@ import com.konkuk.dna.Helpers;
 import com.konkuk.dna.R;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PostDetailActivity extends BaseActivity {
-    private DrawerLayout menuDrawer;
-    private PostFormMapFragment postFormMapFragment;
+    protected DrawerLayout menuDrawer;
     private ScrollView postScrollView;
     private ImageView postAvatar;
     private TextView postNickname, postDate, postTitle, postContent, postAddress,
+        postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText,
         postLikeCnt, postCommentCnt, postScrapCnt;
+    private EditText commentEdit;
     private ListView commentList;
     private CommentAdapter commentAdapter;
 
@@ -49,12 +53,18 @@ public class PostDetailActivity extends BaseActivity {
         postDate = (TextView) findViewById(R.id.postDate);
         postTitle = (TextView) findViewById(R.id.postTitle);
         postContent = (TextView) findViewById(R.id.postContent);
-//        postAddress = (TextView) findViewById(R.id.postAddress);
+//        postAddress = (TextView) findViewById(R.id.postAddress;
+        postLikeBtnIcon = (TextView) findViewById(R.id.postLikeBtnIcon);
+        postLikeBtnText = (TextView) findViewById(R.id.postLikeBtnText);
+        postScrapBtnIcon = (TextView) findViewById(R.id.postScrapBtnIcon);
+        postScrapBtnText = (TextView) findViewById(R.id.postScrapBtnText);
+
         postLikeCnt = (TextView) findViewById(R.id.postLikeCnt);
         postCommentCnt = (TextView) findViewById(R.id.postCommentCnt);
         postScrapCnt = (TextView) findViewById(R.id.postScrapCnt);
+
+        commentEdit = (EditText) findViewById(R.id.commentEdit);
         commentList = (ListView) findViewById(R.id.commentList);
-        postFormMapFragment = (PostFormMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
 
         Post post;
         Post extra = (Post) getIntent().getSerializableExtra("post");
@@ -68,10 +78,18 @@ public class PostDetailActivity extends BaseActivity {
         postTitle.setText(post.getTitle());
         postContent.setText(post.getContent());
 //        postAddress.setText("서울시 광진구 화양동 1 건국대학교");
+
+        // TODO 내가 좋아요를 누른 글인지, 스크랩 한 글인지에 따라 버튼 색깔이 달라져야 합니다.
+        // TODO 지금은 좋아요와 스크랩 둘 다 해당하도록 설정되어 있는데,
+        // TODO 해당하지 않을 경우 R.color.concrete를 적용해주면 됩니다!
+        postLikeBtnIcon.setTextColor(getResources().getColor(R.color.alizarin));
+        postLikeBtnText.setTextColor(getResources().getColor(R.color.alizarin));
+        postScrapBtnIcon.setTextColor(getResources().getColor(R.color.sunflower));
+        postScrapBtnText.setTextColor(getResources().getColor(R.color.sunflower));
+
         postLikeCnt.setText(post.getLikeCount()+"개");
         postCommentCnt.setText(post.getCommentCount()+"개");
         postScrapCnt.setText(post.getScrapCount()+"개");
-
         commentAdapter = new CommentAdapter(this, R.layout.post_comment_item, post.getComments());
         commentList.setAdapter(commentAdapter);
 
@@ -103,6 +121,19 @@ public class PostDetailActivity extends BaseActivity {
                 if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) {
                     menuDrawer.openDrawer(Gravity.RIGHT);
                 }
+                break;
+
+            case R.id.postLikeBtn: // 좋아요 버튼 클릭
+                break;
+
+            case R.id.postCommentBtn: // 댓글 버튼 클릭
+                Log.d("test", "here");
+                commentEdit.requestFocus();
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.showSoftInput(commentEdit, 0);
+                break;
+
+            case R.id.postScrapBtn: // 스크랩 버튼 클릭
                 break;
         }
     }

@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        height = size.y - Helpers.dpToPx(this, 50);
+        height = size.y;
 
         mapFragment = (View) findViewById(R.id.mapFragment);
 

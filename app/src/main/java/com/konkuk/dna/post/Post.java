@@ -1,8 +1,10 @@
 package com.konkuk.dna.post;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Post {
+@SuppressWarnings("serial")
+public class Post implements Serializable{
     private String avatar;
     private String nickname;
 
