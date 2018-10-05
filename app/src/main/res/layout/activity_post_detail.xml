@@ -129,8 +129,9 @@
                                     </LinearLayout>
 
                                     <ImageButton
-                                        android:layout_width="50dp"
-                                        android:layout_height="30dp"
+                                        android:id="@+id/addFriendBtn"
+                                        android:layout_width="40dp"
+                                        android:layout_height="24dp"
                                         android:layout_marginRight="5dp"
                                         android:layout_centerVertical="true"
                                         android:layout_alignParentRight="true"

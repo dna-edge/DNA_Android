@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -28,9 +29,10 @@ public class PostDetailActivity extends BaseActivity {
     protected DrawerLayout menuDrawer;
     private ScrollView postScrollView;
     private ImageView postAvatar;
+    private ImageButton addFriendBtn;
     private TextView postNickname, postDate, postTitle, postContent, postAddress,
-        postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText,
-        postLikeCnt, postCommentCnt, postScrapCnt;
+    postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText,
+    postLikeCnt, postCommentCnt, postScrapCnt;
     private EditText commentEdit;
     private ListView commentList;
     private CommentAdapter commentAdapter;
@@ -50,6 +52,8 @@ public class PostDetailActivity extends BaseActivity {
         postScrollView = (ScrollView) findViewById(R.id.postScrollView);
         postAvatar = (ImageView) findViewById(R.id.postAvatar);
         postNickname = (TextView) findViewById(R.id.postNickname);
+        addFriendBtn = (ImageButton) findViewById(R.id.addFriendBtn);
+
         postDate = (TextView) findViewById(R.id.postDate);
         postTitle = (TextView) findViewById(R.id.postTitle);
         postContent = (TextView) findViewById(R.id.postContent);
@@ -74,6 +78,12 @@ public class PostDetailActivity extends BaseActivity {
             Picasso.get().load(post.getAvatar()).into(postAvatar);
         }
         postNickname.setText(post.getNickname());
+
+        // TODO 해당 유저가 나와 친구 관계인지 아닌지 확인하고, 친구 추가 버튼을 보여줍니다.
+        if (false) { // TODO 여기에 [친구 관계가 아닌] 조건을 추가해주면 됩니다.
+            addFriendBtn.setVisibility(View.GONE);
+        }
+
         postDate.setText(post.getDate());
         postTitle.setText(post.getTitle());
         postContent.setText(post.getContent());
@@ -121,6 +131,9 @@ public class PostDetailActivity extends BaseActivity {
                 if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) {
                     menuDrawer.openDrawer(Gravity.RIGHT);
                 }
+                break;
+
+            case R.id.addFriendBtn: // 친구 추가 버튼 클릭
                 break;
 
             case R.id.postLikeBtn: // 좋아요 버튼 클릭
