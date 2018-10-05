@@ -20,7 +20,6 @@ import com.nhn.android.maps.overlay.NMapCircleData;
 import com.nhn.android.maps.overlay.NMapCircleStyle;
 import com.nhn.android.maps.overlay.NMapPOIdata;
 import com.nhn.android.maps.overlay.NMapPOIitem;
-import com.nhn.android.maps.overlay.NMapPathData;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapPathDataOverlay;
@@ -47,7 +46,7 @@ public class ChatMapFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat_map, container, false);
+        return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
     @Override
@@ -60,7 +59,7 @@ public class ChatMapFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mapView = (NMapView)getView().findViewById(R.id.chatMapView);
+        mapView = (NMapView)getView().findViewById(R.id.mapView);
         mapView.setClientId(CLIENT_ID);
         mapContext.setupMapView(mapView);
     }
@@ -95,7 +94,7 @@ public class ChatMapFragment extends Fragment
                 float radius = 500;
 
                 NMapPOIdata poiData = new NMapPOIdata(2,mMapViewerResourceProvider);
-                poiData.addPOIitem(longitude, latitude, "", NMapPOIflagType.PIN, 0);
+                poiData.addPOIitem(longitude, latitude, "", NMapPOIflagType.SPOT, 0);
                 poiData.endPOIdata();
 
                 NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);

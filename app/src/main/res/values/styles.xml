@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/button</item>
+        <item name="android:textColor">@color/grayDarker</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
     <style name="EditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorControlNormal">@color/colorPrimaryLighter</item>
         <item name="colorControlActivated">@color/white</item>
@@ -12,7 +18,7 @@
         <item name="colorControlNormal">@android:color/transparent</item>
         <item name="colorControlActivated">@android:color/transparent</item>
         <item name="android:textCursorDrawable">@color/colorPrimary</item>
-        <item name="android:textColorHint">@color/grayLight</item>
+        <item name="android:textColorHint">@color/silver</item>
         <item name="android:layout_marginLeft">0dp</item>
         <item name="android:paddingLeft">0dp</item>
     </style>

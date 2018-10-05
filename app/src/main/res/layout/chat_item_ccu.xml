@@ -4,19 +4,19 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/ivory"
-    android:paddingLeft="10dp">
+    android:background="@color/white"
+    android:paddingLeft="15dp">
 
     <android.support.v7.widget.CardView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_marginTop="7dp"
         android:elevation="12dp"
         android:layout_marginRight="7dp"
-        app:cardCornerRadius="17.5dp">
+        app:cardCornerRadius="16dp">
         <ImageView
             android:id="@+id/ccuAvatar"
-            android:layout_height="35dp"
+            android:layout_height="32dp"
             android:layout_width="match_parent"
             android:src="@drawable/avatar">
         </ImageView>
@@ -40,6 +40,4 @@
         android:layout_marginRight="15dp"
         android:layout_alignParentRight="true"
         android:tag="fas"/>
-
-
 </RelativeLayout>

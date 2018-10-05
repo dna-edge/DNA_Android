@@ -26,7 +26,7 @@ public class BaseActivity extends AppCompatActivity {
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         if(typefaceMenu == null) {
-            typefaceMenu = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareB.ttf");
+            typefaceMenu = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareEB.ttf");
         }
         if(typefaceBold == null) {
             typefaceBold = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareRoundEB.ttf");
@@ -55,10 +55,8 @@ public class BaseActivity extends AppCompatActivity {
                             ((Button) v).setTypeface(fontAwesomeR);
                         } else if (String.valueOf(v.getTag()).equals("fas")) {
                             ((Button) v).setTypeface(fontAwesomeS);
-                        } else if (String.valueOf(v.getTag()).equals("menu")) {
-                            ((Button) v).setTypeface(typefaceMenu);
                         } else {
-                            ((Button) v).setTypeface(typefaceBold);
+                            ((Button) v).setTypeface(typefaceMenu);
                         }
                     }
                     else if(v instanceof TextView || v instanceof EditText) {

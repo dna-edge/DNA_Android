@@ -1,28 +1,18 @@
 package com.konkuk.dna.chat;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
 import com.konkuk.dna.R;
-import com.konkuk.dna.dm.DMActivity;
-import com.konkuk.dna.dm.RoomActivity;
+import com.konkuk.dna.friend.DMActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -83,7 +73,6 @@ public class ChatActivity extends BaseActivity {
     }
 
     public void onClick(View v) {
-
         switch(v.getId()) {
             case R.id.msgFindBtn: // 검색 버튼 클릭
                 break;
