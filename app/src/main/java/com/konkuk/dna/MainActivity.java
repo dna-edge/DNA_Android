@@ -111,7 +111,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onRestart() {
-        Log.d("test", "restart");
         super.onRestart();
 
         mapFragment.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;

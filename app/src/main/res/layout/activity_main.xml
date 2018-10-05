@@ -52,7 +52,7 @@
 
             <fragment
                 android:id="@+id/mapFragment"
-                android:name="com.konkuk.dna.chat.ChatMapFragment"
+                android:name="com.konkuk.dna.post.PostMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>

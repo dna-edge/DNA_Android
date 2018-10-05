@@ -60,7 +60,7 @@ public class ChatMapFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mapView = (NMapView)getView().findViewById(R.id.mapView);
+        mapView = (NMapView)getView().findViewById(R.id.chatMapView);
         mapView.setClientId(CLIENT_ID);
         mapContext.setupMapView(mapView);
     }
@@ -78,11 +78,15 @@ public class ChatMapFragment extends Fragment
         mMapViewerResourceProvider = new NMapViewerResourceProvider(getActivity());
         mOverlayManager = new NMapOverlayManager(getActivity(),mapView,mMapViewerResourceProvider);
         NMapProjection nMapProjection;
+
+        OnMapViewStateChangeListener.onMapInitHandler(mapView, null);
     }
+
 
     NMapView.OnMapStateChangeListener OnMapViewStateChangeListener = new NMapView.OnMapStateChangeListener() {
         @Override
         public void onMapInitHandler(NMapView nMapView, NMapError nMapError) {
+            Log.d("ChatMapFragment", "nmapview");
             if (nMapError == null) {
                 // TODO : GPS로 현재 위치 잡아서 지정해줘야 합니다.
                 // 지도를 내위치로 초기화합니다.
