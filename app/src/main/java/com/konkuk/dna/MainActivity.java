@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -29,6 +31,7 @@ public class MainActivity extends BaseActivity {
 
     private ValueAnimator slideAnimator;
     private AnimatorSet set;
+    int height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class MainActivity extends BaseActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        final int height = size.y - Helpers.dpToPx(this, 50);
+        height = size.y - Helpers.dpToPx(this, 50);
 
         mapFragment = (View) findViewById(R.id.mapFragment);
 
@@ -104,5 +107,14 @@ public class MainActivity extends BaseActivity {
             case R.id.postWriteBtn:
                 break;
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.d("test", "restart");
+        super.onRestart();
+
+        mapFragment.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+        mapFragment.requestLayout();
     }
 }

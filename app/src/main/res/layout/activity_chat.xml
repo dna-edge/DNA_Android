@@ -93,7 +93,8 @@
             <ListView
                 android:id="@+id/msgListView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="5dp"
                 android:paddingTop="15dp"
@@ -174,6 +175,7 @@
                     android:onClick="onClick" />
             </RelativeLayout>
         </LinearLayout>
+
     </LinearLayout>
 
     <include
