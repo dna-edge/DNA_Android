@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.konkuk.dna.chat.ChatActivity;
 import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.chat.ChatUserAdapter;
+import com.konkuk.dna.post.PostFormActivity;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class MainActivity extends BaseActivity {
 
     private ValueAnimator slideAnimator;
     private AnimatorSet set;
-    int height;
+    private int height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +59,8 @@ public class MainActivity extends BaseActivity {
         slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                // get the value the interpolator is at
                 Integer value = (Integer) animation.getAnimatedValue();
-                // I'm going to set the layout's height 1:1 to the tick
                 mapFragment.getLayoutParams().height = value.intValue();
-                // force all layouts to see which ones are affected by
-                // this layouts height change
                 mapFragment.requestLayout();
             }
         });
@@ -76,7 +73,7 @@ public class MainActivity extends BaseActivity {
             public void onAnimationEnd(Animator animator) {
                 Intent chatIntent = new Intent(getApplicationContext(), ChatActivity.class);
                 startActivity(chatIntent);
-                overridePendingTransition(0, 0);
+                overridePendingTransition(0, R.anim.fade_out);
             }
 
             @Override
@@ -101,10 +98,11 @@ public class MainActivity extends BaseActivity {
                 set.play(slideAnimator);
                 set.setInterpolator(new AccelerateDecelerateInterpolator());
                 set.start();
-
                 break;
 
             case R.id.postWriteBtn:
+                Intent formIntent = new Intent(this, PostFormActivity.class);
+                startActivity(formIntent);
                 break;
         }
     }

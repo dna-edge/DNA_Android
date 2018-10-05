@@ -14,7 +14,6 @@ import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
 import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
-import com.konkuk.dna.friend.RoomActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,8 +45,8 @@ public class PostFormActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.backBtn:
-                Intent mainIntent = new Intent(this, MainActivity.class);
-                startActivity(mainIntent);
+                finish();
+                break;
 
             case R.id.menuBtn: // 메뉴 버튼 클릭
                 if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) {

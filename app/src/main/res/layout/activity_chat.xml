@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,15 +18,15 @@
             android:gravity="center_vertical"
             android:background="@color/colorPrimary">
 
-            <TextView
-                android:id="@+id/addressText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="18dp"
+            <ImageButton
+                android:id="@+id/backBtn"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/back"
+                android:src="@drawable/back"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="125dp"
-                android:tag="menu"/>
+                android:onClick="onClick" />
 
             <ImageButton
                 android:id="@+id/msgFindBtn"
@@ -34,17 +35,6 @@
                 android:scaleType="fitXY"
                 android:background="@drawable/find"
                 android:src="@drawable/find"
-                android:layout_marginRight="105dp"
-                android:layout_alignParentRight="true"
-                android:onClick="onClick" />
-
-            <ImageButton
-                android:id="@+id/msgFriendBtn"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:scaleType="fitXY"
-                android:background="@drawable/friends"
-                android:src="@drawable/friends"
                 android:layout_marginRight="65dp"
                 android:layout_alignParentRight="true"
                 android:onClick="onClick" />
@@ -57,7 +47,7 @@
                 android:layout_alignParentRight="true" />
 
             <ImageButton
-                android:id="@+id/msgMenuBtn"
+                android:id="@+id/menuBtn"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:scaleType="fitXY"
@@ -74,21 +64,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <fragment
+                android:id="@+id/chatMapFragment"
+                android:name="com.konkuk.dna.chat.ChatMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
-                <fragment
-                    android:id="@+id/mapFragment"
-                    android:name="com.konkuk.dna.chat.ChatMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@drawable/shadow_view">
-                </View>
-            </RelativeLayout>
+                android:layout_height="150dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="-10dp"
+                android:background="@drawable/shadow_view">
+            </View>
 
             <ListView
                 android:id="@+id/msgListView"
@@ -175,7 +161,6 @@
                     android:onClick="onClick" />
             </RelativeLayout>
         </LinearLayout>
-
     </LinearLayout>
 
     <include

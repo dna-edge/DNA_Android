@@ -1,18 +1,27 @@
 package com.konkuk.dna.chat;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
+import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
 import com.konkuk.dna.friend.DMActivity;
+import com.konkuk.dna.friend.FriendActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +29,7 @@ import java.util.Locale;
 
 public class ChatActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
+    private View mapFragment;
 
     private ListView messageListView;
     private EditText messageEditText;
@@ -28,6 +38,10 @@ public class ChatActivity extends BaseActivity {
     private ChatListAdapter chatListAdapter;
 
     private SimpleDateFormat timeFormat;
+
+    private ValueAnimator slideAnimator;
+    private AnimatorSet set;
+    private int height;
 
 
     @Override
@@ -42,6 +56,7 @@ public class ChatActivity extends BaseActivity {
         menuDrawer = findViewById(R.id.drawer_layout);
         Helpers.initDrawer(this, menuDrawer, 0);
 
+        mapFragment = (View) findViewById(R.id.chatMapFragment);
         messageListView = (ListView) findViewById(R.id.msgListView);
         messageEditText = (EditText) findViewById(R.id.msgEditText);
         speakerBtn = (Button) findViewById(R.id.msgSpeakerBtn);
@@ -70,6 +85,50 @@ public class ChatActivity extends BaseActivity {
         }});
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
+
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        height = size.y - Helpers.dpToPx(this, 50);
+
+        slideAnimator = ValueAnimator
+                .ofInt(Helpers.dpToPx(this, 150), height).setDuration(300);
+
+        slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                Integer value = (Integer) animation.getAnimatedValue();
+                mapFragment.getLayoutParams().height = value.intValue();
+                mapFragment.requestLayout();
+            }
+        });
+
+        slideAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {}
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(mainIntent);
+                overridePendingTransition(0, R.anim.fade_out);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {}
+            @Override
+            public void onAnimationRepeat(Animator animator) {}
+        });
+
+        set = new AnimatorSet();
+    }
+
+    @Override
+    public void onBackPressed() {
+        set.play(slideAnimator);
+        set.setInterpolator(new AccelerateDecelerateInterpolator());
+        set.start();
     }
 
     public void onClick(View v) {
@@ -77,16 +136,14 @@ public class ChatActivity extends BaseActivity {
             case R.id.msgFindBtn: // 검색 버튼 클릭
                 break;
 
-            case R.id.msgMenuBtn: // 메뉴 버튼 클릭
+            case R.id.backBtn: // 뒤로가기 버튼 클릭
+                this.onBackPressed();
+                break;
+
+            case R.id.menuBtn: // 메뉴 버튼 클릭
                 if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) {
                     menuDrawer.openDrawer(Gravity.RIGHT);
                 }
-
-                break;
-
-            case R.id.msgFriendBtn: // 친구 리스트 (DM 채팅 리스트) 버튼 클릭
-                Intent DMIntent = new Intent(this, DMActivity.class);
-                startActivity(DMIntent);
                 break;
 
             case R.id.msgSpeakerBtn: // 확성기 버튼 클릭
@@ -109,6 +166,11 @@ public class ChatActivity extends BaseActivity {
                 break;
 
             case R.id.msgSettingBtn: // 채팅 환경 설정 버튼 클릭
+                break;
+
+            case R.id.friendBtn: // 친구 관리 버튼 클릭
+                Intent friendIntent = new Intent(this, FriendActivity.class);
+                startActivity(friendIntent);
                 break;
         }
     }

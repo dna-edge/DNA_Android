@@ -77,8 +77,8 @@ public class DMActivity extends BaseActivity {
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.msgBackBtn:
-                Intent roomIntent = new Intent(this, RoomActivity.class);
-                startActivity(roomIntent);
+                Intent friendIntent = new Intent(this, FriendActivity.class);
+                startActivity(friendIntent);
 
             case R.id.msgFindBtn: // 검색 버튼 클릭
                 break;

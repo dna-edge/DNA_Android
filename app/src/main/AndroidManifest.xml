@@ -22,6 +22,11 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".SplashActivity"></activity>
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- auth package -->
@@ -45,17 +50,11 @@
         <activity android:name=".chat.ChatActivity"></activity>
 
         <!-- friend package -->
-        <activity android:name=".friend.RoomActivity"></activity>
+        <activity android:name=".friend.FriendActivity"></activity>
         <activity android:name=".friend.DMActivity"></activity>
 
         <!-- post package -->
-        <activity android:name=".post.PostFormActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".post.PostFormActivity"></activity>
 
         <!--<activity-->
             <!--android:name=".auth.ActivityMissPW"-->
