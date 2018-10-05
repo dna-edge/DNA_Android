@@ -2,6 +2,7 @@
     <string name="app_name">DNA</string>
     <string name="fa_star">&#xf005;</string>
     <string name="fa_right">&#xf105;</string>
+    <string name="fa_down">&#xf107;</string>
 
     <string name="fa_menu">&#xf0c9;</string>
     <string name="fa_find">&#xf002;</string>

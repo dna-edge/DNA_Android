@@ -11,22 +11,32 @@ import android.widget.TextView;
 
 import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.chat.ChatUserAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import static android.view.View.GONE;
 
 public class Helpers {
-    public static View initDrawer(Context context, View v, int type) {
-        ImageView pfAvatar = (ImageView) v.findViewById(R.id.msgPfAvatar);
-        TextView pfNickname = (TextView) v.findViewById(R.id.msgPfNickname);
-        TextView pfID = (TextView) v.findViewById(R.id.msgPfID);
-        LinearLayout drawerForUserList = (LinearLayout) v.findViewById(R.id.drawerForUserList);
-        LinearLayout drawerForFriend = (LinearLayout) v.findViewById(R.id.drawerForFriend);
+    public static void setProfile(View v) {
+        // TODO 현재 유저의 정보를 초기화해줍니다.
 
-        //        pfAvatar =
+        ImageView pfAvatar = (ImageView) v.findViewById(R.id.PfAvatar);
+        TextView pfNickname = (TextView) v.findViewById(R.id.PfNickname);
+        TextView pfID = (TextView) v.findViewById(R.id.PfID);
+
+//        if (getAvatar() != null) { // TODO 현재 유저의 프로필 url이 null이 아닐 경우를 조건으로 줘야 합니다.
+//            Picasso.get().load(post.getAvatar()).into(postAvatar);
+//        }
+
         pfNickname.setText("soyoungpark");
         pfID.setText("3457soso");
+    }
+
+    public static void initDrawer(Context context, View v, int type) {
+        setProfile(v);
+        LinearLayout drawerForUserList = (LinearLayout) v.findViewById(R.id.drawerForUserList);
+        LinearLayout drawerForFriend = (LinearLayout) v.findViewById(R.id.drawerForFriend);
 
         if (type == 0) {
             drawerForFriend.setVisibility(GONE);
@@ -39,7 +49,7 @@ public class Helpers {
             chatUsers.add(new ChatUser("test2", null, false));
             ChatUserAdapter chatUserAdapter = new ChatUserAdapter(context, R.layout.chat_item_ccu, chatUsers);
             ccuListView.setAdapter(chatUserAdapter);
-        } else {
+        } else if (type == 1){
             drawerForUserList.setVisibility(GONE);
 
             // TODO 해당 친구의 프로필을 입력해줘야 합니다.
@@ -51,9 +61,10 @@ public class Helpers {
             friendNickname.setText("fakerzzang");
             friendNicknameText.setText("fakerzzang"); // 바로 위에꺼랑 같은 값으로 세팅해주세요!
             friendInfo.setText("이번 롤드컵에 페이커가 출전하지 못해서 굉장히 유감입니다. 사실 롤을 본 지는 오래 돼서 지금 봐도 뭐가 뭔지는 모릅니다.");
+        } else if (type == 2) {
+            drawerForUserList.setVisibility(GONE);
+            drawerForFriend.setVisibility(GONE);
         }
-
-        return v;
     }
 
     public static int dpToPx(Context context, int dp) {

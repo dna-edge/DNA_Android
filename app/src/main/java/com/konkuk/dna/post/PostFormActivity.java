@@ -34,7 +34,7 @@ public class PostFormActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 0);
+        Helpers.initDrawer(this, menuDrawer, 2);
 
         postTitleEdit = (EditText) findViewById(R.id.postTitleEdit);
         postContentEdit = (EditText) findViewById(R.id.postContentEdit);

@@ -17,14 +17,13 @@
         android:roundIcon="@mipmap/dna"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
         <activity android:name=".SplashActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
 
         <!-- auth package -->
@@ -47,15 +46,22 @@
         <!-- chat package -->
         <activity android:name=".chat.ChatActivity" />
 
+        <!-- user package -->
+        <activity android:name=".user.MyPageActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <!-- friend package -->
         <activity android:name=".friend.FriendActivity" />
         <activity android:name=".friend.DMActivity" />
 
         <!-- post package -->
-        <activity android:name=".post.PostFormActivity">
-        </activity>
-        <activity android:name=".post.PostDetailActivity">
-        </activity>
+        <activity android:name=".post.PostFormActivity"></activity>
+        <activity android:name=".post.PostDetailActivity"></activity>
 
         <!-- <activity -->
         <!-- android:name=".auth.ActivityMissPW" -->

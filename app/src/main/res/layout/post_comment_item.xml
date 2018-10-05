@@ -34,7 +34,6 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="example"
                 android:id="@+id/commentNickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,31 +43,23 @@
                 android:tag="bold" />
 
             <TextView
-                android:text="example"
                 android:id="@+id/commentDate"
                 android:textColor="@color/grayText"
-                android:textSize="10dp"
+                android:textSize="11dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true" />
 
         </RelativeLayout>
-        <LinearLayout
+        <TextView
+            android:id="@+id/commentContent"
+            android:textColor="@color/grayDark"
+            android:textSize="15dp"
+            android:gravity="center_vertical"
+            android:lineSpacingMultiplier="1.15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:text="example"
-                android:id="@+id/commentContent"
-                android:textColor="@color/grayDark"
-                android:textSize="15dp"
-                android:gravity="center_vertical"
-                android:lineSpacingMultiplier="1.15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="chat"/>
-        </LinearLayout>
+            android:tag="chat"/>
 
     </LinearLayout>
 </LinearLayout>

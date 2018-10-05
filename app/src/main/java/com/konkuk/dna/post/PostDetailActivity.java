@@ -47,7 +47,7 @@ public class PostDetailActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 0);
+        Helpers.initDrawer(this, menuDrawer, 2);
 
         postScrollView = (ScrollView) findViewById(R.id.postScrollView);
         postAvatar = (ImageView) findViewById(R.id.postAvatar);
@@ -117,7 +117,6 @@ public class PostDetailActivity extends BaseActivity {
         commentList.requestLayout();
 
         // 생성된 후 최상단으로 스크롤을 올려줍니다
-//        postScrollView.fullScroll(ScrollView.FOCUS_UP);
         postScrollView.smoothScrollTo(0, 0);
     }
 

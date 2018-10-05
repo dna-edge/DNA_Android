@@ -27,7 +27,7 @@
                 android:layout_marginRight="7dp"
                 app:cardCornerRadius="20dp">
                 <ImageView
-                    android:id="@+id/msgPfAvatar"
+                    android:id="@+id/PfAvatar"
                     android:layout_height="45dp"
                     android:layout_width="match_parent"
                     android:src="@drawable/avatar">
@@ -44,7 +44,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/msgPfNickname"
+                        android:id="@+id/PfNickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -52,7 +52,7 @@
                         android:tag="bold" />
 
                     <TextView
-                        android:id="@+id/msgPfID"
+                        android:id="@+id/PfID"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
@@ -124,8 +124,8 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="@string/fa_right"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/grayLight"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/silver"
             android:textSize="25dp"
             android:layout_alignParentRight="true"
             android:tag="fas"/>
@@ -166,8 +166,8 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="@string/fa_right"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/grayLight"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/silver"
             android:textSize="25dp"
             android:layout_alignParentRight="true"
             android:tag="fas"/>
