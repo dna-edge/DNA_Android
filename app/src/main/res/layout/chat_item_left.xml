@@ -20,7 +20,7 @@
             android:padding="3dp"
             android:layout_marginRight="7dp"
             android:gravity="center_vertical"
-            android:background="@color/clouds">
+            android:background="@drawable/ripple_effect_chat_left">
 
             <TextView
                 android:id="@+id/msgText"

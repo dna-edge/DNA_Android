@@ -4,28 +4,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.konkuk.dna.BaseActivity;
+import com.konkuk.dna.Helpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.chat.ChatActivity;
 import com.konkuk.dna.friend.fragments.FriendFragment;
 import com.konkuk.dna.friend.fragments.NotifyFragment;
 import com.konkuk.dna.friend.fragments.RoomFragment;
 import com.konkuk.dna.friend.fragments.SettingFragment;
+import com.konkuk.dna.post.PostFormMapFragment;
 
 public class FriendActivity extends BaseActivity implements View.OnClickListener {
     final int ROOM_FRAGMENT = 1;
     final int FRIEND_FRAGMENT = 2;
     final int NOTIFY_FRAGMENT = 3;
-    final int SETTING_FRAGMENT = 4;
 
-    private Button roomBtn, friendBtn, notifyBtn, settingBtn;
+    private DrawerLayout menuDrawer;
+    private Button roomBtn, friendBtn, notifyBtn;
     private FrameLayout roomFragContainer;
 
     int currentFragment; // 현재 프래그먼트 구별하기
@@ -39,16 +44,16 @@ public class FriendActivity extends BaseActivity implements View.OnClickListener
     }
 
     public void init() {
+        menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        Helpers.initDrawer(this, menuDrawer, 2);
         roomFragContainer = (FrameLayout) findViewById(R.id.roomFragContainer);
         roomBtn = (Button) findViewById(R.id.roomBtn);
         friendBtn = (Button) findViewById(R.id.friendBtn);
         notifyBtn = (Button) findViewById(R.id.notifyBtn);
-        settingBtn = (Button) findViewById(R.id.settingBtn);
 
         roomBtn.setOnClickListener(this);
         friendBtn.setOnClickListener(this);
         notifyBtn.setOnClickListener(this);
-        settingBtn.setOnClickListener(this);
 
         /* 초기 프래그먼트는 채팅방 리스트 프래그먼트라 여기서 먼저 초기화해줍니다! */
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -69,7 +74,7 @@ public class FriendActivity extends BaseActivity implements View.OnClickListener
             }
 
             public void onSwipeLeft() { // to right
-                if (currentFragment < 4) {
+                if (currentFragment < 3) {
                     callFragment(currentFragment + 1);
                     SlideAnimationUtil.slideInFromRight(FriendActivity.this, roomFragContainer);
                 }
@@ -80,21 +85,26 @@ public class FriendActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.msgChatBtn:
-                Intent chatIntent = new Intent(this, ChatActivity.class);
-                startActivity(chatIntent);
+            case R.id.backBtn:
+                finish();
                 break;
+
+            case R.id.menuBtn: // 메뉴 버튼 클릭
+                if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) {
+                    menuDrawer.openDrawer(Gravity.RIGHT);
+                }
+                break;
+
             case R.id.roomBtn:
                 callFragment(ROOM_FRAGMENT);
                 break;
+
             case R.id.friendBtn:
                 callFragment(FRIEND_FRAGMENT);
                 break;
+
             case R.id.notifyBtn:
                 callFragment(NOTIFY_FRAGMENT);
-                break;
-            case R.id.settingBtn:
-                callFragment(SETTING_FRAGMENT);
                 break;
         }
     }
@@ -109,7 +119,6 @@ public class FriendActivity extends BaseActivity implements View.OnClickListener
             roomBtn.setSelected(false);
             friendBtn.setSelected(false);
             notifyBtn.setSelected(false);
-            settingBtn.setSelected(false);
 
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -134,13 +143,6 @@ public class FriendActivity extends BaseActivity implements View.OnClickListener
                     notifyBtn.setSelected(true);
                     NotifyFragment notifyFragment = (NotifyFragment) new NotifyFragment();
                     transaction.replace(R.id.roomFragContainer, notifyFragment);
-                    transaction.commit();
-                    break;
-
-                case SETTING_FRAGMENT:
-                    settingBtn.setSelected(true);
-                    SettingFragment settingFragment = (SettingFragment) new SettingFragment();
-                    transaction.replace(R.id.roomFragContainer, settingFragment);
                     transaction.commit();
                     break;
             }

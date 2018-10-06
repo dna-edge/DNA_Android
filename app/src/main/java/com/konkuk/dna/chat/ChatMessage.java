@@ -4,7 +4,7 @@ public class ChatMessage {
     private int idx;            // 인덱스
     private String userName;    // 보낸이
     private String avatar;      // 프로필 이미지 url
-    private String message;     // 메시지
+    private String contents;     // 메시지
 
     private String date;        // 시간
     private String like;        // 좋아요
@@ -20,12 +20,12 @@ public class ChatMessage {
 
     public ChatMessage(){}
 
-    public ChatMessage(int idx, String userName, String avatar, String message, String date,
+    public ChatMessage(int idx, String userName, String avatar, String contents, String date,
                        String like, String type, double lng, double lat){
         this.idx = idx;
         this.userName = userName;
         this.avatar = avatar;
-        this.message = message;
+        this.contents = contents;
         this.date = date;
         this.like = like;
         this.type = type;
@@ -56,11 +56,9 @@ public class ChatMessage {
         this.avatar = avatar;
     }
 
-    public String getMessage(){
-        return message;
-    }
-    public void setMessage(String message){
-        this.message = message;
+    public String getContents() { return contents; }
+    public void setMessage(String contents){
+        this.contents = contents;
     }
 
     public String getDate(){

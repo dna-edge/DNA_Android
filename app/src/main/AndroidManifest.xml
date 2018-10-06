@@ -19,11 +19,11 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".SplashActivity" />
         <activity android:name=".MainActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- auth package -->
@@ -46,11 +46,6 @@
 
         <!-- chat package -->
         <activity android:name=".chat.ChatActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- user package -->
@@ -59,8 +54,15 @@
         </activity>
 
         <!-- friend package -->
-        <activity android:name=".friend.FriendActivity" />
-        <activity android:name=".friend.DMActivity" />
+        <activity android:name=".friend.FriendActivity"></activity>
+        <activity android:name=".friend.DMActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
 
         <!-- post package -->
         <activity android:name=".post.PostFormActivity" android:windowSoftInputMode="adjustNothing"/>

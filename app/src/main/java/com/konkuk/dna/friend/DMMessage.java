@@ -1,15 +1,15 @@
 package com.konkuk.dna.friend;
 
 public class DMMessage {
-    public DMMessage(int sender, String message, String date, String type) {
+    public DMMessage(int sender, String contents, String date, String type) {
         this.sender = sender;
-        this.message = message;
+        this.contents = contents;
         this.date = date;
         this.type = type;
     }
 
     private int sender;    // 보낸이
-    private String message;     // 메시지
+    private String contents;     // 메시지
     private String date;        // 시간
 
     /* 메시지의 타입을 구분하기 위한 변수들입니다 */
@@ -25,11 +25,11 @@ public class DMMessage {
     public int getSender() { return sender; }
     public void setSender(int sender) { this.sender = sender; }
 
-    public String getMessage(){
-        return message;
+    public String getContents(){
+        return contents;
     }
-    public void setMessage(String message){
-        this.message = message;
+    public void setContents(String message){
+        this.contents = message;
     }
 
     public String getDate(){

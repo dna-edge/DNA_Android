@@ -4,12 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,16 +33,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
                 <TextView
-                    android:text="example"
                     android:id="@+id/friendNicknameText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="50dp"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="20dp"
+                    android:textSize="19dp"
                     android:tag="nseb"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,19 +57,19 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:textColor="@color/grayText"
-                        android:textSize="13dp"
+                        android:textSize="12dp"
                         android:tag="nsb"/>
                     <TextView
-                        android:text="2018.10.21"
                         android:id="@+id/updatedAtText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:textColor="@color/grayText"
-                        android:textSize="13dp"
+                        android:textSize="12dp"
                         android:tag="nsb"/>
                 </LinearLayout>
             </LinearLayout>
+
             <ImageButton
                 android:id="@+id/menuBtn"
                 android:layout_width="20dp"
@@ -85,7 +90,7 @@
             android:orientation="vertical">
 
             <ListView
-                android:id="@+id/msgListView"
+                android:id="@+id/dmListView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -103,7 +108,7 @@
                 android:gravity="center_vertical">
 
                 <EditText
-                    android:id="@+id/msgEditText"
+                    android:id="@+id/dmEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
@@ -111,12 +116,13 @@
                     android:layout_marginRight="120dp"
                     android:paddingLeft="3dp"
                     android:textColor="@color/grayDarker"
+                    android:singleLine="true"
                     android:textSize="17dp"
                     android:hint="메시지 입력 ..."
                     android:theme="@style/chatEditTextTheme" />
 
                 <Button
-                    android:id="@+id/msgLocationBtn"
+                    android:id="@+id/dmLocationBtn"
                     android:layout_width="25dp"
                     android:layout_height="match_parent"
                     android:textSize="22dp"
@@ -129,7 +135,7 @@
                     android:onClick="onClick" />
 
                 <Button
-                    android:id="@+id/msgImageBtn"
+                    android:id="@+id/dmImageBtn"
                     android:layout_width="25dp"
                     android:layout_height="match_parent"
                     android:textSize="22dp"
@@ -142,7 +148,7 @@
                     android:onClick="onClick" />
 
                 <Button
-                    android:id="@+id/msgSendBtn"
+                    android:id="@+id/dmSendBtn"
                     android:layout_width="45dp"
                     android:layout_height="match_parent"
                     android:gravity="center"

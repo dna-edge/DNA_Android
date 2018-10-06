@@ -9,7 +9,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
-import com.konkuk.dna.post.PostFormMapFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,11 +32,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
     private static Typeface NSEB;
     private static Typeface NSB;
     private static Typeface NSR;
-
-    private static Typeface NSREB;
-    private static Typeface NSRB;
-    private static Typeface NSRR;
-
     private static Typeface fontAwesomeR;
     private static Typeface fontAwesomeS;
 
@@ -67,15 +60,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
         if(NSR == null) {
             NSR = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareR.ttf");
         }
-        if(NSREB == null) {
-            NSREB = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareRoundEB.ttf");
-        }
-        if(NSRB == null) {
-            NSRB = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareRoundB.ttf");
-        }
-        if(NSRR == null) {
-            NSRR = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareRoundR.ttf");
-        }
         if(fontAwesomeR == null) {
             fontAwesomeR = Typeface.createFromAsset(context.getAssets(), "fonts/fa-regular-400.ttf");
         }
@@ -95,8 +79,8 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
             // TODO 해당 메시지의 작성자가 현재 접속한 유저인지를 판별해 left, right를 정해줘야 합니다.
             // TODO 상대방이 작성했으면서 최초 메시지일 경우에는 프로필 이미지와 닉네임을 보여줘야 합니다.
 
-            if (position == 0 || position == 6) {
-                v = layoutInflater.inflate(R.layout.chat_item_with_avatar, null);
+            if (position == 0 || position == 6) { // 프로필 이미지를 포함하는 부분
+                v = layoutInflater.inflate(R.layout.chat_item_with_profile, null);
 
                 TextView messageNickname = (TextView) v.findViewById(R.id.msgNickname);
                 messageNickname.setText(message.getUserName());
@@ -108,12 +92,10 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                     Picasso.get().load(message.getAvatar()).into(messageAvatar);
                 }
 
-
-
-        LinearLayout msgContainer = (LinearLayout) v.findViewById(R.id.msgContainer);
-            } else if (position < 3 || position > 6) {
+//        LinearLayout msgContainer = (LinearLayout) v.findViewById(R.id.msgContainer);
+            } else if (position < 3 || position > 6) {  // 프로필 이미지 없는 상대 메시지
                 v = layoutInflater.inflate(R.layout.chat_item_left, null);
-            } else {
+            } else {                                    // 내 메시지
                 v = layoutInflater.inflate(R.layout.chat_item_right, null);
             }
         }
@@ -131,27 +113,27 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
             case TYPE_MESSAGE:
                 if (msgText != null) {
                     msgText.setVisibility(View.VISIBLE);
-                    msgText.setText(message.getMessage());
+                    msgText.setText(message.getContents());
                 }
                 break;
             case TYPE_IMAGE:
                 if (msgImage != null) {
                     msgImage.setVisibility(View.VISIBLE);
-                    Picasso.get().load(message.getMessage()).into(msgImage);
+                    Picasso.get().load(message.getContents()).into(msgImage);
                 }
                 break;
             case TYPE_LOCATION:
-                if (msgLocationWrapper != null) {
-                    msgLocationWrapper.setVisibility(View.VISIBLE);
-                    msgLocationWrapper.setId(message.getIdx());
-                    FragmentManager manager = ((Activity) context).getFragmentManager();
-                    FragmentTransaction fragTransaction = manager.beginTransaction();
-                    ChatListMapFragment newFragment =
-                            ChatListMapFragment.newInstance(message.getLng(), message.getLat());
-                    Log.d("test", newFragment.toString());
-                    fragTransaction.add(msgLocationWrapper.getId(), (Fragment) newFragment, "mapFragment" + message.getIdx());
-                    fragTransaction.commit();
-                }
+//                if (msgLocationWrapper != null) {
+//                    msgLocationWrapper.setVisibility(View.VISIBLE);
+//                    msgLocationWrapper.setId(message.getIdx());
+//                    FragmentManager manager = ((Activity) context).getFragmentManager();
+//                    FragmentTransaction fragTransaction = manager.beginTransaction();
+//                    ChatListMapFragment newFragment =
+//                            ChatListMapFragment.newInstance(message.getLng(), message.getLat());
+//                    Log.d("test", newFragment.toString());
+//                    fragTransaction.add(msgLocationWrapper.getId(), (Fragment) newFragment, "mapFragment" + message.getIdx());
+//                    fragTransaction.commit();
+//                }
 
                 break;
         }
@@ -164,7 +146,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
         likeStar.setTypeface(fontAwesomeS);
 
         // TODO 내가 좋아요를 클릭했을 경우와 클릭하지 않았을 경우 다른 뷰를 보여줘야 합니다.
-        if (position % 2 == 0) {
+        if (position % 2 == 0) { // 클릭했을 경우
             likeCount.setTextColor(context.getResources().getColor(R.color.yellow));
             likeStar.setTextColor(context.getResources().getColor(R.color.yellow));
             messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_like_clicked));
