@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity {
         mapFragment = (View) findViewById(R.id.mapFragment);
 
         slideAnimator = ValueAnimator
-            .ofInt(height, Helpers.dpToPx(this, 150)).setDuration(300);
+            .ofInt(height, Helpers.dpToPx(this, 150)).setDuration(400);
 
         slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

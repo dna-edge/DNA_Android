@@ -1,21 +1,46 @@
 package com.konkuk.dna.chat;
 
 public class ChatMessage {
+    private int idx;            // 인덱스
     private String userName;    // 보낸이
     private String avatar;      // 프로필 이미지 url
     private String message;     // 메시지
-    private String time;        // 시간
-    private String like;       // 좋아요
+
+    private String date;        // 시간
+    private String like;        // 좋아요
+    private double lng;         // 경도
+    private double lat;         // 위도
+
+    /* 메시지의 타입을 구분하기 위한 변수들입니다 */
+    private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
+    private final String TYPE_LOUDSPEAKER = "LoudSpeaker"; // 확성기 전송
+    private final String TYPE_LOCATION = "Location";    // 현재 위치 전송
+    private final String TYPE_IMAGE = "Image";       // 이미지 전송
+    private String type;
 
     public ChatMessage(){}
 
-    public ChatMessage(String userName, String avatar, String message, String time, String like){
+    public ChatMessage(int idx, String userName, String avatar, String message, String date,
+                       String like, String type, double lng, double lat){
+        this.idx = idx;
         this.userName = userName;
         this.avatar = avatar;
         this.message = message;
-        this.time = time;
+        this.date = date;
         this.like = like;
+        this.type = type;
+        this.lng = lng;
+        this.lat = lat;
     }
+
+    public int getIdx() { return idx; }
+    public void setIdx(int idx) { this.idx = idx; }
+
+    public double getLng() { return lng; }
+    public void setLng(double lng) { this.lng = lng; }
+
+    public double getLat() { return lat; }
+    public void setLat(double lat) { this.lat = lat; }
 
     public String getUserName(){
         return userName;
@@ -38,13 +63,16 @@ public class ChatMessage {
         this.message = message;
     }
 
-    public String getTime(){
-        return time;
+    public String getDate(){
+        return date;
     }
-    public void setTime(String time){
-        this.time = time;
+    public void setDate(String date){
+        this.date = date;
     }
 
     public String getLike() { return like; }
     public void setLike(String like) { this.like = like; }
+
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 }

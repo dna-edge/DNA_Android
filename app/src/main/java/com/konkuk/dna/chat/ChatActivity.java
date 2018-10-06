@@ -3,10 +3,13 @@ package com.konkuk.dna.chat;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -22,9 +25,11 @@ import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
 import com.konkuk.dna.friend.DMActivity;
 import com.konkuk.dna.friend.FriendActivity;
+import com.nhn.android.maps.NMapContext;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class ChatActivity extends BaseActivity {
@@ -34,8 +39,9 @@ public class ChatActivity extends BaseActivity {
     private ListView messageListView;
     private EditText messageEditText;
     private Button speakerBtn, locationBtn, imageBtn;
-    private ArrayList<ChatMessage> chatMessages;
     private ChatListAdapter chatListAdapter;
+    private ArrayList<ChatMessage> chatMessages;
+    private HashMap<Integer, NMapContext> mapContexts;
 
     private SimpleDateFormat timeFormat;
 
@@ -43,6 +49,16 @@ public class ChatActivity extends BaseActivity {
     private AnimatorSet set;
     private int height;
 
+    /* 메시지의 타입을 구분하기 위한 변수들입니다 */
+    private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
+    private final String TYPE_LOUDSPEAKER = "LoudSpeaker"; // 확성기 전송
+    private final String TYPE_LOCATION = "Location";    // 현재 위치 전송
+    private final String TYPE_IMAGE = "Image";       // 이미지 전송
+    private String messageType = TYPE_MESSAGE;
+
+    public HashMap<Integer, NMapContext> getMapContents() {
+        return this.getMapContents();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,17 +79,20 @@ public class ChatActivity extends BaseActivity {
         locationBtn = (Button) findViewById(R.id.msgLocationBtn);
         imageBtn = (Button) findViewById(R.id.msgImageBtn);
 
+        mapContexts = new HashMap<Integer, NMapContext>();
+
         // TODO chatMessages 배열에 실제 메시지 추가해야 합니다.
         chatMessages = new ArrayList<ChatMessage>();
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용", "오후 12:34", "0"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용내용내용", "오후 12:34", "1"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용", "오후 12:34", "2"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용", "오후 12:34", "0"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용내용내용", "오후 12:34", "1"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용", "오후 12:34", "2"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용", "오후 12:34", "0"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용내용내용", "오후 12:34", "1"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용", "오후 12:34", "2"));
+        chatMessages.add(new ChatMessage(0, "3457soso", null, "http://file3.instiz.net/data/cached_img/upload/2018/06/22/14/2439cadf98e7bebdabd174ed41ca0849.jpg", "오후 12:34", "0", TYPE_IMAGE, 127.07934279999995, 37.5407625));
+        chatMessages.add(new ChatMessage(1, "3457soso", null, "내용내용", "오후 12:34", "2", TYPE_LOUDSPEAKER, 127.0793427999999, 37.540762));
+        chatMessages.add(new ChatMessage(2, "3457soso", null, "내용내용내용내용내용", "오후 12:34", "1", TYPE_MESSAGE, 127.079342799995, 37.540625));
+        chatMessages.add(new ChatMessage(3, "3457soso", null, "내용내용내용내용내용", "오후 12:34", "1", TYPE_LOUDSPEAKER, 127.0734279999995, 37.5407625));
+        chatMessages.add(new ChatMessage(4, "3457soso", null, "내용내용내용", "오후 12:34", "0", TYPE_MESSAGE, 127.0794279999995, 37.507625));
+        chatMessages.add(new ChatMessage(5, "3457soso", null, "내용내용내용", "오후 12:34", "0", TYPE_MESSAGE, 127.0793427999995, 37.540625));
+        chatMessages.add(new ChatMessage(6, "3457soso", null, "{\"lat\":37.550544099999996,\"lng\":127.07221989999998}", "오후 12:34", "1", TYPE_LOCATION, 127.07934279999995, 37.540762));
+        chatMessages.add(new ChatMessage(7, "3457soso", null, "http://www.ohfun.net/contents/article/images/2016/0830/1472551795750578.jpeg", "오후 12:34", "2", TYPE_IMAGE, 127.079342799995, 37.5407625));
+        chatMessages.add(new ChatMessage(8, "3457soso", null, "내용내용", "오후 12:34", "2", TYPE_MESSAGE, 127.0793427999995, 37.540625));
+        chatMessages.add(new ChatMessage(10, "3457soso", null, "{\"lat\":37.550544099999,\"lng\":127.07221989999}", "오후 12:34", "1", TYPE_LOCATION, 127.07934279999995, 37.540762));
 
         chatListAdapter = new ChatListAdapter(this, R.layout.chat_item_left, chatMessages);
         messageListView.setAdapter(chatListAdapter);
@@ -93,7 +112,7 @@ public class ChatActivity extends BaseActivity {
         height = size.y;
 
         slideAnimator = ValueAnimator
-                .ofInt(Helpers.dpToPx(this, 150), height).setDuration(300);
+                .ofInt(Helpers.dpToPx(this, 150), height).setDuration(400);
 
         slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -133,7 +152,7 @@ public class ChatActivity extends BaseActivity {
 
     public void onClick(View v) {
         switch(v.getId()) {
-            case R.id.msgFindBtn: // 검색 버튼 클릭
+            case R.id.msgSearchBtn: // 검색 버튼 클릭
                 break;
 
             case R.id.backBtn: // 뒤로가기 버튼 클릭
@@ -148,22 +167,68 @@ public class ChatActivity extends BaseActivity {
 
             case R.id.msgSpeakerBtn: // 확성기 버튼 클릭
                 // TODO 현재 유저의 포인트를 계산해서 사용 가능할 경우에만 활성화해야 합니다.
-                speakerBtn.setTextColor(getResources().getColor(R.color.red));
+                if (messageType.equals(TYPE_LOUDSPEAKER)) { // 확성기 모드일 경우 다시 누르면 취소됩니다.
+                    speakerBtn.setTextColor(getResources().getColor(R.color.concrete));
+                    messageType = TYPE_MESSAGE;
+                } else {
+                    speakerBtn.setTextColor(getResources().getColor(R.color.red));
+                    messageType = TYPE_LOUDSPEAKER;
+                }
                 break;
 
             case R.id.msgLocationBtn: // 장소 전송 버튼 클릭
-                // TODO 현재 주소 messageEditText에 채워줍니다.
-                locationBtn.setTextColor(getResources().getColor(R.color.grayDarker));
-                messageEditText.setText("서울시 광진구 화양동 1");
+                // TODO 현재 주소를 messageEditText에 채워줍니다.
+                if (messageType.equals(TYPE_MESSAGE) || messageType.equals(TYPE_LOUDSPEAKER)) {
+                    locationBtn.setTextColor(getResources().getColor(R.color.colorRipple));
+                    messageEditText.setText("서울시 광진구 화양동 1 건국대학교");
+                    messageEditText.setEnabled(false);
+                    messageType = TYPE_LOCATION;
+                } else {
+                    DialogSimple();
+                    messageType = TYPE_MESSAGE;
+                }
                 break;
 
-            case R.id.msgImageBtn: // 이미지 전송 버튼 클릭를
-                // TODO 이미지를 선택하고, 해당 이미지의 이름을 messageEditText에 채워줍니다.
-                imageBtn.setTextColor(getResources().getColor(R.color.grayDarker));
+            case R.id.msgImageBtn: // 이미지 전송 버튼 클릭
+                // TODO 현재 주소를 messageEditText에 채워줍니다.
+                if (messageType.equals(TYPE_MESSAGE) || messageType.equals(TYPE_LOUDSPEAKER)) {
+                    imageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
+                    messageEditText.setText("Doraemon.png");
+                    messageEditText.setEnabled(false);
+                    messageType = TYPE_IMAGE;
+                } else {
+                    DialogSimple();
+                    messageType = TYPE_MESSAGE;
+                }
                 break;
 
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
                 break;
         }
     }
+
+    private void DialogSimple(){
+        AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
+        alt_bld.setMessage("메시지 타입을 초기화 하시겠습니까?").setCancelable(
+                false).setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        locationBtn.setTextColor(getResources().getColor(R.color.concrete));
+                        imageBtn.setTextColor(getResources().getColor(R.color.concrete));
+                        messageEditText.setEnabled(true);
+                        messageEditText.setText(null);
+                        messageType = (messageType == TYPE_LOUDSPEAKER) ? TYPE_LOUDSPEAKER : TYPE_MESSAGE;
+
+                        dialog.cancel();
+                    }
+                }).setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alt_bld.create();
+        alert.show();
+    }
+
 }

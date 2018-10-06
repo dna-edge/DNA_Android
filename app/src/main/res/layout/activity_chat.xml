@@ -10,13 +10,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:background="@color/colorPrimary">
+            android:background="@drawable/layout_border_bottom">
 
             <ImageButton
                 android:id="@+id/backBtn"
@@ -26,10 +27,29 @@
                 android:background="@drawable/back"
                 android:src="@drawable/back"
                 android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
                 android:onClick="onClick" />
 
+            <EditText
+                android:id="@+id/msgSearchEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_centerVertical="true"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="30dp"
+                android:hint="검색어 입력 ..."
+                android:singleLine="true"
+                android:textSize="15dp"
+                android:textColor="@color/grayDark"
+                android:theme="@style/chatEditTextTheme"
+                android:background="@drawable/layout_border_rounded" />
+
             <ImageButton
-                android:id="@+id/msgFindBtn"
+                android:id="@+id/msgSearchBtn"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:scaleType="fitXY"
@@ -37,14 +57,8 @@
                 android:src="@drawable/find"
                 android:layout_marginRight="65dp"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:onClick="onClick" />
-
-            <View
-                android:layout_width="1.5dp"
-                android:layout_height="22dp"
-                android:background="@color/colorPrimaryLight"
-                android:layout_marginRight="50dp"
-                android:layout_alignParentRight="true" />
 
             <ImageButton
                 android:id="@+id/menuBtn"
@@ -56,6 +70,7 @@
                 android:layout_marginTop="1dp"
                 android:layout_marginRight="15dp"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:onClick="onClick" />
         </RelativeLayout>
 
@@ -81,10 +96,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="5dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="5dp"
+                android:listSelector="@android:color/transparent"
                 android:background="@drawable/layout_border_horizontal"/>
 
             <RelativeLayout
@@ -98,7 +114,7 @@
                     android:layout_width="25dp"
                     android:layout_height="match_parent"
                     android:textSize="22dp"
-                    android:textColor="@color/grayLight"
+                    android:textColor="@color/concrete"
                     android:background="@drawable/transparent"
                     android:text="@string/fa_speaker"
                     android:tag="fas"
@@ -113,6 +129,7 @@
                     android:layout_marginLeft="45dp"
                     android:layout_marginRight="120dp"
                     android:paddingLeft="3dp"
+                    android:singleLine="true"
                     android:textColor="@color/grayDarker"
                     android:textSize="17dp"
                     android:hint="메시지 입력 ..."
@@ -123,7 +140,7 @@
                     android:layout_width="25dp"
                     android:layout_height="match_parent"
                     android:textSize="22dp"
-                    android:textColor="@color/grayLight"
+                    android:textColor="@color/concrete"
                     android:background="@drawable/transparent"
                     android:text="@string/fa_compass"
                     android:tag="far"
@@ -136,7 +153,7 @@
                     android:layout_width="25dp"
                     android:layout_height="match_parent"
                     android:textSize="22dp"
-                    android:textColor="@color/grayLight"
+                    android:textColor="@color/concrete"
                     android:background="@drawable/transparent"
                     android:text="@string/fa_image"
                     android:tag="far"
@@ -150,8 +167,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:textSize="22dp"
-                    android:textColor="@color/gray"
-                    android:background="@color/grayLighter"
+                    android:textColor="@color/asbestos"
+                    android:background="@color/clouds"
                     android:text="@string/fa_send"
                     android:tag="fas"
                     android:paddingLeft="10dp"

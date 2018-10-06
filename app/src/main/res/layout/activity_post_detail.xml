@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:background="@color/colorPrimary">
+            android:background="@drawable/layout_border_bottom">
 
             <ImageButton
                 android:id="@+id/backBtn"
@@ -33,9 +33,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="125dp"
-                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18dp"
                 android:text="포스팅"
                 android:tag="nseb"/>
@@ -61,9 +60,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingTop="15dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
                 android:layout_marginBottom="50dp">
 
                 <ScrollView
@@ -86,105 +82,102 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="vertical"
+                                android:padding="15dp">
 
-                                <android.support.v7.widget.CardView
-                                    android:layout_width="45dp"
-                                    android:layout_height="45dp"
-                                    android:elevation="12dp"
-                                    android:layout_marginRight="7dp"
-                                    app:cardCornerRadius="20dp">
-                                    <ImageView
-                                        android:id="@+id/postAvatar"
-                                        android:layout_height="45dp"
-                                        android:layout_width="match_parent"
-                                        android:src="@drawable/avatar">
-                                    </ImageView>
-                                </android.support.v7.widget.CardView>
-
-                                <RelativeLayout
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-                                    <LinearLayout
-                                        android:layout_marginLeft="5dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <android.support.v7.widget.CardView
+                                        android:layout_width="45dp"
+                                        android:layout_height="45dp"
+                                        android:elevation="12dp"
+                                        android:layout_marginRight="7dp"
+                                        app:cardCornerRadius="20dp">
+                                        <ImageView
+                                            android:id="@+id/postAvatar"
+                                            android:layout_height="45dp"
+                                            android:layout_width="match_parent"
+                                            android:src="@drawable/avatar">
+                                        </ImageView>
+                                    </android.support.v7.widget.CardView>
+
+                                    <RelativeLayout
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="vertical">
-
-                                        <TextView
-                                            android:id="@+id/postNickname"
-                                            android:layout_width="wrap_content"
+                                        android:layout_height="match_parent">
+                                        <LinearLayout
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:textColor="@color/black"
-                                            android:textSize="18dp"
-                                            android:tag="nsb" />
+                                            android:orientation="vertical">
 
-                                        <TextView
-                                            android:id="@+id/postDate"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="3dp"
-                                            android:textColor="@color/grayDarker"
-                                            android:textSize="14dp" />
-                                    </LinearLayout>
+                                            <TextView
+                                                android:id="@+id/postNickname"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textColor="@color/black"
+                                                android:textSize="18dp"
+                                                android:tag="nsb" />
 
-                                    <ImageButton
-                                        android:id="@+id/addFriendBtn"
-                                        android:layout_width="40dp"
-                                        android:layout_height="24dp"
-                                        android:layout_marginRight="5dp"
-                                        android:layout_centerVertical="true"
-                                        android:layout_alignParentRight="true"
-                                        android:padding="0dp"
-                                        android:scaleType="fitXY"
-                                        android:background="@drawable/button_rounded"
-                                        android:src="@drawable/add_friend"
-                                        android:onClick="onClick" />
-                                </RelativeLayout>
+                                            <TextView
+                                                android:id="@+id/postDate"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="3dp"
+                                                android:textColor="@color/grayDarker"
+                                                android:textSize="14dp" />
+                                        </LinearLayout>
+
+                                        <ImageButton
+                                            android:id="@+id/addFriendBtn"
+                                            android:layout_width="45dp"
+                                            android:layout_height="27dp"
+                                            android:layout_marginRight="5dp"
+                                            android:layout_centerVertical="true"
+                                            android:layout_alignParentRight="true"
+                                            android:padding="0dp"
+                                            android:scaleType="fitXY"
+                                            android:background="@drawable/layout_border_rounded"
+                                            android:src="@drawable/add_friend"
+                                            android:onClick="onClick" />
+                                    </RelativeLayout>
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/postTitle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/grayDark"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:background="@color/silver" />
+
+                                <TextView
+                                    android:id="@+id/postContent"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:textSize="17dp"
+                                    android:lineSpacingMultiplier="1.2"
+                                    android:singleLine="false"
+                                    android:gravity="top" />
                             </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="10dp"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/postTitle"
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:gravity="center_vertical"
-                                android:textColor="@color/grayDark"
-                                android:textSize="18dp"
-                                android:textStyle="bold" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="5dp"
-                                android:background="@color/silver" />
-
-                            <TextView
-                                android:id="@+id/postContent"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="10dp"
-                                android:textSize="17dp"
-                                android:lineSpacingMultiplier="1.15"
-                                android:singleLine = "false"
-                                android:gravity="top" />
-
-                            <!--<View-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="1dp"-->
-                                <!--android:layout_marginTop="5dp"-->
-                                <!--android:layout_marginBottom="10dp"-->
-                                <!--android:background="@color/grayLight" />-->
-
-
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -207,20 +200,13 @@
                                     android:src="@drawable/pin"
                                     android:layout_centerHorizontal="true"/>
                             </RelativeLayout>
-
-                            <!--<View-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="1dp"-->
-                                <!--android:layout_marginTop="5dp"-->
-                                <!--android:layout_marginBottom="5dp"-->
-                                <!--android:background="@color/grayLight" />-->
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginBottom="5dp"
+                                android:layout_marginRight="15dp"
                                 android:gravity="right">
 
                                 <TextView
@@ -367,19 +353,19 @@
                                         android:tag="nsb"/>
                                 </LinearLayout>
                             </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@color/silver" />
+
+                            <ListView
+                                android:id="@+id/commentList"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp" />
                         </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginBottom="5dp"
-                            android:background="@color/silver" />
-
-                        <ListView
-                            android:id="@+id/commentList"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp" />
                     </LinearLayout>
                 </ScrollView>
             </LinearLayout>

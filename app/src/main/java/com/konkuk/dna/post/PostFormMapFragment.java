@@ -1,7 +1,7 @@
 package com.konkuk.dna.post;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -158,6 +158,7 @@ public class PostFormMapFragment extends Fragment
     public void onPause() {
         super.onPause();
         mapContext.onPause();
+        mOverlayManager.clearOverlays();
     }
     @Override
     public void onStop() {

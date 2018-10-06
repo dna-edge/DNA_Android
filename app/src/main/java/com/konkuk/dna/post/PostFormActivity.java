@@ -37,7 +37,7 @@ public class PostFormActivity extends BaseActivity {
 
         postTitleEdit = (EditText) findViewById(R.id.postTitleEdit);
         postContentEdit = (EditText) findViewById(R.id.postContentEdit);
-        postFormMapFragment = (PostFormMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
+        postFormMapFragment = (PostFormMapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
     }
 
     public void onClick(View v) {

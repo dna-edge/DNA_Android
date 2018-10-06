@@ -37,6 +37,10 @@ public class SignupFormActivity extends BaseActivity {
 
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.backBtn: // 뒤로가기 버튼
+                finish();
+                break;
+
             case R.id.IDcheckBtn: // 아이디 중복 확인 버튼
                 break;
 

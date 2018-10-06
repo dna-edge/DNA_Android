@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/ivory">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:background="@color/colorPrimary">
+            android:background="@drawable/layout_border_bottom">
 
             <ImageButton
                 android:id="@+id/backBtn"
@@ -33,11 +33,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="125dp"
-                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18dp"
-                android:text=""
+                android:text="마이 페이지"
                 android:tag="nseb"/>
 
             <ImageButton
@@ -62,7 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="15dp"
+                android:background="@color/white">
 
                 <LinearLayout
                     android:id="@+id/myPageProfile"
@@ -135,11 +135,8 @@
                         android:id="@+id/myPageInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:lineSpacingMultiplier="1.15"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingTop="20dp"
-                        android:paddingBottom="20dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:padding="15dp"
                         android:background="@color/clouds"
                         android:text="이 것은 동의를 해야지만 가입할 수 있는 그런 동의이며 동의를 안하면 회원가입을 진행할 수가 없는 그런 동의입니다. gkgkgkgkgkgkgkgkgkkgkgkg" />
 
@@ -257,7 +254,7 @@
                         android:id="@+id/scrapPostList"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="15dp"
                         android:divider="@color/clouds"
                         android:dividerHeight="1dp" />
                 </LinearLayout>
@@ -267,10 +264,11 @@
                 android:id="@+id/profileUpdateBtn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/ripple_effect"
+                android:background="@drawable/ripple_effect_button"
                 android:textColor="@color/gray"
                 android:text="프로필 수정하기"
-                android:onClick="onClick"/>
+                android:onClick="onClick"
+                android:tag="nseb"/>
 
         </LinearLayout>
     </LinearLayout>

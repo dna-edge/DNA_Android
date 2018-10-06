@@ -1,19 +1,26 @@
 package com.konkuk.dna.chat;
 
 
+import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
+import com.konkuk.dna.post.PostFormMapFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,6 +41,12 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
 
     private static Typeface fontAwesomeR;
     private static Typeface fontAwesomeS;
+
+    /* 메시지의 타입을 구분하기 위한 변수들입니다 */
+    private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
+    private final String TYPE_LOUDSPEAKER = "LoudSpeaker"; // 확성기 전송
+    private final String TYPE_LOCATION = "Location";    // 현재 위치 전송
+    private final String TYPE_IMAGE = "Image";       // 이미지 전송
 
     public ChatListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<ChatMessage> objects) {
         super(context, resource, objects);
@@ -106,26 +119,58 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
         }
 
         LinearLayout messageLikeWrapper = (LinearLayout) v.findViewById(R.id.likeWrapper);
-        TextView messageText = (TextView) v.findViewById(R.id.msgText);
-        TextView messageLike = (TextView) v.findViewById(R.id.likeCount);
-        TextView messageTime = (TextView) v.findViewById(R.id.dateText);
+        RelativeLayout msgLocationWrapper = (RelativeLayout) v.findViewById(R.id.msgLocationWrapper);
+        ImageView msgImage = (ImageView) v.findViewById(R.id.msgImage);
+        TextView msgText = (TextView) v.findViewById(R.id.msgText);
+        TextView likeCount = (TextView) v.findViewById(R.id.likeCount);
+        TextView dateText = (TextView) v.findViewById(R.id.dateText);
         TextView likeStar = (TextView) v.findViewById(R.id.likeStar);
 
-        messageText.setText(message.getMessage());
-        messageLike.setText(message.getLike());
-        messageTime.setText(message.getTime());
+        switch(message.getType()) {
+            case TYPE_LOUDSPEAKER:
+            case TYPE_MESSAGE:
+                if (msgText != null) {
+                    msgText.setVisibility(View.VISIBLE);
+                    msgText.setText(message.getMessage());
+                }
+                break;
+            case TYPE_IMAGE:
+                if (msgImage != null) {
+                    msgImage.setVisibility(View.VISIBLE);
+                    Picasso.get().load(message.getMessage()).into(msgImage);
+                }
+                break;
+            case TYPE_LOCATION:
+                if (msgLocationWrapper != null) {
+                    msgLocationWrapper.setVisibility(View.VISIBLE);
+                    msgLocationWrapper.setId(message.getIdx());
+                    FragmentManager manager = ((Activity) context).getFragmentManager();
+                    FragmentTransaction fragTransaction = manager.beginTransaction();
+                    ChatListMapFragment newFragment =
+                            ChatListMapFragment.newInstance(message.getLng(), message.getLat());
+                    Log.d("test", newFragment.toString());
+                    fragTransaction.add(msgLocationWrapper.getId(), (Fragment) newFragment, "mapFragment" + message.getIdx());
+                    fragTransaction.commit();
+                }
 
-        messageTime.setTypeface(NSB);
+                break;
+        }
+
+
+        likeCount.setText(message.getLike());
+        dateText.setText(message.getDate());
+
+        dateText.setTypeface(NSB);
         likeStar.setTypeface(fontAwesomeS);
 
         // TODO 내가 좋아요를 클릭했을 경우와 클릭하지 않았을 경우 다른 뷰를 보여줘야 합니다.
         if (position % 2 == 0) {
-            messageLike.setTextColor(context.getResources().getColor(R.color.yellow));
+            likeCount.setTextColor(context.getResources().getColor(R.color.yellow));
             likeStar.setTextColor(context.getResources().getColor(R.color.yellow));
             messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_like_clicked));
 
         } else {
-            messageLike.setTextColor(context.getResources().getColor(R.color.grayDark));
+            likeCount.setTextColor(context.getResources().getColor(R.color.grayDark));
             likeStar.setTextColor(context.getResources().getColor(R.color.grayLighter));
             messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_like_default));
         }

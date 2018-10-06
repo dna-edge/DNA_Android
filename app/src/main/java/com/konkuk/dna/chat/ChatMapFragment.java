@@ -1,7 +1,7 @@
 package com.konkuk.dna.chat;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +46,7 @@ public class ChatMapFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false);
+        return inflater.inflate(R.layout.fragment_chat_map, container, false);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ChatMapFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mapView = (NMapView)getView().findViewById(R.id.mapView);
+        mapView = (NMapView)getView().findViewById(R.id.chatMapView);
         mapView.setClientId(CLIENT_ID);
         mapContext.setupMapView(mapView);
     }
@@ -139,6 +139,7 @@ public class ChatMapFragment extends Fragment
     public void onPause() {
         super.onPause();
         mapContext.onPause();
+        mOverlayManager.clearOverlays();
     }
     @Override
     public void onStop() {

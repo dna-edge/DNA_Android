@@ -9,7 +9,8 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     android:paddingTop="7dp"
-    android:paddingBottom="7dp">
+    android:paddingBottom="7dp"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"

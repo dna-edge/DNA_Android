@@ -2,18 +2,29 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config />
+      <config>
+        <devices>
+          <device id="Nexus 4" />
+          <device id="Nexus One" />
+          <device id="pixel" />
+          <device id="Nexus 6" />
+          <device id="Nexus S" />
+        </devices>
+      </config>
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="test" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46a1d0a8-2e71-462c-8d0f-841e47b837cf" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/UserFormActivity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/layout_border_bottom.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_form.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListMapFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/DMMessage.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_chat_left.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_chat_right.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_chat_map.xml" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
@@ -22,37 +33,41 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/SignupFormActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/SignupFormActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatUserAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatUserAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMapFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMapFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMessage.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMessage.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/DMActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/DMActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/CommentAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/CommentAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/FriendActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/FriendActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/FriendFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/FriendFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/NotifyFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/NotifyFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/RoomFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/RoomFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/SettingFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/SettingFragment.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/MyPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/MyPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/PostListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/PostListAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/back.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/back.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/menu.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/menu.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormMapFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormMapFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostMapFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostMapFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/button_rounded.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/layout_border_rounded.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/find.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/find.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_button.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_friend.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_friend.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_friend_dm.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_friend_dm.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_post_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_post_detail.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_post_form.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_post_form.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_signup2.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_signup2.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_form.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_form.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_my_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_my_page.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/chat_item_ccu.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/chat_item_ccu.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/chat_item_left.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/chat_item_left.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/chat_item_right.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/chat_item_right.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/chat_item_with_avatar.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/chat_item_with_avatar.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_drawer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_drawer.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/post_comment_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/post_comment_item.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/post_list_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/post_list_item.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
@@ -87,64 +102,245 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ChatListAdapter.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ChatListAdapter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="70" column="9" lean-forward="false" selection-start-line="47" selection-start-column="8" selection-end-line="70" selection-end-column="9" />
+            <state relative-caret-position="406">
+              <caret line="150" column="58" lean-forward="true" selection-start-line="149" selection-start-column="96" selection-end-line="150" selection-end-column="58" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommentAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/CommentAdapter.java">
+      <file leaf-file-name="ChatActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="24" column="4" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="33" selection-end-column="41" />
+            <state relative-caret-position="0">
+              <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+              <folding>
+                <element signature="e#1962#1963#0" expanded="true" />
+                <element signature="e#2006#2007#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChatListMapFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListMapFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="93" column="39" lean-forward="false" selection-start-line="93" selection-start-column="39" selection-end-line="93" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3856#3857#0" expanded="true" />
+                <element signature="e#3893#3894#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Helpers.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="124" column="47" lean-forward="false" selection-start-line="124" selection-start-column="47" selection-end-line="125" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_user_form.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_form.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="108" column="33" lean-forward="false" selection-start-line="108" selection-start-column="25" selection-end-line="108" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
+      <file leaf-file-name="activity_chat.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
           <provider editor-type-id="android-designer2">
             <state />
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PostFormActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="23" column="52" lean-forward="false" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="52" />
+            <state relative-caret-position="202">
+              <caret line="82" column="49" lean-forward="false" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PostListAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/PostListAdapter.java">
+      <file leaf-file-name="ChatMapFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMapFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1215">
-              <caret line="68" column="51" lean-forward="false" selection-start-line="68" selection-start-column="51" selection-end-line="68" selection-end-column="51" />
+            <state relative-caret-position="97">
+              <caret line="80" column="29" lean-forward="false" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fragment_map.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_map.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="8" column="15" lean-forward="false" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java">
+      <file leaf-file-name="NMapView.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/naver-map-api-2.1.2.aar/ecaac2cc0885438f2005f3148aaec018/jars/classes.jar!/com/nhn/android/maps/NMapView.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="482">
-              <caret line="87" column="52" lean-forward="false" selection-start-line="87" selection-start-column="52" selection-end-line="87" selection-end-column="52" />
+            <state relative-caret-position="108">
+              <caret line="28" column="22" lean-forward="false" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+              <folding>
+                <marker date="1538561234035" expanded="false" signature="0:104" ph="/.../" />
+                <marker date="1538561234035" expanded="false" signature="144:903" ph="..." />
+                <marker date="1538561234035" expanded="false" signature="2204:2215" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="2230:2236" ph=" }" />
+                <marker date="1538561234035" expanded="true" signature="2322:2353" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="2445:2476" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="2568:2599" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="2669:3770" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="3806:3876" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="3931:3993" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="4058:4126" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="4180:4354" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="4389:4991" ph="{...}" />
+                <marker date="1538561234035" expanded="false" signature="5029:5040" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5054:5060" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="5100:5111" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5125:5131" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="5172:5183" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5197:5203" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="5242:5253" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5267:5273" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="5306:5317" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5331:5337" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="5391:5402" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5417:5423" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="5463:5474" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5497:5503" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="5537:5548" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5574:5580" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="5622:5633" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5647:5653" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="5689:5700" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5714:5720" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="5761:5772" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5786:5792" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="5827:5838" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="5852:5858" ph=" }" />
+                <marker date="1538561234035" expanded="true" signature="5904:6114" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="6139:6291" ph="{...}" />
+                <marker date="1538561234035" expanded="false" signature="6337:6348" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="6363:6369" ph=" }" />
+                <marker date="1538561234035" expanded="true" signature="6419:6776" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="6840:7105" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="7177:7226" ph="{...}" />
+                <marker date="1538561234035" expanded="false" signature="7259:7270" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="7288:7294" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="7350:7361" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="7382:7388" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="7412:7423" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="7434:7440" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="7486:7497" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="7511:7517" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="7563:7574" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="7588:7594" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="7644:7655" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="7673:7679" ph=" }" />
+                <marker date="1538561234035" expanded="true" signature="7762:8065" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="8117:8343" ph="{...}" />
+                <marker date="1538561234035" expanded="false" signature="8395:8406" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="8420:8426" ph=" }" />
+                <marker date="1538561234035" expanded="true" signature="8451:8621" ph="{...}" />
+                <marker date="1538561234035" expanded="false" signature="8656:8667" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="8678:8684" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="8708:8719" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="8730:8736" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="8760:8771" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="8782:8788" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="8844:8855" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="8869:8875" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="8922:8933" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="8947:8953" ph=" }" />
+                <marker date="1538561234035" expanded="true" signature="9020:9253" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="9278:9458" ph="{...}" />
+                <marker date="1538561234035" expanded="false" signature="9500:9511" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="9525:9531" ph=" }" />
+                <marker date="1538561234035" expanded="true" signature="9576:9713" ph="{...}" />
+                <marker date="1538561234035" expanded="false" signature="9747:9758" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="9792:9798" ph=" }" />
+                <marker date="1538561234035" expanded="true" signature="9840:9908" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="9947:10015" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="10064:10132" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="10197:10271" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="10334:10408" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="10455:10523" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="10562:10630" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="10664:10743" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="10789:10872" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="10913:11533" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="11569:13291" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="13325:13749" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="13797:14291" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="14366:14574" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="14631:14735" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="14788:14911" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="14979:15108" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="15160:17293" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="17349:17534" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="17588:17771" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="17827:18215" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="18304:18378" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="18462:18523" ph="{...}" />
+                <marker date="1538561234035" expanded="false" signature="18564:18575" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="18616:18622" ph=" }" />
+                <marker date="1538561234035" expanded="true" signature="18704:18759" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="18810:18865" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="18949:19022" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="19063:19652" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="19675:22982" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="23057:27029" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="27042:27106" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="27189:29137" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="28014:28073" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="28169:28358" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="28438:28596" ph="{...}" />
+                <marker date="1538561234035" expanded="false" signature="28645:28660" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="28687:28697" ph=" }" />
+                <marker date="1538561234035" expanded="false" signature="28756:28771" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="28800:28810" ph=" }" />
+                <marker date="1538561234035" expanded="true" signature="28882:29026" ph="{...}" />
+                <marker date="1538561234035" expanded="false" signature="29088:29103" ph=" { " />
+                <marker date="1538561234035" expanded="false" signature="29121:29131" ph=" }" />
+                <marker date="1538561234035" expanded="true" signature="29178:29223" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="29274:29645" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="29699:29910" ph="{...}" />
+                <marker date="1538561234035" expanded="true" signature="29958:30274" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChatUserAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatUserAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-864">
+              <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chat_item_with_avatar.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_item_with_avatar.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="67" column="48" lean-forward="false" selection-start-line="67" selection-start-column="48" selection-end-line="67" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -156,31 +352,17 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="valueResourceFile" />
+        <option value="resourceFile" />
         <option value="layoutResourceFile" />
         <option value="Class" />
-        <option value="resourceFile" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>callout</find>
-      <find>NMapPOIdataOverlay</find>
-      <find>pressed</find>
-      <find>OnStateChangeListener</find>
-      <find>postFormMapFragment</find>
-      <find>50</find>
-      <find>frag</find>
-      <find>fragment</find>
-      <find>commentEdit</find>
-      <find>댓글 입</find>
-      <find>현재 채팅</find>
-      <find>좋아요</find>
-      <find>@+id</find>
       <find>listView</find>
       <find>@+</find>
       <find>myPostListIsOpen</find>
-      <find>ListView</find>
       <find>listv</find>
       <find>log</find>
       <find>set</find>
@@ -194,6 +376,20 @@
       <find>email</find>
       <find>IDEdit</find>
       <find>tag</find>
+      <find>스크랩한</find>
+      <find>이 것은</find>
+      <find>addF</find>
+      <find>ListView</find>
+      <find>mapFrem</find>
+      <find>list</find>
+      <find>300</find>
+      <find>d</find>
+      <find>this.d</find>
+      <find>q</find>
+      <find>toString</find>
+      <find>mapContext</find>
+      <find>fragment</find>
+      <find>mapController</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2215,57 +2411,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/anim/fade_in.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/anim/fade_out.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/button_rounded.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/layout_border_horizontal.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/layout_border_all.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/NMapPOIflagType.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/callout_overlay_view.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/NMapCalloutCustomOverlayView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/NMapCalloutOverlayView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/NMapViewerResourceProvider.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/NMapCalloutCustomOldOverlay.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/Post.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/Comment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormMapFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostMapFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_ccu.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_signup1.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/DMActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/MyPageActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/layout_border_bottom.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/SignupFormActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_friend.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_friend_dm.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_post_detail.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_post_form.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/UserFormActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_signup2.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_my_page.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_left.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_right.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_with_avatar.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_drawer.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/post_comment_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/post_list_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatUserAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/CommentAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/PostListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_form.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_signup2.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/SignupFormActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/post_list_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_my_page.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_form.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_post_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/layout_border_rounded.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_friend_dm.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_button.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_chat_left.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_chat_right.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_post_form.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMessage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/DMMessage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/DMActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/FriendFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/NotifyFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/RoomFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/SettingFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostMapFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/FriendActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_left.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_right.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/chat_item_with_avatar.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_chat_map.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMapFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormMapFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/NMapCustomContext.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/NMapContext.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListMapFragment.java" />
       </list>
     </option>
   </component>
@@ -2289,6 +2485,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2306,13 +2503,6 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="dna" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="dna" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="auth" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
@@ -2341,6 +2531,14 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="dna" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="friend" type="462c0819:PsiDirectoryNode" />
+              <item name="FriendActivity.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="dna" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="map" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -2360,20 +2558,7 @@
             <path>
               <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="dna" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="SplashActivity.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </path>
-            <path>
-              <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
@@ -2383,22 +2568,15 @@
             </path>
             <path>
               <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="AndroidClient" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2601,20 +2779,29 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="1980" y="0" width="1861" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.49806738" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5019326" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32302594" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.49364993" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30893433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2624,10 +2811,10 @@
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32965213" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2637,6 +2824,39 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5019326" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30893433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.49806738" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32302594" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.49364993" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19823302" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32965213" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -2655,886 +2875,20 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/Comment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4">
-          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-          <folding>
-            <element signature="e#60#87#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/Post.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="6" selection-end-column="42" />
-          <folding>
-            <element signature="e#88#115#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_signup1.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="106" column="27" lean-forward="true" selection-start-line="94" selection-start-column="12" selection-end-line="106" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostMapFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="88" column="11" lean-forward="true" selection-start-line="71" selection-start-column="8" selection-end-line="88" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../mobileProgramming/Android/Sdk/platforms/android-26/android.jar!/android/widget/TextView.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="1244" column="0" lean-forward="false" selection-start-line="1244" selection-start-column="0" selection-end-line="1244" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-108">
-          <caret line="103" column="34" lean-forward="true" selection-start-line="103" selection-start-column="34" selection-end-line="103" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/DMActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="107" column="22" lean-forward="false" selection-start-line="107" selection-start-column="22" selection-end-line="107" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="165" column="22" lean-forward="false" selection-start-line="165" selection-start-column="22" selection-end-line="165" selection-end-column="22" />
-          <folding>
-            <marker date="1538778405460" expanded="true" signature="1712:2040" ph="//..." />
-            <marker date="1538778405460" expanded="true" signature="3035:3294" ph="//..." />
-            <marker date="1538778405460" expanded="true" signature="4944:6123" ph="//..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../mobileProgramming/Android/Sdk/platforms/android-26/android.jar!/android/app/Activity.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="1104" column="0" lean-forward="false" selection-start-line="1104" selection-start-column="0" selection-end-line="1104" selection-end-column="0" />
-          <folding>
-            <marker date="1538554975654" expanded="false" signature="0:104" ph="/.../" />
-            <marker date="1538554975654" expanded="false" signature="135:1966" ph="..." />
-            <marker date="1538554975654" expanded="false" signature="2638:2649" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="2685:2691" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="2722:2733" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="2769:2775" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="2820:2831" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="2867:2873" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="2920:2931" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="2967:2973" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="3009:3020" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="3056:3062" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="3101:3112" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="3148:3154" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="3199:3210" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="3246:3252" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="3283:3294" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="3330:3336" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="3381:3392" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="3428:3434" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="3469:3480" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="3516:3522" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="3578:3589" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="3625:3631" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="3720:3772" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="3843:3895" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="3998:4050" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="4110:4121" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="4157:4163" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="4256:4308" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="4338:4349" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="4385:4391" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="4423:4434" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="4470:4476" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="4511:4522" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="4558:4564" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="4595:4606" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="4642:4648" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="4683:4694" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="4730:4736" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="4777:4788" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="4824:4830" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="4875:4886" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="4922:4928" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="4977:4988" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="5024:5030" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="5085:5096" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="5132:5138" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="5206:5258" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="5308:5319" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="5355:5361" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="5411:5422" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="5458:5464" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="5509:5520" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="5556:5562" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="5609:5620" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="5656:5662" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="5719:5730" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="5766:5772" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="5865:5917" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="5947:5958" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="5994:6000" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="6038:6049" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="6085:6091" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="6163:6215" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="6262:6273" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="6309:6315" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="6365:6376" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="6412:6418" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="6485:6537" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="6591:6602" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="6638:6644" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="6700:6711" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="6747:6753" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="6857:6909" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="6953:6964" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="7000:7006" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="7035:7046" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="7082:7088" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="7120:7131" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="7167:7173" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="7209:7220" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="7256:7262" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="7359:7411" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="7417:7435" ph="/**...*/" />
-            <marker date="1538554975654" expanded="true" signature="7522:7574" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="7616:7627" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="7663:7669" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="7776:7828" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="7834:7852" ph="/**...*/" />
-            <marker date="1538554975654" expanded="true" signature="7949:8001" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="8048:8059" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="8095:8101" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="8107:8125" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="8185:8196" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="8232:8238" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="8316:8368" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="8443:8495" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="8546:8557" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="8593:8599" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="8665:8717" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="8761:8772" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="8808:8814" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="8867:8878" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="8914:8920" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="8974:8985" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="9021:9027" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="9058:9069" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="9105:9111" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="9152:9163" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="9199:9205" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="9254:9265" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="9301:9307" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="9360:9371" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="9407:9413" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="9419:9437" ph="/**...*/" />
-            <marker date="1538554975654" expanded="true" signature="9581:9633" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="9639:9657" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="9719:9730" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="9766:9772" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="9778:9796" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="9857:9868" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="9904:9910" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="9962:9973" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="10009:10015" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="10052:10063" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="10099:10105" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="10152:10163" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="10199:10205" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="10254:10265" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="10301:10307" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="10350:10361" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="10397:10403" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="10468:10520" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="10585:10637" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="10697:10708" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="10744:10750" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="10818:10870" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="10906:10917" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="10953:10959" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="11016:11027" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="11063:11069" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="11120:11131" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="11167:11173" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="11232:11243" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="11279:11285" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="11350:11402" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="11459:11470" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="11506:11512" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="11593:11645" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="11678:11689" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="11725:11731" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="11795:11847" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="11899:11910" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="11946:11952" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="12008:12019" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="12055:12061" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="12121:12132" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="12168:12174" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="12211:12222" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="12258:12264" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="12356:12408" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="12444:12455" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="12491:12497" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="12553:12564" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="12600:12606" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="12644:12655" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="12691:12697" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="12737:12748" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="12784:12790" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="12827:12838" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="12874:12880" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="12933:12944" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="12980:12986" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="13047:13058" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="13094:13100" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="13155:13166" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="13202:13208" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="13267:13278" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="13314:13320" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="13384:13436" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="13518:13570" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="13620:13631" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="13667:13673" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="13738:13790" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="13863:13915" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="13974:13985" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="14021:14027" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="14097:14149" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="14206:14217" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="14253:14259" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="14300:14311" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="14347:14353" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="14404:14415" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="14451:14457" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="14509:14520" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="14556:14562" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="14619:14630" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="14666:14672" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="14707:14718" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="14754:14760" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="14818:14829" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="14865:14871" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="14943:14995" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="15068:15120" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="15168:15179" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="15215:15221" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="15256:15267" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="15303:15309" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="15345:15356" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="15392:15398" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="15488:15540" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="15591:15602" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="15638:15644" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="15697:15708" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="15744:15750" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="15794:15805" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="15841:15847" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="15883:15894" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="15930:15936" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="15993:16004" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="16040:16046" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="16094:16105" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="16141:16147" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="16153:16171" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="16231:16242" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="16278:16284" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="16290:16308" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="16381:16392" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="16428:16434" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="16440:16458" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="16532:16543" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="16579:16585" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="16591:16609" ph="/**...*/" />
-            <marker date="1538554975654" expanded="true" signature="16697:16749" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="16755:16773" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="16830:16841" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="16877:16883" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="16889:16907" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="16980:16991" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="17027:17033" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="17039:17057" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="17117:17128" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="17164:17170" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="17176:17194" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="17253:17264" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="17300:17306" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="17370:17422" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="17462:17473" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="17509:17515" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="17562:17573" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="17609:17615" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="17738:17790" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="17858:17910" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="17954:17965" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="18001:18007" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="18070:18122" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="18199:18251" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="18321:18373" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="18450:18502" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="18576:18628" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="18675:18686" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="18722:18728" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="18771:18782" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="18818:18824" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="18861:18872" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="18908:18914" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="18995:19047" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="19129:19181" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="19285:19337" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="19414:19466" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="19539:19591" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="19680:19732" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="19782:19793" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="19829:19835" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="20014:20066" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="20261:20313" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="20359:20370" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="20406:20412" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="20475:20527" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="20578:20589" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="20625:20631" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="20699:20751" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="20904:20956" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="21125:21177" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="21252:21304" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="21395:21447" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="21508:21519" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="21555:21561" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="21639:21691" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="21780:21832" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="21937:21989" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="22084:22136" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="22247:22299" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="22494:22546" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="22757:22809" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="22882:22934" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="22983:22994" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="23030:23036" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="23099:23151" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="23181:23192" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="23228:23234" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="23270:23281" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="23317:23323" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="23362:23373" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="23409:23415" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="23462:23473" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="23509:23515" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="23560:23571" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="23607:23613" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="23647:23658" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="23694:23700" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="23734:23745" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="23781:23787" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="23834:23845" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="23881:23887" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="23915:23926" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="23962:23968" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="23994:24005" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="24041:24047" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="24081:24092" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="24128:24134" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="24183:24194" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="24230:24236" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="24277:24288" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="24324:24330" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="24379:24390" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="24426:24432" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="24507:24559" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="24598:24609" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="24645:24651" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="24689:24700" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="24736:24742" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="24826:24878" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="24943:24995" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="25083:25135" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="25203:25255" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="25297:25308" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="25344:25350" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="25378:25389" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="25425:25431" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="25464:25475" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="25511:25517" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="25569:25580" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="25616:25622" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="25661:25672" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="25708:25714" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="25759:25770" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="25806:25812" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="25867:25878" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="25914:25920" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="25969:25980" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="26016:26022" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="26068:26079" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="26115:26121" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="26160:26171" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="26207:26213" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="26219:26237" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="26298:26309" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="26345:26351" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="26393:26404" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="26440:26446" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="26484:26495" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="26531:26537" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="26604:26656" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="26741:26793" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="26863:26915" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="26921:26939" ph="/**...*/" />
-            <marker date="1538554975654" expanded="true" signature="27020:27072" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="27078:27096" ph="/**...*/" />
-            <marker date="1538554975654" expanded="true" signature="27190:27242" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="27248:27266" ph="/**...*/" />
-            <marker date="1538554975654" expanded="true" signature="27356:27408" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="27414:27432" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="27496:27507" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="27543:27549" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="27555:27573" ph="/**...*/" />
-            <marker date="1538554975654" expanded="true" signature="27656:27708" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="27771:27823" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="27870:27881" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="27917:27923" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="27994:28046" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="28101:28112" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="28148:28154" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="28208:28219" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="28255:28261" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="28342:28394" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="28488:28540" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="28632:28684" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="28718:28729" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="28765:28771" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="28777:28795" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="28868:28879" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="28915:28921" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="28927:28945" ph="/**...*/" />
-            <marker date="1538554975654" expanded="false" signature="29003:29014" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="29050:29056" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="29100:29111" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="29147:29153" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="29194:29205" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="29241:29247" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="29362:29414" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="29497:29549" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="29642:29694" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="29788:29840" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="29944:29996" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="30050:30061" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="30097:30103" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="30158:30169" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="30205:30211" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="30274:30326" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="30376:30387" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="30423:30429" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="30505:30557" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="30602:30613" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="30649:30655" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="30735:30787" ph="{...}" />
-            <marker date="1538554975654" expanded="true" signature="30866:30918" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="30961:30972" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="31008:31014" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="31063:31074" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="31110:31116" ph=" }" />
-            <marker date="1538554975654" expanded="true" signature="31199:31251" ph="{...}" />
-            <marker date="1538554975654" expanded="false" signature="31284:31295" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="31331:31337" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="31369:31380" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="31416:31422" ph=" }" />
-            <marker date="1538554975654" expanded="false" signature="31467:31478" ph=" { " />
-            <marker date="1538554975654" expanded="false" signature="31514:31520" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/layout_border_horizontal.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../mobileProgramming/Android/Sdk/platforms/android-26/android.jar!/android/widget/ScrollView.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/layout_border_bottom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="5" column="54" lean-forward="false" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="41" column="27" lean-forward="false" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="28" column="64" lean-forward="false" selection-start-line="28" selection-start-column="64" selection-end-line="28" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="24" column="53" lean-forward="false" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/MyPageActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="52" column="67" lean-forward="false" selection-start-line="52" selection-start-column="54" selection-end-line="52" selection-end-column="67" />
-          <folding />
+        <state relative-caret-position="900">
+          <caret line="155" column="0" lean-forward="false" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/SignupFormActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="24" column="15" lean-forward="false" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="155" column="31" lean-forward="false" selection-start-line="155" selection-start-column="28" selection-end-line="155" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_friend.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="88" column="23" lean-forward="false" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_friend_dm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="823">
-          <caret line="151" column="31" lean-forward="false" selection-start-line="151" selection-start-column="28" selection-end-line="151" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="39" column="27" lean-forward="false" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_post_detail.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="247" column="41" lean-forward="false" selection-start-line="247" selection-start-column="41" selection-end-line="247" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_post_form.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="38" column="27" lean-forward="false" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/UserFormActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="34" column="54" lean-forward="false" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_miss_pw.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-32">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_signup2.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="217" column="60" lean-forward="false" selection-start-line="217" selection-start-column="60" selection-end-line="217" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_my_page.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="40" column="33" lean-forward="false" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_drawer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_item_ccu.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1053">
-          <caret line="45" column="38" lean-forward="false" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_item_left.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-756">
-          <caret line="17" column="47" lean-forward="true" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_item_right.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="62" column="45" lean-forward="false" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_item_with_avatar.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="48" column="51" lean-forward="true" selection-start-line="48" selection-start-column="51" selection-end-line="48" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_friend.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_map.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_notify.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_room.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_setting.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_drawer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="330" column="27" lean-forward="false" selection-start-line="330" selection-start-column="24" selection-end-line="330" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/post_comment_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="60" column="49" lean-forward="false" selection-start-line="60" selection-start-column="49" selection-end-line="60" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/post_list_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="96" column="39" lean-forward="false" selection-start-line="96" selection-start-column="39" selection-end-line="96" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/splash_activity.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatUserAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="24" column="4" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="70" column="9" lean-forward="false" selection-start-line="47" selection-start-column="8" selection-end-line="70" selection-end-column="9" />
-          <folding />
+        <state relative-caret-position="76">
+          <caret line="4" column="34" lean-forward="true" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -3542,41 +2896,574 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="24" column="4" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="33" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/PostListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="68" column="51" lean-forward="false" selection-start-line="68" selection-start-column="51" selection-end-line="68" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_form.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="108" column="33" lean-forward="false" selection-start-line="108" selection-start-column="25" selection-end-line="108" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="23" column="52" lean-forward="false" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="52" />
-          <folding />
+        <state relative-caret-position="378">
+          <caret line="110" column="53" lean-forward="true" selection-start-line="110" selection-start-column="53" selection-end-line="110" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_my_page.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="156" column="44" lean-forward="true" selection-start-line="147" selection-start-column="20" selection-end-line="156" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="87" column="52" lean-forward="false" selection-start-line="87" selection-start-column="52" selection-end-line="87" selection-end-column="52" />
+        <state relative-caret-position="205">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="27" column="34" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="56" column="69" lean-forward="false" selection-start-line="56" selection-start-column="69" selection-end-line="56" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/layout_border_rounded.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="31" lean-forward="false" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="38" column="40" lean-forward="false" selection-start-line="31" selection-start-column="16" selection-end-line="38" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_miss_pw.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_friend_dm.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="95" column="65" lean-forward="false" selection-start-line="95" selection-start-column="65" selection-end-line="95" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_button.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_button.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_chat_left.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="32" lean-forward="false" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_chat_right.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="38" lean-forward="false" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1172">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_post_detail.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="192" column="65" lean-forward="true" selection-start-line="187" selection-start-column="32" selection-end-line="192" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_item_ccu.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="44" column="12" lean-forward="false" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_post_form.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="115" column="48" lean-forward="false" selection-start-line="115" selection-start-column="37" selection-end-line="115" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="7" column="45" lean-forward="true" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="38" lean-forward="false" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/DMMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="24" column="45" lean-forward="false" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/DMActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="68" column="26" lean-forward="true" selection-start-line="60" selection-start-column="22" selection-end-line="68" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="48" column="23" lean-forward="false" selection-start-line="48" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/FriendFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/NotifyFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/RoomFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/SettingFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/NMapCalloutCustomOldOverlay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="38" column="13" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostMapFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="28" lean-forward="false" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="39" column="72" lean-forward="false" selection-start-line="39" selection-start-column="72" selection-end-line="39" selection-end-column="72" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/FriendActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="113" column="66" lean-forward="false" selection-start-line="113" selection-start-column="66" selection-end-line="113" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_item_left.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="45" column="51" lean-forward="false" selection-start-line="45" selection-start-column="51" selection-end-line="45" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_item_right.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="91" column="51" lean-forward="false" selection-start-line="91" selection-start-column="51" selection-end-line="91" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_chat_map.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="7" column="36" lean-forward="false" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatUserAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-864">
+          <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/chat_item_with_avatar.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="67" column="48" lean-forward="false" selection-start-line="67" selection-start-column="48" selection-end-line="67" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormMapFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-625">
+          <caret line="12" column="40" lean-forward="true" selection-start-line="11" selection-start-column="53" selection-end-line="12" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/NMapCustomContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1944">
+          <caret line="100" column="17" lean-forward="true" selection-start-line="100" selection-start-column="17" selection-end-line="100" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/NMapContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="783">
+          <caret line="51" column="58" lean-forward="false" selection-start-line="51" selection-start-column="58" selection-end-line="51" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../../mobileProgramming/Android/Sdk/platforms/android-26/android.jar!/android/app/Fragment.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="273" column="16" lean-forward="false" selection-start-line="273" selection-start-column="16" selection-end-line="273" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/naver-map-api-2.1.2.aar/ecaac2cc0885438f2005f3148aaec018/jars/classes.jar!/com/nhn/android/maps/NMapContext.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="94" column="16" lean-forward="false" selection-start-line="94" selection-start-column="16" selection-end-line="94" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/naver-map-api-2.1.2.aar/ecaac2cc0885438f2005f3148aaec018/jars/classes.jar!/com/nhn/android/maps/NMapView.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="28" column="22" lean-forward="false" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+          <folding>
+            <marker date="1538561234035" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1538561234035" expanded="false" signature="144:903" ph="..." />
+            <marker date="1538561234035" expanded="false" signature="2204:2215" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="2230:2236" ph=" }" />
+            <marker date="1538561234035" expanded="true" signature="2322:2353" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="2445:2476" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="2568:2599" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="2669:3770" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="3806:3876" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="3931:3993" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="4058:4126" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="4180:4354" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="4389:4991" ph="{...}" />
+            <marker date="1538561234035" expanded="false" signature="5029:5040" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5054:5060" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="5100:5111" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5125:5131" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="5172:5183" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5197:5203" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="5242:5253" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5267:5273" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="5306:5317" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5331:5337" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="5391:5402" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5417:5423" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="5463:5474" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5497:5503" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="5537:5548" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5574:5580" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="5622:5633" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5647:5653" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="5689:5700" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5714:5720" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="5761:5772" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5786:5792" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="5827:5838" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="5852:5858" ph=" }" />
+            <marker date="1538561234035" expanded="true" signature="5904:6114" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="6139:6291" ph="{...}" />
+            <marker date="1538561234035" expanded="false" signature="6337:6348" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="6363:6369" ph=" }" />
+            <marker date="1538561234035" expanded="true" signature="6419:6776" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="6840:7105" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="7177:7226" ph="{...}" />
+            <marker date="1538561234035" expanded="false" signature="7259:7270" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="7288:7294" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="7350:7361" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="7382:7388" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="7412:7423" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="7434:7440" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="7486:7497" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="7511:7517" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="7563:7574" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="7588:7594" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="7644:7655" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="7673:7679" ph=" }" />
+            <marker date="1538561234035" expanded="true" signature="7762:8065" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="8117:8343" ph="{...}" />
+            <marker date="1538561234035" expanded="false" signature="8395:8406" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="8420:8426" ph=" }" />
+            <marker date="1538561234035" expanded="true" signature="8451:8621" ph="{...}" />
+            <marker date="1538561234035" expanded="false" signature="8656:8667" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="8678:8684" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="8708:8719" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="8730:8736" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="8760:8771" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="8782:8788" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="8844:8855" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="8869:8875" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="8922:8933" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="8947:8953" ph=" }" />
+            <marker date="1538561234035" expanded="true" signature="9020:9253" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="9278:9458" ph="{...}" />
+            <marker date="1538561234035" expanded="false" signature="9500:9511" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="9525:9531" ph=" }" />
+            <marker date="1538561234035" expanded="true" signature="9576:9713" ph="{...}" />
+            <marker date="1538561234035" expanded="false" signature="9747:9758" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="9792:9798" ph=" }" />
+            <marker date="1538561234035" expanded="true" signature="9840:9908" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="9947:10015" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="10064:10132" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="10197:10271" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="10334:10408" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="10455:10523" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="10562:10630" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="10664:10743" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="10789:10872" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="10913:11533" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="11569:13291" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="13325:13749" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="13797:14291" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="14366:14574" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="14631:14735" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="14788:14911" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="14979:15108" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="15160:17293" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="17349:17534" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="17588:17771" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="17827:18215" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="18304:18378" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="18462:18523" ph="{...}" />
+            <marker date="1538561234035" expanded="false" signature="18564:18575" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="18616:18622" ph=" }" />
+            <marker date="1538561234035" expanded="true" signature="18704:18759" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="18810:18865" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="18949:19022" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="19063:19652" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="19675:22982" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="23057:27029" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="27042:27106" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="27189:29137" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="28014:28073" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="28169:28358" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="28438:28596" ph="{...}" />
+            <marker date="1538561234035" expanded="false" signature="28645:28660" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="28687:28697" ph=" }" />
+            <marker date="1538561234035" expanded="false" signature="28756:28771" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="28800:28810" ph=" }" />
+            <marker date="1538561234035" expanded="true" signature="28882:29026" ph="{...}" />
+            <marker date="1538561234035" expanded="false" signature="29088:29103" ph=" { " />
+            <marker date="1538561234035" expanded="false" signature="29121:29131" ph=" }" />
+            <marker date="1538561234035" expanded="true" signature="29178:29223" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="29274:29645" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="29699:29910" ph="{...}" />
+            <marker date="1538561234035" expanded="true" signature="29958:30274" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_map.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="8" column="15" lean-forward="false" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMapFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="80" column="29" lean-forward="false" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="82" column="49" lean-forward="false" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="124" column="47" lean-forward="false" selection-start-line="124" selection-start-column="47" selection-end-line="125" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListMapFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="93" column="39" lean-forward="false" selection-start-line="93" selection-start-column="39" selection-end-line="93" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3856#3857#0" expanded="true" />
+            <element signature="e#3893#3894#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+          <folding>
+            <element signature="e#1962#1963#0" expanded="true" />
+            <element signature="e#2006#2007#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="150" column="58" lean-forward="true" selection-start-line="149" selection-start-column="96" selection-end-line="150" selection-end-column="58" />
           <folding />
         </state>
       </provider>

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:background="@color/colorPrimary">
+            android:background="@drawable/layout_border_bottom">
 
             <ImageButton
                 android:id="@+id/backBtn"
@@ -31,9 +31,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="125dp"
-                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18dp"
                 android:text="포스팅"
                 android:tag="nseb"/>
@@ -84,25 +83,40 @@
                 android:hint="내용을 입력해주세요"
                 android:lineSpacingMultiplier="1.15"
                 android:gravity="top" />
+        </LinearLayout>
 
-            <View
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grayLight" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/grayLight" />
+                android:layout_marginLeft="15dp"
+                android:textSize="13dp"
+                android:textColor="@color/grayText"
+                android:text="포스팅 위치 지정"
+                android:tag="nseb"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".4">
+                android:layout_height="150dp">
 
                 <fragment
                     android:id="@+id/mapFragment"
                     android:name="com.konkuk.dna.post.PostFormMapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp" />
+                    android:layout_height="match_parent" />
 
                 <ImageView
                     android:layout_width="30dp"
@@ -117,10 +131,11 @@
             android:id="@+id/saveBtn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/ripple_effect"
+            android:background="@drawable/ripple_effect_button"
             android:textColor="@color/gray"
             android:text="저장하기"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:tag="nseb" />
     </LinearLayout>
 
     <include

@@ -3,6 +3,7 @@ package com.konkuk.dna;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,6 +18,13 @@ import com.konkuk.dna.friend.FriendActivity;
 import com.konkuk.dna.user.MyPageActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import static android.view.View.GONE;
@@ -103,5 +111,78 @@ public class Helpers {
                 .getDisplayMetrics()
                 .density;
         return Math.round((float) dp * density);
+    }
+
+
+
+    public static Object clone(Object copyObject) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream(4096);
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(serialize(copyObject));
+            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            Object deepCopy = ois.readObject();
+            Log.d("test 1", copyObject.toString());
+//            Log.d("test 2", deepCopy.toString());
+            return deepCopy;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static byte[] serialize(Object object) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutput out = null;
+        try {
+            out = new ObjectOutputStream(bos);
+            out.writeObject(object);
+
+            byte[] byteArray = bos.toByteArray();
+            return byteArray;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+
+        } finally {
+            try {
+                if (out != null)
+                    out.close();
+            } catch (IOException ex) {
+            }
+            try {
+                bos.close();
+            } catch (IOException ex) {
+            }
+        }
+
+    }
+
+    public static Object deserialize(byte[] byteArray) {
+        ByteArrayInputStream bis = new ByteArrayInputStream(byteArray);
+        ObjectInput in = null;
+        try {
+            in = new ObjectInputStream(bis);
+            Object o = in.readObject();
+            return o;
+
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                bis.close();
+            } catch (IOException ex) {
+            }
+            try {
+                if (in != null)
+                    in.close();
+            } catch (IOException ex) {
+            }
+        }
     }
 }

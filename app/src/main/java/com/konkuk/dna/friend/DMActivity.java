@@ -31,6 +31,12 @@ public class DMActivity extends BaseActivity {
 
     private SimpleDateFormat timeFormat;
 
+    /* 메시지의 타입을 구분하기 위한 변수들입니다 */
+    private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
+    private final String TYPE_LOUDSPEAKER = "LoudSpeaker"; // 확성기 전송
+    private final String TYPE_LOCATION = "Location";    // 현재 위치 전송
+    private final String TYPE_IMAGE = "Image";       // 이미지 전송
+    private String messageType = TYPE_MESSAGE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +58,15 @@ public class DMActivity extends BaseActivity {
 
         // TODO chatMessages 배열에 실제 메시지 추가해야 합니다.
         chatMessages = new ArrayList<ChatMessage>();
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용", "오후 12:34", "0"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용내용내용", "오후 12:34", "1"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용", "오후 12:34", "2"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용", "오후 12:34", "0"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용내용내용", "오후 12:34", "1"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용", "오후 12:34", "2"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용", "오후 12:34", "0"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용내용내용", "오후 12:34", "1"));
-        chatMessages.add(new ChatMessage("3457soso", null, "내용내용", "오후 12:34", "2"));
+//        chatMessages.add(new ChatMessage("3457soso", null, "http://file3.instiz.net/data/cached_img/upload/2018/06/22/14/2439cadf98e7bebdabd174ed41ca0849.jpg", "오후 12:34", "0", TYPE_IMAGE));
+//        chatMessages.add(new ChatMessage("3457soso", null, "내용내용", "오후 12:34", "2", TYPE_LOUDSPEAKER));
+//        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용내용내용", "오후 12:34", "1", TYPE_MESSAGE));
+//        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용내용내용", "오후 12:34", "1", TYPE_LOUDSPEAKER));
+//        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용", "오후 12:34", "0", TYPE_MESSAGE));
+//        chatMessages.add(new ChatMessage("3457soso", null, "내용내용내용", "오후 12:34", "0", TYPE_MESSAGE));
+//        chatMessages.add(new ChatMessage("3457soso", null, "{\"lat\":37.550544099999996,\"lng\":127.07221989999998}", "오후 12:34", "1", TYPE_LOCATION));
+//        chatMessages.add(new ChatMessage("3457soso", null, "http://www.ohfun.net/contents/article/images/2016/0830/1472551795750578.jpeg", "오후 12:34", "2", TYPE_IMAGE));
+//        chatMessages.add(new ChatMessage("3457soso", null, "내용내용", "오후 12:34", "2", TYPE_MESSAGE));
 
         chatListAdapter = new ChatListAdapter(this, R.layout.chat_item_left, chatMessages);
         messageListView.setAdapter(chatListAdapter);
@@ -76,11 +82,11 @@ public class DMActivity extends BaseActivity {
 
     public void onClick(View v) {
         switch(v.getId()) {
-            case R.id.msgBackBtn:
+            case R.id.backBtn:
                 Intent friendIntent = new Intent(this, FriendActivity.class);
                 startActivity(friendIntent);
 
-            case R.id.msgFindBtn: // 검색 버튼 클릭
+            case R.id.msgSearchBtn: // 검색 버튼 클릭
                 break;
 
             case R.id.msgMenuBtn: // 메뉴 버튼 클릭

@@ -14,60 +14,59 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:background="@color/colorPrimary">
+            android:background="@drawable/layout_border_bottom">
 
             <ImageButton
-                android:id="@+id/msgBackBtn"
+                android:id="@+id/backBtn"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:scaleType="fitXY"
                 android:background="@drawable/back"
                 android:src="@drawable/back"
                 android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
                 android:onClick="onClick" />
 
-            <TextView
-                android:id="@+id/friendNicknameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="18dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="125dp"
-                android:tag="nseb"/>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:text="example"
+                    android:id="@+id/friendNicknameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="50dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp"
+                    android:tag="nseb"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="50dp">
+                    <TextView
+                        android:text="최근 DM : "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/grayText"
+                        android:textSize="13dp"
+                        android:tag="nsb"/>
+                    <TextView
+                        android:text="2018.10.21"
+                        android:id="@+id/updatedAtText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/grayText"
+                        android:textSize="13dp"
+                        android:tag="nsb"/>
+                </LinearLayout>
+            </LinearLayout>
             <ImageButton
-                android:id="@+id/msgFindBtn"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:scaleType="fitXY"
-                android:background="@drawable/find"
-                android:src="@drawable/find"
-                android:layout_marginRight="105dp"
-                android:layout_alignParentRight="true"
-                android:onClick="onClick" />
-
-            <ImageButton
-                android:id="@+id/msgChatBtn"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:scaleType="fitXY"
-                android:background="@drawable/chat"
-                android:src="@drawable/chat"
-                android:layout_marginRight="65dp"
-                android:layout_alignParentRight="true"
-                android:onClick="onClick" />
-
-            <View
-                android:layout_width="1.5dp"
-                android:layout_height="22dp"
-                android:background="@color/colorPrimaryLight"
-                android:layout_marginRight="50dp"
-                android:layout_alignParentRight="true" />
-
-            <ImageButton
-                android:id="@+id/msgMenuBtn"
+                android:id="@+id/menuBtn"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:scaleType="fitXY"
@@ -76,6 +75,7 @@
                 android:layout_marginTop="1dp"
                 android:layout_marginRight="15dp"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:onClick="onClick" />
         </RelativeLayout>
 
@@ -89,10 +89,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="5dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="5dp"
+                android:listSelector="@android:color/transparent"
                 android:background="@drawable/layout_border_horizontal"/>
 
             <RelativeLayout
@@ -119,7 +120,7 @@
                     android:layout_width="25dp"
                     android:layout_height="match_parent"
                     android:textSize="22dp"
-                    android:textColor="@color/grayLight"
+                    android:textColor="@color/concrete"
                     android:background="@drawable/transparent"
                     android:text="@string/fa_compass"
                     android:tag="far"
@@ -132,7 +133,7 @@
                     android:layout_width="25dp"
                     android:layout_height="match_parent"
                     android:textSize="22dp"
-                    android:textColor="@color/grayLight"
+                    android:textColor="@color/concrete"
                     android:background="@drawable/transparent"
                     android:text="@string/fa_image"
                     android:tag="far"
@@ -146,8 +147,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:textSize="22dp"
-                    android:textColor="@color/gray"
-                    android:background="@color/grayLighter"
+                    android:textColor="@color/asbestos"
+                    android:background="@color/clouds"
                     android:text="@string/fa_send"
                     android:tag="fas"
                     android:paddingLeft="10dp"

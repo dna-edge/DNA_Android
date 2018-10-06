@@ -3,7 +3,7 @@ package com.konkuk.dna.friend;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.app.FragmentTransaction;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -51,7 +51,7 @@ public class FriendActivity extends BaseActivity implements View.OnClickListener
         settingBtn.setOnClickListener(this);
 
         /* 초기 프래그먼트는 채팅방 리스트 프래그먼트라 여기서 먼저 초기화해줍니다! */
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         RoomFragment roomFragment = (RoomFragment) new RoomFragment();
         transaction.replace(R.id.roomFragContainer, roomFragment);
         transaction.commit();
@@ -111,7 +111,7 @@ public class FriendActivity extends BaseActivity implements View.OnClickListener
             notifyBtn.setSelected(false);
             settingBtn.setSelected(false);
 
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
 
             /* 현재 프래그먼트와 다른 프래그먼트를 호출할 경우 replace 해줍니다 */

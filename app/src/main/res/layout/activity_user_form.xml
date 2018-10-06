@@ -31,8 +31,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="125dp"
+                android:layout_centerHorizontal="true"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18dp"
                 android:text="프로필 수정"
@@ -61,15 +60,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!--<TextView-->
-                    <!--android:layout_marginBottom="20dp"-->
-                    <!--android:padding="10dp"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:background="@color/clouds"-->
-                    <!--android:lineSpacingMultiplier="1.15"-->
-                    <!--android:text="필수 입력 사항만 작성해도 회원가입이 진행되며, 선택 입력 사항은 추후 옵션을 통해 수정할 수 있습니다." />-->
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,6 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
+                        android:clickable="false"
                         android:theme="@style/MyTextLabel">
 
                         <EditText
@@ -97,13 +88,17 @@
                             android:theme="@style/EditTextThemePrimary"
                             android:inputType="textPersonName"
                             android:textSize="17dp"
-                            android:editable="false"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
                             android:hint="아이디" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="false"
                         android:theme="@style/MyTextLabel">
 
                         <EditText
@@ -111,8 +106,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:theme="@style/EditTextThemePrimary"
-                            android:inputType="textEmailAddress"                            android:textSize="17dp"
-                            android:editable="false"
+                            android:inputType="textEmailAddress"
+                            android:textSize="17dp"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
                             android:hint="이메일" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -283,10 +282,11 @@
             android:id="@+id/profileUpdateBtn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/ripple_effect"
+            android:background="@drawable/ripple_effect_button"
             android:textColor="@color/gray"
-            android:text="프로필 수정하기"
-            android:onClick="onClick"/>
+            android:text="저장하기"
+            android:onClick="onClick"
+            android:tag="nseb" />
     </LinearLayout>
 
     <include

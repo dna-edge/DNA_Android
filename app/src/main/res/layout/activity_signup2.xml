@@ -18,10 +18,20 @@
             android:gravity="center_vertical"
             android:background="@drawable/layout_border_bottom">
 
+            <ImageButton
+                android:id="@+id/backBtn"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/back"
+                android:src="@drawable/back"
+                android:layout_marginLeft="15dp"
+                android:onClick="onClick" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18dp"
                 android:text="회원 가입"
@@ -282,10 +292,11 @@
             android:id="@+id/userSaveBtn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/ripple_effect"
+            android:background="@drawable/ripple_effect_button"
             android:textColor="@color/gray"
             android:text="회원 가입하기"
-            android:onClick="onClick"/>
+            android:onClick="onClick"
+            android:tag="nseb"/>
     </LinearLayout>
 
     <include
