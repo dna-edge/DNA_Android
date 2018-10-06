@@ -75,6 +75,10 @@ public class BaseActivity extends AppCompatActivity {
                             case "nsrb" : ((Button) v).setTypeface(NSRB); break;
                             case "nsrr" : ((Button) v).setTypeface(NSRR); break;
                         }
+
+                        if (String.valueOf(v.getTag()).contains("fas")) {
+                            ((Button) v).setTypeface(fontAwesomeS);
+                        }
                     }
                     else if(v instanceof TextView || v instanceof EditText) {
                         switch(String.valueOf(v.getTag())) {

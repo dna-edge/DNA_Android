@@ -92,7 +92,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                     Picasso.get().load(message.getAvatar()).into(messageAvatar);
                 }
 
-//        LinearLayout msgContainer = (LinearLayout) v.findViewById(R.id.msgContainer);
             } else if (position < 3 || position > 6) {  // 프로필 이미지 없는 상대 메시지
                 v = layoutInflater.inflate(R.layout.chat_item_left, null);
             } else {                                    // 내 메시지

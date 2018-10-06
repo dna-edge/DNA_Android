@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".friend.fragments.RoomFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/roomList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="room" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
