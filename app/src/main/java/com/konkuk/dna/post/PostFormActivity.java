@@ -22,7 +22,6 @@ public class PostFormActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
     private PostFormMapFragment postFormMapFragment;
     private EditText postTitleEdit, postContentEdit;
-    private TextView postAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,6 @@ public class PostFormActivity extends BaseActivity {
 
         postTitleEdit = (EditText) findViewById(R.id.postTitleEdit);
         postContentEdit = (EditText) findViewById(R.id.postContentEdit);
-        postAddress = (TextView) findViewById(R.id.postAddress);
         postFormMapFragment = (PostFormMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
     }
 

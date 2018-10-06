@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -49,12 +50,10 @@ public class MyPageActivity extends BaseActivity {
     }
 
     public void init() {
-        Log.d("test", "call init");
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Helpers.initDrawer(this, menuDrawer, 2);
 
         myPageProfile = (LinearLayout) findViewById(R.id.myPageProfile);
-
         myPageInfo = (TextView) findViewById(R.id.myPageInfo);
         myPostAngle = (TextView) findViewById(R.id.myPostAngle);
         scrapPostAngle = (TextView) findViewById(R.id.scrapPostAngle);
@@ -153,6 +152,11 @@ public class MyPageActivity extends BaseActivity {
                     animateListHeight(scrapPostList, 0, scrapPosts.size());
                 }
                 scrapPostListIsOpen = !scrapPostListIsOpen;
+                break;
+
+            case R.id.profileUpdateBtn: // 프로필 수정 버튼 클릭
+                Intent updateIntent = new Intent(this, UserFormActivity.class);
+                startActivity(updateIntent);
                 break;
         }
     }

@@ -38,7 +38,7 @@
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 android:text=""
-                android:tag="menu"/>
+                android:tag="nseb"/>
 
             <ImageButton
                 android:id="@+id/menuBtn"
@@ -73,7 +73,7 @@
                     <android.support.v7.widget.CardView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:elevation="12dp"
+                        android:elevation="10dp"
                         android:layout_marginRight="7dp"
                         app:cardCornerRadius="20dp">
                         <ImageView
@@ -99,7 +99,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/black"
                                 android:textSize="18dp"
-                                android:tag="bold" />
+                                android:tag="esb" />
 
                             <TextView
                                 android:id="@+id/PfID"
@@ -109,19 +109,6 @@
                                 android:textColor="@color/grayDarker"
                                 android:textSize="14dp" />
                         </LinearLayout>
-
-                        <ImageButton
-                            android:id="@+id/addFriendBtn"
-                            android:layout_width="40dp"
-                            android:layout_height="24dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentRight="true"
-                            android:padding="0dp"
-                            android:scaleType="fitXY"
-                            android:background="@drawable/button_rounded"
-                            android:src="@drawable/add_friend"
-                            android:onClick="onClick" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -134,7 +121,8 @@
             <ScrollView
                 android:id="@+id/myPageScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:fillViewport="true"
                 android:scrollbars="none" >
 
@@ -153,8 +141,7 @@
                         android:paddingTop="20dp"
                         android:paddingBottom="20dp"
                         android:background="@color/clouds"
-                        android:text="이 것은 동의를 해야지만 가입할 수 있는 그런 동의이며 동의를 안하면 회원가입을 진행할 수가 없는 그런 동의입니다. gkgkgkgkgkgkgkgkgkkgkgkg"
-                        android:tag="default" />
+                        android:text="이 것은 동의를 해야지만 가입할 수 있는 그런 동의이며 동의를 안하면 회원가입을 진행할 수가 없는 그런 동의입니다. gkgkgkgkgkgkgkgkgkkgkgkg" />
 
                     <View
                         android:layout_width="match_parent"
@@ -170,7 +157,7 @@
                         android:paddingLeft="15dp"
                         android:textColor="@color/gray"
                         android:text="포스팅"
-                        android:tag="menu"/>
+                        android:tag="nseb"/>
 
                     <RelativeLayout
                         android:id="@+id/myPostBtn"
@@ -201,7 +188,7 @@
                             android:gravity="center_vertical"
                             android:textColor="@color/grayDarker"
                             android:text="내가 쓴 포스팅"
-                            android:tag="menu" />
+                            android:tag="nseb" />
 
                         <TextView
                             android:id="@+id/myPostAngle"
@@ -252,7 +239,7 @@
                             android:gravity="center_vertical"
                             android:textColor="@color/grayDarker"
                             android:text="스크랩한 포스팅"
-                            android:tag="menu" />
+                            android:tag="nseb" />
 
                         <TextView
                             android:id="@+id/scrapPostAngle"
@@ -275,10 +262,18 @@
                         android:dividerHeight="1dp" />
                 </LinearLayout>
             </ScrollView>
+
+            <Button
+                android:id="@+id/profileUpdateBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/ripple_effect"
+                android:textColor="@color/gray"
+                android:text="프로필 수정하기"
+                android:onClick="onClick"/>
+
         </LinearLayout>
     </LinearLayout>
-
-
 
     <include
         android:id="@+id/right_drawer"

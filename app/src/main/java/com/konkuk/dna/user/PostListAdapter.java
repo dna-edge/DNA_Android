@@ -19,6 +19,7 @@ public class PostListAdapter extends ArrayAdapter<Post> {
     Context context;
     ArrayList<Post> posts;
 
+    private static Typeface fontAwesomeR;
     private static Typeface fontAwesomeS;
 
     public PostListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Post> objects) {
@@ -31,6 +32,9 @@ public class PostListAdapter extends ArrayAdapter<Post> {
     }
 
     public void init() {
+        if(fontAwesomeR == null) {
+            fontAwesomeR = Typeface.createFromAsset(context.getAssets(), "fonts/fa-regular-400.ttf");
+        }
         if(fontAwesomeS == null) {
             fontAwesomeS = Typeface.createFromAsset(context.getAssets(), "fonts/fa-solid-900.ttf");
         }

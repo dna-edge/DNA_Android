@@ -114,4 +114,13 @@ public class MainActivity extends BaseActivity {
         mapFragment.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
         mapFragment.requestLayout();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (menuDrawer.isDrawerOpen(Gravity.RIGHT)) {
+            menuDrawer.closeDrawer(Gravity.RIGHT);
+        }
+    }
 }

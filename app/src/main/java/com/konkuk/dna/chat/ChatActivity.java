@@ -164,14 +164,6 @@ public class ChatActivity extends BaseActivity {
 
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
                 break;
-
-            case R.id.msgSettingBtn: // 채팅 환경 설정 버튼 클릭
-                break;
-
-            case R.id.friendBtn: // 친구 관리 버튼 클릭
-                Intent friendIntent = new Intent(this, FriendActivity.class);
-                startActivity(friendIntent);
-                break;
         }
     }
 }

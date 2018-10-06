@@ -8,6 +8,7 @@
     android:background="@color/clouds">
 
     <LinearLayout
+        android:id="@+id/myPageBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -49,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:textSize="18dp"
-                        android:tag="bold" />
+                        android:tag="nsb" />
 
                     <TextView
                         android:id="@+id/PfID"
@@ -87,10 +88,10 @@
         android:paddingLeft="15dp"
         android:textColor="@color/gray"
         android:text="설정 및 관리"
-        android:tag="menu"/>
+        android:tag="nseb"/>
 
     <RelativeLayout
-        android:id="@+id/msgSettingBtn"
+        android:id="@+id/setChatBtn"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginTop="1dp"
@@ -117,7 +118,7 @@
             android:gravity="center_vertical"
             android:textColor="@color/grayDarker"
             android:text="채팅 환경 설정"
-            android:tag="menu" />
+            android:tag="nseb" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -132,7 +133,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/msgFriendBtn"
+        android:id="@+id/setFriendBtn"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginTop="1dp"
@@ -159,7 +160,7 @@
             android:gravity="center_vertical"
             android:textColor="@color/grayDarker"
             android:text="친구 관리"
-            android:tag="menu" />
+            android:tag="nseb" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -187,7 +188,7 @@
         android:paddingLeft="15dp"
         android:textColor="@color/gray"
         android:text="현재 채팅 환경"
-        android:tag="menu"/>
+        android:tag="nseb"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -206,7 +207,7 @@
             android:textSize="15dp"
             android:textColor="@color/grayDark"
             android:text="위치"
-            android:tag="menu"/>
+            android:tag="nsb"/>
 
         <TextView
             android:id="@+id/drawerPosition"
@@ -215,8 +216,7 @@
             android:gravity="center_vertical"
             android:textSize="15dp"
             android:textColor="@color/grayDarker"
-            android:text="서울시 광진구 화양동 1 건국대학교"
-            android:tag="default"/>
+            android:text="서울시 광진구 화양동 1 건국대학교" />
     </LinearLayout>
 
     <LinearLayout
@@ -236,7 +236,7 @@
             android:textSize="15dp"
             android:textColor="@color/grayDark"
             android:text="반경"
-            android:tag="menu"/>
+            android:tag="nsb"/>
 
         <TextView
             android:id="@+id/drawerRadius"
@@ -245,8 +245,7 @@
             android:gravity="center_vertical"
             android:textSize="15dp"
             android:textColor="@color/colorPrimary"
-            android:text="500m"
-            android:tag="default"/>
+            android:text="500m" />
     </LinearLayout>
 
     <View
@@ -271,7 +270,7 @@
             android:background="@color/white"
             android:textColor="@color/gray"
             android:text="접속중인 주변 유저"
-            android:tag="menu"/>
+            android:tag="nseb"/>
 
         <ListView
             android:id="@+id/ccuList"
@@ -299,7 +298,7 @@
             android:textColor="@color/gray"
             android:background="@color/white"
             android:text="친구의 프로필"
-            android:tag="menu"/>
+            android:tag="nseb"/>
 
         <LinearLayout
             android:layout_width="match_parent"

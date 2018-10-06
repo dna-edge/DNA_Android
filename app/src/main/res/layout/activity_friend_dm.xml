@@ -35,7 +35,7 @@
                 android:textSize="18dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="125dp"
-                android:tag="menu"/>
+                android:tag="nseb"/>
 
             <ImageButton
                 android:id="@+id/msgFindBtn"
@@ -112,8 +112,7 @@
                     android:textColor="@color/grayDarker"
                     android:textSize="17dp"
                     android:hint="메시지 입력 ..."
-                    android:theme="@style/chatEditTextTheme"
-                    android:tag="default" />
+                    android:theme="@style/chatEditTextTheme" />
 
                 <Button
                     android:id="@+id/msgLocationBtn"

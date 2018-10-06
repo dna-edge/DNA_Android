@@ -37,7 +37,7 @@
                 android:textColor="@color/colorPrimaryLighter"
                 android:textSize="23dp"
                 android:text="DNA"
-                android:tag="menu"/>
+                android:tag="nseb"/>
 
             <ImageButton
                 android:id="@+id/msgMenuBtn"

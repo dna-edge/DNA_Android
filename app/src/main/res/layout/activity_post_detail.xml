@@ -38,7 +38,7 @@
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 android:text="포스팅"
-                android:tag="menu"/>
+                android:tag="nseb"/>
 
             <ImageButton
                 android:id="@+id/menuBtn"
@@ -117,7 +117,7 @@
                                             android:layout_height="wrap_content"
                                             android:textColor="@color/black"
                                             android:textSize="18dp"
-                                            android:tag="bold" />
+                                            android:tag="nsb" />
 
                                         <TextView
                                             android:id="@+id/postDate"
@@ -157,8 +157,7 @@
                                 android:gravity="center_vertical"
                                 android:textColor="@color/grayDark"
                                 android:textSize="18dp"
-                                android:textStyle="bold"
-                                android:tag="default"/>
+                                android:textStyle="bold" />
 
                             <View
                                 android:layout_width="match_parent"
@@ -176,8 +175,7 @@
                                 android:textSize="17dp"
                                 android:lineSpacingMultiplier="1.15"
                                 android:singleLine = "false"
-                                android:gravity="top"
-                                android:tag="default"/>
+                                android:gravity="top" />
 
                             <!--<View-->
                                 <!--android:layout_width="match_parent"-->
@@ -230,8 +228,7 @@
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/grayText"
                                     android:textSize="15dp"
-                                    android:text="좋아요 "
-                                    android:tag="default" />
+                                    android:text="좋아요 " />
 
                                 <TextView
                                     android:id="@+id/postLikeCnt"
@@ -239,16 +236,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="10dp"
                                     android:textColor="@color/grayText"
-                                    android:textSize="15dp"
-                                    android:tag="default" />
+                                    android:textSize="15dp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/grayText"
                                     android:textSize="15dp"
-                                    android:text="댓글 "
-                                    android:tag="default" />
+                                    android:text="댓글 " />
 
                                 <TextView
                                     android:id="@+id/postCommentCnt"
@@ -256,24 +251,21 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="10dp"
                                     android:textColor="@color/grayText"
-                                    android:textSize="15dp"
-                                    android:tag="default" />
+                                    android:textSize="15dp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/grayText"
                                     android:textSize="15dp"
-                                    android:text="스크랩 "
-                                    android:tag="default" />
+                                    android:text="스크랩 " />
 
                                 <TextView
                                     android:id="@+id/postScrapCnt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/grayText"
-                                    android:textSize="15dp"
-                                    android:tag="default" />
+                                    android:textSize="15dp" />
 
                             </LinearLayout>
 
@@ -316,7 +308,7 @@
                                         android:textColor="@color/concrete"
                                         android:textSize="15dp"
                                         android:text="좋아요"
-                                        android:tag="menu"/>
+                                        android:tag="nsb"/>
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -343,7 +335,7 @@
                                         android:textColor="@color/concrete"
                                         android:textSize="15dp"
                                         android:text="댓글쓰기"
-                                        android:tag="menu"/>
+                                        android:tag="nsb"/>
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -372,7 +364,7 @@
                                         android:textColor="@color/concrete"
                                         android:textSize="15dp"
                                         android:text="스크랩"
-                                        android:tag="menu"/>
+                                        android:tag="nsb"/>
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
@@ -417,8 +409,7 @@
                     android:textColor="@color/grayDarker"
                     android:textSize="17dp"
                     android:hint="댓글 입력 ..."
-                    android:theme="@style/chatEditTextTheme"
-                    android:tag="default" />
+                    android:theme="@style/chatEditTextTheme" />
 
                 <Button
                     android:id="@+id/commentSaveBtn"

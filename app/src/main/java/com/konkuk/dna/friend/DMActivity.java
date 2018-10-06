@@ -106,9 +106,6 @@ public class DMActivity extends BaseActivity {
 
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
                 break;
-
-            case R.id.msgSettingBtn: // 채팅 환경 설정 버튼 클릭
-                break;
         }
     }
 }

@@ -23,8 +23,7 @@ public class ChatUserAdapter extends ArrayAdapter<ChatUser> {
     Context context;
     ArrayList<ChatUser> users;
 
-    private static Typeface chatTypeface;
-    private static Typeface boldTypeface;
+    private static Typeface fontAwesomeR;
     private static Typeface fontAwesomeS;
 
     public ChatUserAdapter(@NonNull Context context, int resource, @NonNull ArrayList<ChatUser> objects) {
@@ -37,11 +36,8 @@ public class ChatUserAdapter extends ArrayAdapter<ChatUser> {
     }
 
     public void init() {
-        if(chatTypeface == null) {
-            chatTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareR.ttf");
-        }
-        if(boldTypeface == null) {
-            boldTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareB.ttf");
+        if(fontAwesomeR == null) {
+            fontAwesomeR = Typeface.createFromAsset(context.getAssets(), "fonts/fa-regular-400.ttf");
         }
         if(fontAwesomeS == null) {
             fontAwesomeS = Typeface.createFromAsset(context.getAssets(), "fonts/fa-solid-900.ttf");

@@ -36,7 +36,7 @@
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 android:text="포스팅"
-                android:tag="menu"/>
+                android:tag="nseb"/>
 
             <ImageButton
                 android:id="@+id/menuBtn"
@@ -65,8 +65,7 @@
                 android:theme="@style/chatEditTextTheme"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:hint="제목"
-                android:tag="default"/>
+                android:hint="제목" />
 
             <View
                 android:layout_width="match_parent"
@@ -84,8 +83,7 @@
                 android:textSize="17dp"
                 android:hint="내용을 입력해주세요"
                 android:lineSpacingMultiplier="1.15"
-                android:gravity="top"
-                android:tag="default"/>
+                android:gravity="top" />
 
             <View
                 android:layout_width="match_parent"
@@ -93,36 +91,6 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/grayLight" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="23dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center_vertical"
-                    android:textSize="15dp"
-                    android:textColor="@color/grayText"
-                    android:text="위치"
-                    android:tag="menu"/>
-
-                <TextView
-                    android:id="@+id/postAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="서울시 광진구 화양동 1 건국대학교"
-                    android:textSize="15dp"
-                    android:textColor="@color/gray"
-                    android:gravity="center_vertical"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:tag="default" />
-
-            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -148,7 +116,7 @@
         <Button
             android:id="@+id/saveBtn"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="60dp"
             android:background="@drawable/ripple_effect"
             android:textColor="@color/gray"
             android:text="저장하기"

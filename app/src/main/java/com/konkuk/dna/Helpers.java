@@ -1,16 +1,20 @@
 package com.konkuk.dna;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.chat.ChatUserAdapter;
+import com.konkuk.dna.friend.FriendActivity;
+import com.konkuk.dna.user.MyPageActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -33,10 +37,37 @@ public class Helpers {
         pfID.setText("3457soso");
     }
 
-    public static void initDrawer(Context context, View v, int type) {
+    public static void initDrawer(final Context context, View v, int type) {
         setProfile(v);
         LinearLayout drawerForUserList = (LinearLayout) v.findViewById(R.id.drawerForUserList);
         LinearLayout drawerForFriend = (LinearLayout) v.findViewById(R.id.drawerForFriend);
+
+        LinearLayout myPageBtn = (LinearLayout) v.findViewById(R.id.myPageBtn);
+        RelativeLayout setChatBtn = (RelativeLayout) v.findViewById(R.id.setChatBtn);
+        RelativeLayout setFriendBtn = (RelativeLayout) v.findViewById(R.id.setFriendBtn);
+
+        myPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MyPageActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
+        setChatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        setFriendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, FriendActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
         if (type == 0) {
             drawerForFriend.setVisibility(GONE);

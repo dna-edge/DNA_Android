@@ -26,8 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:textSize="15dp"
-                android:textColor="@color/grayDarker"
-                android:tag="default" />
+                android:textColor="@color/grayDarker" />
 
             <TextView
                 android:id="@+id/postDate"
@@ -59,8 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/grayText"
-                android:textSize="13dp"
-                android:tag="default" />
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/postCommentCntIcon"
@@ -78,8 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/grayText"
-                android:textSize="13dp"
-                android:tag="default" />
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/postScrapCntIcon"
@@ -97,8 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/grayText"
-                android:textSize="15dp"
-                android:tag="default" />
+                android:textSize="15dp" />
         </LinearLayout>
 
     </LinearLayout>

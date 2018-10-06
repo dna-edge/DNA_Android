@@ -22,7 +22,16 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
     Context context;
     ArrayList<Comment> comments;
 
-    private static Typeface boldTypeface;
+    private static Typeface NSEB;
+    private static Typeface NSB;
+    private static Typeface NSR;
+
+    private static Typeface NSREB;
+    private static Typeface NSRB;
+    private static Typeface NSRR;
+
+    private static Typeface fontAwesomeR;
+    private static Typeface fontAwesomeS;
 
     public CommentAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Comment> objects) {
         super(context, resource, objects);
@@ -34,8 +43,29 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
     }
 
     public void init() {
-        if(boldTypeface == null) {
-            boldTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareEB.ttf");
+        if(NSEB == null) {
+            NSEB = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareEB.ttf");
+        }
+        if(NSB == null) {
+            NSB = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareB.ttf");
+        }
+        if(NSR == null) {
+            NSR = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareR.ttf");
+        }
+        if(NSREB == null) {
+            NSREB = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareRoundEB.ttf");
+        }
+        if(NSRB == null) {
+            NSRB = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareRoundB.ttf");
+        }
+        if(NSRR == null) {
+            NSRR = Typeface.createFromAsset(context.getAssets(), "fonts/NanumSquareRoundR.ttf");
+        }
+        if(fontAwesomeR == null) {
+            fontAwesomeR = Typeface.createFromAsset(context.getAssets(), "fonts/fa-regular-400.ttf");
+        }
+        if(fontAwesomeS == null) {
+            fontAwesomeS = Typeface.createFromAsset(context.getAssets(), "fonts/fa-solid-900.ttf");
         }
     }
 
@@ -59,7 +89,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
             Picasso.get().load(comment.getAvatar()).into(avatar);
         }
 
-        nickname.setTypeface(boldTypeface);
+        nickname.setTypeface(NSB);
         nickname.setText(comment.getNickname());
         content.setText(comment.getContent());
         date.setText(comment.getDate());
