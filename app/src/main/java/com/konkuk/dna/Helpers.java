@@ -20,6 +20,7 @@ import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.chat.ChatUserAdapter;
 import com.konkuk.dna.friend.FriendActivity;
 import com.konkuk.dna.user.MyPageActivity;
+import com.konkuk.dna.user.UserSettingActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayInputStream;
@@ -55,8 +56,17 @@ public class Helpers {
         LinearLayout drawerForFriend = (LinearLayout) v.findViewById(R.id.drawerForFriend);
 
         LinearLayout myPageBtn = (LinearLayout) v.findViewById(R.id.myPageBtn);
+        LinearLayout homeBtn = (LinearLayout) v.findViewById(R.id.homeBtn);
         RelativeLayout setChatBtn = (RelativeLayout) v.findViewById(R.id.setChatBtn);
         RelativeLayout setFriendBtn = (RelativeLayout) v.findViewById(R.id.setFriendBtn);
+
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
         myPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +79,8 @@ public class Helpers {
         setChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, UserSettingActivity.class);
+                context.startActivity(intent);
             }
         });
 

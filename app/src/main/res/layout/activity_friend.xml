@@ -23,7 +23,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:scaleType="fitXY"
-                android:background="@drawable/back"
+                android:background="@drawable/transparent"
                 android:src="@drawable/back"
                 android:layout_marginLeft="15dp"
                 android:onClick="onClick" />

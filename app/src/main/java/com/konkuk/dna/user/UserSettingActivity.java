@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.Switch;
+import android.support.v7.widget.SwitchCompat;
 import android.widget.TextView;
 
 import com.konkuk.dna.BaseActivity;
@@ -23,7 +23,7 @@ public class UserSettingActivity extends BaseActivity {
     private ChatMapFragment mapFragment;
     private SeekBar radiusSeekbar;
     private TextView radiusText;
-    private Switch isAnonymity, isFindable;
+    private SwitchCompat isAnonymity, isFindable;
     private int radius;
     private double longitude, latitude;
 
@@ -45,8 +45,8 @@ public class UserSettingActivity extends BaseActivity {
 
         // TODO switch 메뉴들 기존 값으로 초기화해줘야 합니다.
         mapFragment = (ChatMapFragment) getFragmentManager().findFragmentById(R.id.chatMapFragment);
-        isAnonymity = (Switch) findViewById(R.id.isAnonymity);
-        isFindable = (Switch) findViewById(R.id.isFindable);
+        isAnonymity = (SwitchCompat) findViewById(R.id.isAnonymity);
+        isFindable = (SwitchCompat) findViewById(R.id.isFindable);
 
         radiusText = (TextView) findViewById(R.id.radiusText);
         radiusText.setText(radius +"");
@@ -55,7 +55,7 @@ public class UserSettingActivity extends BaseActivity {
         radiusSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                radius = i*5;
+                radius = i;
                 radiusText.setText(radius + "");
                 mapFragment.updateRadiusCircle(longitude, latitude, radius);
             }
@@ -66,13 +66,6 @@ public class UserSettingActivity extends BaseActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        mapFragment.initMapCenter(longitude, latitude, radius);
     }
 
     public void onClick(View v) {
@@ -91,5 +84,11 @@ public class UserSettingActivity extends BaseActivity {
                 Log.d("test", "저장 버튼 클릭");
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapFragment.initMapCenter(longitude, latitude, radius);
     }
 }

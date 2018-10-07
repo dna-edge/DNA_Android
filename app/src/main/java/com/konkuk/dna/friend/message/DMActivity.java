@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
@@ -23,9 +24,11 @@ public class DMActivity extends BaseActivity {
 
     private ListView dmListView;
     private EditText dmEditText;
+    private TextView updatedAtText;
     private Button dmLocationBtn, dmImageBtn;
     private ArrayList<DMMessage> dmMessages;
     private DMListAdapter dmListAdapter;
+    private int roomIdx;
 
     private SimpleDateFormat timeFormat;
 
@@ -51,18 +54,25 @@ public class DMActivity extends BaseActivity {
         dmEditText = (EditText) findViewById(R.id.dmEditText);
         dmLocationBtn = (Button) findViewById(R.id.dmLocationBtn);
         dmImageBtn = (Button) findViewById(R.id.dmImageBtn);
+        updatedAtText = (TextView) findViewById(R.id.updatedAtText);
 
-        // TODO dmMessages 배열에 실제 메시지 추가해야 합니다.
         dmMessages = new ArrayList<DMMessage>();
-        dmMessages.add(new DMMessage(1, "http://file3.instiz.net/data/cached_img/upload/2018/06/22/14/2439cadf98e7bebdabd174ed41ca0849.jpg", "오후 12:34", TYPE_IMAGE));
-        dmMessages.add(new DMMessage(0, "내용내용", "오후 12:34", TYPE_MESSAGE));
-        dmMessages.add(new DMMessage(0, "내용내용내용내용내용", "오후 12:34", TYPE_MESSAGE));
-        dmMessages.add(new DMMessage(0, "https://pbs.twimg.com/media/DbYfg2IWkAENdiS.jpg", "오후 12:34", TYPE_IMAGE));
-        dmMessages.add(new DMMessage(1, "내용내용내용", "오후 12:34", TYPE_MESSAGE));
-        dmMessages.add(new DMMessage(0, "내용내용내용", "오후 12:34", TYPE_MESSAGE));
-        dmMessages.add(new DMMessage(1, "{\"lat\":37.550544099999996,\"lng\":127.07221989999998}", "오후 12:34", TYPE_LOCATION));
-        dmMessages.add(new DMMessage(1, "http://www.ohfun.net/contents/article/images/2016/0830/1472551795750578.jpeg", "오후 12:34", TYPE_IMAGE));
-        dmMessages.add(new DMMessage(0, "내용내용333", "오후 12:34", TYPE_MESSAGE));
+        roomIdx = getIntent().getIntExtra("roomIdx", -1);
+
+        if (roomIdx != -1) {
+            updatedAtText.setText(getIntent().getStringExtra("roomUpdated"));
+
+            // TODO dmMessages 배열에 실제 메시지 추가해야 합니다. roomIdx로 가져오면 됩니다.
+            dmMessages.add(new DMMessage(1, "http://file3.instiz.net/data/cached_img/upload/2018/06/22/14/2439cadf98e7bebdabd174ed41ca0849.jpg", "오후 12:34", TYPE_IMAGE));
+            dmMessages.add(new DMMessage(0, "내용내용", "오후 12:34", TYPE_MESSAGE));
+            dmMessages.add(new DMMessage(0, "내용내용내용내용내용", "오후 12:34", TYPE_MESSAGE));
+            dmMessages.add(new DMMessage(0, "https://pbs.twimg.com/media/DbYfg2IWkAENdiS.jpg", "오후 12:34", TYPE_IMAGE));
+            dmMessages.add(new DMMessage(1, "내용내용내용", "오후 12:34", TYPE_MESSAGE));
+            dmMessages.add(new DMMessage(0, "내용내용내용", "오후 12:34", TYPE_MESSAGE));
+            dmMessages.add(new DMMessage(1, "{\"lat\":37.550544099999996,\"lng\":127.07221989999998}", "오후 12:34", TYPE_LOCATION));
+            dmMessages.add(new DMMessage(1, "http://www.ohfun.net/contents/article/images/2016/0830/1472551795750578.jpeg", "오후 12:34", TYPE_IMAGE));
+            dmMessages.add(new DMMessage(0, "내용내용333", "오후 12:34", TYPE_MESSAGE));
+        }
 
         dmListAdapter = new DMListAdapter(this, R.layout.chat_item_left, dmMessages);
         dmListView.setAdapter(dmListAdapter);

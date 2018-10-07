@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class Post implements Serializable{
+    private int idx;
     private String avatar;
     private String nickname;
 
@@ -18,9 +19,10 @@ public class Post implements Serializable{
 
     public Post() {}
 
-    public Post(String avatar, String nickname, String date, String title, String content,
+    public Post(int idx, String avatar, String nickname, String date, String title, String content,
                 double longitude, double latitude, int likeCount, int commentCount, int scrapCount,
                 ArrayList<Comment> comments) {
+        this.idx = idx;
         this.avatar = avatar;
         this.nickname = nickname;
         this.date = date;
@@ -37,6 +39,13 @@ public class Post implements Serializable{
     private int likeCount;
     private int commentCount;
     private int scrapCount;
+
+    public int getIdx() {
+        return idx;
+    }
+    public void setIdx(int idx) {
+        this.idx = idx;
+    }
 
     public String getAvatar() {
         return avatar;

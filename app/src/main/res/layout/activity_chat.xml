@@ -15,6 +15,7 @@
         android:focusableInTouchMode="true">
 
         <RelativeLayout
+            android:id="@+id/barLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/layout_border_bottom">
@@ -80,7 +81,7 @@
             android:orientation="vertical">
 
             <fragment
-                android:id="@+id/chatMapFragment"
+                android:id="@+id/mapFragment"
                 android:name="com.konkuk.dna.chat.ChatMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"/>

@@ -73,6 +73,41 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/silver" />
+
+
+    <LinearLayout
+        android:id="@+id/homeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:background="@drawable/ripple_effect_button"
+        android:onClick="onClick">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/fa_home"
+            android:textColor="@color/gray"
+            android:textSize="24dp"
+            android:tag="fas"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/grayDarker"
+            android:text="메인으로"
+            android:tag="nseb" />
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -83,7 +118,6 @@
         android:layout_height="25dp"
         android:layout_marginTop="7dp"
         android:gravity="center_vertical"
-        android:background="@color/white"
         android:textSize="13dp"
         android:paddingLeft="15dp"
         android:textColor="@color/gray"
@@ -183,7 +217,6 @@
         android:layout_height="25dp"
         android:layout_marginTop="7dp"
         android:gravity="center_vertical"
-        android:background="@color/white"
         android:textSize="13dp"
         android:paddingLeft="15dp"
         android:textColor="@color/gray"
@@ -204,7 +237,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="7dp"
             android:gravity="center_vertical"
-            android:textSize="15dp"
+            android:textSize="14dp"
             android:textColor="@color/grayDark"
             android:text="위치"
             android:tag="nsb"/>
@@ -214,7 +247,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:textSize="15dp"
+            android:textSize="14dp"
             android:textColor="@color/grayDarker"
             android:text="서울시 광진구 화양동 1 건국대학교" />
     </LinearLayout>
@@ -233,7 +266,7 @@
             android:layout_marginTop="1dp"
             android:layout_marginLeft="7dp"
             android:gravity="center_vertical"
-            android:textSize="15dp"
+            android:textSize="14dp"
             android:textColor="@color/grayDark"
             android:text="반경"
             android:tag="nsb"/>
@@ -243,7 +276,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:textSize="15dp"
+            android:textSize="14dp"
             android:textColor="@color/colorPrimary"
             android:text="500m" />
     </LinearLayout>
@@ -263,11 +296,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginTop="3dp"
             android:gravity="center_vertical"
             android:textSize="13dp"
             android:paddingLeft="15dp"
-            android:background="@color/white"
             android:textColor="@color/gray"
             android:text="접속중인 주변 유저"
             android:tag="nseb"/>
@@ -328,7 +359,7 @@
                 android:layout_marginTop="5dp"
                 android:textSize="17dp"
                 android:textColor="@color/grayDarker"
-                android:tag="bold" />
+                android:tag="nseb" />
 
             <TextView
                 android:id="@+id/friendInfo"

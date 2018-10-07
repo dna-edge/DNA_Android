@@ -17,7 +17,9 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
@@ -30,7 +32,9 @@ import java.util.Locale;
 
 public class ChatActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
-    private View chatMapFragment;
+    private ChatMapFragment mapFragment;
+    private View mapFragmentView;
+    private RelativeLayout barLayout;
 
     private ListView msgListView;
     private EditText msgEditText;
@@ -42,7 +46,8 @@ public class ChatActivity extends BaseActivity {
 
     private ValueAnimator slideAnimator;
     private AnimatorSet set;
-    private int height;
+    private int height, radius;
+    private double longitude, latitude;
 
     /* 메시지의 타입을 구분하기 위한 변수들입니다 */
     private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
@@ -63,12 +68,20 @@ public class ChatActivity extends BaseActivity {
         menuDrawer = findViewById(R.id.drawer_layout);
         Helpers.initDrawer(this, menuDrawer, 0);
 
-        chatMapFragment = (View) findViewById(R.id.chatMapFragment);
+        mapFragmentView = (View) findViewById(R.id.mapFragment);
+        barLayout = (RelativeLayout) findViewById(R.id.barLayout);
         msgListView = (ListView) findViewById(R.id.msgListView);
         msgEditText = (EditText) findViewById(R.id.msgEditText);
         msgSpeakerBtn = (Button) findViewById(R.id.msgSpeakerBtn);
         msgLocationBtn = (Button) findViewById(R.id.msgLocationBtn);
         msgImageBtn = (Button) findViewById(R.id.msgImageBtn);
+
+        radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
+        longitude = 127.07934279999995;
+        latitude = 37.5407625;
+
+        mapFragment = (ChatMapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
+
 
         // TODO chatMessages 배열에 실제 메시지 추가해야 합니다.
         chatMessages = new ArrayList<ChatMessage>();
@@ -103,8 +116,12 @@ public class ChatActivity extends BaseActivity {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 Integer value = (Integer) animation.getAnimatedValue();
-                chatMapFragment.getLayoutParams().height = value.intValue();
-                chatMapFragment.requestLayout();
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mapFragmentView.getLayoutParams();
+                LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) barLayout.getLayoutParams();
+                params.height = value.intValue();
+                int divider = (height - Helpers.dpToPx(getApplicationContext(), 150)) / 50;
+                params2.setMargins(0, -1 * Helpers.dpToPx(getApplicationContext(), value - Helpers.dpToPx(getApplicationContext(), 150))/divider, 0, 0);
+                mapFragmentView.requestLayout();
             }
         });
 
@@ -126,13 +143,6 @@ public class ChatActivity extends BaseActivity {
         });
 
         set = new AnimatorSet();
-    }
-
-    @Override
-    public void onBackPressed() {
-        set.play(slideAnimator);
-        set.setInterpolator(new AccelerateDecelerateInterpolator());
-        set.start();
     }
 
     public void onClick(View v) {
@@ -226,5 +236,18 @@ public class ChatActivity extends BaseActivity {
                 });
         AlertDialog alert = alt_bld.create();
         alert.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        set.play(slideAnimator);
+        set.setInterpolator(new AccelerateDecelerateInterpolator());
+        set.start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapFragment.initMapCenter(longitude, latitude, radius);
     }
 }

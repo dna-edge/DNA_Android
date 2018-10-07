@@ -14,14 +14,16 @@ import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
 import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
+import com.konkuk.dna.chat.ChatMapFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PostFormActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
-    private PostFormMapFragment postFormMapFragment;
+    private ChatMapFragment mapFragment;
     private EditText postTitleEdit, postContentEdit;
+    private double longitude, latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,11 @@ public class PostFormActivity extends BaseActivity {
 
         postTitleEdit = (EditText) findViewById(R.id.postTitleEdit);
         postContentEdit = (EditText) findViewById(R.id.postContentEdit);
-        postFormMapFragment = (PostFormMapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
+
+        // TODO 위치 초기값 설정해줘야 합니다!
+        longitude = 127.07934279999995;
+        latitude = 37.5407625;
+        mapFragment = (ChatMapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
     }
 
     public void onClick(View v) {
@@ -53,9 +59,8 @@ public class PostFormActivity extends BaseActivity {
                 break;
 
             case R.id.saveBtn: // 저장 버튼 클릭
-                // 위치 정보는 아래 함수로 받아오면 됩니다.
-                // JSONObject = { longitude, latitude }를 반환합니다.
-                JSONObject position = postFormMapFragment.getCenterPosition();
+                // 위치 정보는 아래와 같이 저장됩니다.
+                JSONObject position = mapFragment.getMarkerPosition();
                 try {
                     Log.d("test", "lat :"  + position.get("latitude"));
                 } catch (JSONException e) {
@@ -63,5 +68,11 @@ public class PostFormActivity extends BaseActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapFragment.initMapCenter(longitude, latitude, 0);
     }
 }

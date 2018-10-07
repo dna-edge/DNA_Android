@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
 import com.konkuk.dna.R;
+import com.konkuk.dna.chat.ChatMapFragment;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -27,15 +28,18 @@ import java.util.Arrays;
 
 public class PostDetailActivity extends BaseActivity {
     protected DrawerLayout menuDrawer;
+    private ChatMapFragment mapFragment;
     private ScrollView postScrollView;
     private ImageView postAvatar;
     private ImageButton addFriendBtn;
-    private TextView postNickname, postDate, postTitle, postContent, postAddress,
+    private TextView postNickname, postDate, postTitle, postContent,
     postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText,
     postLikeCnt, postCommentCnt, postScrapCnt;
     private EditText commentEdit;
     private ListView commentList;
     private CommentAdapter commentAdapter;
+
+    private Post post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,6 @@ public class PostDetailActivity extends BaseActivity {
         postDate = (TextView) findViewById(R.id.postDate);
         postTitle = (TextView) findViewById(R.id.postTitle);
         postContent = (TextView) findViewById(R.id.postContent);
-//        postAddress = (TextView) findViewById(R.id.postAddress;
         postLikeBtnIcon = (TextView) findViewById(R.id.postLikeBtnIcon);
         postLikeBtnText = (TextView) findViewById(R.id.postLikeBtnText);
         postScrapBtnIcon = (TextView) findViewById(R.id.postScrapBtnIcon);
@@ -69,8 +72,8 @@ public class PostDetailActivity extends BaseActivity {
 
         commentEdit = (EditText) findViewById(R.id.commentEdit);
         commentList = (ListView) findViewById(R.id.commentList);
+        mapFragment = (ChatMapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
-        Post post;
         Post extra = (Post) getIntent().getSerializableExtra("post");
         post = (extra == null) ? new Post() : extra;
 
@@ -87,7 +90,6 @@ public class PostDetailActivity extends BaseActivity {
         postDate.setText(post.getDate());
         postTitle.setText(post.getTitle());
         postContent.setText(post.getContent());
-//        postAddress.setText("서울시 광진구 화양동 1 건국대학교");
 
         // TODO 내가 좋아요를 누른 글인지, 스크랩 한 글인지에 따라 버튼 색깔이 달라져야 합니다.
         // TODO 지금은 좋아요와 스크랩 둘 다 해당하도록 설정되어 있는데,
@@ -148,5 +150,11 @@ public class PostDetailActivity extends BaseActivity {
             case R.id.postScrapBtn: // 스크랩 버튼 클릭
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapFragment.initMapCenter(post.getLongitude(), post.getLatitude(), 0);
     }
 }

@@ -1,15 +1,18 @@
 package com.konkuk.dna.friend.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.konkuk.dna.R;
+import com.konkuk.dna.friend.message.DMActivity;
 import com.konkuk.dna.friend.message.DMMessage;
 import com.konkuk.dna.friend.message.DMRoom;
 import com.konkuk.dna.friend.message.DMRoomListAdapter;
@@ -57,6 +60,20 @@ public class RoomFragment extends Fragment {
 
         dmRoomListAdapter = new DMRoomListAdapter(getActivity(), R.layout.chat_item_room, rooms);
         roomList.setAdapter(dmRoomListAdapter);
+
+        roomList.setClickable(true);
+        roomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+                DMRoom room = (DMRoom) roomList.getItemAtPosition(position);
+                Intent intent = new Intent (getActivity(), DMActivity.class);
+                intent.putExtra("roomIdx", room.getIdx());
+                intent.putExtra("roomUpdated", room.getUpdateDate());
+                startActivity(intent);
+            }
+        });
     }
 
 }

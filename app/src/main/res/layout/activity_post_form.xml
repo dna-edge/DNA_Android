@@ -114,16 +114,9 @@
 
                 <fragment
                     android:id="@+id/mapFragment"
-                    android:name="com.konkuk.dna.post.PostFormMapFragment"
+                    android:name="com.konkuk.dna.chat.ChatMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/pin"
-                    android:layout_centerInParent="true" />
             </RelativeLayout>
         </LinearLayout>
 

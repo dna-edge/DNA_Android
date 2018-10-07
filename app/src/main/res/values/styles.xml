@@ -44,4 +44,11 @@
         <item name="colorControlActivated">@color/colorRipple</item>
         <item name="colorControlNormal">@color/concrete</item>
     </style>
+
+    <style name="MyFloatingActionButton">
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
 </resources>
