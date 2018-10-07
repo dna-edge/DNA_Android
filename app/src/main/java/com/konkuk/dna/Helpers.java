@@ -1,10 +1,13 @@
 package com.konkuk.dna;
 
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -111,5 +114,27 @@ public class Helpers {
                 .getDisplayMetrics()
                 .density;
         return Math.round((float) dp * density);
+    }
+
+    public static void animateListHeight(final Context context, final ListView listView, int from, int to) {
+        PropertyValuesHolder topList = PropertyValuesHolder.ofInt("top", from, to);
+
+        ValueAnimator animList = ValueAnimator.ofPropertyValuesHolder(topList);
+        animList.setDuration(150L);
+
+        ValueAnimator.AnimatorUpdateListener listUpdater = new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int top = ((Integer)animation.getAnimatedValue("top")).intValue();
+                listView.setTop(top);
+                ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) listView.getLayoutParams();
+                for (int i=1; i<=70; i++)
+                    params.height = top * Helpers.dpToPx(context, i);
+                listView.requestLayout();
+            }
+        };
+
+        animList.addUpdateListener(listUpdater);
+        animList.start();
     }
 }

@@ -192,7 +192,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text="@string/fa_down"
+                            android:text="@string/fa_up"
                             android:layout_marginRight="15dp"
                             android:textColor="@color/silver"
                             android:textSize="25dp"
@@ -203,7 +203,7 @@
                     <ListView
                         android:id="@+id/myPostList"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:divider="@color/clouds"
                         android:dividerHeight="1dp" />
 

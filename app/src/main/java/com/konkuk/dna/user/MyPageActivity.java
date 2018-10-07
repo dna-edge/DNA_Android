@@ -39,7 +39,7 @@ public class MyPageActivity extends BaseActivity {
     private ArrayList<Post> myPosts;
     private ArrayList<Post> scrapPosts;
 
-    private boolean myPostListIsOpen = false, scrapPostListIsOpen = false;
+    private boolean myPostListIsOpen = true, scrapPostListIsOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,11 +134,11 @@ public class MyPageActivity extends BaseActivity {
 
             case R.id.myPostBtn: // 내가 쓴 포스팅 버튼 클릭
                 if (myPostListIsOpen) {
-                    myPostAngle.animate().rotation(0).start();
-                    animateListHeight(myPostList, myPosts.size(), 0);
-                } else {
                     myPostAngle.animate().rotation(180).start();
-                    animateListHeight(myPostList, 0, myPosts.size());
+                    Helpers.animateListHeight(this, myPostList, myPosts.size(), 0);
+                } else {
+                    myPostAngle.animate().rotation(0).start();
+                    Helpers.animateListHeight(this, myPostList, 0, myPosts.size());
                 }
                 myPostListIsOpen = !myPostListIsOpen;
                 break;
@@ -146,10 +146,10 @@ public class MyPageActivity extends BaseActivity {
             case R.id.scrapPostBtn: // 스크랩한 포스팅 버튼 클릭
                 if (scrapPostListIsOpen) {
                     scrapPostAngle.animate().rotation(0).start();
-                    animateListHeight(scrapPostList, scrapPosts.size(), 0);
+                    Helpers.animateListHeight(this, scrapPostList, scrapPosts.size(), 0);
                 } else {
-                    scrapPostAngle.animate().rotation(180).start();
-                    animateListHeight(scrapPostList, 0, scrapPosts.size());
+                    scrapPostAngle.animate().rotation(-180).start();
+                    Helpers.animateListHeight(this, scrapPostList, 0, scrapPosts.size());
                 }
                 scrapPostListIsOpen = !scrapPostListIsOpen;
                 break;
@@ -159,27 +159,5 @@ public class MyPageActivity extends BaseActivity {
                 startActivity(updateIntent);
                 break;
         }
-    }
-
-    public void animateListHeight(final ListView listView, int from, int to) {
-        PropertyValuesHolder topList = PropertyValuesHolder.ofInt("top", from, to);
-
-        ValueAnimator animList = ValueAnimator.ofPropertyValuesHolder(topList);
-        animList.setDuration(150L);
-
-        ValueAnimator.AnimatorUpdateListener listUpdater = new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int top = ((Integer)animation.getAnimatedValue("top")).intValue();
-                listView.setTop(top);
-                ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) listView.getLayoutParams();
-                for (int i=1; i<=70; i++)
-                    params.height = top * Helpers.dpToPx(MyPageActivity.this, i);
-                listView.requestLayout();
-            }
-        };
-
-        animList.addUpdateListener(listUpdater);
-        animList.start();
     }
 }

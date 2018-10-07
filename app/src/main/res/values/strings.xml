@@ -2,6 +2,7 @@
     <string name="app_name">DNA</string>
     <string name="fa_star">&#xf005;</string>
     <string name="fa_right">&#xf105;</string>
+    <string name="fa_up">&#xf106;</string>
     <string name="fa_down">&#xf107;</string>
 
     <string name="fa_menu">&#xf0c9;</string>
@@ -26,6 +27,11 @@
 
     <string name="fa_like">&#xf164;</string>
     <string name="fa_scrap">&#xf02e;</string>
+
+    <string name="fa_accepted">&#xff46c;</string>
+    <string name="fa_envelop">&#xff658;</string>
+
+    <string name="fa_x">&#xf00d;</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
