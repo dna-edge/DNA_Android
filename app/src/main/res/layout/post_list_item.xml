@@ -4,7 +4,7 @@
     android:orientation="horizontal"
     android:id="@+id/msgContainer"
     android:layout_width="match_parent"
-    android:layout_height="55dp"
+    android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"

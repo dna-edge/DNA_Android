@@ -91,7 +91,6 @@ public class ChatActivity extends BaseActivity {
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
 
-
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

@@ -135,10 +135,10 @@ public class MyPageActivity extends BaseActivity {
             case R.id.myPostBtn: // 내가 쓴 포스팅 버튼 클릭
                 if (myPostListIsOpen) {
                     myPostAngle.animate().rotation(180).start();
-                    Helpers.animateListHeight(this, myPostList, 57, myPosts.size(), 0);
+                    Helpers.animateListHeight(this, myPostList, 60, myPosts.size(), 0);
                 } else {
                     myPostAngle.animate().rotation(0).start();
-                    Helpers.animateListHeight(this, myPostList, 57, 0, myPosts.size());
+                    Helpers.animateListHeight(this, myPostList, 60, 0, myPosts.size());
                 }
                 myPostListIsOpen = !myPostListIsOpen;
                 break;
@@ -146,10 +146,10 @@ public class MyPageActivity extends BaseActivity {
             case R.id.scrapPostBtn: // 스크랩한 포스팅 버튼 클릭
                 if (scrapPostListIsOpen) {
                     scrapPostAngle.animate().rotation(0).start();
-                    Helpers.animateListHeight(this, scrapPostList, 57, scrapPosts.size(), 0);
+                    Helpers.animateListHeight(this, scrapPostList, 60, scrapPosts.size(), 0);
                 } else {
                     scrapPostAngle.animate().rotation(-180).start();
-                    Helpers.animateListHeight(this, scrapPostList, 57, 0, scrapPosts.size());
+                    Helpers.animateListHeight(this, scrapPostList, 60, 0, scrapPosts.size());
                 }
                 scrapPostListIsOpen = !scrapPostListIsOpen;
                 break;

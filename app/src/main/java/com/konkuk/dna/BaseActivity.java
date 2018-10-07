@@ -3,8 +3,10 @@ package com.konkuk.dna;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +24,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private static Typeface fontAwesomeR;
     private static Typeface fontAwesomeS;
+    private DrawerLayout menuDrawer;
 
     public static Typeface getTypeface(Context context, String font) {
         return Typeface.createFromAsset(context.getAssets(), font);
@@ -30,31 +33,18 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        if(NSEB == null) {
-            NSEB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareEB.ttf");
-        }
-        if(NSB == null) {
-            NSB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareB.ttf");
-        }
-        if(NSR == null) {
-            NSR = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareR.ttf");
-        }
-        if(NSREB == null) {
-            NSREB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareRoundEB.ttf");
-        }
-        if(NSRB == null) {
-            NSRB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareRoundB.ttf");
-        }
-        if(NSRR == null) {
-            NSRR = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareRoundR.ttf");
-        }
-        if(fontAwesomeR == null) {
-            fontAwesomeR = Typeface.createFromAsset(this.getAssets(), "fonts/fa-regular-400.ttf");
-        }
-        if(fontAwesomeS == null) {
-            fontAwesomeS = Typeface.createFromAsset(this.getAssets(), "fonts/fa-solid-900.ttf");
-        }
+        if(NSEB == null)  NSEB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareEB.ttf");
+        if(NSB == null)   NSB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareB.ttf");
+        if(NSR == null)   NSR = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareR.ttf");
+        if(NSREB == null) NSREB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareRoundEB.ttf");
+        if(NSRB == null)  NSRB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareRoundB.ttf");
+        if(NSRR == null)  NSRR = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareRoundR.ttf");
+        if(fontAwesomeR == null) fontAwesomeR = Typeface.createFromAsset(this.getAssets(), "fonts/fa-regular-400.ttf");
+        if(fontAwesomeS == null) fontAwesomeS = Typeface.createFromAsset(this.getAssets(), "fonts/fa-solid-900.ttf");
+
         setGlobalFont(getWindow().getDecorView());
+
+        menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     }
 
     private void setGlobalFont(View view) {
@@ -96,5 +86,12 @@ public class BaseActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        menuDrawer.closeDrawer(Gravity.RIGHT);
     }
 }

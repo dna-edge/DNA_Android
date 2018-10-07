@@ -19,15 +19,19 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".SplashActivity" />
         <activity android:name=".MainActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
 
         <!-- auth package -->
-        <activity android:name=".auth.LoginActivity" android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".auth.LoginActivity"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".auth.SignupAgreeActivity"
             android:parentActivityName=".chat.ChatActivity">
@@ -45,27 +49,24 @@
         </activity>
 
         <!-- chat package -->
-        <activity android:name=".chat.ChatActivity">
-        </activity>
+        <activity android:name=".chat.ChatActivity"></activity>
 
         <!-- user package -->
-        <activity android:name=".user.MyPageActivity" android:windowSoftInputMode="adjustNothing"/>
-        <activity android:name=".user.UserFormActivity" android:windowSoftInputMode="adjustNothing">
-        </activity>
+        <activity
+            android:name=".user.MyPageActivity"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".user.UserFormActivity"
+            android:windowSoftInputMode="adjustNothing"></activity>
 
         <!-- friend package -->
-        <activity android:name=".friend.FriendActivity">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".friend.message.DMActivity"></activity>
-
+        <activity android:name=".friend.FriendActivity"></activity>
+        <activity android:name=".friend.message.DMActivity" />
 
         <!-- post package -->
-        <activity android:name=".post.PostFormActivity" android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".post.PostFormActivity"
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".post.PostDetailActivity" />
 
         <!-- <activity -->
@@ -75,6 +76,13 @@
         <!-- android:name="android.support.PARENT_ACTIVITY" -->
         <!-- android:value="com.konkuk.dna.auth.LoginActivity" /> -->
         <!-- </activity> -->
+        <activity android:name=".user.SettingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

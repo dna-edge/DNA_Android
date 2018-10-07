@@ -30,7 +30,6 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
     private ArrayList<Request> received;
     private ArrayList<Request> accepted;
     private ArrayList<Request> sended;
-
     private RelativeLayout receivedBtn, acceptedBtn, sendedBtn;
 
     private int type;              // 보여줄 요청의 타입을 지정해 타입에 해당하는 뷰를 보여줍니다.
@@ -48,7 +47,6 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notify, container, false);
     }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

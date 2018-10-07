@@ -137,7 +137,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                 break;
         }
 
-
         likeCount.setText(message.getLike());
         dateText.setText(message.getDate());
 
