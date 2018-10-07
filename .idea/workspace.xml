@@ -14,15 +14,14 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="test" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46a1d0a8-2e71-462c-8d0f-841e47b837cf" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/manage/Request.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/manage/RequestListAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_received.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_accepted.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_sended.xml" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
@@ -33,14 +32,16 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/env.properties" afterPath="" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/NotifyFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/NotifyFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/manage/RequestListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/manage/RequestListAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/MyPageActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/MyPageActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/room_menu_not_selected.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/room_menu_not_selected.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/room_menu_selected.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/room_menu_selected.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_friend.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_friend.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_my_page.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_my_page.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/cancel_friend.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cancel_friend.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/layout_border_horizontal.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/layout_border_horizontal.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_notify.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_notify.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_room.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_room.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_received.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_received.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/post_list_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/post_list_item.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
@@ -76,23 +77,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="NotifyFragment.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/NotifyFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4">
-              <caret line="94" column="28" lean-forward="false" selection-start-line="94" selection-start-column="28" selection-end-line="94" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
+      <file leaf-file-name="friend_item_request_sended.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_sended.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RequestListAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/manage/RequestListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="868">
-              <caret line="96" column="39" lean-forward="false" selection-start-line="96" selection-start-column="39" selection-end-line="96" selection-end-column="39" />
+            <state relative-caret-position="135">
+              <caret line="5" column="39" lean-forward="false" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -104,32 +96,55 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="34" column="44" lean-forward="false" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="44" />
+            <state relative-caret-position="378">
+              <caret line="23" column="45" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="23" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyPageActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/MyPageActivity.java">
+      <file leaf-file-name="fragment_room.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_room.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="41" column="52" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state relative-caret-position="486">
+              <caret line="27" column="43" lean-forward="false" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Helpers.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java">
+      <file leaf-file-name="layout_border_horizontal.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/layout_border_horizontal.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="118" column="47" lean-forward="false" selection-start-line="118" selection-start-column="47" selection-end-line="118" selection-end-column="47" />
-              <folding>
-                <element signature="e#4934#5469#0" expanded="true" />
-                <element signature="e#5468#5469#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="108">
+              <caret line="4" column="49" lean-forward="false" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="friend_item_request_received.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_received.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="38" lean-forward="false" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NotifyFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/NotifyFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="131">
+              <caret line="96" column="0" lean-forward="true" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -148,14 +163,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&lt;View</find>
-      <find>프로필 사진</find>
-      <find>입력 사항</find>
-      <find>이미지 선</find>
-      <find>자기 소개</find>
-      <find>email</find>
-      <find>IDEdit</find>
-      <find>스크랩한</find>
       <find>이 것은</find>
       <find>addF</find>
       <find>ListView</find>
@@ -178,9 +185,24 @@
       <find>tag</find>
       <find>내가</find>
       <find>내</find>
+      <find>80</find>
+      <find>70</find>
+      <find>65</find>
+      <find>친구가</find>
+      <find>요청</find>
+      <find>63</find>
+      <find>75</find>
+      <find>77</find>
     </findStrings>
     <replaceStrings>
       <replace>dm</replace>
+      <replace>70</replace>
+      <replace>75</replace>
+      <replace>65</replace>
+      <replace>63</replace>
+      <replace>57</replace>
+      <replace>76</replace>
+      <replace>80</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -2202,12 +2224,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_chat_left.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ripple_effect_chat_right.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_post_form.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/SettingFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostMapFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_chat_map.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMapFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormMapFragment.java" />
@@ -2243,16 +2259,22 @@
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/room_menu_selected.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_my_page.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/Request.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/manage/Request.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_room.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/BaseFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/manage/RequestListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_received.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/MyPageActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/post_list_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/layout_border_horizontal.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/manage/RequestListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_sended.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_received.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_accepted.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_notify.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/NotifyFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_room.xml" />
       </list>
     </option>
   </component>
@@ -2262,7 +2284,7 @@
     <option name="height" value="1081" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="AndroidView" proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -2387,7 +2409,140 @@
       </pane>
       <pane id="Scratches" />
       <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="dna" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="dna" type="462c0819:PsiDirectoryNode" />
+              <item name="friend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="dna" type="462c0819:PsiDirectoryNode" />
+              <item name="friend" type="462c0819:PsiDirectoryNode" />
+              <item name="fragments" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="dna" type="462c0819:PsiDirectoryNode" />
+              <item name="friend" type="462c0819:PsiDirectoryNode" />
+              <item name="manage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="dna" type="462c0819:PsiDirectoryNode" />
+              <item name="friend" type="462c0819:PsiDirectoryNode" />
+              <item name="message" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="dna" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="drawable" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidClient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidClient" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="values" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2398,10 +2553,10 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.konkuk.dna" />
       <recent name="com.konkuk.dna.friend.room" />
       <recent name="com.konkuk.dna.auth" />
       <recent name="com.konkuk.dna.chat" />
-      <recent name="com.konkuk.dna" />
     </key>
     <key name="android.template.packageName">
       <recent name="com.konkuk.dna.user" />
@@ -2612,16 +2767,16 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5019326" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32302594" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32302594" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.49364993" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30893433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30893433" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19823302" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938644" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32965213" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2655,194 +2810,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/naver-map-api-2.1.2.aar/ecaac2cc0885438f2005f3148aaec018/jars/classes.jar!/com/nhn/android/maps/NMapContext.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="94" column="16" lean-forward="false" selection-start-line="94" selection-start-column="16" selection-end-line="94" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/naver-map-api-2.1.2.aar/ecaac2cc0885438f2005f3148aaec018/jars/classes.jar!/com/nhn/android/maps/NMapView.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="28" column="22" lean-forward="false" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
-          <folding>
-            <marker date="1538561234035" expanded="false" signature="0:104" ph="/.../" />
-            <marker date="1538561234035" expanded="false" signature="144:903" ph="..." />
-            <marker date="1538561234035" expanded="false" signature="2204:2215" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="2230:2236" ph=" }" />
-            <marker date="1538561234035" expanded="true" signature="2322:2353" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="2445:2476" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="2568:2599" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="2669:3770" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="3806:3876" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="3931:3993" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="4058:4126" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="4180:4354" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="4389:4991" ph="{...}" />
-            <marker date="1538561234035" expanded="false" signature="5029:5040" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5054:5060" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="5100:5111" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5125:5131" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="5172:5183" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5197:5203" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="5242:5253" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5267:5273" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="5306:5317" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5331:5337" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="5391:5402" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5417:5423" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="5463:5474" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5497:5503" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="5537:5548" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5574:5580" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="5622:5633" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5647:5653" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="5689:5700" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5714:5720" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="5761:5772" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5786:5792" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="5827:5838" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="5852:5858" ph=" }" />
-            <marker date="1538561234035" expanded="true" signature="5904:6114" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="6139:6291" ph="{...}" />
-            <marker date="1538561234035" expanded="false" signature="6337:6348" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="6363:6369" ph=" }" />
-            <marker date="1538561234035" expanded="true" signature="6419:6776" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="6840:7105" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="7177:7226" ph="{...}" />
-            <marker date="1538561234035" expanded="false" signature="7259:7270" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="7288:7294" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="7350:7361" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="7382:7388" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="7412:7423" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="7434:7440" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="7486:7497" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="7511:7517" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="7563:7574" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="7588:7594" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="7644:7655" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="7673:7679" ph=" }" />
-            <marker date="1538561234035" expanded="true" signature="7762:8065" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="8117:8343" ph="{...}" />
-            <marker date="1538561234035" expanded="false" signature="8395:8406" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="8420:8426" ph=" }" />
-            <marker date="1538561234035" expanded="true" signature="8451:8621" ph="{...}" />
-            <marker date="1538561234035" expanded="false" signature="8656:8667" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="8678:8684" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="8708:8719" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="8730:8736" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="8760:8771" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="8782:8788" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="8844:8855" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="8869:8875" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="8922:8933" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="8947:8953" ph=" }" />
-            <marker date="1538561234035" expanded="true" signature="9020:9253" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="9278:9458" ph="{...}" />
-            <marker date="1538561234035" expanded="false" signature="9500:9511" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="9525:9531" ph=" }" />
-            <marker date="1538561234035" expanded="true" signature="9576:9713" ph="{...}" />
-            <marker date="1538561234035" expanded="false" signature="9747:9758" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="9792:9798" ph=" }" />
-            <marker date="1538561234035" expanded="true" signature="9840:9908" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="9947:10015" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="10064:10132" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="10197:10271" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="10334:10408" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="10455:10523" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="10562:10630" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="10664:10743" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="10789:10872" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="10913:11533" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="11569:13291" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="13325:13749" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="13797:14291" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="14366:14574" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="14631:14735" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="14788:14911" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="14979:15108" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="15160:17293" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="17349:17534" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="17588:17771" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="17827:18215" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="18304:18378" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="18462:18523" ph="{...}" />
-            <marker date="1538561234035" expanded="false" signature="18564:18575" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="18616:18622" ph=" }" />
-            <marker date="1538561234035" expanded="true" signature="18704:18759" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="18810:18865" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="18949:19022" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="19063:19652" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="19675:22982" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="23057:27029" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="27042:27106" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="27189:29137" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="28014:28073" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="28169:28358" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="28438:28596" ph="{...}" />
-            <marker date="1538561234035" expanded="false" signature="28645:28660" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="28687:28697" ph=" }" />
-            <marker date="1538561234035" expanded="false" signature="28756:28771" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="28800:28810" ph=" }" />
-            <marker date="1538561234035" expanded="true" signature="28882:29026" ph="{...}" />
-            <marker date="1538561234035" expanded="false" signature="29088:29103" ph=" { " />
-            <marker date="1538561234035" expanded="false" signature="29121:29131" ph=" }" />
-            <marker date="1538561234035" expanded="true" signature="29178:29223" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="29274:29645" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="29699:29910" ph="{...}" />
-            <marker date="1538561234035" expanded="true" signature="29958:30274" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_map.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" column="15" lean-forward="false" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/post/PostFormActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="44" column="12" lean-forward="false" selection-start-line="44" selection-start-column="12" selection-end-line="52" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="59" column="42" lean-forward="false" selection-start-line="59" selection-start-column="42" selection-end-line="59" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/message/DMMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="30" column="27" lean-forward="false" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="94" column="44" lean-forward="false" selection-start-line="94" selection-start-column="44" selection-end-line="94" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_friend_dm.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -2961,36 +2928,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/FriendFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="38" lean-forward="false" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="79" column="67" lean-forward="false" selection-start-line="79" selection-start-column="67" selection-end-line="79" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/FriendActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="78" column="35" lean-forward="false" selection-start-line="78" selection-start-column="35" selection-end-line="78" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#5317#5318#0" expanded="false" />
-            <element signature="e#5350#5351#0" expanded="false" />
-            <element signature="e#5847#5848#0" expanded="false" />
-            <element signature="e#5879#5880#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_friend.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3059,17 +2996,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_friend.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_drawer.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3077,17 +3003,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="157">
           <caret line="58" column="27" lean-forward="false" selection-start-line="58" selection-start-column="27" selection-end-line="58" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_my_page.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5359">
-          <caret line="258" column="54" lean-forward="true" selection-start-line="158" selection-start-column="20" selection-end-line="258" selection-end-column="54" />
           <folding />
         </state>
       </provider>
@@ -3125,27 +3040,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/RoomFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="48" column="24" lean-forward="true" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_room.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="10" column="44" lean-forward="false" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/message/DMRoomListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -3158,14 +3052,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -3224,29 +3110,163 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="98" column="5" lean-forward="false" selection-start-line="59" selection-start-column="4" selection-end-line="98" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/BaseFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-644">
+          <caret line="56" column="9" lean-forward="false" selection-start-line="56" selection-start-column="9" selection-end-line="56" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/RoomFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="48" column="24" lean-forward="false" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="33" column="25" lean-forward="false" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+        <state relative-caret-position="231">
+          <caret line="31" column="33" lean-forward="false" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_my_page.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="205" column="60" lean-forward="true" selection-start-line="205" selection-start-column="60" selection-end-line="205" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/post_list_item.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="100" column="15" lean-forward="true" selection-start-line="100" selection-start-column="15" selection-end-line="100" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/layout_border_bottom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/layout_border_all.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_friend.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/FriendActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="119" column="0" lean-forward="false" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="783">
+          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/MyPageActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1053">
+          <caret line="151" column="69" lean-forward="false" selection-start-line="151" selection-start-column="69" selection-end-line="151" selection-end-column="69" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Helpers.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="118" column="47" lean-forward="false" selection-start-line="118" selection-start-column="47" selection-end-line="118" selection-end-column="47" />
+        <state relative-caret-position="220">
+          <caret line="123" column="0" lean-forward="false" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/manage/RequestListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1433">
+          <caret line="84" column="78" lean-forward="false" selection-start-line="84" selection-start-column="78" selection-end-line="84" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/FriendFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding>
-            <element signature="e#4934#5469#0" expanded="true" />
-            <element signature="e#5468#5469#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/MyPageActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_accepted.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="41" column="52" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        <state relative-caret-position="135">
+          <caret line="5" column="39" lean-forward="false" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friend_item_request_sended.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="5" column="39" lean-forward="false" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/NotifyFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="96" column="0" lean-forward="true" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3256,8 +3276,16 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="58" column="45" lean-forward="false" selection-start-line="58" selection-start-column="45" selection-end-line="58" selection-end-column="45" />
+        <state relative-caret-position="0">
+          <caret line="0" column="38" lean-forward="false" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/layout_border_horizontal.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="49" lean-forward="false" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -3267,27 +3295,20 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="34" column="44" lean-forward="false" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="44" />
+        <state relative-caret-position="378">
+          <caret line="23" column="45" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="23" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/manage/RequestListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="868">
-          <caret line="96" column="39" lean-forward="false" selection-start-line="96" selection-start-column="39" selection-end-line="96" selection-end-column="39" />
-          <folding />
-        </state>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_room.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/friend/fragments/NotifyFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="94" column="28" lean-forward="false" selection-start-line="94" selection-start-column="28" selection-end-line="94" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="486">
+          <caret line="27" column="43" lean-forward="false" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>

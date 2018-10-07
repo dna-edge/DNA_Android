@@ -116,7 +116,7 @@ public class Helpers {
         return Math.round((float) dp * density);
     }
 
-    public static void animateListHeight(final Context context, final ListView listView, int from, int to) {
+    public static void animateListHeight(final Context context, final ListView listView, final int height, int from, int to) {
         PropertyValuesHolder topList = PropertyValuesHolder.ofInt("top", from, to);
 
         ValueAnimator animList = ValueAnimator.ofPropertyValuesHolder(topList);
@@ -128,7 +128,7 @@ public class Helpers {
                 int top = ((Integer)animation.getAnimatedValue("top")).intValue();
                 listView.setTop(top);
                 ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) listView.getLayoutParams();
-                for (int i=1; i<=70; i++)
+                for (int i=1; i<=height; i++)
                     params.height = top * Helpers.dpToPx(context, i);
                 listView.requestLayout();
             }

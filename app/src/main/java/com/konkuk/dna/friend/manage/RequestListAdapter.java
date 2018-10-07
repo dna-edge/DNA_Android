@@ -80,9 +80,9 @@ public class RequestListAdapter extends ArrayAdapter<Request> {
             if (type == TYPE_RECEIVED) {
                 v = layoutInflater.inflate(R.layout.friend_item_request_received, null);
             } else if (type == TYPE_ACCEPTED) {
-
+                v = layoutInflater.inflate(R.layout.friend_item_request_accepted, null);
             } else if (type == TYPE_SENEDED) {
-
+                v = layoutInflater.inflate(R.layout.friend_item_request_sended, null);
             }
 
             ImageView reqAvatar = (ImageView) v.findViewById(R.id.reqAvatar);

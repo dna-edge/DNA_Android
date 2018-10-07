@@ -17,14 +17,15 @@
         android:textColor="@color/grayText"
         android:text="친구 요청 관리하기"
         android:tag="nseb"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grayLight" />
+        android:background="@color/clouds" />
 
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="@string/fa_accepted"
+                    android:text="@string/fa_envelop"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
@@ -78,8 +79,9 @@
                 android:id="@+id/receivedList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:divider="@color/clouds"
-                android:dividerHeight="1dp" />
+                android:dividerHeight="1dp"/>
 
             <RelativeLayout
                 android:id="@+id/acceptedBtn"
@@ -96,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="@string/fa_envelop"
+                    android:text="@string/fa_accepted"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
@@ -124,12 +126,15 @@
                     android:layout_alignParentRight="true"
                     android:tag="fas"/>
             </RelativeLayout>
+
             <ListView
                 android:id="@+id/acceptedList"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="15dp"
                 android:divider="@color/clouds"
-                android:dividerHeight="1dp" />
+                android:dividerHeight="1dp"/>
+
             <RelativeLayout
                 android:id="@+id/sendedBtn"
                 android:layout_width="match_parent"
@@ -145,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="@string/fa_envelop"
+                    android:text="@string/fa_send"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
@@ -181,5 +186,5 @@
                 android:divider="@color/clouds"
                 android:dividerHeight="1dp" />
         </LinearLayout>
-    <!--</ScrollView>-->
+    </ScrollView>
 </LinearLayout>

@@ -77,7 +77,7 @@ public class MyPageActivity extends BaseActivity {
         myPosts.add(new Post("http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
                 "3457soso", "2018.10.05", "제목입니다22",
                 "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
-                127.083559, 37.536543, 3, 2, 1,
+                127.083559, 37.535743, 3, 2, 1,
                 new ArrayList<Comment>(
                         Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
                                 new Comment(null,"test","2018.10.05","이건 댓글입니다."))
@@ -95,7 +95,7 @@ public class MyPageActivity extends BaseActivity {
         scrapPosts.add(new Post("http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
                 "3457soso", "2018.10.05", "제목입니다22",
                 "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
-                127.083559, 37.536543, 1, 2, 3,
+                127.083559, 37.536343, 1, 2, 3,
                 new ArrayList<Comment>(
                         Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
                                 new Comment(null,"test","2018.10.05","이건 댓글입니다."))
@@ -104,7 +104,7 @@ public class MyPageActivity extends BaseActivity {
         scrapPosts.add(new Post("http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
                 "3457soso", "2018.10.05", "제목입니다33",
                 "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
-                127.083559, 37.536543, 2, 1, 3,
+                127.083559, 37.536343, 2, 1, 3,
                 new ArrayList<Comment>(
                         Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
                                 new Comment(null,"test","2018.10.05","이건 댓글입니다."))
@@ -135,10 +135,10 @@ public class MyPageActivity extends BaseActivity {
             case R.id.myPostBtn: // 내가 쓴 포스팅 버튼 클릭
                 if (myPostListIsOpen) {
                     myPostAngle.animate().rotation(180).start();
-                    Helpers.animateListHeight(this, myPostList, myPosts.size(), 0);
+                    Helpers.animateListHeight(this, myPostList, 57, myPosts.size(), 0);
                 } else {
                     myPostAngle.animate().rotation(0).start();
-                    Helpers.animateListHeight(this, myPostList, 0, myPosts.size());
+                    Helpers.animateListHeight(this, myPostList, 57, 0, myPosts.size());
                 }
                 myPostListIsOpen = !myPostListIsOpen;
                 break;
@@ -146,10 +146,10 @@ public class MyPageActivity extends BaseActivity {
             case R.id.scrapPostBtn: // 스크랩한 포스팅 버튼 클릭
                 if (scrapPostListIsOpen) {
                     scrapPostAngle.animate().rotation(0).start();
-                    Helpers.animateListHeight(this, scrapPostList, scrapPosts.size(), 0);
+                    Helpers.animateListHeight(this, scrapPostList, 57, scrapPosts.size(), 0);
                 } else {
                     scrapPostAngle.animate().rotation(-180).start();
-                    Helpers.animateListHeight(this, scrapPostList, 0, scrapPosts.size());
+                    Helpers.animateListHeight(this, scrapPostList, 57, 0, scrapPosts.size());
                 }
                 scrapPostListIsOpen = !scrapPostListIsOpen;
                 break;
