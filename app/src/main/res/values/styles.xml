@@ -33,9 +33,15 @@
         <item name="android:layout_marginLeft">0dp</item>
         <item name="android:paddingLeft">0dp</item>
     </style>
+
     <style name="MyTextLabel" parent="TextAppearance.AppCompat">
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
+    <style name="MySwitch" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/colorRipple</item>
+        <item name="colorControlNormal">@color/concrete</item>
     </style>
 </resources>

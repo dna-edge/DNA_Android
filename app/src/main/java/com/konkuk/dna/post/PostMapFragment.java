@@ -40,7 +40,6 @@ public class PostMapFragment extends Fragment
     private NMapController mapController;
     private NMapOverlayManager mOverlayManager;
     private NMapResourceProvider mMapViewerResourceProvider;
-    private NMapView.OnMapStateChangeListener nMapstateListener;
 
     private ArrayList<Post> posts; // 포스트의 리스트
 

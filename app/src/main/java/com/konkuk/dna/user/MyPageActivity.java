@@ -1,41 +1,29 @@
 package com.konkuk.dna.user;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
 import com.konkuk.dna.R;
-import com.konkuk.dna.chat.ChatActivity;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 public class MyPageActivity extends BaseActivity {
     protected DrawerLayout menuDrawer;
     private LinearLayout myPageProfile;
     private TextView myPageInfo, myPostAngle, scrapPostAngle;
     private ListView myPostList, scrapPostList;
-    private PostListAdapter myPostListAdatper, scrapPostListAdatper;
+    private UserPostListAdapter myPostListAdatper, scrapPostListAdatper;
     private ArrayList<Post> myPosts;
     private ArrayList<Post> scrapPosts;
 
@@ -112,11 +100,11 @@ public class MyPageActivity extends BaseActivity {
         ));
 
         /* 내가 쓴 포스팅 */
-        myPostListAdatper = new PostListAdapter(this, R.layout.post_list_item, myPosts);
+        myPostListAdatper = new UserPostListAdapter(this, R.layout.post_list_item, myPosts);
         myPostList.setAdapter(myPostListAdatper);
 
         /* 스크랩한 포스팅 */
-        scrapPostListAdatper = new PostListAdapter(this, R.layout.post_list_item, scrapPosts);
+        scrapPostListAdatper = new UserPostListAdapter(this, R.layout.post_list_item, scrapPosts);
         scrapPostList.setAdapter(scrapPostListAdatper);
     }
 

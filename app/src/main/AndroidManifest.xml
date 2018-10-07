@@ -76,7 +76,7 @@
         <!-- android:name="android.support.PARENT_ACTIVITY" -->
         <!-- android:value="com.konkuk.dna.auth.LoginActivity" /> -->
         <!-- </activity> -->
-        <activity android:name=".user.SettingActivity">
+        <activity android:name=".user.UserSettingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

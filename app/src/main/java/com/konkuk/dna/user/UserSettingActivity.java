@@ -1,0 +1,95 @@
+package com.konkuk.dna.user;
+
+import android.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import com.konkuk.dna.BaseActivity;
+import com.konkuk.dna.Helpers;
+import com.konkuk.dna.R;
+import com.konkuk.dna.chat.ChatMapFragment;
+
+public class UserSettingActivity extends BaseActivity {
+    protected DrawerLayout menuDrawer;
+    private ChatMapFragment mapFragment;
+    private SeekBar radiusSeekbar;
+    private TextView radiusText;
+    private Switch isAnonymity, isFindable;
+    private int radius;
+    private double longitude, latitude;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user_setting);
+
+        init();
+    }
+
+    public void init() {
+        menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        Helpers.initDrawer(this, menuDrawer, 2);
+
+        radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
+        longitude = 127.07934279999995;
+        latitude = 37.5407625;
+
+        // TODO switch 메뉴들 기존 값으로 초기화해줘야 합니다.
+        mapFragment = (ChatMapFragment) getFragmentManager().findFragmentById(R.id.chatMapFragment);
+        isAnonymity = (Switch) findViewById(R.id.isAnonymity);
+        isFindable = (Switch) findViewById(R.id.isFindable);
+
+        radiusText = (TextView) findViewById(R.id.radiusText);
+        radiusText.setText(radius +"");
+
+        radiusSeekbar = (SeekBar) findViewById(R.id.radiusSeekbar);
+        radiusSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                radius = i*5;
+                radiusText.setText(radius + "");
+                mapFragment.updateRadiusCircle(longitude, latitude, radius);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mapFragment.initMapCenter(longitude, latitude, radius);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.backBtn:
+                finish();
+                break;
+
+            case R.id.menuBtn: // 메뉴 버튼 클릭
+                if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) {
+                    menuDrawer.openDrawer(Gravity.RIGHT);
+                }
+                break;
+
+            case R.id.settingSaveBtn: // 저장 버튼 클릭
+                Log.d("test", "저장 버튼 클릭");
+                break;
+        }
+    }
+}

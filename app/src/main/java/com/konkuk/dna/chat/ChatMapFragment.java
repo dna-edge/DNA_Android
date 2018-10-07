@@ -30,17 +30,48 @@ import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
  */
 public class ChatMapFragment extends Fragment
         implements NMapView.OnMapStateChangeListener, NMapPOIdataOverlay.OnStateChangeListener
-    {
+{
     private NMapContext mapContext;
     private NMapView mapView;
     private NMapController mapController;
     private NMapOverlayManager mOverlayManager;
     private NMapResourceProvider mMapViewerResourceProvider;
-    private NMapView.OnMapStateChangeListener nMapstateListener;
+    private NMapPOIdata poiData;
+    private NMapCircleData circleData;
+    private NMapCircleStyle circleStyle;
 
     private static final String CLIENT_ID = "d58JXyIkF7YXEmOLrYSD"; // 애플리케이션 클라이언트 아이디 값
 
     public ChatMapFragment() {}
+
+    public void initMapCenter(double lng, double lat, float radius) {
+        updatePositionMarker(lng, lat);
+        updateRadiusCircle(lng, lat, radius);
+        mapController.setZoomLevel(11);
+    }
+
+    public void updatePositionMarker(double lng, double lat) {
+        if (poiData.getPOIitem(0) != null) {
+            poiData.getPOIitem(0).setPoint(new NGeoPoint(lng, lat));
+        } else {
+            poiData.addPOIitem(lng, lat, "", NMapPOIflagType.SPOT, 0);
+        }
+        poiData.endPOIdata();
+
+        NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+        mapController.setMapCenter(new NGeoPoint(lng, lat), 11);
+    }
+
+    public void updateRadiusCircle(double lng, double lat, float radius) {
+        mOverlayManager.clearOverlays();
+        updatePositionMarker(lng, lat);
+        circleData = new NMapCircleData(1);
+        circleData.initCircleData();
+        circleData.addCirclePoint(lng, lat, radius);
+        circleData.setCircleStyle(circleStyle);
+        NMapPathDataOverlay pathDataOverlay = mOverlayManager.createPathDataOverlay();
+        pathDataOverlay.addCircleData(circleData);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,42 +107,24 @@ public class ChatMapFragment extends Fragment
         mapController = mapView.getMapController();
         mMapViewerResourceProvider = new NMapViewerResourceProvider(getActivity());
         mOverlayManager = new NMapOverlayManager(getActivity(),mapView,mMapViewerResourceProvider);
-        NMapProjection nMapProjection;
+
+        poiData = new NMapPOIdata(1, mMapViewerResourceProvider);
+        circleData = new NMapCircleData(1);
+        circleData.initCircleData();
+        circleStyle = new NMapCircleStyle(getActivity());
+        circleStyle.setStrokeColor(getResources().getColor(R.color.grayLight), 50);
+        circleStyle.setStrokeWidth(0.5F);
+        circleStyle.setFillColor(getResources().getColor(R.color.red), 50);
+        circleData.setCircleStyle(circleStyle);
 
         OnMapViewStateChangeListener.onMapInitHandler(mapView, null);
     }
 
-
-    NMapView.OnMapStateChangeListener OnMapViewStateChangeListener = new NMapView.OnMapStateChangeListener() {
+    public NMapView.OnMapStateChangeListener OnMapViewStateChangeListener = new NMapView.OnMapStateChangeListener() {
         @Override
         public void onMapInitHandler(NMapView nMapView, NMapError nMapError) {
-            Log.d("ChatMapFragment", "nmapview");
             if (nMapError == null) {
-                // TODO : GPS로 현재 위치 잡아서 지정해줘야 합니다.
-                // 지도를 내위치로 초기화합니다.
-                double longitude = 127.07934279999995;
-                double latitude = 37.5407625;
-                float radius = 500;
-
-                NMapPOIdata poiData = new NMapPOIdata(2,mMapViewerResourceProvider);
-                poiData.addPOIitem(longitude, latitude, "", NMapPOIflagType.SPOT, 0);
-                poiData.endPOIdata();
-
-                NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
-                poiDataOverlay.showAllPOIdata(0);
                 mapController.setZoomLevel(11);
-
-                NMapCircleData circleData = new NMapCircleData(1);
-                circleData.initCircleData();
-                circleData.addCirclePoint(longitude, latitude, radius);
-                NMapCircleStyle circleStyle = new NMapCircleStyle(getActivity());
-                circleStyle.setStrokeColor(getResources().getColor(R.color.grayLight), 50);
-                circleStyle.setStrokeWidth(0.5F);
-                circleStyle.setFillColor(getResources().getColor(R.color.red), 50);
-                circleData.setCircleStyle(circleStyle);
-                NMapPathDataOverlay pathDataOverlay = mOverlayManager.createPathDataOverlay();
-                pathDataOverlay.addCircleData(circleData);
-
             } else {
                 Log.d("초기화 중 에러 발생", nMapError.toString());
             }
