@@ -22,11 +22,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:orientation="vertical"
             android:layout_gravity="center_vertical">
 
@@ -44,9 +44,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
                 android:textSize="14dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:singleLine="true" />
+                android:maxLines="2"
+                android:ellipsize="end" />
 
         </LinearLayout>
 

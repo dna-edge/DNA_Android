@@ -1,27 +1,23 @@
 package com.konkuk.dna.post;
 
-import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
-import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
-import com.konkuk.dna.chat.ChatMapFragment;
+import com.konkuk.dna.map.MapFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PostFormActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
-    private ChatMapFragment mapFragment;
+    private MapFragment mapFragment;
     private EditText postTitleEdit, postContentEdit;
     private double longitude, latitude;
 
@@ -43,7 +39,7 @@ public class PostFormActivity extends BaseActivity {
         // TODO 위치 초기값 설정해줘야 합니다!
         longitude = 127.07934279999995;
         latitude = 37.5407625;
-        mapFragment = (ChatMapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
     }
 
     public void onClick(View v) {

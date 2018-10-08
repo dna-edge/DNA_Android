@@ -1,14 +1,10 @@
 package com.konkuk.dna.user;
 
-import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.support.v7.widget.SwitchCompat;
 import android.widget.TextView;
@@ -16,11 +12,11 @@ import android.widget.TextView;
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
 import com.konkuk.dna.R;
-import com.konkuk.dna.chat.ChatMapFragment;
+import com.konkuk.dna.map.MapFragment;
 
 public class UserSettingActivity extends BaseActivity {
     protected DrawerLayout menuDrawer;
-    private ChatMapFragment mapFragment;
+    private MapFragment mapFragment;
     private SeekBar radiusSeekbar;
     private TextView radiusText;
     private SwitchCompat isAnonymity, isFindable;
@@ -44,7 +40,7 @@ public class UserSettingActivity extends BaseActivity {
         latitude = 37.5407625;
 
         // TODO switch 메뉴들 기존 값으로 초기화해줘야 합니다.
-        mapFragment = (ChatMapFragment) getFragmentManager().findFragmentById(R.id.chatMapFragment);
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.chatMapFragment);
         isAnonymity = (SwitchCompat) findViewById(R.id.isAnonymity);
         isFindable = (SwitchCompat) findViewById(R.id.isFindable);
 

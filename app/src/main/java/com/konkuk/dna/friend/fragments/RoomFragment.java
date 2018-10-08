@@ -54,7 +54,7 @@ public class RoomFragment extends Fragment {
         rooms = new ArrayList<DMRoom>();
 
         // TODO 서버에서 room 리스트를 받아와서 초기화시켜줘야 합니다.
-        rooms.add(new DMRoom(0, 1, "3457soso", "https://pbs.twimg.com/media/DbYfg2IWkAENdiS.jpg", "마지막 메시지", TYPE_MESSAGE, "2018-01-24"));
+        rooms.add(new DMRoom(0, 1, "3457soso", "https://pbs.twimg.com/media/DbYfg2IWkAENdiS.jpg", "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용", TYPE_MESSAGE, "2018-01-24"));
         rooms.add(new DMRoom(1, 2, "test", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-23"));
         rooms.add(new DMRoom(2, 3, "avatar", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-22"));
 

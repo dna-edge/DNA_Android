@@ -75,7 +75,7 @@
 
             <fragment
                 android:id="@+id/chatMapFragment"
-                android:name="com.konkuk.dna.chat.ChatMapFragment"
+                android:name="com.konkuk.dna.map.MapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>

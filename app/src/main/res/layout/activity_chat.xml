@@ -82,7 +82,7 @@
 
             <fragment
                 android:id="@+id/mapFragment"
-                android:name="com.konkuk.dna.chat.ChatMapFragment"
+                android:name="com.konkuk.dna.map.MapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"/>
             <View
@@ -104,79 +104,96 @@
                 android:listSelector="@android:color/transparent"
                 android:background="@drawable/layout_border_horizontal"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/msgSpeakerBtn"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:textSize="22dp"
-                    android:textColor="@color/concrete"
-                    android:background="@drawable/transparent"
-                    android:text="@string/fa_speaker"
-                    android:tag="fas"
-                    android:layout_marginLeft="10dp"
-                    android:onClick="onClick" />
-
-                <EditText
-                    android:id="@+id/msgEditText"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="45dp"
-                    android:layout_marginRight="120dp"
-                    android:paddingLeft="3dp"
-                    android:singleLine="true"
-                    android:textColor="@color/grayDarker"
-                    android:textSize="17dp"
-                    android:hint="메시지 입력 ..."
-                    android:theme="@style/chatEditTextTheme" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="bottom">
 
-                <Button
-                    android:id="@+id/msgLocationBtn"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:textSize="22dp"
-                    android:textColor="@color/concrete"
-                    android:background="@drawable/transparent"
-                    android:text="@string/fa_compass"
-                    android:tag="far"
-                    android:layout_marginRight="90dp"
-                    android:layout_alignParentRight="true"
-                    android:onClick="onClick" />
+                    <Button
+                        android:id="@+id/msgSpeakerBtn"
+                        android:layout_width="25dp"
+                        android:layout_height="50dp"
+                        android:textSize="22dp"
+                        android:textColor="@color/concrete"
+                        android:background="@drawable/transparent"
+                        android:text="@string/fa_speaker"
+                        android:tag="fas"
+                        android:layout_marginLeft="10dp"
+                        android:layout_alignBottom="@id/msgEditText"
+                        android:onClick="onClick" />
 
-                <Button
-                    android:id="@+id/msgImageBtn"
-                    android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:textSize="22dp"
-                    android:textColor="@color/concrete"
-                    android:background="@drawable/transparent"
-                    android:text="@string/fa_image"
-                    android:tag="far"
-                    android:layout_marginRight="55dp"
-                    android:layout_alignParentRight="true"
-                    android:onClick="onClick" />
+                    <EditText
+                        android:id="@+id/msgEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="50dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="45dp"
+                        android:layout_marginRight="120dp"
+                        android:paddingLeft="3dp"
+                        android:maxLines="4"
+                        android:textColor="@color/grayDarker"
+                        android:textSize="17dp"
+                        android:hint="메시지 입력 ..."
+                        android:theme="@style/chatEditTextTheme" />
 
-                <Button
-                    android:id="@+id/msgSendBtn"
-                    android:layout_width="45dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:textSize="22dp"
-                    android:textColor="@color/asbestos"
-                    android:background="@color/clouds"
-                    android:text="@string/fa_send"
-                    android:tag="fas"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:layout_alignParentRight="true"
-                    android:onClick="onClick" />
-            </RelativeLayout>
+                    <Button
+                        android:id="@+id/msgLocationBtn"
+                        android:layout_width="25dp"
+                        android:layout_height="50dp"
+                        android:textSize="22dp"
+                        android:textColor="@color/concrete"
+                        android:background="@drawable/transparent"
+                        android:text="@string/fa_compass"
+                        android:tag="far"
+                        android:layout_marginRight="90dp"
+                        android:layout_alignBottom="@id/msgEditText"
+                        android:layout_alignParentRight="true"
+                        android:onClick="onClick" />
+
+                    <Button
+                        android:id="@+id/msgImageBtn"
+                        android:layout_width="25dp"
+                        android:layout_height="50dp"
+                        android:textSize="22dp"
+                        android:textColor="@color/concrete"
+                        android:background="@drawable/transparent"
+                        android:text="@string/fa_image"
+                        android:tag="far"
+                        android:layout_marginRight="55dp"
+                        android:layout_alignBottom="@id/msgEditText"
+                        android:layout_alignParentRight="true"
+                        android:onClick="onClick" />
+
+                    <LinearLayout
+                        android:id="@+id/msgSendBtn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/clouds"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:layout_alignBottom="@id/msgEditText"
+                        android:layout_alignParentRight="true"
+                        android:onClick="onClick">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="bottom"
+                            android:gravity="center"
+                            android:text="@string/fa_send"
+                            android:tag="fas"
+                            android:textSize="22dp"
+                            android:textColor="@color/asbestos" />                       />
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

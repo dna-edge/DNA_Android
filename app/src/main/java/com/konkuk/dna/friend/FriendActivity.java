@@ -1,31 +1,19 @@
 package com.konkuk.dna.friend;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
 import com.konkuk.dna.R;
-import com.konkuk.dna.chat.ChatActivity;
 import com.konkuk.dna.friend.fragments.FriendFragment;
 import com.konkuk.dna.friend.fragments.NotifyFragment;
 import com.konkuk.dna.friend.fragments.RoomFragment;
-import com.konkuk.dna.post.PostFormMapFragment;
 
 public class FriendActivity extends BaseActivity implements View.OnClickListener {
     final int ROOM_FRAGMENT = 1;

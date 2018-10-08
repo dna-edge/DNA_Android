@@ -3,6 +3,8 @@ package com.konkuk.dna;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,6 +27,13 @@ public class BaseActivity extends AppCompatActivity {
     private static Typeface fontAwesomeR;
     private static Typeface fontAwesomeS;
     private DrawerLayout menuDrawer;
+    protected GPSTracker gpsTracker;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        gpsTracker = new GPSTracker(this);
+    }
 
     public static Typeface getTypeface(Context context, String font) {
         return Typeface.createFromAsset(context.getAssets(), font);

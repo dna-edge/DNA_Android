@@ -3,27 +3,19 @@ package com.konkuk.dna;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.konkuk.dna.chat.ChatActivity;
-import com.konkuk.dna.chat.ChatMapFragment;
-import com.konkuk.dna.chat.ChatUser;
-import com.konkuk.dna.chat.ChatUserAdapter;
+import com.konkuk.dna.map.MapFragment;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostFormActivity;
@@ -33,7 +25,7 @@ import java.util.Arrays;
 
 public class MainActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
-    private ChatMapFragment mapFragment;
+    private MapFragment mapFragment;
     private View mapFragmentView;
     private ArrayList<Post> posts;
 
@@ -45,8 +37,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        Helpers.getPermission(this);
 
+        setContentView(R.layout.activity_main);
         init();
     }
 
@@ -62,10 +55,10 @@ public class MainActivity extends BaseActivity {
         mapFragmentView = (View) findViewById(R.id.mapFragment);
 
         radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
-        longitude = 127.07934279999995;
-        latitude = 37.5407625;
+        longitude = gpsTracker.getLongitude();
+        latitude = gpsTracker.getLatitude();
 
-        mapFragment = (ChatMapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
         posts = new ArrayList<Post>();
 

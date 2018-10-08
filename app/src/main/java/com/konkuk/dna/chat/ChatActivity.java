@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
@@ -25,6 +23,7 @@ import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
 import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
+import com.konkuk.dna.map.MapFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import java.util.Locale;
 
 public class ChatActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
-    private ChatMapFragment mapFragment;
+    private MapFragment mapFragment;
     private View mapFragmentView;
     private RelativeLayout barLayout;
 
@@ -80,7 +79,7 @@ public class ChatActivity extends BaseActivity {
         longitude = 127.07934279999995;
         latitude = 37.5407625;
 
-        mapFragment = (ChatMapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
 
         // TODO chatMessages 배열에 실제 메시지 추가해야 합니다.

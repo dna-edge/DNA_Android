@@ -1,7 +1,6 @@
 package com.konkuk.dna.post;
 
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,17 +17,12 @@ import android.widget.TextView;
 import com.konkuk.dna.BaseActivity;
 import com.konkuk.dna.Helpers;
 import com.konkuk.dna.R;
-import com.konkuk.dna.chat.ChatMapFragment;
+import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PostDetailActivity extends BaseActivity {
     protected DrawerLayout menuDrawer;
-    private ChatMapFragment mapFragment;
+    private MapFragment mapFragment;
     private ScrollView postScrollView;
     private ImageView postAvatar;
     private ImageButton addFriendBtn;
@@ -72,7 +66,7 @@ public class PostDetailActivity extends BaseActivity {
 
         commentEdit = (EditText) findViewById(R.id.commentEdit);
         commentList = (ListView) findViewById(R.id.commentList);
-        mapFragment = (ChatMapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
         Post extra = (Post) getIntent().getSerializableExtra("post");
         post = (extra == null) ? new Post() : extra;
