@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.konkuk.dna.BaseActivity;
+import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.R;
 import com.konkuk.dna.chat.ChatActivity;
 

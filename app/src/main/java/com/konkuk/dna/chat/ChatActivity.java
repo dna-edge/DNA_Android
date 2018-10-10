@@ -18,9 +18,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.konkuk.dna.BaseActivity;
-import com.konkuk.dna.Helpers;
+import com.konkuk.dna.helpers.AnimHelpers;
+import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
@@ -38,6 +40,9 @@ public class ChatActivity extends BaseActivity {
     private ListView msgListView;
     private EditText msgEditText;
     private Button msgSpeakerBtn, msgLocationBtn, msgImageBtn;
+    private LinearLayout mapSizeBtn;
+    private TextView mapSizeAngle;
+
     private ChatListAdapter chatListAdapter;
     private ArrayList<ChatMessage> chatMessages;
 
@@ -54,6 +59,7 @@ public class ChatActivity extends BaseActivity {
     private final String TYPE_LOCATION = "Location";    // 현재 위치 전송
     private final String TYPE_IMAGE = "Image";       // 이미지 전송
     private String messageType = TYPE_MESSAGE;
+    private boolean mapIsOpen = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +71,7 @@ public class ChatActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 0);
+        InitHelpers.initDrawer(this, menuDrawer, 0);
 
         mapFragmentView = (View) findViewById(R.id.mapFragment);
         barLayout = (RelativeLayout) findViewById(R.id.barLayout);
@@ -74,6 +80,8 @@ public class ChatActivity extends BaseActivity {
         msgSpeakerBtn = (Button) findViewById(R.id.msgSpeakerBtn);
         msgLocationBtn = (Button) findViewById(R.id.msgLocationBtn);
         msgImageBtn = (Button) findViewById(R.id.msgImageBtn);
+        mapSizeBtn = (LinearLayout) findViewById(R.id.mapSizeBtn);
+        mapSizeAngle = (TextView) findViewById(R.id.mapSizeAngle);
 
         radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
         longitude = 127.07934279999995;
@@ -109,7 +117,7 @@ public class ChatActivity extends BaseActivity {
         height = size.y;
 
         slideAnimator = ValueAnimator
-                .ofInt(Helpers.dpToPx(this, 150), height).setDuration(400);
+                .ofInt(AnimHelpers.dpToPx(this, 150), height).setDuration(400);
 
         slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -118,8 +126,8 @@ public class ChatActivity extends BaseActivity {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mapFragmentView.getLayoutParams();
                 LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) barLayout.getLayoutParams();
                 params.height = value.intValue();
-                int divider = (height - Helpers.dpToPx(getApplicationContext(), 150)) / 50;
-                params2.setMargins(0, -1 * Helpers.dpToPx(getApplicationContext(), value - Helpers.dpToPx(getApplicationContext(), 150))/divider, 0, 0);
+                int divider = (height - AnimHelpers.dpToPx(getApplicationContext(), 150)) / 50;
+                params2.setMargins(0, -1 * AnimHelpers.dpToPx(getApplicationContext(), value - AnimHelpers.dpToPx(getApplicationContext(), 150))/divider, 0, 0);
                 mapFragmentView.requestLayout();
             }
         });
@@ -157,6 +165,21 @@ public class ChatActivity extends BaseActivity {
                 if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) {
                     menuDrawer.openDrawer(Gravity.RIGHT);
                 }
+                break;
+
+            case R.id.mapSizeBtn: // 지도 크기 조정 버튼 클릭
+                if (mapIsOpen) {
+                    mapSizeAngle.animate().rotation(180).setDuration(400L).start();
+                    AnimHelpers.animateViewHeight(this, mapFragmentView, AnimHelpers.dpToPx(this, 150), 0);
+                    AnimHelpers.animateMargin(this, mapSizeBtn, "top", 200L,
+                            AnimHelpers.dpToPx(this, 105), AnimHelpers.dpToPx(this, 5));
+                } else {
+                    mapSizeAngle.animate().rotation(0).setDuration(400L).start();
+                    AnimHelpers.animateViewHeight(this, mapFragmentView, 0, AnimHelpers.dpToPx(this, 150));
+                    AnimHelpers.animateMargin(this, mapSizeBtn, "top", 200L,
+                            AnimHelpers.dpToPx(this, 5), AnimHelpers.dpToPx(this, 105));
+                }
+                mapIsOpen = !mapIsOpen;
                 break;
 
             case R.id.msgSpeakerBtn: // 확성기 버튼 클릭
@@ -242,6 +265,15 @@ public class ChatActivity extends BaseActivity {
         set.play(slideAnimator);
         set.setInterpolator(new AccelerateDecelerateInterpolator());
         set.start();
+
+        int top = AnimHelpers.dpToPx(this, 5);
+        if (mapIsOpen) {
+            top = AnimHelpers.dpToPx(this, 105);
+        }
+
+        AnimHelpers.animateMargin(this, mapSizeBtn, "top", 200L,
+                top, AnimHelpers.dpToPx(this, -40));
+
     }
 
     @Override

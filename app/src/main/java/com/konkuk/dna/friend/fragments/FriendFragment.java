@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.konkuk.dna.BaseFragment;
-import com.konkuk.dna.Helpers;
+import com.konkuk.dna.helpers.BaseFragment;
+import com.konkuk.dna.helpers.AnimHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.friend.manage.Friend;
 import com.konkuk.dna.friend.manage.FriendListAdapter;
@@ -71,12 +71,12 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
         /* 접속 중인 친구 */
         onFriendListAdapter = new FriendListAdapter(getContext(), 0, onFriends);
         onFriendList.setAdapter(onFriendListAdapter);
-        Helpers.setListViewHeight(onFriendList);
+        AnimHelpers.setListViewHeight(onFriendList);
 
         /* 모든 친구 */
         allFriendListAdapter = new FriendListAdapter(getContext(), 0, allFriends);
         allFriendList.setAdapter(allFriendListAdapter);
-        Helpers.setListViewHeight(allFriendList);
+        AnimHelpers.setListViewHeight(allFriendList);
     }
 
     @Override

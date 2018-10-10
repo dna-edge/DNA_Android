@@ -1,15 +1,14 @@
 package com.konkuk.dna.user;
 
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.konkuk.dna.BaseActivity;
-import com.konkuk.dna.Helpers;
+import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.R;
 
 public class UserFormActivity extends BaseActivity {
@@ -27,7 +26,7 @@ public class UserFormActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 2);
+        InitHelpers.initDrawer(this, menuDrawer, 2);
 
         IDEdit = (EditText) findViewById(R.id.IDEdit);
         emailEdit = (EditText) findViewById(R.id.emailEdit);

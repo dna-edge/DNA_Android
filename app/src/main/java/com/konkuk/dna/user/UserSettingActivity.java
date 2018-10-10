@@ -9,8 +9,8 @@ import android.widget.SeekBar;
 import android.support.v7.widget.SwitchCompat;
 import android.widget.TextView;
 
-import com.konkuk.dna.BaseActivity;
-import com.konkuk.dna.Helpers;
+import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
 
@@ -33,7 +33,7 @@ public class UserSettingActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 2);
+        InitHelpers.initDrawer(this, menuDrawer, 2);
 
         radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
         longitude = 127.07934279999995;

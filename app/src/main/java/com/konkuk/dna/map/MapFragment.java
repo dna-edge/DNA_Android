@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,17 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.konkuk.dna.GPSTracker;
+import com.konkuk.dna.helpers.GPSTracker;
 import com.konkuk.dna.R;
-import com.konkuk.dna.map.NMapPOIflagType;
-import com.konkuk.dna.map.NMapViewerResourceProvider;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostDetailActivity;
 import com.nhn.android.maps.NMapCompassManager;
 import com.nhn.android.maps.NMapContext;
 import com.nhn.android.maps.NMapController;
 import com.nhn.android.maps.NMapLocationManager;
-import com.nhn.android.maps.NMapProjection;
 import com.nhn.android.maps.NMapView;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.nmapmodel.NMapError;
@@ -209,7 +205,8 @@ public class MapFragment extends Fragment
         circleData.setCircleStyle(circleStyle);
 
         OnMapViewStateChangeListener.onMapInitHandler(mapView, null);
-        gpsTracker = new GPSTracker(getActivity());
+//        gpsTracker = new GPSTracker(getActivity());
+        startMyLocation();
     }
 
     private void startMyLocation() {
@@ -320,7 +317,7 @@ public class MapFragment extends Fragment
 
     @Override
     public boolean onLocationChanged(NMapLocationManager nMapLocationManager, NGeoPoint nGeoPoint) {
-        Log.d("test", nGeoPoint.toString());
+        Log.d("MapFragment_test", nGeoPoint.toString());
 
         return true;
     }

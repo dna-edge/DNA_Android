@@ -4,7 +4,6 @@ package com.konkuk.dna.friend.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.konkuk.dna.BaseFragment;
-import com.konkuk.dna.Helpers;
+import com.konkuk.dna.helpers.AnimHelpers;
+import com.konkuk.dna.helpers.BaseFragment;
+import com.konkuk.dna.helpers.AnimHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.friend.manage.Request;
 import com.konkuk.dna.friend.manage.RequestListAdapter;
@@ -91,7 +91,7 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         /* 받은 친구 요청 */
         receivedListAdapter = new RequestListAdapter(getActivity(), 0, received, TYPE_RECEIVED);
         receivedList.setAdapter(receivedListAdapter);
-        Helpers.animateListHeight(getActivity(), receivedList, 70, 0, received.size());
+        AnimHelpers.animateListHeight(getActivity(), receivedList, 70, 0, received.size());
 
         /* 수락된 친구 요청 */
         acceptedListAdapter = new RequestListAdapter(getActivity(), 0, accepted, TYPE_ACCEPTED);
@@ -108,10 +108,10 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
             case R.id.receivedBtn: // 받은 친구 요청 버튼 클릭
                 if (receivedListIsOpen) {
                     receivedAngle.animate().rotation(180).start();
-                    Helpers.animateListHeight(getActivity(), receivedList, 70, received.size(), 0);
+                    AnimHelpers.animateListHeight(getActivity(), receivedList, 70, received.size(), 0);
                 } else {
                     receivedAngle.animate().rotation(0).start();
-                    Helpers.animateListHeight(getActivity(), receivedList, 70, 0, received.size());
+                    AnimHelpers.animateListHeight(getActivity(), receivedList, 70, 0, received.size());
                 }
                 receivedListIsOpen = !receivedListIsOpen;
                 break;
@@ -119,10 +119,10 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
             case R.id.acceptedBtn: // 수락된 친구 요청 버튼 클릭
                 if (acceptedListIsOpen) {
                     acceptedAngle.animate().rotation(0).start();
-                    Helpers.animateListHeight(getActivity(), acceptedList, 70, accepted.size(), 0);
+                    AnimHelpers.animateListHeight(getActivity(), acceptedList, 70, accepted.size(), 0);
                 } else {
                     acceptedAngle.animate().rotation(-180).start();
-                    Helpers.animateListHeight(getActivity(), acceptedList, 70, 0, accepted.size());
+                    AnimHelpers.animateListHeight(getActivity(), acceptedList, 70, 0, accepted.size());
                 }
                 acceptedListIsOpen = !acceptedListIsOpen;
                 break;
@@ -130,10 +130,10 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
             case R.id.sendedBtn: // 보낸 친구 요청 버튼 클릭
                 if (sendedListIsOpen) {
                     sendedAngle.animate().rotation(0).start();
-                    Helpers.animateListHeight(getActivity(), sendedList, 70, sended.size(), 0);
+                    AnimHelpers.animateListHeight(getActivity(), sendedList, 70, sended.size(), 0);
                 } else {
                     sendedAngle.animate().rotation(-180).start();
-                    Helpers.animateListHeight(getActivity(), sendedList, 70, 0, sended.size());
+                    AnimHelpers.animateListHeight(getActivity(), sendedList, 70, 0, sended.size());
                 }
             sendedListIsOpen = !sendedListIsOpen;
             break;

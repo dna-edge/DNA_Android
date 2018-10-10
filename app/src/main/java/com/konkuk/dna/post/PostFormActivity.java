@@ -7,8 +7,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 
-import com.konkuk.dna.BaseActivity;
-import com.konkuk.dna.Helpers;
+import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
 
@@ -31,7 +31,7 @@ public class PostFormActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 2);
+        InitHelpers.initDrawer(this, menuDrawer, 2);
 
         postTitleEdit = (EditText) findViewById(R.id.postTitleEdit);
         postContentEdit = (EditText) findViewById(R.id.postContentEdit);

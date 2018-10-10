@@ -6,15 +6,21 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 
 import com.konkuk.dna.chat.ChatActivity;
+import com.konkuk.dna.helpers.AnimHelpers;
+import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.map.MapFragment;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
@@ -27,6 +33,8 @@ public class MainActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
     private MapFragment mapFragment;
     private View mapFragmentView;
+    private FloatingActionButton gotoChatBtn, postWriteBtn;
+
     private ArrayList<Post> posts;
 
     private ValueAnimator slideAnimator;
@@ -37,7 +45,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Helpers.getPermission(this);
+        InitHelpers.getPermission(this);
 
         setContentView(R.layout.activity_main);
         init();
@@ -45,7 +53,7 @@ public class MainActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 0);
+        InitHelpers.initDrawer(this, menuDrawer, 0);
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -53,10 +61,18 @@ public class MainActivity extends BaseActivity {
         height = size.y;
 
         mapFragmentView = (View) findViewById(R.id.mapFragment);
+        gotoChatBtn = (FloatingActionButton) findViewById(R.id.gotoChatBtn);
+        postWriteBtn = (FloatingActionButton) findViewById(R.id.postWriteBtn);
+
+        AnimHelpers.animateMargin(this, gotoChatBtn, "bottom", 400L,
+                AnimHelpers.dpToPx(this, -80), AnimHelpers.dpToPx(this, 95));
+        AnimHelpers.animateMargin(this, postWriteBtn, "bottom", 400L,
+                AnimHelpers.dpToPx(this, -80), AnimHelpers.dpToPx(this, 25));
 
         radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
         longitude = gpsTracker.getLongitude();
         latitude = gpsTracker.getLatitude();
+        Log.d("MainActivity_test", longitude + ", " +latitude);
 
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
@@ -83,7 +99,7 @@ public class MainActivity extends BaseActivity {
         ));
 
         slideAnimator = ValueAnimator
-            .ofInt(height, Helpers.dpToPx(this, 150)).setDuration(500);
+            .ofInt(height, AnimHelpers.dpToPx(this, 150)).setDuration(500);
 
         slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -92,7 +108,7 @@ public class MainActivity extends BaseActivity {
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mapFragmentView.getLayoutParams();
                 params.height = value.intValue();
                 int divider = height / 50;
-                params.setMargins(0, Helpers.dpToPx(getApplicationContext(), (Helpers.dpToPx(getApplicationContext(), 150) + height-value)/divider), 0, 0);
+                params.setMargins(0, AnimHelpers.dpToPx(getApplicationContext(), (AnimHelpers.dpToPx(getApplicationContext(), 150) + height-value)/divider), 0, 0);
                 mapFragmentView.requestLayout();
             }
         });
@@ -130,6 +146,10 @@ public class MainActivity extends BaseActivity {
                 set.play(slideAnimator);
                 set.setInterpolator(new AccelerateDecelerateInterpolator());
                 set.start();
+                AnimHelpers.animateMargin(this, gotoChatBtn, "bottom", 400L,
+                        AnimHelpers.dpToPx(this, 95), AnimHelpers.dpToPx(this, -80));
+                AnimHelpers.animateMargin(this, postWriteBtn, "bottom", 400L,
+                        AnimHelpers.dpToPx(this, 25), AnimHelpers.dpToPx(this, -80));
                 break;
 
             case R.id.postWriteBtn:
@@ -150,6 +170,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         mapFragment.initMapCenter(longitude, latitude, radius);
         mapFragment.drawPostLocations(posts);
     }
