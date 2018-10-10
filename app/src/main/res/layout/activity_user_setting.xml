@@ -144,7 +144,7 @@
                 android:layout_marginLeft="15dp"
                 android:textSize="13dp"
                 android:textColor="@color/grayText"
-                android:text="익명 설정"
+                android:text="익명/기타 설정"
                 android:tag="nseb"/>
 
             <View
@@ -202,7 +202,7 @@
                     android:layout_marginLeft="10dp"
                     android:textSize="16dp"
                     android:textColor="@color/gray"
-                    android:text="아이디로 검색 "
+                    android:text="아이디로 검색 허용"
                     android:tag="nsb"/>
 
                 <android.support.v7.widget.SwitchCompat
@@ -217,7 +217,41 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/silver" />
+                android:background="@color/grayLighter" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/gray"
+                    android:text="베스트챗 주기 설정 "
+                    android:tag="nsb"/>
+
+                <Spinner
+                    android:id="@+id/bestChatCycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/concrete" />
 
             <TextView
                 android:layout_width="match_parent"

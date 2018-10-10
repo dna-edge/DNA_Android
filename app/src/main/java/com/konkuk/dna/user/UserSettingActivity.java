@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.support.v7.widget.SwitchCompat;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.konkuk.dna.helpers.BaseActivity;
@@ -20,6 +22,7 @@ public class UserSettingActivity extends BaseActivity {
     private SeekBar radiusSeekbar;
     private TextView radiusText;
     private SwitchCompat isAnonymity, isFindable;
+    private Spinner bestChatCycle;
     private int radius;
     private double longitude, latitude;
 
@@ -43,6 +46,11 @@ public class UserSettingActivity extends BaseActivity {
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.chatMapFragment);
         isAnonymity = (SwitchCompat) findViewById(R.id.isAnonymity);
         isFindable = (SwitchCompat) findViewById(R.id.isFindable);
+        bestChatCycle = (Spinner) findViewById(R.id.bestChatCycle);
+        ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(this,
+                R.array.best_chat, android.R.layout.simple_spinner_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        bestChatCycle.setAdapter(arrayAdapter);
 
         radiusText = (TextView) findViewById(R.id.radiusText);
         radiusText.setText(radius +"");

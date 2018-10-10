@@ -97,18 +97,102 @@
                     android:background="@drawable/shadow_view">
                 </View>
 
-                <ListView
-                    android:id="@+id/msgListView"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:divider="@android:color/transparent"
-                    android:dividerHeight="5dp"
-                    android:listSelector="@android:color/transparent"
-                    android:background="@drawable/layout_border_horizontal"/>
+                    android:orientation="vertical"
+                    android:background="@drawable/layout_border_horizontal">
 
+                    <RelativeLayout
+                        android:id="@+id/bestChatWrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_vertical"
+                        android:background="@color/clouds"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/bestChatMargin"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginRight="35dp"
+                            android:layout_gravity="center_vertical">
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:elevation="12dp"
+                                android:layout_marginRight="7dp"
+                                android:layout_gravity="center_vertical"
+                                app:cardCornerRadius="18dp">
+                                <ImageView
+                                    android:id="@+id/bestChatAvatar"
+                                    android:layout_height="35dp"
+                                    android:layout_width="match_parent"
+                                    android:src="@drawable/avatar">
+                                </ImageView>
+                            </android.support.v7.widget.CardView>
+
+                            <LinearLayout
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/bestChatContent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="2dp"
+                                    android:textColor="@color/black"
+                                    android:lines="1"
+                                    android:singleLine="true"
+                                    android:ellipsize="end"
+                                    android:textSize="15dp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/bestChatNickname"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/grayDark"
+                                    android:textSize="13dp"
+                                    android:tag="nseb" />
+
+                                    <TextView
+                                        android:id="@+id/bestChatDate"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="8dp"
+                                        android:textColor="@color/grayText"
+                                        android:textSize="13dp"
+                                        android:tag="nsb" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <ListView
+                        android:id="@+id/msgListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:divider="@android:color/transparent"
+                        android:dividerHeight="5dp"
+                        android:listSelector="@android:color/transparent"/>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -203,26 +287,54 @@
 
             <LinearLayout
                 android:id="@+id/mapSizeBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="105dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="100dp"
+                android:gravity="center"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/layout_map_button"
-                android:orientation="horizontal"
+                android:onClick="onClick">
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/layout_button_map">
+                    <TextView
+                        android:id="@+id/mapSizeAngle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/concrete"
+                        android:textSize="18dp"
+                        android:text="@string/fa_arrow_up"
+                        android:tag="fas"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bestChatBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="150dp"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
                 android:onClick="onClick">
 
-                <TextView
-                    android:id="@+id/mapSizeAngle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:textColor="@color/concrete"
-                    android:textSize="18dp"
-                    android:text="@string/fa_arrow_up"
-                    android:tag="fas"/>
+                <LinearLayout
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:background="@drawable/layout_button_chat">
 
+                    <TextView
+                        android:id="@+id/bestChatAngle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/clouds"
+                        android:textSize="14dp"
+                        android:text="@string/fa_x"
+                        android:tag="fas"/>
+                </LinearLayout>
             </LinearLayout>
+
         </RelativeLayout>
     </LinearLayout>
 

@@ -64,9 +64,9 @@ public class MainActivity extends BaseActivity {
         gotoChatBtn = (FloatingActionButton) findViewById(R.id.gotoChatBtn);
         postWriteBtn = (FloatingActionButton) findViewById(R.id.postWriteBtn);
 
-        AnimHelpers.animateMargin(this, gotoChatBtn, "bottom", 400L,
+        AnimHelpers.animateMargin(this, gotoChatBtn, "main", 400L,
                 AnimHelpers.dpToPx(this, -80), AnimHelpers.dpToPx(this, 95));
-        AnimHelpers.animateMargin(this, postWriteBtn, "bottom", 400L,
+        AnimHelpers.animateMargin(this, postWriteBtn, "main", 400L,
                 AnimHelpers.dpToPx(this, -80), AnimHelpers.dpToPx(this, 25));
 
         radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
@@ -146,9 +146,9 @@ public class MainActivity extends BaseActivity {
                 set.play(slideAnimator);
                 set.setInterpolator(new AccelerateDecelerateInterpolator());
                 set.start();
-                AnimHelpers.animateMargin(this, gotoChatBtn, "bottom", 400L,
+                AnimHelpers.animateMargin(this, gotoChatBtn, "main", 400L,
                         AnimHelpers.dpToPx(this, 95), AnimHelpers.dpToPx(this, -80));
-                AnimHelpers.animateMargin(this, postWriteBtn, "bottom", 400L,
+                AnimHelpers.animateMargin(this, postWriteBtn, "main", 400L,
                         AnimHelpers.dpToPx(this, 25), AnimHelpers.dpToPx(this, -80));
                 break;
 

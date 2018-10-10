@@ -3,6 +3,7 @@ package com.konkuk.dna.helpers;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -91,9 +92,17 @@ public class AnimHelpers {
                 int value = (Integer) valueAnimator.getAnimatedValue();
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) target.getLayoutParams();
                 if (type.equals("top")) {
-                    params.setMargins(0, value, dpToPx(context, 5), 0);
+                    params.setMargins(0, value, 0, 0);
                 } else if (type.equals("bottom")) {
+                    params.setMargins(0, 0, 0, value);
+                } else if (type.equals("right")) {
+                    params.setMargins(0, 0, value, 0);
+                } else if (type.equals("left")) {
+                    params.setMargins(value, 0, 0, 0);
+                } else if (type.equals("main")) {
                     params.setMargins(0, 0, dpToPx(context, 20), value);
+                } else if (type.equals("chat")) {
+                    params.setMargins(0, dpToPx(context,value * 3), dpToPx(context, (int)((value-50) * -0.9)), 0);
                 }
                 target.setLayoutParams(params);
             }
