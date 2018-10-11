@@ -14,9 +14,19 @@ public class JsonToObj {
         if(jsonObject.get("status")!=null){
             //리스폰스가 정상이라면
             Log.e("!!!=", jsonObject.get("status").toString());
+            JsonObject resultObject = (JsonObject) jsonObject.get("result");
+
+            JsonObject profileObject = (JsonObject) resultObject.get("profile");
+            // 유저정보를 소켓에 연결
+
+            JsonObject tokenObject = (JsonObject) resultObject.get("token");
+            //토큰 내부 디비에 저장
+
+
+
         }else{
             //리스폰스에 하자가 있다면
-            Log.e(jsonObject.get("code").toString(), jsonObject.get("message").toString());
+           Log.e(jsonObject.get("code").toString(), jsonObject.get("message").toString());
         }
 
 
