@@ -9,7 +9,7 @@
         android:id="@+id/tb_signup1"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:text="서비스 약관"
             android:tag="bold"
+            android:textColor="@color/colorPrimary"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_gravity="center" />
 
@@ -25,9 +26,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#5F4B8B"
+        android:background="@color/white"
         android:padding="20dp">
 
         <FrameLayout
@@ -39,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"
-                android:textColor="#FFF"
+                android:textColor="@color/colorPrimary"
                 android:text="DNA 이용약관 동의" />
 
             <CheckBox
@@ -78,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"
-                android:textColor="#FFF"
+                android:textColor="@color/colorPrimary"
                 android:text="개인정보 수집 및 이용에 관한 동의" />
 
             <CheckBox
@@ -107,19 +108,20 @@
             </LinearLayout>
         </ScrollView>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/btn_agree"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:textColor="@color/gray"
-                android:text="동의합니다."/>
-        </FrameLayout>
-
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/btn_agree"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:textColor="@color/gray"
+            android:text="동의합니다."/>
+    </FrameLayout>
 
 </LinearLayout>

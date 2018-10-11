@@ -17,20 +17,24 @@
         android:roundIcon="@mipmap/dna"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".SplashActivity" />
-        <activity android:name=".MainActivity">
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+
+        <activity android:name=".SplashActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
 
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity" />
+
 
         <!-- auth package -->
         <activity
             android:name=".auth.LoginActivity"
             android:windowSoftInputMode="adjustNothing" />
+
 
         <activity
             android:name=".auth.SignupAgreeActivity"

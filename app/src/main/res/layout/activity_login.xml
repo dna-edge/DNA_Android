@@ -25,7 +25,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/editText_mail"
+        android:id="@+id/editText_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/EditTextTheme"

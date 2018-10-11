@@ -101,6 +101,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        menuDrawer.closeDrawer(Gravity.RIGHT);
+        if (menuDrawer != null) {
+            menuDrawer.closeDrawer(Gravity.RIGHT);
+        }
     }
 }
