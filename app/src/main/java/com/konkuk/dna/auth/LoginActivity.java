@@ -1,6 +1,9 @@
 package com.konkuk.dna.auth;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
@@ -9,15 +12,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.R;
-import com.konkuk.dna.chat.ChatActivity;
+import com.konkuk.dna.httpjson.HttpReqRes;
+import com.konkuk.dna.httpjson.JsonToObj;
+
+import static com.konkuk.dna.auth.LoginActivity.loginDialog;
+import static com.konkuk.dna.auth.LoginActivity.showLoginDialog;
 
 public class LoginActivity extends BaseActivity {
 
+    private Context context;
+
+    static ProgressDialog loginDialog;
+
     private Button button;
-    private EditText UserMail;
+    private EditText UserID;
     private EditText UserPW;
 
     private TextView MissPW;
@@ -30,7 +42,7 @@ public class LoginActivity extends BaseActivity {
 
         //getSupportActionBar().hide();
         button = (Button) findViewById(R.id.button_login);
-        UserMail = (EditText) findViewById(R.id.editText_mail);
+        UserID = (EditText) findViewById(R.id.editText_id);
         UserPW = (EditText) findViewById(R.id.editText_pw);
 //        MissPW = (TextView)findViewById(R.id.miss_pw);
         SignUp = (TextView)findViewById(R.id.sign_up);
@@ -51,14 +63,18 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 // 받아온 메일과 비밀번호로 Auth받아오기
-                if(UserMail.getText().toString().equals("aa")){
-                    // 받아온다면?
-                    startActivity(new Intent(LoginActivity.this, ChatActivity.class));
-                    LoginActivity.this.finish();
-                }else{
-                    //못받아오면?
-                    showDenyDialog();
-                }
+//                if(UserID.getText().toString().equals("")){
+//                    // 빈칸이라면?
+//                    Toast.makeText(view.getContext(), "정보를 입력하지 않았습니다.", Toast.LENGTH_SHORT).show();
+//                }else{
+                    // 로그인 시도하기
+                    loginDialog = new ProgressDialog(view.getContext());
+
+                    LoginAsyncTask lat = new LoginAsyncTask(view.getContext());
+                    lat.execute(UserID.getText().toString(), UserPW.getText().toString());
+
+                    //showDenyDialog();
+//                }
             }
         });
 
@@ -90,6 +106,59 @@ public class LoginActivity extends BaseActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public static void showLoginDialog(){
+        loginDialog.setIcon(R.mipmap.dna_round);
+        loginDialog.setTitle("DNA");
+        loginDialog.setProgressStyle(0);
+        loginDialog.setMessage("로그인 중입니다.");
+        loginDialog.show();
+    }
+}
+
+
+class LoginAsyncTask extends AsyncTask<String, Integer, String> {
+    private Context context;
+
+    public LoginAsyncTask(Context context){
+        this.context=context;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        showLoginDialog();
+        super.onPreExecute();
+    }
+
+    @Override
+    protected String doInBackground(String... strings) {
+        //로그인 되어 있는지 확인
+        //결과를 리턴
+
+        String responseResult = "no";
+
+        HttpReqRes httpreq = new HttpReqRes();
+        responseResult = httpreq.requestHttpPostLogin("https://dna.soyoungpark.me:9011/api/users/login", strings[0], strings[1]);
+
+        JsonToObj jto = new JsonToObj();
+        jto.LoginJsonToObj(responseResult);
+
+        return responseResult;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        //되어있으면 ActivityChat
+        //안 되어있으면 ActivityLogin
+
+        loginDialog.dismiss();
+
+        Toast.makeText(context, "result = "+result, Toast.LENGTH_SHORT);
+
+//        Intent intent = new Intent(context, MainActivity.class);
+//        context.startActivity(intent);
+//        ((Activity)context).finish();
     }
 }
 
