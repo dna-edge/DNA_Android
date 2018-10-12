@@ -1,17 +1,22 @@
 package com.konkuk.dna.friend.manage;
 
 public class Friend {
+    private String id;
     private String nickname;
     private String avatar;
     private String info;
     private Boolean status;
 
-    public Friend(String nickname, String avatar, String info, Boolean status) {
+    public Friend(String id, String nickname, String avatar, String info, Boolean status) {
+        this.id = id;
         this.nickname = nickname;
         this.avatar = avatar;
         this.info = info;
         this.status = status;
     }
+
+    public String getID() { return id; }
+    public void setID(String id) { this.id = id; }
 
     public String getNickname() {
         return nickname;

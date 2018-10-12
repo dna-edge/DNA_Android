@@ -4,16 +4,19 @@ package com.konkuk.dna.friend.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.konkuk.dna.friend.manage.FriendDetailFragment;
 import com.konkuk.dna.friend.manage.OnFriendListAdapter;
 import com.konkuk.dna.helpers.BaseFragment;
 import com.konkuk.dna.helpers.AnimHelpers;
@@ -62,21 +65,21 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
 
         if (friendSearchBtn != null) friendSearchBtn.setOnClickListener(this);
 
-        onFriends.add(new Friend("3457soso", "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg", "자기소개", true));
-        onFriends.add(new Friend("3457soso", null, "ㅋㅋ", true));
-        onFriends.add(new Friend("3457soso", null, "", true));
-        onFriends.add(new Friend("3457soso", null, "", true));
-//        onFriends.add(new Friend("3457soso", null, "", true));
-//        onFriends.add(new Friend("3457soso", null, "", true));
-//        onFriends.add(new Friend("3457soso", null, "", true));
-//        onFriends.add(new Friend("3457soso", null, "", true));
+        onFriends.add(new Friend("3457soso", "socoing", "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg", "자기소개", true));
+        onFriends.add(new Friend("3457soso", "socoing", null, "ㅋㅋ", true));
+        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
+        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
+//        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
+//        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
+//        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
+//        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
 
-        allFriends.add(new Friend("3457soso", "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg", "상태 메시지", true));
-        allFriends.add(new Friend("3457soso", null, "", false));
-        allFriends.add(new Friend("3457soso", null, "", false));
-        allFriends.add(new Friend("3457soso", null, "ㅋㅋㅎㅁ", true));
-        allFriends.add(new Friend("3457soso", null, "", false));
-        allFriends.add(new Friend("3457soso", null, "", false));
+        allFriends.add(new Friend("3457soso", "socoing", "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg", "상태 메시지", true));
+        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
+        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
+        allFriends.add(new Friend("3457soso", "socoing", null, "ㅋㅋㅎㅁ", true));
+        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
+        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
 
         /* 접속 중인 친구 */
         RecyclerView.LayoutManager layoutManager;
@@ -89,6 +92,16 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
         allFriendListAdapter = new FriendListAdapter(getContext(), 0, allFriends);
         allFriendList.setAdapter(allFriendListAdapter);
         AnimHelpers.setListViewHeight(allFriendList);
+        allFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FragmentManager fragmentManager = getActivity().getFragmentManager();
+                FriendDetailFragment friendDetailFragment = new FriendDetailFragment();
+
+                friendDetailFragment.setData(allFriends.get(i));
+                friendDetailFragment.show(fragmentManager, "friendDetailFragment");
+            }
+        });
     }
 
     @Override
