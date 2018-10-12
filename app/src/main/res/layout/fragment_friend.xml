@@ -75,12 +75,13 @@
                 android:layout_height="1dp"
                 android:background="@color/silver" />
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/onFriendList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:divider="@color/white"
-                android:dividerHeight="0dp"/>
+                android:orientation="horizontal"
+                android:background="@color/white"/>
+
 
             <TextView
                 android:layout_width="match_parent"

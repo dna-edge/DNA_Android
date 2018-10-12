@@ -33,6 +33,10 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         gpsTracker = new GPSTracker(this);
+
+        // 상태바 색상 변경
+        View view = getWindow().getDecorView();
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDarker));
     }
 
     public static Typeface getTypeface(Context context, String font) {

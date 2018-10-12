@@ -60,28 +60,30 @@ public class FriendListAdapter extends ArrayAdapter<Friend> {
         ImageView avatar = v.findViewById(R.id.ccuAvatar);
         TextView nickname = v.findViewById(R.id.ccuNickname);
         TextView status = v.findViewById(R.id.ccuStatus);
-        ImageButton deleteFriendBtn = v.findViewById(R.id.deleteFriendBtn);
+        TextView caret = v.findViewById(R.id.ccuCaret);
+        TextView info = v.findViewById(R.id.ccuInfo);
+        LinearLayout infoWraper = v.findViewById(R.id.infoWraper);
 
         if (user.getAvatar() != null) {
             Picasso.get().load(user.getAvatar()).into(avatar);
         }
 
+        if (user.getInfo() == "" || user.getInfo() == null) {
+            infoWraper.setVisibility(View.INVISIBLE);
+        } else {
+            info.setText(user.getInfo());
+        }
+
         nickname.setText(user.getNickname());
         status.setTypeface(fontAwesomeS);
+        caret.setTypeface(fontAwesomeS);
         if (user.getStatus()) { // 초록불 켜기!
             status.setTextColor(context.getResources().getColor(R.color.green));
         } else {
             status.setTextColor(context.getResources().getColor(R.color.red));
         }
 
-        if (deleteFriendBtn != null) {
-            deleteFriendBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    DialogSimple();
-                }
-            });
-        }
+
         return v;
     }
 
