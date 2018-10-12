@@ -1,4 +1,4 @@
-package com.konkuk.dna;
+package com.konkuk.dna.helpers;
 
 import android.Manifest;
 import android.animation.PropertyValuesHolder;
@@ -21,6 +21,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.konkuk.dna.MainActivity;
+import com.konkuk.dna.R;
 import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.chat.ChatUserAdapter;
 import com.konkuk.dna.friend.FriendActivity;
@@ -39,7 +41,7 @@ import java.util.ArrayList;
 
 import static android.view.View.GONE;
 
-public class Helpers {
+public class InitHelpers {
     public static void setProfile(View v) {
         // TODO 현재 유저의 정보를 초기화해줍니다.
 
@@ -124,58 +126,6 @@ public class Helpers {
             drawerForUserList.setVisibility(GONE);
             drawerForFriend.setVisibility(GONE);
         }
-    }
-
-    public static int dpToPx(Context context, int dp) {
-        float density = context.getResources()
-                .getDisplayMetrics()
-                .density;
-        return Math.round((float) dp * density);
-    }
-
-    public static void setListViewHeight(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
-
-        int totalHeight = 0;
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
-
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }
-
-
-    public static void animateListHeight(final Context context, final ListView listView, final int height, int from, int to) {
-        PropertyValuesHolder topList = PropertyValuesHolder.ofInt("top", from, to);
-
-        ValueAnimator animList = ValueAnimator.ofPropertyValuesHolder(topList);
-        animList.setDuration(150L);
-
-        ValueAnimator.AnimatorUpdateListener listUpdater = new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int top = ((Integer)animation.getAnimatedValue("top")).intValue();
-                listView.setTop(top);
-                ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) listView.getLayoutParams();
-                for (int i=1; i<=height; i++)
-                    params.height = top * Helpers.dpToPx(context, i);
-                listView.requestLayout();
-            }
-        };
-
-        animList.addUpdateListener(listUpdater);
-        animList.start();
     }
 
     public static void getPermission(Activity activity) {

@@ -8,7 +8,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/apache-mime4j-core-0.8.2" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/httpclient-4.5.6" />
+            <option value="$PROJECT_DIR$/httpcore-4.4.10" />
+            <option value="$PROJECT_DIR$/httpmime-4.3.5" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

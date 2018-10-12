@@ -9,8 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.konkuk.dna.BaseActivity;
-import com.konkuk.dna.Helpers;
+import com.konkuk.dna.helpers.AnimHelpers;
+import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
@@ -39,7 +40,7 @@ public class MyPageActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 2);
+        InitHelpers.initDrawer(this, menuDrawer, 2);
 
         myPageProfile = (LinearLayout) findViewById(R.id.myPageProfile);
         myPageInfo = (TextView) findViewById(R.id.myPageInfo);
@@ -47,7 +48,7 @@ public class MyPageActivity extends BaseActivity {
         scrapPostAngle = (TextView) findViewById(R.id.scrapPostAngle);
         myPostList = (ListView) findViewById(R.id.myPostList);
         scrapPostList = (ListView) findViewById(R.id.scrapPostList);
-        Helpers.setProfile(myPageProfile);
+        InitHelpers.setProfile(myPageProfile);
 
         myPosts = new ArrayList<Post>();
         scrapPosts = new ArrayList<Post>();
@@ -82,11 +83,11 @@ public class MyPageActivity extends BaseActivity {
         ));
 
         /* 내가 쓴 포스팅 */
-        myPostListAdatper = new UserPostListAdapter(this, R.layout.post_list_item, myPosts);
+        myPostListAdatper = new UserPostListAdapter(this, R.layout.post_list_item, myPosts, false);
         myPostList.setAdapter(myPostListAdatper);
 
         /* 스크랩한 포스팅 */
-        scrapPostListAdatper = new UserPostListAdapter(this, R.layout.post_list_item, scrapPosts);
+        scrapPostListAdatper = new UserPostListAdapter(this, R.layout.post_list_item, scrapPosts, true);
         scrapPostList.setAdapter(scrapPostListAdatper);
     }
 
@@ -105,10 +106,10 @@ public class MyPageActivity extends BaseActivity {
             case R.id.myPostBtn: // 내가 쓴 포스팅 버튼 클릭
                 if (myPostListIsOpen) {
                     myPostAngle.animate().rotation(180).start();
-                    Helpers.animateListHeight(this, myPostList, 60, myPosts.size(), 0);
+                    AnimHelpers.animateListHeight(this, myPostList, 63, myPosts.size(), 0);
                 } else {
                     myPostAngle.animate().rotation(0).start();
-                    Helpers.animateListHeight(this, myPostList, 60, 0, myPosts.size());
+                    AnimHelpers.animateListHeight(this, myPostList, 63, 0, myPosts.size());
                 }
                 myPostListIsOpen = !myPostListIsOpen;
                 break;
@@ -116,10 +117,10 @@ public class MyPageActivity extends BaseActivity {
             case R.id.scrapPostBtn: // 스크랩한 포스팅 버튼 클릭
                 if (scrapPostListIsOpen) {
                     scrapPostAngle.animate().rotation(0).start();
-                    Helpers.animateListHeight(this, scrapPostList, 60, scrapPosts.size(), 0);
+                    AnimHelpers.animateListHeight(this, scrapPostList, 63, scrapPosts.size(), 0);
                 } else {
                     scrapPostAngle.animate().rotation(-180).start();
-                    Helpers.animateListHeight(this, scrapPostList, 60, 0, scrapPosts.size());
+                    AnimHelpers.animateListHeight(this, scrapPostList, 63, 0, scrapPosts.size());
                 }
                 scrapPostListIsOpen = !scrapPostListIsOpen;
                 break;

@@ -14,8 +14,8 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.konkuk.dna.BaseActivity;
-import com.konkuk.dna.Helpers;
+import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
@@ -45,7 +45,7 @@ public class PostDetailActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 2);
+        InitHelpers.initDrawer(this, menuDrawer, 2);
 
         postScrollView = (ScrollView) findViewById(R.id.postScrollView);
         postAvatar = (ImageView) findViewById(R.id.postAvatar);

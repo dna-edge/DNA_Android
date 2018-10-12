@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidClient.iml" filepath="$PROJECT_DIR$/AndroidClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apache-mime4j-core-0.8.2/apache-mime4j-core-0.8.2.iml" filepath="$PROJECT_DIR$/apache-mime4j-core-0.8.2/apache-mime4j-core-0.8.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dna.iml" filepath="$PROJECT_DIR$/dna.iml" />
+      <module fileurl="file://$PROJECT_DIR$/httpclient-4.5.6/httpclient-4.5.6.iml" filepath="$PROJECT_DIR$/httpclient-4.5.6/httpclient-4.5.6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/httpcore-4.4.10/httpcore-4.4.10.iml" filepath="$PROJECT_DIR$/httpcore-4.4.10/httpcore-4.4.10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/httpmime-4.3.5/httpmime-4.3.5.iml" filepath="$PROJECT_DIR$/httpmime-4.3.5/httpmime-4.3.5.iml" />
     </modules>
   </component>
 </project>

@@ -9,21 +9,26 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.konkuk.dna.BaseActivity;
-import com.konkuk.dna.Helpers;
+import com.konkuk.dna.helpers.AnimHelpers;
+import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +43,11 @@ public class ChatActivity extends BaseActivity {
     private ListView msgListView;
     private EditText msgEditText;
     private Button msgSpeakerBtn, msgLocationBtn, msgImageBtn;
+    private LinearLayout mapSizeBtn, bestChatBtn, bestChatMargin;
+    private RelativeLayout bestChatWrapper;
+    private TextView mapSizeAngle, bestChatAngle, bestChatContent, bestChatNickname, bestChatDate;
+    private ImageView bestChatAvatar;
+
     private ChatListAdapter chatListAdapter;
     private ArrayList<ChatMessage> chatMessages;
 
@@ -47,6 +57,7 @@ public class ChatActivity extends BaseActivity {
     private AnimatorSet set;
     private int height, radius;
     private double longitude, latitude;
+    private boolean mapIsOpen = true, bestChatIsOpen = true;
 
     /* 메시지의 타입을 구분하기 위한 변수들입니다 */
     private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
@@ -65,7 +76,7 @@ public class ChatActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 0);
+        InitHelpers.initDrawer(this, menuDrawer, 0);
 
         mapFragmentView = (View) findViewById(R.id.mapFragment);
         barLayout = (RelativeLayout) findViewById(R.id.barLayout);
@@ -74,12 +85,31 @@ public class ChatActivity extends BaseActivity {
         msgSpeakerBtn = (Button) findViewById(R.id.msgSpeakerBtn);
         msgLocationBtn = (Button) findViewById(R.id.msgLocationBtn);
         msgImageBtn = (Button) findViewById(R.id.msgImageBtn);
+        mapSizeBtn = (LinearLayout) findViewById(R.id.mapSizeBtn);
+        mapSizeAngle = (TextView) findViewById(R.id.mapSizeAngle);
+        bestChatBtn = (LinearLayout) findViewById(R.id.bestChatBtn);
+        bestChatAngle = (TextView) findViewById(R.id.bestChatAngle);
+        bestChatWrapper = (RelativeLayout) findViewById(R.id.bestChatWrapper);
+        bestChatMargin = (LinearLayout) findViewById(R.id.bestChatMargin);
 
         radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
         longitude = 127.07934279999995;
         latitude = 37.5407625;
 
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
+
+        bestChatContent = (TextView) findViewById(R.id.bestChatContent);
+        bestChatNickname = (TextView) findViewById(R.id.bestChatNickname);
+        bestChatDate = (TextView) findViewById(R.id.bestChatDate);
+        bestChatAvatar = (ImageView) findViewById(R.id.bestChatAvatar);
+
+        // TODO 베스트챗 내용 세팅해줘야 합니다!
+        Picasso.get()
+                .load("http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg")
+                .into(bestChatAvatar);
+        bestChatContent.setText("좋아요를 많이 받은 베스트챗의 내용이로다...");
+        bestChatNickname.setText("3457soso");
+        bestChatDate.setText("오후 01:30");
 
 
         // TODO chatMessages 배열에 실제 메시지 추가해야 합니다.
@@ -109,7 +139,7 @@ public class ChatActivity extends BaseActivity {
         height = size.y;
 
         slideAnimator = ValueAnimator
-                .ofInt(Helpers.dpToPx(this, 150), height).setDuration(400);
+                .ofInt(AnimHelpers.dpToPx(this, 150), height).setDuration(400);
 
         slideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -118,8 +148,8 @@ public class ChatActivity extends BaseActivity {
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mapFragmentView.getLayoutParams();
                 LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) barLayout.getLayoutParams();
                 params.height = value.intValue();
-                int divider = (height - Helpers.dpToPx(getApplicationContext(), 150)) / 50;
-                params2.setMargins(0, -1 * Helpers.dpToPx(getApplicationContext(), value - Helpers.dpToPx(getApplicationContext(), 150))/divider, 0, 0);
+                int divider = (height - AnimHelpers.dpToPx(getApplicationContext(), 150)) / 50;
+                params2.setMargins(0, -1 * AnimHelpers.dpToPx(getApplicationContext(), value - AnimHelpers.dpToPx(getApplicationContext(), 150))/divider, 0, 0);
                 mapFragmentView.requestLayout();
             }
         });
@@ -157,6 +187,37 @@ public class ChatActivity extends BaseActivity {
                 if (!menuDrawer.isDrawerOpen(Gravity.RIGHT)) {
                     menuDrawer.openDrawer(Gravity.RIGHT);
                 }
+                break;
+
+            case R.id.mapSizeBtn: // 지도 크기 조정 버튼 클릭
+                if (mapIsOpen) {
+                    mapSizeAngle.animate().rotation(180).setDuration(400L).start();
+                    AnimHelpers.animateViewHeight(this, mapFragmentView, AnimHelpers.dpToPx(this, 150), 0);
+                    AnimHelpers.animateMargin(this, mapSizeBtn, "top", 200L,
+                            AnimHelpers.dpToPx(this, 100), 0);
+                    AnimHelpers.animateMargin(this, bestChatMargin, "right", 200L,
+                            AnimHelpers.dpToPx(this,35), AnimHelpers.dpToPx(this,80));
+                    AnimHelpers.animateMargin(this, bestChatBtn, "chat", 200L, 50, 0);
+                } else {
+                    mapSizeAngle.animate().rotation(360).setDuration(400L).start();
+                    AnimHelpers.animateViewHeight(this, mapFragmentView, 0, AnimHelpers.dpToPx(this, 150));
+                    AnimHelpers.animateMargin(this, mapSizeBtn, "top", 200L,
+                            0, AnimHelpers.dpToPx(this, 100));
+                    AnimHelpers.animateMargin(this, bestChatMargin, "right", 200L,
+                            AnimHelpers.dpToPx(this,80), AnimHelpers.dpToPx(this,35));
+                    AnimHelpers.animateMargin(this, bestChatBtn, "chat", 200L, 0, 50);
+                }
+                mapIsOpen = !mapIsOpen;
+                break;
+            case R.id.bestChatBtn: // 베스트챗 버튼 클릭
+                if (bestChatIsOpen) {
+                    bestChatAngle.setText(getResources().getString(R.string.fa_crown));
+                    AnimHelpers.animateViewHeight(this, bestChatWrapper, AnimHelpers.dpToPx(this, 50), 0);
+                } else {
+                    bestChatAngle.setText(getResources().getString(R.string.fa_x));
+                    AnimHelpers.animateViewHeight(this, bestChatWrapper, 0, AnimHelpers.dpToPx(this, 50));
+                }
+                bestChatIsOpen = !bestChatIsOpen;
                 break;
 
             case R.id.msgSpeakerBtn: // 확성기 버튼 클릭
@@ -242,6 +303,15 @@ public class ChatActivity extends BaseActivity {
         set.play(slideAnimator);
         set.setInterpolator(new AccelerateDecelerateInterpolator());
         set.start();
+
+        int top = AnimHelpers.dpToPx(this, 5);
+        if (mapIsOpen) {
+            top = AnimHelpers.dpToPx(this, 105);
+        }
+
+        AnimHelpers.animateMargin(this, mapSizeBtn, "top", 200L,
+                top, AnimHelpers.dpToPx(this, -40));
+
     }
 
     @Override

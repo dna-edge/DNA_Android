@@ -1,4 +1,4 @@
-package com.konkuk.dna;
+package com.konkuk.dna.helpers;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;

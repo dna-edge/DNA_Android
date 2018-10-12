@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.konkuk.dna.BaseActivity;
-import com.konkuk.dna.Helpers;
+import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.R;
 
 import java.text.SimpleDateFormat;
@@ -48,7 +48,7 @@ public class DMActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 1);
+        InitHelpers.initDrawer(this, menuDrawer, 1);
 
         dmListView = (ListView) findViewById(R.id.dmListView);
         dmEditText = (EditText) findViewById(R.id.dmEditText);

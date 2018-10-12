@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import com.konkuk.dna.BaseActivity;
+import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.R;
 
 public class SignupAgreeActivity extends BaseActivity {

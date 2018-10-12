@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.support.v7.widget.SwitchCompat;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.konkuk.dna.BaseActivity;
-import com.konkuk.dna.Helpers;
+import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
 
@@ -20,6 +22,7 @@ public class UserSettingActivity extends BaseActivity {
     private SeekBar radiusSeekbar;
     private TextView radiusText;
     private SwitchCompat isAnonymity, isFindable;
+    private Spinner bestChatCycle;
     private int radius;
     private double longitude, latitude;
 
@@ -33,7 +36,7 @@ public class UserSettingActivity extends BaseActivity {
 
     public void init() {
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Helpers.initDrawer(this, menuDrawer, 2);
+        InitHelpers.initDrawer(this, menuDrawer, 2);
 
         radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
         longitude = 127.07934279999995;
@@ -43,6 +46,11 @@ public class UserSettingActivity extends BaseActivity {
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.chatMapFragment);
         isAnonymity = (SwitchCompat) findViewById(R.id.isAnonymity);
         isFindable = (SwitchCompat) findViewById(R.id.isFindable);
+        bestChatCycle = (Spinner) findViewById(R.id.bestChatCycle);
+        ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(this,
+                R.array.best_chat, android.R.layout.simple_spinner_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        bestChatCycle.setAdapter(arrayAdapter);
 
         radiusText = (TextView) findViewById(R.id.radiusText);
         radiusText.setText(radius +"");

@@ -15,7 +15,7 @@
         android:layout_marginLeft="15dp"
         android:textSize="13dp"
         android:textColor="@color/grayText"
-        android:text="친구 요청 관리하기"
+        android:text="다이렉트 메시지"
         android:tag="nseb"/>
 
     <View
