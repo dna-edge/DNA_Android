@@ -19,6 +19,8 @@ import com.konkuk.dna.R;
 import com.konkuk.dna.httpjson.HttpReqRes;
 import com.konkuk.dna.httpjson.JsonToObj;
 
+import java.util.HashMap;
+
 import static com.konkuk.dna.auth.LoginActivity.loginDialog;
 import static com.konkuk.dna.auth.LoginActivity.showLoginDialog;
 
@@ -31,9 +33,10 @@ public class LoginActivity extends BaseActivity {
     private Button button;
     private EditText UserID;
     private EditText UserPW;
-
     private TextView MissPW;
     private TextView SignUp;
+
+    public HashMap<String, String> hm = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,8 +144,9 @@ class LoginAsyncTask extends AsyncTask<String, Integer, String> {
         HttpReqRes httpreq = new HttpReqRes();
         responseResult = httpreq.requestHttpPostLogin("https://dna.soyoungpark.me:9011/api/users/login", strings[0], strings[1]);
 
+        HashMap<String, String> map = new HashMap<>();
         JsonToObj jto = new JsonToObj();
-        jto.LoginJsonToObj(responseResult);
+        map = jto.LoginJsonToObj(responseResult);
 
         return responseResult;
     }
