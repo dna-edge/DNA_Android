@@ -75,15 +75,16 @@
             android:background="@color/button"
             android:gravity="center"
             android:onClick="onClick">
+            <!--<TextView-->
+                <!--android:id="@+id/detailDMBtnText"-->
+                <!--android:text="@string/fa_chat"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:textColor="@color/gray"-->
+                <!--android:textSize="18dp" />-->
             <TextView
                 android:id="@+id/detailDMBtnText"
-                android:text="@string/fa_chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:textColor="@color/gray"
-                android:textSize="18dp" />
-            <TextView
                 android:text="DM 보내기"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,15 +100,16 @@
             android:background="@color/silver"
             android:gravity="center"
             android:onClick="onClick">
+            <!--<TextView-->
+                <!--android:id="@+id/detailDeleteBtnText"-->
+                <!--android:text="@string/fa_x"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:textColor="@color/gray"-->
+                <!--android:textSize="18dp" />-->
             <TextView
                 android:id="@+id/detailDeleteBtnText"
-                android:text="@string/fa_x"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:textColor="@color/gray"
-                android:textSize="18dp" />
-            <TextView
                 android:text="친구 삭제"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

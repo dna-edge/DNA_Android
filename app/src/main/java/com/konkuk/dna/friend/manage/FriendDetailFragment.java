@@ -97,8 +97,8 @@ public class FriendDetailFragment extends DialogFragment implements View.OnClick
                 detailInfo.setText("해당 친구는 작성한 상태 메시지가 없습니다.");
             }
         }
-        detailDMBtnText.setTypeface(fontAwesomeS);
-        detailDeleteBtnText.setTypeface(fontAwesomeS);
+        detailDMBtnText.setTypeface(NSEB);
+        detailDeleteBtnText.setTypeface(NSEB);
     }
 
     public void setData(Friend friend) {
