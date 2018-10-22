@@ -3,6 +3,7 @@ package com.konkuk.dna.auth;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.konkuk.dna.MainActivity;
+import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.R;
 import com.konkuk.dna.httpjson.HttpReqRes;
@@ -134,6 +136,7 @@ public class LoginActivity extends BaseActivity {
 
 class LoginAsyncTask extends AsyncTask<String, Integer, Boolean> {
     private Context context;
+    private Dbhelper dbhelper;
 
     public LoginAsyncTask(Context context){
         this.context=context;
@@ -155,15 +158,16 @@ class LoginAsyncTask extends AsyncTask<String, Integer, Boolean> {
         HttpReqRes httpreq = new HttpReqRes();
         String responseResult = httpreq.requestHttpPostLogin("https://dna.soyoungpark.me:9011/api/users/login", strings[0], strings[1]);
 
-        HashMap<String, String> map = new HashMap<>();
         JsonToObj jto = new JsonToObj();
-        map = jto.LoginJsonToObj(responseResult);
+        HashMap<String, String> map = jto.LoginJsonToObj(responseResult);
 
 
         if(map.get("issuccess").equals("true")){
             /*
              * 성공했으면 DB에 저장
              * */
+            dbhelper = new Dbhelper(context);
+            dbhelper.saveUserInfo(map);
             isSuccess = true;
         }else{
             /*
@@ -197,7 +201,9 @@ class LoginAsyncTask extends AsyncTask<String, Integer, Boolean> {
             /*
             * if failed
             * */
-            Toast.makeText(context, "로그인 실패, 확인 후 시도하세요", Toast.LENGTH_SHORT);
+            loginDialog.dismiss();
+
+            //Toast.makeText(context, "로그인 실패, 확인 후 시도하세요", Toast.LENGTH_LONG);
 
         }
 

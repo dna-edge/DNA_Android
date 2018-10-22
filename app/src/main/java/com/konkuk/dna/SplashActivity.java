@@ -34,6 +34,8 @@ public class SplashActivity extends AppCompatActivity {
         prgDialog.setTitle("DNA");
         prgDialog.setProgressStyle(0);
         prgDialog.setMessage("로그인 정보를 확인 중입니다.");
+        prgDialog.setCanceledOnTouchOutside(false);
+        prgDialog.setCancelable(false);
         prgDialog.show();
     }
 }

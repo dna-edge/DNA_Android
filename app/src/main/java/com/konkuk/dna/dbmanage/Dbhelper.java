@@ -18,7 +18,7 @@ public class Dbhelper extends SQLiteOpenHelper {
 
     public static class DNAEntry implements BaseColumns{
         public static final String TABLE_NAME = "userinfo";
-        public static final String COLUME_NAME_AUTHTOKEN = "authToken";
+        public static final String COLUME_NAME_ACCESSTOKEN = "accessToken";
         public static final String COLUME_NAME_REFRESHTOKEN = "refreshToken";
         public static final String COLUME_NAME_IDX = "idx";
         public static final String COLUME_NAME_ID = "id";
@@ -26,22 +26,19 @@ public class Dbhelper extends SQLiteOpenHelper {
         public static final String COLUME_NAME_AVATAR = "avatar";
         public static final String COLUME_NAME_DESCRIPTION = "description";
         public static final String COLUME_NAME_RADIUS = "radius";
-        public static final String COLUME_NAME_POINTS = "points";
         public static final String COLUME_NAME_ANONIMITY = "is_anonimity";
     }
 
     public static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + DNAEntry.TABLE_NAME + " (" +
-                    DNAEntry._ID + " INTEGER PRIMARY KEY," +
                     DNAEntry.COLUME_NAME_IDX +  " INTEGER," +
-                    DNAEntry.COLUME_NAME_ID +  " TEXT," +
+                    DNAEntry.COLUME_NAME_ID +  " TEXT PRIMARY KEY," +
                     DNAEntry.COLUME_NAME_NICKNAME +  " TEXT," +
                     DNAEntry.COLUME_NAME_AVATAR +  " TEXT," +
                     DNAEntry.COLUME_NAME_DESCRIPTION +  " TEXT," +
                     DNAEntry.COLUME_NAME_RADIUS +  " INTEGER," +
-                    DNAEntry.COLUME_NAME_POINTS +  " INTEGER," +
                     DNAEntry.COLUME_NAME_ANONIMITY +  " INTEGER," +
-                    DNAEntry.COLUME_NAME_AUTHTOKEN +  " TEXT," +
+                    DNAEntry.COLUME_NAME_ACCESSTOKEN +  " TEXT," +
                     DNAEntry.COLUME_NAME_REFRESHTOKEN +  " TEXT )";
 
     public Dbhelper(Context context) {
@@ -61,7 +58,10 @@ public class Dbhelper extends SQLiteOpenHelper {
     * */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        if(newVersion == DATABASE_VERSION) {
+            db.execSQL("DROP TABLE IF EXISTS " + DNAEntry.TABLE_NAME);
+            onCreate(db);
+        }
     }
 
     /*
@@ -77,10 +77,11 @@ public class Dbhelper extends SQLiteOpenHelper {
         values.put(DNAEntry.COLUME_NAME_AVATAR, map.get("avatar").toString());
         values.put(DNAEntry.COLUME_NAME_DESCRIPTION, map.get("description").toString());
         values.put(DNAEntry.COLUME_NAME_RADIUS, Integer.parseInt(map.get("radius").toString()));
-        values.put(DNAEntry.COLUME_NAME_POINTS, Integer.parseInt(map.get("points").toString()));
         values.put(DNAEntry.COLUME_NAME_ANONIMITY, Integer.parseInt(map.get("is_anonymity").toString()));
-        values.put(DNAEntry.COLUME_NAME_AUTHTOKEN, map.get("authToken").toString());
+        values.put(DNAEntry.COLUME_NAME_ACCESSTOKEN, map.get("accessToken").toString());
         values.put(DNAEntry.COLUME_NAME_REFRESHTOKEN, map.get("refreshToken").toString());
-        //뭘 저장해야 하는가?
+
+        db.insert(DNAEntry.TABLE_NAME, null, values);
+
     }
 }
