@@ -80,7 +80,11 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
             // TODO 상대방이 작성했으면서 최초 메시지일 경우에는 프로필 이미지와 닉네임을 보여줘야 합니다.
 
             if (position == 0 || position == 6) { // 프로필 이미지를 포함하는 부분
-                v = layoutInflater.inflate(R.layout.chat_item_with_profile, null);
+                if (message.getType().equals(TYPE_LOUDSPEAKER)) { // 확성기 상태일 경우
+                    v = layoutInflater.inflate(R.layout.chat_item_loudspeaker_with_profile, null);
+                } else {
+                    v = layoutInflater.inflate(R.layout.chat_item_with_profile, null);
+                }
 
                 TextView messageNickname = (TextView) v.findViewById(R.id.msgNickname);
                 messageNickname.setText(message.getUserName());
@@ -93,9 +97,17 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                 }
 
             } else if (position < 3 || position > 6) {  // 프로필 이미지 없는 상대 메시지
-                v = layoutInflater.inflate(R.layout.chat_item_left, null);
+                if (message.getType().equals(TYPE_LOUDSPEAKER)) { // 확성기 상태일 경우
+                    v = layoutInflater.inflate(R.layout.chat_item_loudspeaker_left, null);
+                } else {
+                    v = layoutInflater.inflate(R.layout.chat_item_left, null);
+                }
             } else {                                    // 내 메시지
-                v = layoutInflater.inflate(R.layout.chat_item_right, null);
+                if (message.getType().equals(TYPE_LOUDSPEAKER)) { // 확성기 상태일 경우
+                    v = layoutInflater.inflate(R.layout.chat_item_loudspeaker_right, null);
+                } else {
+                    v = layoutInflater.inflate(R.layout.chat_item_right, null);
+                }
             }
         }
 
