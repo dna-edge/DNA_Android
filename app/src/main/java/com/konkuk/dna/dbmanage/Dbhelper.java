@@ -13,7 +13,7 @@ public class Dbhelper extends SQLiteOpenHelper {
     /*
     * 업데이트를 하다가 디비구조가 변경되면 *반드시* 버전 숫자를 올려주어야 함
     * */
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "DNATokenDB.db";
 
     public static class DNAEntry implements BaseColumns{
@@ -81,6 +81,10 @@ public class Dbhelper extends SQLiteOpenHelper {
         values.put(DNAEntry.COLUME_NAME_ACCESSTOKEN, map.get("accessToken").toString());
         values.put(DNAEntry.COLUME_NAME_REFRESHTOKEN, map.get("refreshToken").toString());
 
+        /*
+        * 기존에 있는 내용을 딜리트하고, 다시 유저의 정보를 디비에 저장.
+        * */
+        db.delete(DNAEntry.TABLE_NAME,null, null);
         db.insert(DNAEntry.TABLE_NAME, null, values);
 
     }
