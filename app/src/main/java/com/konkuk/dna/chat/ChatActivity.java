@@ -30,9 +30,14 @@ import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
 
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+
+
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 
 public class ChatActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
@@ -66,6 +71,13 @@ public class ChatActivity extends BaseActivity {
     private final String TYPE_IMAGE = "Image";       // 이미지 전송
     private String messageType = TYPE_MESSAGE;
 
+    private Socket mSocket;
+    {
+        try {
+            mSocket = IO.socket("https://dna.soyoungpark.me:9014/api");
+        } catch (URISyntaxException e) {}
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +103,11 @@ public class ChatActivity extends BaseActivity {
         bestChatAngle = (TextView) findViewById(R.id.bestChatAngle);
         bestChatWrapper = (RelativeLayout) findViewById(R.id.bestChatWrapper);
         bestChatMargin = (LinearLayout) findViewById(R.id.bestChatMargin);
+
+
+        /*
+        * GPS 받아오기
+        * */
 
         radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
         longitude = 127.07934279999995;

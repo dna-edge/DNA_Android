@@ -1,5 +1,6 @@
 package com.konkuk.dna.auth;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.R;
 import com.konkuk.dna.httpjson.HttpReqRes;
@@ -99,12 +101,21 @@ public class LoginActivity extends BaseActivity {
     }
 
     //로그인 실패 대화상자 출력
-    public void showDenyDialog(){
+    public void showDenyDialog(int code){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setIcon(R.mipmap.dna_round);
         builder.setTitle("DNA");
-        builder.setMessage("없는 e-mail입니다.");
+
+        switch(code){
+            case 0:
+                builder.setMessage("없는 ID입니다.");
+                break;
+            case 1:
+                builder.setMessage("서버에 연결하는데 실패했습니다. 다시 확인하세요.");
+                break;
+        }
+
         builder.setPositiveButton("확인",null);
 
         AlertDialog dialog = builder.create();
@@ -121,7 +132,7 @@ public class LoginActivity extends BaseActivity {
 }
 
 
-class LoginAsyncTask extends AsyncTask<String, Integer, String> {
+class LoginAsyncTask extends AsyncTask<String, Integer, Boolean> {
     private Context context;
 
     public LoginAsyncTask(Context context){
@@ -135,34 +146,61 @@ class LoginAsyncTask extends AsyncTask<String, Integer, String> {
     }
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected Boolean doInBackground(String... strings) {
         //로그인 되어 있는지 확인
         //결과를 리턴
 
-        String responseResult = "no";
+        boolean isSuccess = false;
 
         HttpReqRes httpreq = new HttpReqRes();
-        responseResult = httpreq.requestHttpPostLogin("https://dna.soyoungpark.me:9011/api/users/login", strings[0], strings[1]);
+        String responseResult = httpreq.requestHttpPostLogin("https://dna.soyoungpark.me:9011/api/users/login", strings[0], strings[1]);
 
         HashMap<String, String> map = new HashMap<>();
         JsonToObj jto = new JsonToObj();
         map = jto.LoginJsonToObj(responseResult);
 
-        return responseResult;
+
+        if(map.get("issuccess").equals("true")){
+            /*
+             * 성공했으면 DB에 저장
+             * */
+            isSuccess = true;
+        }else{
+            /*
+             * 실패했으면 값만 반환
+             * */
+            isSuccess = false;
+        }
+
+        /*
+        * 리턴은 결과만 반환해서 밴할지 로그인 성공시킬지 결정
+        * */
+        return isSuccess;
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(Boolean isSuccess) {
         //되어있으면 ActivityChat
         //안 되어있으면 ActivityLogin
 
-        loginDialog.dismiss();
+        if(isSuccess){
+            /*
+            * if success
+            * */
+            loginDialog.dismiss();
 
-        Toast.makeText(context, "result = "+result, Toast.LENGTH_SHORT);
+            Intent intent = new Intent(context, MainActivity.class);
+            context.startActivity(intent);
+            ((Activity)context).finish();
 
-//        Intent intent = new Intent(context, MainActivity.class);
-//        context.startActivity(intent);
-//        ((Activity)context).finish();
+        }else{
+            /*
+            * if failed
+            * */
+            Toast.makeText(context, "로그인 실패, 확인 후 시도하세요", Toast.LENGTH_SHORT);
+
+        }
+
     }
 }
 
