@@ -22,33 +22,27 @@ public class Dbhelper extends SQLiteOpenHelper {
         public static final String COLUME_NAME_REFRESHTOKEN = "refreshToken";
         public static final String COLUME_NAME_IDX = "idx";
         public static final String COLUME_NAME_ID = "id";
-        public static final String COLUME_NAME_EMAIL = "email";
         public static final String COLUME_NAME_NICKNAME = "nickname";
         public static final String COLUME_NAME_AVATAR = "avatar";
         public static final String COLUME_NAME_DESCRIPTION = "description";
         public static final String COLUME_NAME_RADIUS = "radius";
         public static final String COLUME_NAME_POINTS = "points";
         public static final String COLUME_NAME_ANONIMITY = "is_anonimity";
-        public static final String COLUME_NAME_FAULTY = "is_faulty";
-        public static final String COLUME_NAME_CREATEDAT = "created_at";
     }
 
     public static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + DNAEntry.TABLE_NAME + " (" +
                     DNAEntry._ID + " INTEGER PRIMARY KEY," +
-                    DNAEntry.COLUME_NAME_AUTHTOKEN +  " TEXT," +
-                    DNAEntry.COLUME_NAME_REFRESHTOKEN +  " TEXT," +
                     DNAEntry.COLUME_NAME_IDX +  " INTEGER," +
                     DNAEntry.COLUME_NAME_ID +  " TEXT," +
-                    DNAEntry.COLUME_NAME_EMAIL +  " TEXT," +
                     DNAEntry.COLUME_NAME_NICKNAME +  " TEXT," +
                     DNAEntry.COLUME_NAME_AVATAR +  " TEXT," +
                     DNAEntry.COLUME_NAME_DESCRIPTION +  " TEXT," +
                     DNAEntry.COLUME_NAME_RADIUS +  " INTEGER," +
                     DNAEntry.COLUME_NAME_POINTS +  " INTEGER," +
                     DNAEntry.COLUME_NAME_ANONIMITY +  " INTEGER," +
-                    DNAEntry.COLUME_NAME_FAULTY +  " INTEGER," +
-                    DNAEntry.COLUME_NAME_CREATEDAT +  " TEXT )";
+                    DNAEntry.COLUME_NAME_AUTHTOKEN +  " TEXT," +
+                    DNAEntry.COLUME_NAME_REFRESHTOKEN +  " TEXT )";
 
     public Dbhelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -77,10 +71,16 @@ public class Dbhelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(DNAEntry.COLUME_NAME_AUTHTOKEN, map.get("authToken").toString());
-        values.put(DNAEntry.COLUME_NAME_REFRESHTOKEN, map.get("refreshToken").toString());
         values.put(DNAEntry.COLUME_NAME_IDX, Integer.parseInt(map.get("idx").toString()));
         values.put(DNAEntry.COLUME_NAME_ID, map.get("id").toString());
+        values.put(DNAEntry.COLUME_NAME_NICKNAME, map.get("nickname").toString());
+        values.put(DNAEntry.COLUME_NAME_AVATAR, map.get("avatar").toString());
+        values.put(DNAEntry.COLUME_NAME_DESCRIPTION, map.get("description").toString());
+        values.put(DNAEntry.COLUME_NAME_RADIUS, Integer.parseInt(map.get("radius").toString()));
+        values.put(DNAEntry.COLUME_NAME_POINTS, Integer.parseInt(map.get("points").toString()));
+        values.put(DNAEntry.COLUME_NAME_ANONIMITY, Integer.parseInt(map.get("is_anonymity").toString()));
+        values.put(DNAEntry.COLUME_NAME_AUTHTOKEN, map.get("authToken").toString());
+        values.put(DNAEntry.COLUME_NAME_REFRESHTOKEN, map.get("refreshToken").toString());
         //뭘 저장해야 하는가?
     }
 }
