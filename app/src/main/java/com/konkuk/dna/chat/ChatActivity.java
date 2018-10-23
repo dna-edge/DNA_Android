@@ -34,6 +34,8 @@ import com.konkuk.dna.Utils.HttpReqRes;
 import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -118,19 +120,20 @@ public class ChatActivity extends BaseActivity {
         bestChatDate = (TextView) findViewById(R.id.bestChatDate);
         bestChatAvatar = (ImageView) findViewById(R.id.bestChatAvatar);
 
-        // TODO 베스트챗 내용 세팅해줘야 합니다!
-        Picasso.get()
-                .load("http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg")
-                .into(bestChatAvatar);
-        bestChatContent.setText("좋아요를 많이 받은 베스트챗의 내용이로다...");
-        bestChatNickname.setText("3457soso");
-        bestChatDate.setText("오후 01:30");
 
-        // TODO chatMessages 배열에 실제 메시지 추가해야 합니다.
         //채팅 불러오기
-        ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView);
+        ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
         csat.execute(longitude, latitude);
 
+        // TODO 베스트챗 내용 세팅해줘야 합니다!
+//        Picasso.get()
+//                .load("http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg")
+//                .into(bestChatAvatar);
+//        bestChatContent.setText("좋아요를 많이 받은 베스트챗의 내용이로다...");
+//        bestChatNickname.setText("3457soso");
+//        bestChatDate.setText("오후 01:30");
+
+        // TODO chatMessages 배열에 실제 메시지 추가해야 합니다.
 //        chatMessages = new ArrayList<ChatMessage>();
 //        chatMessages.add(new ChatMessage(0, "3457soso", null, "http://file3.instiz.net/data/cached_img/upload/2018/06/22/14/2439cadf98e7bebdabd174ed41ca0849.jpg", "오후 12:34", "0", TYPE_IMAGE, 127.07934279999995, 37.5407625));
 //        chatMessages.add(new ChatMessage(1, "3457soso", null, "내용내용", "오후 12:34", "2", TYPE_LOUDSPEAKER, 127.0793427999999, 37.540762));
@@ -339,7 +342,7 @@ public class ChatActivity extends BaseActivity {
     }
 }
 
-class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<ChatMessage>>  {
+class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
     private Context context;
     private String m_token;
     private Integer radius;
@@ -347,6 +350,8 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<ChatMessage
 
     private ChatListAdapter chatListAdapter;
     private ListView msgListView;
+    private TextView bestChatContent, bestChatNickname, bestChatDate;
+    private ImageView bestChatAvatar;
 
     private void scrollMyListViewToBottom() {
         msgListView.post(new Runnable() {
@@ -360,10 +365,14 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<ChatMessage
         });
     }
 
-    public ChatSetAsyncTask(Context context, Integer radius, ListView msgListView){
+    public ChatSetAsyncTask(Context context, Integer radius, ListView msgListView, ImageView bcAvatar, TextView bcContent, TextView bcNickname, TextView bcDate){
         this.context=context;
         this.radius=radius;
         this.msgListView = msgListView;
+        this.bestChatAvatar = bcAvatar;
+        this.bestChatContent = bcContent;
+        this.bestChatDate = bcDate;
+        this.bestChatNickname = bcNickname;
     }
 
     @Override
@@ -372,29 +381,45 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<ChatMessage
     }
 
     @Override
-    protected ArrayList<ChatMessage> doInBackground(Double... doubles) {
+    protected ArrayList<String> doInBackground(Double... doubles) {
 
-        ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
+        //ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
+
+        ArrayList<String> resultArray = new ArrayList<>();
 
         HttpReqRes httpreq = new HttpReqRes();
         dbhelper = new Dbhelper(context);
         m_token = dbhelper.getAccessToken();
 
-        String responseResult = httpreq.requestHttpPostMsgAll("https://dna.soyoungpark.me:9014/api/messages/:page", m_token, doubles[0], doubles[1], radius);
+        String repBestChat = httpreq.requestHttpPostMsgAll("https://dna.soyoungpark.me:9014/api/best", m_token, doubles[0], doubles[1], radius);
+        String repMsgAll = httpreq.requestHttpPostMsgAll("https://dna.soyoungpark.me:9014/api/messages/:page", m_token, doubles[0], doubles[1], radius);
 
-        Log.e("!!!!=", responseResult);
-        //JsonToObj jto = new JsonToObj();
-        //HashMap<String, String> map = jto.LoginJsonToObj(responseResult);
-        chatMessages = ChatAllJsonToObj(responseResult);
+        resultArray.add(0, repBestChat);
+        resultArray.add(1, repMsgAll);
 
-        // TODO ArrayList에 담기!
-
-        return chatMessages;
+        return resultArray;
     }
 
     @Override
-    protected void onPostExecute(ArrayList<ChatMessage> chatMessages) {
-        super.onPostExecute(chatMessages);
+    protected void onPostExecute(ArrayList<String> resultArray) {
+        super.onPostExecute(resultArray);
+
+
+        // TODO 베스트챗 내용 세팅
+        ArrayList<ChatMessage> bestMessages = new ArrayList<ChatMessage>();
+        bestMessages = ChatAllJsonToObj(resultArray.get(0));
+
+
+        Picasso.get()
+                .load(bestMessages.get(0).getAvatar())
+                .into(bestChatAvatar);
+        bestChatContent.setText(bestMessages.get(0).getContents());
+        bestChatNickname.setText(bestMessages.get(0).getUserName());
+        bestChatDate.setText(bestMessages.get(0).getDate());
+
+        // TODO 전체 채팅 내용 세팅
+        ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
+        chatMessages = ChatAllJsonToObj(resultArray.get(1));
 
         //거꾸로 받아온 리스트를 역순으로 바꿈
         Collections.reverse(chatMessages);
@@ -403,5 +428,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<ChatMessage
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
         scrollMyListViewToBottom();
+
+
     }
 }
