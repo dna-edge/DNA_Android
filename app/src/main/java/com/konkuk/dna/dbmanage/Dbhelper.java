@@ -118,4 +118,18 @@ public class Dbhelper extends SQLiteOpenHelper {
         }
         return myIdx;
     }
+
+    /*
+     * 내 radius 가져오기
+     * */
+    public int getMyRadius(){
+        int radius = 0;
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
+        while(cursor.moveToNext()){
+            radius = Integer.parseInt(cursor.getString(5));
+        }
+        return radius;
+    }
 }

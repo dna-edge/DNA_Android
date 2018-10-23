@@ -104,12 +104,13 @@ public class ChatActivity extends BaseActivity {
 
 
         /*
-        * GPS 받아오기
+        * GPS 받아오기, 반경 설정하기
         * */
         longitude = gpsTracker.getLongitude();
         latitude = gpsTracker.getLatitude();
 
-        radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
+        Dbhelper dbhelper = new Dbhelper(this);
+        radius = dbhelper.getMyRadius();
         //longitude = 127.0793427999999;
         //latitude = 37.5407625;
 
@@ -119,7 +120,6 @@ public class ChatActivity extends BaseActivity {
         bestChatNickname = (TextView) findViewById(R.id.bestChatNickname);
         bestChatDate = (TextView) findViewById(R.id.bestChatDate);
         bestChatAvatar = (ImageView) findViewById(R.id.bestChatAvatar);
-
 
         //채팅 불러오기
         ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
@@ -404,8 +404,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
     protected void onPostExecute(ArrayList<String> resultArray) {
         super.onPostExecute(resultArray);
 
-
-        // TODO 베스트챗 내용 세팅
+        /*
+        * 베스트챗 내용 세팅
+        * */
         ArrayList<ChatMessage> bestMessages = new ArrayList<ChatMessage>();
         bestMessages = ChatAllJsonToObj(resultArray.get(0));
 
@@ -417,7 +418,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         bestChatNickname.setText(bestMessages.get(0).getUserName());
         bestChatDate.setText(bestMessages.get(0).getDate());
 
-        // TODO 전체 채팅 내용 세팅
+        /*
+        * 전체 채팅 내용 세팅
+        * */
         ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
         chatMessages = ChatAllJsonToObj(resultArray.get(1));
 
@@ -428,7 +431,5 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
         scrollMyListViewToBottom();
-
-
     }
 }
