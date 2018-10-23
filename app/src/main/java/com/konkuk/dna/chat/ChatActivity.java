@@ -4,9 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.os.AsyncTask;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,22 +24,23 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.AnimHelpers;
 import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
+import com.konkuk.dna.Utils.HttpReqRes;
 import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
 
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
-
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
+import static com.konkuk.dna.Utils.JsonToObj.ChatAllJsonToObj;
 
 public class ChatActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
@@ -71,13 +74,6 @@ public class ChatActivity extends BaseActivity {
     private final String TYPE_IMAGE = "Image";       // 이미지 전송
     private String messageType = TYPE_MESSAGE;
 
-    private Socket mSocket;
-    {
-        try {
-            mSocket = IO.socket("https://dna.soyoungpark.me:9014/api");
-        } catch (URISyntaxException e) {}
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,10 +104,12 @@ public class ChatActivity extends BaseActivity {
         /*
         * GPS 받아오기
         * */
+        longitude = gpsTracker.getLongitude();
+        latitude = gpsTracker.getLatitude();
 
         radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
-        longitude = 127.07934279999995;
-        latitude = 37.5407625;
+        //longitude = 127.0793427999999;
+        //latitude = 37.5407625;
 
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
@@ -128,25 +126,28 @@ public class ChatActivity extends BaseActivity {
         bestChatNickname.setText("3457soso");
         bestChatDate.setText("오후 01:30");
 
-
         // TODO chatMessages 배열에 실제 메시지 추가해야 합니다.
-        chatMessages = new ArrayList<ChatMessage>();
-        chatMessages.add(new ChatMessage(0, "3457soso", null, "http://file3.instiz.net/data/cached_img/upload/2018/06/22/14/2439cadf98e7bebdabd174ed41ca0849.jpg", "오후 12:34", "0", TYPE_IMAGE, 127.07934279999995, 37.5407625));
-        chatMessages.add(new ChatMessage(1, "3457soso", null, "내용내용", "오후 12:34", "2", TYPE_LOUDSPEAKER, 127.0793427999999, 37.540762));
-        chatMessages.add(new ChatMessage(2, "3457soso", null, "내용내용내용내용내용", "오후 12:34", "1", TYPE_MESSAGE, 127.079342799995, 37.540625));
-        chatMessages.add(new ChatMessage(3, "3457soso", null, "내용내용내용내용내용", "오후 12:34", "1", TYPE_LOUDSPEAKER, 127.0734279999995, 37.5407625));
-        chatMessages.add(new ChatMessage(4, "3457soso", null, "내용내용내용", "오후 12:34", "0", TYPE_MESSAGE, 127.0794279999995, 37.507625));
-        chatMessages.add(new ChatMessage(5, "3457soso", null, "내용내용내용", "오후 12:34", "0", TYPE_MESSAGE, 127.0793427999995, 37.540625));
-        chatMessages.add(new ChatMessage(6, "3457soso", null, "{\"lat\":37.550544099999996,\"lng\":127.07221989999998}", "오후 12:34", "1", TYPE_LOCATION, 127.07934279999995, 37.540762));
-        chatMessages.add(new ChatMessage(7, "3457soso", null, "http://www.ohfun.net/contents/article/images/2016/0830/1472551795750578.jpeg", "오후 12:34", "2", TYPE_IMAGE, 127.079342799995, 37.5407625));
-        chatMessages.add(new ChatMessage(8, "3457soso", null, "내용내용", "오후 12:34", "2", TYPE_MESSAGE, 127.0793427999995, 37.540625));
-        chatMessages.add(new ChatMessage(10, "3457soso", null, "{\"lat\":37.550544099999,\"lng\":127.07221989999}", "오후 12:34", "1", TYPE_LOCATION, 127.07934279999995, 37.540762));
+        //채팅 불러오기
+        ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView);
+        csat.execute(longitude, latitude);
 
-        chatListAdapter = new ChatListAdapter(this, R.layout.chat_item_left, chatMessages);
-        msgListView.setAdapter(chatListAdapter);
+//        chatMessages = new ArrayList<ChatMessage>();
+//        chatMessages.add(new ChatMessage(0, "3457soso", null, "http://file3.instiz.net/data/cached_img/upload/2018/06/22/14/2439cadf98e7bebdabd174ed41ca0849.jpg", "오후 12:34", "0", TYPE_IMAGE, 127.07934279999995, 37.5407625));
+//        chatMessages.add(new ChatMessage(1, "3457soso", null, "내용내용", "오후 12:34", "2", TYPE_LOUDSPEAKER, 127.0793427999999, 37.540762));
+//        chatMessages.add(new ChatMessage(2, "3457soso", null, "내용내용내용내용내용", "오후 12:34", "1", TYPE_MESSAGE, 127.079342799995, 37.540625));
+//        chatMessages.add(new ChatMessage(3, "3457soso", null, "내용내용내용내용내용", "오후 12:34", "1", TYPE_LOUDSPEAKER, 127.0734279999995, 37.5407625));
+//        chatMessages.add(new ChatMessage(4, "3457soso", null, "내용내용내용", "오후 12:34", "0", TYPE_MESSAGE, 127.0794279999995, 37.507625));
+//        chatMessages.add(new ChatMessage(5, "3457soso", null, "내용내용내용", "오후 12:34", "0", TYPE_MESSAGE, 127.0793427999995, 37.540625));
+//        chatMessages.add(new ChatMessage(6, "3457soso", null, "{\"lat\":37.550544099999996,\"lng\":127.07221989999998}", "오후 12:34", "1", TYPE_LOCATION, 127.07934279999995, 37.540762));
+//        chatMessages.add(new ChatMessage(7, "3457soso", null, "http://www.ohfun.net/contents/article/images/2016/0830/1472551795750578.jpeg", "오후 12:34", "2", TYPE_IMAGE, 127.079342799995, 37.5407625));
+//        chatMessages.add(new ChatMessage(8, "3457soso", null, "내용내용", "오후 12:34", "2", TYPE_MESSAGE, 127.0793427999995, 37.540625));
+//        chatMessages.add(new ChatMessage(10, "3457soso", null, "{\"lat\":37.550544099999,\"lng\":127.07221989999}", "오후 12:34", "1", TYPE_LOCATION, 127.07934279999995, 37.540762));
+//
+//        chatListAdapter = new ChatListAdapter(this, R.layout.chat_item_left, chatMessages);
+//        msgListView.setAdapter(chatListAdapter);
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
-        scrollMyListViewToBottom();
+        //scrollMyListViewToBottom();
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
 
@@ -335,5 +336,72 @@ public class ChatActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mapFragment.initMapCenter(longitude, latitude, radius);
+    }
+}
+
+class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<ChatMessage>>  {
+    private Context context;
+    private String m_token;
+    private Integer radius;
+    private Dbhelper dbhelper;
+
+    private ChatListAdapter chatListAdapter;
+    private ListView msgListView;
+
+    private void scrollMyListViewToBottom() {
+        msgListView.post(new Runnable() {
+            @Override
+            public void run() {
+                msgListView.clearFocus();
+                chatListAdapter.notifyDataSetChanged();
+                msgListView.requestFocusFromTouch();
+                msgListView.setSelection(msgListView.getCount() - 1);
+            }
+        });
+    }
+
+    public ChatSetAsyncTask(Context context, Integer radius, ListView msgListView){
+        this.context=context;
+        this.radius=radius;
+        this.msgListView = msgListView;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected ArrayList<ChatMessage> doInBackground(Double... doubles) {
+
+        ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
+
+        HttpReqRes httpreq = new HttpReqRes();
+        dbhelper = new Dbhelper(context);
+        m_token = dbhelper.getAccessToken();
+
+        String responseResult = httpreq.requestHttpPostMsgAll("https://dna.soyoungpark.me:9014/api/messages/:page", m_token, doubles[0], doubles[1], radius);
+
+        Log.e("!!!!=", responseResult);
+        //JsonToObj jto = new JsonToObj();
+        //HashMap<String, String> map = jto.LoginJsonToObj(responseResult);
+        chatMessages = ChatAllJsonToObj(responseResult);
+
+        // TODO ArrayList에 담기!
+
+        return chatMessages;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<ChatMessage> chatMessages) {
+        super.onPostExecute(chatMessages);
+
+        //거꾸로 받아온 리스트를 역순으로 바꿈
+        Collections.reverse(chatMessages);
+        chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
+        msgListView.setAdapter(chatListAdapter);
+
+        // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
+        scrollMyListViewToBottom();
     }
 }

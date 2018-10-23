@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.konkuk.dna.auth.LoginActivity;
+import com.konkuk.dna.dbmanage.Dbhelper;
 
 import static com.konkuk.dna.SplashActivity.prgDialog;
 import static com.konkuk.dna.SplashActivity.showProgressDialog;
@@ -42,6 +43,7 @@ public class SplashActivity extends AppCompatActivity {
 
 class AuthAsyncTask extends AsyncTask<Integer, Integer, Integer> {
     private Context context;
+    private Dbhelper dbhelper;
 
     public AuthAsyncTask(Context context){
         this.context=context;
@@ -60,6 +62,10 @@ class AuthAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 
         try {
             Thread.sleep(2000);
+            dbhelper = new Dbhelper(context);
+            /*
+            * DB에 남은 토큰을 검색해서 expired 확인, 유효하면 바로 chatactivity진입
+            * */
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

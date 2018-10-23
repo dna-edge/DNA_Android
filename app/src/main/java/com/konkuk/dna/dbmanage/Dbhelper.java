@@ -2,6 +2,7 @@ package com.konkuk.dna.dbmanage;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
@@ -86,6 +87,35 @@ public class Dbhelper extends SQLiteOpenHelper {
         * */
         db.delete(DNAEntry.TABLE_NAME,null, null);
         db.insert(DNAEntry.TABLE_NAME, null, values);
+    }
 
+    /*
+    * 토큰 가져오기
+    * */
+    public String getAccessToken(){
+        String[] result;
+        String str = null;
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
+        while(cursor.moveToNext()){
+            str = cursor.getString(7);
+        }
+        result = str.split("\"");
+        return result[1];
+    }
+
+    /*
+     * 내 idx 가져오기
+     * */
+    public int getMyIdx(){
+        int myIdx = 0;
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
+        while(cursor.moveToNext()){
+            myIdx = Integer.parseInt(cursor.getString(0));
+        }
+        return myIdx;
     }
 }

@@ -3,7 +3,6 @@ package com.konkuk.dna.auth;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,14 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.R;
-import com.konkuk.dna.httpjson.HttpReqRes;
-import com.konkuk.dna.httpjson.JsonToObj;
+import com.konkuk.dna.Utils.HttpReqRes;
+import com.konkuk.dna.Utils.JsonToObj;
 
 import java.util.HashMap;
 
