@@ -11,7 +11,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63cd575a-bfb4-4012-9e3e-c99b4ec2f650" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToJson.java" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
@@ -22,9 +21,8 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ConvertType.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ConvertType.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToJson.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToJson.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dbmanage/Dbhelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dbmanage/Dbhelper.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -95,8 +93,8 @@
       <file leaf-file-name="ObjToJson.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToJson.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="20" column="63" lean-forward="false" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
+            <state relative-caret-position="309">
+              <caret line="65" column="19" lean-forward="true" selection-start-line="65" selection-start-column="19" selection-end-line="65" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -104,20 +102,46 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChatActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ChatActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3344">
-              <caret line="224" column="49" lean-forward="false" selection-start-line="224" selection-start-column="49" selection-end-line="224" selection-end-column="49" />
+            <state relative-caret-position="173">
+              <caret line="378" column="0" lean-forward="true" selection-start-line="378" selection-start-column="0" selection-end-line="378" selection-end-column="0" />
               <folding>
-                <element signature="e#18208#18209#0" expanded="true" />
-                <element signature="e#18244#18245#0" expanded="true" />
+                <element signature="e#7960#8770#0" expanded="true" />
+                <element signature="e#8769#8770#0" expanded="true" />
+                <element signature="e#9990#10223#0" expanded="true" />
+                <element signature="e#10222#10223#0" expanded="true" />
+                <element signature="e#12171#12214#0" expanded="true" />
+                <element signature="e#12391#12430#0" expanded="true" />
+                <element signature="e#14970#15285#0" expanded="true" />
+                <element signature="e#15284#15285#0" expanded="true" />
+                <element signature="e#15526#16122#0" expanded="true" />
+                <element signature="e#16121#16122#0" expanded="true" />
+                <element signature="e#16164#16358#0" expanded="true" />
+                <element signature="e#16357#16358#0" expanded="true" />
+                <element signature="e#17468#17783#0" expanded="true" />
+                <element signature="e#17782#17783#0" expanded="true" />
+                <element signature="e#18270#18271#0" expanded="true" />
+                <element signature="e#18306#18307#0" expanded="true" />
+                <element signature="e#19308#19321#0" expanded="true" />
+                <element signature="e#19808#19821#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConvertType.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1131">
+              <caret line="188" column="21" lean-forward="false" selection-start-line="188" selection-start-column="21" selection-end-line="188" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConvertType.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ConvertType.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="236">
@@ -3021,13 +3045,14 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/DateToString.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/HttpReqRes.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToSocket.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dbmanage/Dbhelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/JsonToObj.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToJson.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ConvertType.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToJson.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/MapFragment.java" />
       </list>
     </option>
   </component>
@@ -3319,11 +3344,11 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34153005" sideWeight="0.5028612" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329235" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329235" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34153005" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34153005" sideWeight="0.49713877" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -3439,14 +3464,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/MapFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2045">
-          <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatListMapFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -3505,14 +3522,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="187" column="49" lean-forward="false" selection-start-line="187" selection-start-column="49" selection-end-line="187" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-230">
@@ -3540,32 +3549,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ConvertType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3344">
-          <caret line="224" column="49" lean-forward="false" selection-start-line="224" selection-start-column="49" selection-end-line="224" selection-end-column="49" />
-          <folding>
-            <element signature="e#18208#18209#0" expanded="true" />
-            <element signature="e#18244#18245#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="236">
+          <caret line="21" column="53" lean-forward="false" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToJson.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="20" column="63" lean-forward="false" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
+        <state relative-caret-position="309">
+          <caret line="65" column="19" lean-forward="true" selection-start-line="65" selection-start-column="19" selection-end-line="65" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ConvertType.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/helpers/BaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="21" column="53" lean-forward="false" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
+        <state relative-caret-position="1108">
+          <caret line="110" column="5" lean-forward="true" selection-start-line="110" selection-start-column="5" selection-end-line="110" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/MapFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="405" column="4" lean-forward="false" selection-start-line="405" selection-start-column="4" selection-end-line="405" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1131">
+          <caret line="188" column="21" lean-forward="false" selection-start-line="188" selection-start-column="21" selection-end-line="188" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="378" column="0" lean-forward="true" selection-start-line="378" selection-start-column="0" selection-end-line="378" selection-end-column="0" />
+          <folding>
+            <element signature="e#7960#8770#0" expanded="true" />
+            <element signature="e#8769#8770#0" expanded="true" />
+            <element signature="e#9990#10223#0" expanded="true" />
+            <element signature="e#10222#10223#0" expanded="true" />
+            <element signature="e#12171#12214#0" expanded="true" />
+            <element signature="e#12391#12430#0" expanded="true" />
+            <element signature="e#14970#15285#0" expanded="true" />
+            <element signature="e#15284#15285#0" expanded="true" />
+            <element signature="e#15526#16122#0" expanded="true" />
+            <element signature="e#16121#16122#0" expanded="true" />
+            <element signature="e#16164#16358#0" expanded="true" />
+            <element signature="e#16357#16358#0" expanded="true" />
+            <element signature="e#17468#17783#0" expanded="true" />
+            <element signature="e#17782#17783#0" expanded="true" />
+            <element signature="e#18270#18271#0" expanded="true" />
+            <element signature="e#18306#18307#0" expanded="true" />
+            <element signature="e#19308#19321#0" expanded="true" />
+            <element signature="e#19808#19821#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

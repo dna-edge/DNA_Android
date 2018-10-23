@@ -320,6 +320,7 @@ public class ChatActivity extends BaseActivity {
 
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
+                Log.e("!!!=sendMsg", sendMsgJson.toString());
                 mSocket.emit("save_msg", sendMsgJson);
 
                 msgEditText.setText("");

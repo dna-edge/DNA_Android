@@ -186,6 +186,7 @@ public class MainActivity extends BaseActivity {
         long intervalTime = tempTime - backPressedTime;
 
         if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
+            finish();
             super.onBackPressed();
         } else {
             backPressedTime = tempTime;

@@ -2,6 +2,7 @@ package com.konkuk.dna.Utils;
 
 import android.util.Log;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.konkuk.dna.dbmanage.Dbhelper;
 
@@ -23,7 +24,11 @@ public class ObjToJson {
 
         JsonObject posObj = new JsonObject();
         posObj.addProperty("type", "Point");
-        posObj.addProperty("coordinates", "["+lng+","+lat+"]");
+
+        JsonArray coordarr = new JsonArray();
+        coordarr.add(lng);
+        coordarr.add(lat);
+        posObj.add("coordinates", coordarr);
 
         jObj.add("position", posObj);
         jObj.addProperty("radius", dbhelper.getMyRadius());
@@ -62,7 +67,6 @@ public class ObjToJson {
 //            radius,
 //        };
 
-        Log.e("!!!!=", jObj.toString());
         return jObj;
     }
 
