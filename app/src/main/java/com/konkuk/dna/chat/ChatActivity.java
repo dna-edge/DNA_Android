@@ -24,6 +24,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+import com.google.gson.JsonObject;
 import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.AnimHelpers;
 import com.konkuk.dna.helpers.BaseActivity;
@@ -34,8 +38,10 @@ import com.konkuk.dna.Utils.HttpReqRes;
 import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,6 +49,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.konkuk.dna.Utils.JsonToObj.ChatAllJsonToObj;
+import static com.konkuk.dna.Utils.ObjToJson.SendMsgObjToJson;
+import static com.konkuk.dna.Utils.ObjToJson.StoreObjToJson;
 
 public class ChatActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
@@ -76,6 +84,9 @@ public class ChatActivity extends BaseActivity {
     private final String TYPE_IMAGE = "Image";       // 이미지 전송
     private String messageType = TYPE_MESSAGE;
 
+    private Dbhelper dbhelper;
+    private Socket mSocket;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +96,7 @@ public class ChatActivity extends BaseActivity {
     }
 
     public void init() {
+
         menuDrawer = findViewById(R.id.drawer_layout);
         InitHelpers.initDrawer(this, menuDrawer, 0);
 
@@ -103,16 +115,19 @@ public class ChatActivity extends BaseActivity {
         bestChatMargin = (LinearLayout) findViewById(R.id.bestChatMargin);
 
 
+
         /*
         * GPS 받아오기, 반경 설정하기
         * */
         longitude = gpsTracker.getLongitude();
         latitude = gpsTracker.getLatitude();
 
-        Dbhelper dbhelper = new Dbhelper(this);
+        dbhelper = new Dbhelper(this);
         radius = dbhelper.getMyRadius();
-        //longitude = 127.0793427999999;
-        //latitude = 37.5407625;
+
+        Log.e("Socket Init", "!!!!!!!!!!!!!!!");
+        socketInit();
+        Log.e("Socket Init Finish", "!!!!!!!!!!!!!!!");
 
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
@@ -194,6 +209,31 @@ public class ChatActivity extends BaseActivity {
 
         set = new AnimatorSet();
     }
+
+    public void socketInit(){
+        try {
+            mSocket = IO.socket("https://dna.soyoungpark.me:9014");
+
+            mSocket.on("new_msg", onMessageReceived);
+
+            mSocket.connect();
+        } catch(URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        JsonObject storeJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
+        Log.e("!!!store=", storeJson.toString());
+        mSocket.emit("store", storeJson);
+    }
+
+    private Emitter.Listener onMessageReceived = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            // 전달받은 데이터는 아래와 같이 추출할 수 있습니다.
+            JSONObject receivedData = (JSONObject) args[0];
+            // your code...
+        }
+    };
 
     public void onClick(View v) {
         switch(v.getId()) {
@@ -279,6 +319,12 @@ public class ChatActivity extends BaseActivity {
                 break;
 
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
+                JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
+                mSocket.emit("save_msg", sendMsgJson);
+
+                msgEditText.setText("");
+                msgEditText.setEnabled(true);
+                messageType = TYPE_MESSAGE;
                 break;
         }
     }

@@ -179,6 +179,7 @@ public class MainActivity extends BaseActivity {
         mapFragment.drawPostLocations(posts);
     }
 
+    //뒤로가기를 누르면 화면이 꺠지지 않고, 2번 누르면 앱이 종료되도록 만들기
     @Override
     public void onBackPressed() {
         long tempTime = System.currentTimeMillis();

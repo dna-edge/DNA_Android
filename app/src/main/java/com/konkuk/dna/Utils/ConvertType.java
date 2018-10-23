@@ -15,16 +15,15 @@ public class ConvertType {
         // "2018-10-23T06:19:47.180Z"
 
         String result="";
-        SimpleDateFormat formatter = new SimpleDateFormat ( "MM월dd일 HH시mm분", Locale.KOREA );
+        SimpleDateFormat formatter = new SimpleDateFormat ( "MM월 dd일 HH:mm" );
 
         try {
-            Date dateorigin = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse(datestr);
+            Date dateorigin = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(datestr);
+            dateorigin.setHours(dateorigin.getHours()+9);
             result = formatter.format(dateorigin);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
         return result;
     }
 
@@ -32,7 +31,17 @@ public class ConvertType {
      * String에서 따옴표 제거하는 메소드
      * */
     public static String getStringNoQuote(String strQuote){
+
         String[] nonQuote = strQuote.split("\"");
         return nonQuote[1];
+    }
+
+    /*
+     * String에서 따옴표 추가하는 메소드
+     * */
+    public static String getStringAddQuote(String strQuote){
+
+        String addQuote = "\"" + strQuote + "\"";
+        return addQuote;
     }
 }

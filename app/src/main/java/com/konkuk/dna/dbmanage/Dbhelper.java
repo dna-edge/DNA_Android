@@ -9,6 +9,8 @@ import android.provider.BaseColumns;
 
 import java.util.HashMap;
 
+import static com.konkuk.dna.Utils.ConvertType.getStringNoQuote;
+
 public class Dbhelper extends SQLiteOpenHelper {
 
     /*
@@ -73,14 +75,14 @@ public class Dbhelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(DNAEntry.COLUME_NAME_IDX, Integer.parseInt(map.get("idx").toString()));
-        values.put(DNAEntry.COLUME_NAME_ID, map.get("id").toString());
-        values.put(DNAEntry.COLUME_NAME_NICKNAME, map.get("nickname").toString());
-        values.put(DNAEntry.COLUME_NAME_AVATAR, map.get("avatar").toString());
+        values.put(DNAEntry.COLUME_NAME_ID, getStringNoQuote(map.get("id").toString()));
+        values.put(DNAEntry.COLUME_NAME_NICKNAME, getStringNoQuote(map.get("nickname").toString()));
+        values.put(DNAEntry.COLUME_NAME_AVATAR, getStringNoQuote(map.get("avatar").toString()));
         values.put(DNAEntry.COLUME_NAME_DESCRIPTION, map.get("description").toString());
         values.put(DNAEntry.COLUME_NAME_RADIUS, Integer.parseInt(map.get("radius").toString()));
         values.put(DNAEntry.COLUME_NAME_ANONIMITY, Integer.parseInt(map.get("is_anonymity").toString()));
-        values.put(DNAEntry.COLUME_NAME_ACCESSTOKEN, map.get("accessToken").toString());
-        values.put(DNAEntry.COLUME_NAME_REFRESHTOKEN, map.get("refreshToken").toString());
+        values.put(DNAEntry.COLUME_NAME_ACCESSTOKEN, getStringNoQuote(map.get("accessToken").toString()));
+        values.put(DNAEntry.COLUME_NAME_REFRESHTOKEN, getStringNoQuote(map.get("refreshToken").toString()));
 
         /*
         * 기존에 있는 내용을 딜리트하고, 다시 유저의 정보를 디비에 저장.
@@ -93,7 +95,6 @@ public class Dbhelper extends SQLiteOpenHelper {
     * 토큰 가져오기
     * */
     public String getAccessToken(){
-        String[] result;
         String str = null;
         SQLiteDatabase db = getReadableDatabase();
 
@@ -101,8 +102,7 @@ public class Dbhelper extends SQLiteOpenHelper {
         while(cursor.moveToNext()){
             str = cursor.getString(7);
         }
-        result = str.split("\"");
-        return result[1];
+        return str;
     }
 
     /*
@@ -132,4 +132,48 @@ public class Dbhelper extends SQLiteOpenHelper {
         }
         return radius;
     }
+
+    /*
+     * 내 position 가져오기
+     * */
+    public int getMyPosition(){
+        int radius = 0;
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
+        while(cursor.moveToNext()){
+            radius = Integer.parseInt(cursor.getString(5));
+        }
+        return radius;
+    }
+
+    /*
+     * 내 nickname 가져오기
+     * */
+    public String getMyNickname(){
+        String nickname = "";
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
+        while(cursor.moveToNext()){
+            nickname = cursor.getString(2);
+        }
+        return nickname;
+    }
+
+    /*
+     * 내 avatar 가져오기
+     * */
+    public String getMyAvatar(){
+        String avatar = "";
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
+        while(cursor.moveToNext()){
+            avatar = cursor.getString(3);
+        }
+        return avatar;
+    }
+
 }
