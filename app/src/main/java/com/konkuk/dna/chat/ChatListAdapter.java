@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
+import com.konkuk.dna.dbmanage.Dbhelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
     ArrayList<ChatMessage> messages;
     String currentUserId;
     Boolean isMyMessage = false;
+
+    Integer myIdx = 0;
 
     private static Typeface NSEB;
     private static Typeface NSB;
@@ -66,12 +69,19 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
         if(fontAwesomeS == null) {
             fontAwesomeS = Typeface.createFromAsset(context.getAssets(), "fonts/fa-solid-900.ttf");
         }
+
+        Dbhelper dbhelper = new Dbhelper(context);
+        myIdx = dbhelper.getMyIdx();
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View v, @NonNull ViewGroup parent) {
         ChatMessage message = messages.get(position);
+        ChatMessage prev_message = null;
+        if(position>0){
+            prev_message = messages.get(position-1);
+        }
 
         if (v == null) {
             LayoutInflater layoutInflater = (LayoutInflater)
@@ -79,12 +89,9 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
             // TODO 해당 메시지의 작성자가 현재 접속한 유저인지를 판별해 left, right를 정해줘야 합니다.
             // TODO 상대방이 작성했으면서 최초 메시지일 경우에는 프로필 이미지와 닉네임을 보여줘야 합니다.
 
-            if (position == 0 || position == 6) { // 프로필 이미지를 포함하는 부분
-                if (message.getType().equals(TYPE_LOUDSPEAKER)) { // 확성기 상태일 경우
-                    v = layoutInflater.inflate(R.layout.chat_item_loudspeaker_with_profile, null);
-                } else {
-                    v = layoutInflater.inflate(R.layout.chat_item_with_profile, null);
-                }
+            if ((prev_message==null &&  message.getIdx() != myIdx)
+                    || (prev_message!=null && prev_message.getIdx() != message.getIdx())) { // 프로필 이미지를 포함하는 부분
+                v = layoutInflater.inflate(R.layout.chat_item_with_profile, null);
 
                 TextView messageNickname = (TextView) v.findViewById(R.id.msgNickname);
                 messageNickname.setText(message.getUserName());
@@ -96,6 +103,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                     Picasso.get().load(message.getAvatar()).into(messageAvatar);
                 }
 
+<<<<<<<
             } else if (position < 3 || position > 6) {  // 프로필 이미지 없는 상대 메시지
                 if (message.getType().equals(TYPE_LOUDSPEAKER)) { // 확성기 상태일 경우
                     v = layoutInflater.inflate(R.layout.chat_item_loudspeaker_left, null);
@@ -108,7 +116,14 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                 } else {
                     v = layoutInflater.inflate(R.layout.chat_item_right, null);
                 }
+=======
+            } else if (message.getIdx() != myIdx) {  // 프로필 이미지 없는 상대 메시지
+                v = layoutInflater.inflate(R.layout.chat_item_left, null);
+            } else if(message.getIdx() == myIdx){  // 내 메시지
+                v = layoutInflater.inflate(R.layout.chat_item_right, null);
+>>>>>>>
             }
+
         }
 
         LinearLayout messageLikeWrapper = (LinearLayout) v.findViewById(R.id.likeWrapper);
