@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.konkuk.dna.chat.ChatActivity;
+import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.AnimHelpers;
 import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.helpers.InitHelpers;
@@ -48,6 +49,8 @@ public class MainActivity extends BaseActivity {
 
     private final long FINISH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0;
+
+    private Dbhelper dbhelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +80,9 @@ public class MainActivity extends BaseActivity {
         AnimHelpers.animateMargin(this, postWriteBtn, "main", 400L,
                 AnimHelpers.dpToPx(this, -80), AnimHelpers.dpToPx(this, 25));
 
-        radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
+        // TODO 반경, 위치 초기값 설정해줘야 합니다!
+        dbhelper = new Dbhelper(this);
+        radius = dbhelper.getMyRadius();
         longitude = gpsTracker.getLongitude();
         latitude = gpsTracker.getLatitude();
         Log.d("MainActivity_test", longitude + ", " +latitude);
@@ -179,7 +184,7 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        mapFragment.initMapCenter(longitude, latitude, radius);
+        mapFragment.initMapCenter(longitude, latitude, dbhelper.getMyRadius());
         mapFragment.drawPostLocations(posts);
     }
 

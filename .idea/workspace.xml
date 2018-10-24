@@ -11,41 +11,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63cd575a-bfb4-4012-9e3e-c99b4ec2f650" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/SocketConnection.java" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_common_1_0_0_jar.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_common_1_0_0_jar.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_26_1_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_26_1_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_27_1_1_jar.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_26_1_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_26_1_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_26_1_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_26_1_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_26_1_0.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/SplashActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/SplashActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/HttpReqRes.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/HttpReqRes.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToJson.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToJson.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dbmanage/Dbhelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dbmanage/Dbhelper.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/UserSettingActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/UserSettingActivity.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -81,22 +58,9 @@
       <file leaf-file-name="Dbhelper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dbmanage/Dbhelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="103" column="27" lean-forward="false" selection-start-line="103" selection-start-column="27" selection-end-line="103" selection-end-column="27" />
+            <state relative-caret-position="294">
+              <caret line="115" column="54" lean-forward="false" selection-start-line="115" selection-start-column="54" selection-end-line="115" selection-end-column="54" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HttpReqRes.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/HttpReqRes.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="46" column="57" lean-forward="false" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1540402370034" expanded="false" signature="1156:1171" ph="&lt;~&gt;" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -126,13 +90,14 @@
       <file leaf-file-name="ChatActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="238" column="30" lean-forward="false" selection-start-line="238" selection-start-column="30" selection-end-line="238" selection-end-column="30" />
+            <state relative-caret-position="360">
+              <caret line="132" column="40" lean-forward="false" selection-start-line="131" selection-start-column="8" selection-end-line="132" selection-end-column="40" />
               <folding>
                 <element signature="e#8130#8940#0" expanded="true" />
                 <element signature="e#8939#8940#0" expanded="true" />
                 <element signature="e#10000#10233#0" expanded="true" />
                 <element signature="e#10232#10233#0" expanded="true" />
+                <element signature="e#10282#10598#0" expanded="true" />
                 <element signature="e#10597#10598#0" expanded="true" />
                 <element signature="e#12548#12591#0" expanded="true" />
                 <element signature="e#12768#12807#0" expanded="true" />
@@ -153,12 +118,87 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SplashActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SplashActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/SplashActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="173">
               <caret line="70" column="12" lean-forward="false" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="32" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="186" column="77" lean-forward="false" selection-start-line="186" selection-start-column="77" selection-end-line="186" selection-end-column="77" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserSettingActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/UserSettingActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-247">
+              <caret line="64" column="40" lean-forward="false" selection-start-line="64" selection-start-column="40" selection-end-line="64" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MapFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/MapFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="141" column="30" lean-forward="false" selection-start-line="141" selection-start-column="30" selection-end-line="141" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NMapCircleData.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/naver-map-api-2.1.2.aar/28879d02a706e6ea5e883550ec9717bb/jars/classes.jar!/com/nhn/android/maps/overlay/NMapCircleData.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="575">
+              <caret line="141" column="5" lean-forward="false" selection-start-line="141" selection-start-column="5" selection-end-line="141" selection-end-column="5" />
+              <folding>
+                <marker date="1538630338592" expanded="false" signature="0:104" ph="/.../" />
+                <marker date="1538630338592" expanded="false" signature="152:541" ph="..." />
+                <marker date="1538630338592" expanded="true" signature="927:990" ph="{...}" />
+                <marker date="1538630338592" expanded="false" signature="1021:1032" ph=" { " />
+                <marker date="1538630338592" expanded="false" signature="1046:1052" ph=" }" />
+                <marker date="1538630338592" expanded="false" signature="1093:1104" ph=" { " />
+                <marker date="1538630338592" expanded="false" signature="1118:1124" ph=" }" />
+                <marker date="1538630338592" expanded="false" signature="1157:1168" ph=" { " />
+                <marker date="1538630338592" expanded="false" signature="1182:1188" ph=" }" />
+                <marker date="1538630338592" expanded="false" signature="1231:1242" ph=" { " />
+                <marker date="1538630338592" expanded="false" signature="1256:1262" ph=" }" />
+                <marker date="1538630338592" expanded="false" signature="1293:1304" ph=" { " />
+                <marker date="1538630338592" expanded="false" signature="1318:1324" ph=" }" />
+                <marker date="1538630338592" expanded="false" signature="1364:1375" ph=" { " />
+                <marker date="1538630338592" expanded="false" signature="1389:1395" ph=" }" />
+                <marker date="1538630338592" expanded="true" signature="1418:1524" ph="{...}" />
+                <marker date="1538630338592" expanded="false" signature="1548:1559" ph=" { " />
+                <marker date="1538630338592" expanded="false" signature="1580:1586" ph=" }" />
+                <marker date="1538630338592" expanded="false" signature="1625:1636" ph=" { " />
+                <marker date="1538630338592" expanded="false" signature="1663:1669" ph=" }" />
+                <marker date="1538630338592" expanded="true" signature="1704:1907" ph="{...}" />
+                <marker date="1538630338592" expanded="true" signature="1933:2240" ph="{...}" />
+                <marker date="1538630338592" expanded="false" signature="2269:2280" ph=" { " />
+                <marker date="1538630338592" expanded="false" signature="2294:2300" ph=" }" />
+                <marker date="1538630338592" expanded="true" signature="2337:2619" ph="{...}" />
+                <marker date="1538630338592" expanded="true" signature="2683:3233" ph="{...}" />
+                <marker date="1538630338592" expanded="true" signature="3285:3468" ph="{...}" />
+                <marker date="1538630338592" expanded="true" signature="3530:3608" ph="{...}" />
+                <marker date="1538630338592" expanded="true" signature="3676:3754" ph="{...}" />
+                <marker date="1538630338592" expanded="true" signature="3788:3795" ph="{}" />
+                <marker date="1538630338592" expanded="false" signature="3849:3860" ph=" { " />
+                <marker date="1538630338592" expanded="false" signature="3874:3880" ph=" }" />
+                <marker date="1538630338592" expanded="false" signature="3925:3936" ph=" { " />
+                <marker date="1538630338592" expanded="false" signature="3950:3956" ph=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -3048,15 +3088,16 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ConvertType.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/MapFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToJson.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/SocketConnection.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/HttpReqRes.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dbmanage/Dbhelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/JsonToObj.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/SplashActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dbmanage/Dbhelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/UserSettingActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -3123,6 +3164,20 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="dna" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="dbmanage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DNA_Android" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="dna" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="map" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DNA_Android" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="dna" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DNA_Android" type="1abcf292:AndroidViewProjectNode" />
@@ -3384,7 +3439,7 @@
         <state relative-caret-position="1575">
           <caret line="122" column="1" lean-forward="false" selection-start-line="122" selection-start-column="1" selection-end-line="122" selection-end-column="1" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
             <marker date="1540402370034" expanded="false" signature="1156:1171" ph="&lt;~&gt;" />
           </folding>
         </state>
@@ -3441,6 +3496,7 @@
             <element signature="e#8939#8940#0" expanded="true" />
             <element signature="e#10000#10233#0" expanded="true" />
             <element signature="e#10232#10233#0" expanded="true" />
+            <element signature="e#10282#10598#0" expanded="true" />
             <element signature="e#10597#10598#0" expanded="true" />
             <element signature="e#12548#12591#0" expanded="true" />
             <element signature="e#12768#12807#0" expanded="true" />
@@ -3500,7 +3556,7 @@
         <state relative-caret-position="105">
           <caret line="7" column="41" lean-forward="false" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
             <marker date="1540402370034" expanded="false" signature="1156:1171" ph="&lt;~&gt;" />
           </folding>
         </state>
@@ -3578,13 +3634,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/MapFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="405" column="4" lean-forward="false" selection-start-line="405" selection-start-column="4" selection-end-line="405" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/ObjToJson.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -3614,14 +3663,6 @@
             <element signature="e#4049#4050#0" expanded="false" />
             <element signature="e#4083#4084#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3656,15 +3697,110 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="174" column="9" lean-forward="false" selection-start-line="155" selection-start-column="8" selection-end-line="174" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/HttpReqRes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="46" column="57" lean-forward="false" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <marker date="1540402370034" expanded="false" signature="1156:1171" ph="&lt;~&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/JsonToObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="74" column="92" lean-forward="false" selection-start-line="74" selection-start-column="92" selection-end-line="74" selection-end-column="92" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/SplashActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="70" column="12" lean-forward="false" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dbmanage/Dbhelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="115" column="54" lean-forward="false" selection-start-line="115" selection-start-column="54" selection-end-line="115" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/map/MapFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="141" column="30" lean-forward="false" selection-start-line="141" selection-start-column="30" selection-end-line="141" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/naver-map-api-2.1.2.aar/28879d02a706e6ea5e883550ec9717bb/jars/classes.jar!/com/nhn/android/maps/overlay/NMapCircleData.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="141" column="5" lean-forward="false" selection-start-line="141" selection-start-column="5" selection-end-line="141" selection-end-column="5" />
+          <folding>
+            <marker date="1538630338592" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1538630338592" expanded="false" signature="152:541" ph="..." />
+            <marker date="1538630338592" expanded="true" signature="927:990" ph="{...}" />
+            <marker date="1538630338592" expanded="false" signature="1021:1032" ph=" { " />
+            <marker date="1538630338592" expanded="false" signature="1046:1052" ph=" }" />
+            <marker date="1538630338592" expanded="false" signature="1093:1104" ph=" { " />
+            <marker date="1538630338592" expanded="false" signature="1118:1124" ph=" }" />
+            <marker date="1538630338592" expanded="false" signature="1157:1168" ph=" { " />
+            <marker date="1538630338592" expanded="false" signature="1182:1188" ph=" }" />
+            <marker date="1538630338592" expanded="false" signature="1231:1242" ph=" { " />
+            <marker date="1538630338592" expanded="false" signature="1256:1262" ph=" }" />
+            <marker date="1538630338592" expanded="false" signature="1293:1304" ph=" { " />
+            <marker date="1538630338592" expanded="false" signature="1318:1324" ph=" }" />
+            <marker date="1538630338592" expanded="false" signature="1364:1375" ph=" { " />
+            <marker date="1538630338592" expanded="false" signature="1389:1395" ph=" }" />
+            <marker date="1538630338592" expanded="true" signature="1418:1524" ph="{...}" />
+            <marker date="1538630338592" expanded="false" signature="1548:1559" ph=" { " />
+            <marker date="1538630338592" expanded="false" signature="1580:1586" ph=" }" />
+            <marker date="1538630338592" expanded="false" signature="1625:1636" ph=" { " />
+            <marker date="1538630338592" expanded="false" signature="1663:1669" ph=" }" />
+            <marker date="1538630338592" expanded="true" signature="1704:1907" ph="{...}" />
+            <marker date="1538630338592" expanded="true" signature="1933:2240" ph="{...}" />
+            <marker date="1538630338592" expanded="false" signature="2269:2280" ph=" { " />
+            <marker date="1538630338592" expanded="false" signature="2294:2300" ph=" }" />
+            <marker date="1538630338592" expanded="true" signature="2337:2619" ph="{...}" />
+            <marker date="1538630338592" expanded="true" signature="2683:3233" ph="{...}" />
+            <marker date="1538630338592" expanded="true" signature="3285:3468" ph="{...}" />
+            <marker date="1538630338592" expanded="true" signature="3530:3608" ph="{...}" />
+            <marker date="1538630338592" expanded="true" signature="3676:3754" ph="{...}" />
+            <marker date="1538630338592" expanded="true" signature="3788:3795" ph="{}" />
+            <marker date="1538630338592" expanded="false" signature="3849:3860" ph=" { " />
+            <marker date="1538630338592" expanded="false" signature="3874:3880" ph=" }" />
+            <marker date="1538630338592" expanded="false" signature="3925:3936" ph=" { " />
+            <marker date="1538630338592" expanded="false" signature="3950:3956" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/chat/ChatActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="238" column="30" lean-forward="false" selection-start-line="238" selection-start-column="30" selection-end-line="238" selection-end-column="30" />
+        <state relative-caret-position="360">
+          <caret line="132" column="40" lean-forward="false" selection-start-line="131" selection-start-column="8" selection-end-line="132" selection-end-column="40" />
           <folding>
             <element signature="e#8130#8940#0" expanded="true" />
             <element signature="e#8939#8940#0" expanded="true" />
             <element signature="e#10000#10233#0" expanded="true" />
             <element signature="e#10232#10233#0" expanded="true" />
+            <element signature="e#10282#10598#0" expanded="true" />
             <element signature="e#10597#10598#0" expanded="true" />
             <element signature="e#12548#12591#0" expanded="true" />
             <element signature="e#12768#12807#0" expanded="true" />
@@ -3684,45 +3820,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/auth/LoginActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/user/UserSettingActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="174" column="9" lean-forward="false" selection-start-line="155" selection-start-column="8" selection-end-line="174" selection-end-column="9" />
+        <state relative-caret-position="-247">
+          <caret line="64" column="40" lean-forward="false" selection-start-line="64" selection-start-column="40" selection-end-line="64" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/HttpReqRes.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="46" column="57" lean-forward="false" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1540402370034" expanded="false" signature="1156:1171" ph="&lt;~&gt;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/dbmanage/Dbhelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="103" column="27" lean-forward="false" selection-start-line="103" selection-start-column="27" selection-end-line="103" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/Utils/JsonToObj.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="74" column="92" lean-forward="false" selection-start-line="74" selection-start-column="92" selection-end-line="74" selection-end-column="92" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/konkuk/dna/SplashActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="70" column="12" lean-forward="false" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="32" />
+        <state relative-caret-position="211">
+          <caret line="186" column="77" lean-forward="false" selection-start-line="186" selection-start-column="77" selection-end-line="186" selection-end-column="77" />
           <folding />
         </state>
       </provider>

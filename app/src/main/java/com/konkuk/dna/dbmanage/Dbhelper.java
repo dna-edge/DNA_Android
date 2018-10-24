@@ -92,13 +92,28 @@ public class Dbhelper extends SQLiteOpenHelper {
     }
 
     /*
-     * 유저정보 저장 메소드
+     * 토큰 갱신 메소드
      * */
     public void refreshTokenDB(HashMap<String, String> map){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(DNAEntry.COLUME_NAME_ACCESSTOKEN, getStringNoQuote(map.get("accessToken").toString()));
+
+        /*
+         * 받아온 엑세스 토큰을 갱신함..
+         * */
+        db.update(DNAEntry.TABLE_NAME, values, null, null);
+    }
+
+    /*
+     * 채팅 반경 변경 메소드
+     * */
+    public void updateRadius(int radius){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(DNAEntry.COLUME_NAME_RADIUS, radius);
 
         /*
          * 받아온 엑세스 토큰을 갱신함..

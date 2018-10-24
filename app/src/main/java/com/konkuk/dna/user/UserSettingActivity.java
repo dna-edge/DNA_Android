@@ -11,6 +11,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.R;
@@ -26,6 +27,8 @@ public class UserSettingActivity extends BaseActivity {
     private int radius;
     private double longitude, latitude;
 
+    private Dbhelper dbhelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +41,15 @@ public class UserSettingActivity extends BaseActivity {
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         InitHelpers.initDrawer(this, menuDrawer, 2);
 
-        radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
-        longitude = 127.07934279999995;
-        latitude = 37.5407625;
+        // TODO 반경, 위치 초기값 설정해줘야 합니다!
+        dbhelper = new Dbhelper(this);
+        radius = dbhelper.getMyRadius();
+        longitude = gpsTracker.getLongitude();
+        latitude = gpsTracker.getLatitude();
 
         // TODO switch 메뉴들 기존 값으로 초기화해줘야 합니다.
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.chatMapFragment);
+
         isAnonymity = (SwitchCompat) findViewById(R.id.isAnonymity);
         isFindable = (SwitchCompat) findViewById(R.id.isFindable);
         bestChatCycle = (Spinner) findViewById(R.id.bestChatCycle);
@@ -56,6 +62,7 @@ public class UserSettingActivity extends BaseActivity {
         radiusText.setText(radius +"");
 
         radiusSeekbar = (SeekBar) findViewById(R.id.radiusSeekbar);
+        radiusSeekbar.setProgress(radius);
         radiusSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -86,6 +93,8 @@ public class UserSettingActivity extends BaseActivity {
 
             case R.id.settingSaveBtn: // 저장 버튼 클릭
                 Log.d("test", "저장 버튼 클릭");
+                dbhelper.updateRadius(radius);
+                finish();
                 break;
         }
     }
