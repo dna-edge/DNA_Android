@@ -72,8 +72,6 @@ public class MainActivity extends BaseActivity {
         radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
         longitude = gpsTracker.getLongitude();
         latitude = gpsTracker.getLatitude();
-        Log.d("MainActivity_test", longitude + ", " +latitude);
-
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
         posts = new ArrayList<Post>();

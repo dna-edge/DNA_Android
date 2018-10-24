@@ -114,7 +114,7 @@ public class MapFragment extends Fragment
     }
 
     public void updatePositionMarker(double lng, double lat) {
-        if (poiData.getPOIitem(0) != null) {
+        if (poiData != null && poiData.getPOIitem(0) != null) {
             poiData.getPOIitem(0).setPoint(new NGeoPoint(lng, lat));
         } else {
             if (getActivity().getClass().getSimpleName().equals("PostDetailActivity")) {
@@ -205,8 +205,6 @@ public class MapFragment extends Fragment
         circleData.setCircleStyle(circleStyle);
 
         OnMapViewStateChangeListener.onMapInitHandler(mapView, null);
-//        gpsTracker = new GPSTracker(getActivity());
-        startMyLocation();
     }
 
     private void startMyLocation() {
@@ -229,7 +227,7 @@ public class MapFragment extends Fragment
             } else {
                 boolean isMyLocationEnabled = mMapLocationManager.enableMyLocation(true);
                 if (!isMyLocationEnabled) {
-                    Toast.makeText(getActivity(), "Please enable a My Location source in system settings",
+                    Toast.makeText(getActivity(), "위치를 활성화해야 이용하실 수 있습니다.",
                             Toast.LENGTH_LONG).show();
                     Intent goToSettings = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivity(goToSettings);
