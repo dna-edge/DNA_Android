@@ -28,6 +28,7 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.google.gson.JsonObject;
+import com.konkuk.dna.Utils.SocketConnection;
 import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.AnimHelpers;
 import com.konkuk.dna.helpers.BaseActivity;
@@ -93,6 +94,14 @@ public class ChatActivity extends BaseActivity {
         setContentView(R.layout.activity_chat);
 
         init();
+        socketInit();
+
+        Log.e("Socket", "Connected!!!!");
+
+        JsonObject info = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
+        Log.e("!!!store=", info.toString());
+        mSocket.emit("store", info);
+
     }
 
     public void init() {
@@ -114,8 +123,6 @@ public class ChatActivity extends BaseActivity {
         bestChatWrapper = (RelativeLayout) findViewById(R.id.bestChatWrapper);
         bestChatMargin = (LinearLayout) findViewById(R.id.bestChatMargin);
 
-
-
         /*
         * GPS 받아오기, 반경 설정하기
         * */
@@ -124,10 +131,6 @@ public class ChatActivity extends BaseActivity {
 
         dbhelper = new Dbhelper(this);
         radius = dbhelper.getMyRadius();
-
-        Log.e("Socket Init", "!!!!!!!!!!!!!!!");
-        socketInit();
-        Log.e("Socket Init Finish", "!!!!!!!!!!!!!!!");
 
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
@@ -211,19 +214,15 @@ public class ChatActivity extends BaseActivity {
     }
 
     public void socketInit(){
-        try {
-            mSocket = IO.socket("https://dna.soyoungpark.me:9014");
+        SocketConnection socketCon = new SocketConnection();
+        mSocket = socketCon.getSocket();
 
-            mSocket.on("new_msg", onMessageReceived);
+        mSocket.on("ping", onPingReceived);
+        mSocket.on("new_msg", onMessageReceived);
 
-            mSocket.connect();
-        } catch(URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        JsonObject storeJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
-        Log.e("!!!store=", storeJson.toString());
-        mSocket.emit("store", storeJson);
+        Log.e("Start", "Connect");
+        mSocket.connect();
+        Log.e("After", "Connect");
     }
 
     private Emitter.Listener onMessageReceived = new Emitter.Listener() {
@@ -234,6 +233,17 @@ public class ChatActivity extends BaseActivity {
             // your code...
         }
     };
+
+    private Emitter.Listener onPingReceived = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            Log.e("SOcket Ping", "COME!!!");
+            JsonObject updateJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
+            mSocket.emit("update", "geo", updateJson);
+        }
+    };
+
+
 
     public void onClick(View v) {
         switch(v.getId()) {
@@ -380,6 +390,10 @@ public class ChatActivity extends BaseActivity {
         AnimHelpers.animateMargin(this, mapSizeBtn, "top", 200L,
                 top, AnimHelpers.dpToPx(this, -40));
 
+        // TODO 1번 누르면 ChatActivity가 destroy되지 않고 그냥 mainActivity가 보임
+        // TODO 2번쨰, 3번째 눌렀을때 앱이 종료 되도록 만들기
+        finish();
+
     }
 
     @Override
@@ -389,6 +403,12 @@ public class ChatActivity extends BaseActivity {
     }
 }
 
+
+
+
+/*
+* 비동기 Http 연결 작업 클래스
+* */
 class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
     private Context context;
     private String m_token;
@@ -464,6 +484,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
             bestChatContent.setText(bestMessages.get(0).getContents());
             bestChatNickname.setText(bestMessages.get(0).getUserName());
             bestChatDate.setText(bestMessages.get(0).getDate());
+        }else{
+            bestChatContent.setText("이 지역의 베스트챗이 존재하지 않아요ㅠ");
+            bestChatNickname.setText("리보솜");
         }
         /*
         * 전체 채팅 내용 세팅

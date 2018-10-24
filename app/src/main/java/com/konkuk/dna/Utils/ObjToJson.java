@@ -18,19 +18,26 @@ public class ObjToJson {
 
         JsonObject jObj = new JsonObject();
 
+        //jObj.addProperty("token", dbhelper.getAccessToken());
         jObj.addProperty("idx", dbhelper.getMyIdx());
         jObj.addProperty("nickname", dbhelper.getMyNickname());
         jObj.addProperty("avatar", dbhelper.getMyAvatar());
 
-        JsonObject posObj = new JsonObject();
-        posObj.addProperty("type", "Point");
+//        JsonObject posObj = new JsonObject();
+//        posObj.addProperty("type", "Point");
+//
+//        JsonArray coordarr = new JsonArray();
+//        coordarr.add(lng);
+//        coordarr.add(lat);
+//        posObj.add("coordinates", coordarr);
+//
+//        jObj.add("position", posObj);
 
-        JsonArray coordarr = new JsonArray();
-        coordarr.add(lng);
-        coordarr.add(lat);
-        posObj.add("coordinates", coordarr);
+        JsonArray posarr = new JsonArray();
+        posarr.add(lng);
+        posarr.add(lat);
+        jObj.add("position", posarr);
 
-        jObj.add("position", posObj);
         jObj.addProperty("radius", dbhelper.getMyRadius());
 
         return jObj;

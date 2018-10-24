@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.konkuk.dna.chat.ChatActivity;
 import com.konkuk.dna.helpers.AnimHelpers;
 import com.konkuk.dna.helpers.BaseActivity;
@@ -27,6 +29,7 @@ import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostFormActivity;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -53,6 +56,7 @@ public class MainActivity extends BaseActivity {
 
         setContentView(R.layout.activity_main);
         init();
+
     }
 
     public void init() {

@@ -92,6 +92,21 @@ public class Dbhelper extends SQLiteOpenHelper {
     }
 
     /*
+     * 유저정보 저장 메소드
+     * */
+    public void refreshTokenDB(HashMap<String, String> map){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(DNAEntry.COLUME_NAME_ACCESSTOKEN, getStringNoQuote(map.get("accessToken").toString()));
+
+        /*
+         * 받아온 엑세스 토큰을 갱신함..
+         * */
+        db.update(DNAEntry.TABLE_NAME, values, null, null);
+    }
+
+    /*
     * 토큰 가져오기
     * */
     public String getAccessToken(){
@@ -101,6 +116,20 @@ public class Dbhelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
         while(cursor.moveToNext()){
             str = cursor.getString(7);
+        }
+        return str;
+    }
+
+    /*
+     * 토큰 가져오기
+     * */
+    public String getRefreshToken(){
+        String str = null;
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
+        while(cursor.moveToNext()){
+            str = cursor.getString(8);
         }
         return str;
     }
