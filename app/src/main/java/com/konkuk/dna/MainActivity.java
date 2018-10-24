@@ -16,8 +16,12 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.konkuk.dna.chat.ChatActivity;
+import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.AnimHelpers;
 import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.helpers.InitHelpers;
@@ -26,6 +30,7 @@ import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostFormActivity;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -42,6 +47,11 @@ public class MainActivity extends BaseActivity {
     private int height, radius;
     private double longitude, latitude;
 
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
+
+    private Dbhelper dbhelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +59,7 @@ public class MainActivity extends BaseActivity {
 
         setContentView(R.layout.activity_main);
         init();
+
     }
 
     public void init() {
@@ -69,11 +80,11 @@ public class MainActivity extends BaseActivity {
         AnimHelpers.animateMargin(this, postWriteBtn, "main", 400L,
                 AnimHelpers.dpToPx(this, -80), AnimHelpers.dpToPx(this, 25));
 
-        radius = 500; // TODO 반경, 위치 초기값 설정해줘야 합니다!
+        // TODO 반경, 위치 초기값 설정해줘야 합니다!
+        dbhelper = new Dbhelper(this);
+        radius = dbhelper.getMyRadius();
         longitude = gpsTracker.getLongitude();
         latitude = gpsTracker.getLatitude();
-        Log.d("MainActivity_test", longitude + ", " +latitude);
-
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
         posts = new ArrayList<Post>();
@@ -171,7 +182,22 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        mapFragment.initMapCenter(longitude, latitude, radius);
+        mapFragment.initMapCenter(longitude, latitude, dbhelper.getMyRadius());
         mapFragment.drawPostLocations(posts);
+    }
+
+    //뒤로가기를 누르면 화면이 꺠지지 않고, 2번 누르면 앱이 종료되도록 만들기
+    @Override
+    public void onBackPressed() {
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
+            finish();
+            super.onBackPressed();
+        } else {
+            backPressedTime = tempTime;
+            Toast.makeText(this, "2초내에 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
