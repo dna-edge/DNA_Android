@@ -457,14 +457,14 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         ArrayList<ChatMessage> bestMessages = new ArrayList<ChatMessage>();
         bestMessages = ChatAllJsonToObj(resultArray.get(0));
 
-
-        Picasso.get()
-                .load(bestMessages.get(0).getAvatar())
-                .into(bestChatAvatar);
-        bestChatContent.setText(bestMessages.get(0).getContents());
-        bestChatNickname.setText(bestMessages.get(0).getUserName());
-        bestChatDate.setText(bestMessages.get(0).getDate());
-
+        if(bestMessages.size()>0) {
+            Picasso.get()
+                    .load(bestMessages.get(0).getAvatar())
+                    .into(bestChatAvatar);
+            bestChatContent.setText(bestMessages.get(0).getContents());
+            bestChatNickname.setText(bestMessages.get(0).getUserName());
+            bestChatDate.setText(bestMessages.get(0).getDate());
+        }
         /*
         * 전체 채팅 내용 세팅
         * */
