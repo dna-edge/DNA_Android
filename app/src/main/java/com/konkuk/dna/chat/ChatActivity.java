@@ -96,7 +96,7 @@ public class ChatActivity extends BaseActivity {
         init();
         socketInit();
 
-        Log.e("Socket", "Connected!!!!");
+        //Log.e("Socket", "Connected!!!!");
 
         JsonObject info = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
         Log.e("!!!store=", info.toString());

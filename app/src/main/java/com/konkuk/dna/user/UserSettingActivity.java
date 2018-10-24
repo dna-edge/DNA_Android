@@ -85,6 +85,7 @@ public class UserSettingActivity extends BaseActivity {
                 dbhelper.logoutUser();
                 //TODO 실행중인 모든 액티비티를 종료하고 로그인액티비티로 이동해야함.
                 break;
+
             case R.id.backBtn:
                 finish();
                 break;
