@@ -43,7 +43,9 @@ dependencies {
     implementation project(':httpclient-4.5.6')
     implementation project(':httpcore-4.4.10')
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.github.nkzawa:socket.io-client:0.5.2'
+    //implementation 'com.github.nkzawa:socket.io-client:0.5.2'
+
+    implementation ('io.socket:socket.io-client:1.0.0')
 
     //implementation 'pub.devrel:easypermissions:2.0.0'
     implementation 'com.google.firebase:firebase-core:16.0.1'
