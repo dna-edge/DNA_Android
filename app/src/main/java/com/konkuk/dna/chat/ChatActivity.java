@@ -88,7 +88,7 @@ public class ChatActivity extends BaseActivity {
 
     private Dbhelper dbhelper;
     private Socket mSocket;
-    private Context context;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,6 +242,11 @@ public class ChatActivity extends BaseActivity {
             @Override
             public void call(Object... args) {
                 Log.e("Socket GET MESSAGE", "MSG COME!!!");
+                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+                csat.execute(longitude, latitude);
+
+                //chatListAdapter.notifyDataSetChanged();
+
             }
         });
         // 좋아요 신호가 오면 화면을 새로고침 할 것
@@ -370,6 +375,7 @@ public class ChatActivity extends BaseActivity {
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
                 Log.e("!!!=sendMsg", sendMsgJson.toString());
                 mSocket.emit("save_msg", sendMsgJson);
+                chatListAdapter.notifyDataSetChanged();
 
                 msgEditText.setText("");
                 msgEditText.setEnabled(true);
@@ -548,5 +554,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
         scrollMyListViewToBottom();
+
+        chatListAdapter.notifyDataSetChanged();
     }
 }
