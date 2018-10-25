@@ -18,20 +18,10 @@ public class ObjToJson {
 
         JsonObject jObj = new JsonObject();
 
-        //jObj.addProperty("token", dbhelper.getAccessToken());
+        jObj.addProperty("token", dbhelper.getAccessToken());
         jObj.addProperty("idx", dbhelper.getMyIdx());
         jObj.addProperty("nickname", dbhelper.getMyNickname());
         jObj.addProperty("avatar", dbhelper.getMyAvatar());
-
-//        JsonObject posObj = new JsonObject();
-//        posObj.addProperty("type", "Point");
-//
-//        JsonArray coordarr = new JsonArray();
-//        coordarr.add(lng);
-//        coordarr.add(lat);
-//        posObj.add("coordinates", coordarr);
-//
-//        jObj.add("position", posObj);
 
         JsonArray posarr = new JsonArray();
         posarr.add(lng);
@@ -40,6 +30,7 @@ public class ObjToJson {
 
         jObj.addProperty("radius", dbhelper.getMyRadius());
 
+        //Log.d("Json", jObj.toString());
         return jObj;
     }
 
@@ -62,6 +53,7 @@ public class ObjToJson {
 
         jObj.add("messageData", mdataObj);
         jObj.addProperty("radius", dbhelper.getMyRadius());
+        jObj.addProperty("testing", false);
 
 //        data = {
 //                token,

@@ -108,6 +108,35 @@
             android:tag="nseb" />
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/logoutBtn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:onClick="onClick">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/fa_home"
+            android:textColor="@color/grayLighter"
+            android:textSize="24dp"
+            android:tag="fas"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="15dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/grayLighter"
+            android:text="로그아웃"
+            android:tag="nseb" />
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

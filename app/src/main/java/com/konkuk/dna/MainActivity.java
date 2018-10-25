@@ -18,8 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
 import com.konkuk.dna.chat.ChatActivity;
 import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.AnimHelpers;
