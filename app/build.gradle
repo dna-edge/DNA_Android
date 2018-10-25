@@ -46,4 +46,7 @@ dependencies {
     implementation 'com.github.nkzawa:socket.io-client:0.5.2'
 
     //implementation 'pub.devrel:easypermissions:2.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'
