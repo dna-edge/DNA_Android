@@ -6,11 +6,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.konkuk.dna.chat.ChatMessage;
+import com.konkuk.dna.friend.message.DMRoom;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.konkuk.dna.Utils.ConvertType.DatetoStr;
+import static com.konkuk.dna.Utils.ConvertType.getStringAddQuote;
 import static com.konkuk.dna.Utils.ConvertType.getStringNoQuote;
 
 public class JsonToObj {
@@ -50,7 +52,8 @@ public class JsonToObj {
             hm.put("accessToken", tokenObject.get("accessToken").toString());
             hm.put("refreshToken", tokenObject.get("refreshToken").toString());
 
-            Log.e("!!!=accessToken", tokenObject.get("accessToken").toString());
+            Log.e("!!!", jsonResult);
+            //Log.e("!!!", tokenObject.get("accessToken").toString());
 
         }else{
             //리스폰스에 하자가 있다면
@@ -147,7 +150,7 @@ public class JsonToObj {
         String nickname, avatar, position,like_count;
         double lng, lat;
         String msg_type, _id, contents, created_at;
-        int idx, __v;
+        int msg_idx, __v;
 
 
         if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
@@ -156,6 +159,7 @@ public class JsonToObj {
             for(int i=0; i<resultArray.size(); i++){
                 JsonObject oneObject = (JsonObject) resultArray.get(i);
 
+                //Log.e("message "+i, oneObject.toString());
                 JsonObject userObject = (JsonObject) oneObject.get("user");
                 user_idx = Integer.parseInt(userObject.get("idx").toString());
                 nickname = getStringNoQuote(userObject.get("nickname").toString());
@@ -167,6 +171,7 @@ public class JsonToObj {
                 lat = Double.parseDouble(coorArray.get(1).toString());
 
                 msg_type = getStringNoQuote(oneObject.get("type").toString());
+
                 like_count = oneObject.get("like_count").toString();
                 JsonArray wholikesArray = (JsonArray) oneObject.get("likes");
                 for(int j=0; j<wholikesArray.size(); j++){
@@ -176,15 +181,84 @@ public class JsonToObj {
                 _id = getStringNoQuote(oneObject.get("_id").toString());
                 contents = getStringNoQuote(oneObject.get("contents").toString());
                 created_at = getStringNoQuote(oneObject.get("created_at").toString());
-                idx = Integer.parseInt(oneObject.get("idx").toString());
+                msg_idx = Integer.parseInt(oneObject.get("idx").toString());
                 __v = Integer.parseInt(oneObject.get("__v").toString());
 
-                chatMessages.add(new ChatMessage(user_idx, nickname, avatar, contents, DatetoStr(created_at), like_count, msg_type, lng, lat));
+                Log.e(msg_type, resultArray.get(i).toString());
+
+                //Log.e("!!!", user_idx+"/"+nickname+"/"+avatar+"/"+contents+"/"+created_at+"/"+like_count+"/"+msg_type+"/"+msg_idx);
+                chatMessages.add(0,new ChatMessage(user_idx, nickname, avatar, contents, DatetoStr(created_at), like_count, msg_type, lng, lat, whoLikes, msg_idx));
+
             }
         }else{
             chatMessages = null;
         }
 
         return chatMessages;
+    }
+
+    /*
+     * DM방 목록 검색으로 날아온 Json변환 메소드
+     * */
+    public static ArrayList<DMRoom> DMRoomJsonToObj(String jsonResult, int myIdx){
+        ArrayList<DMRoom> Dmrooms = new ArrayList<>();
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+
+        String _id, created_at, updated_at;
+        int room_idx, __v;
+        String m__id, m_nickname, m_avatar;
+        int m_idx;
+        String f__id="", f_nickname="", f_avatar="";
+        int f_idx=0;
+        String last_message, last_type;
+
+
+        if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
+            JsonArray resultArray = (JsonArray) jsonObject.get("result");
+
+            for(int i=0; i<resultArray.size(); i++){
+                JsonObject oneObject = (JsonObject) resultArray.get(i);
+
+                JsonArray blindarray = (JsonArray) oneObject.get("blind");
+                for(int j=0; j<blindarray.size(); j++){
+                    //blind 무엇?
+                }
+                _id = getStringNoQuote(oneObject.get("_id").toString());
+                room_idx = Integer.parseInt(oneObject.get("idx").toString());
+
+                JsonArray usersarray = (JsonArray) oneObject.get("users");
+                for(int j=0; j<2; j++){
+                    JsonObject userObject = (JsonObject) usersarray.get(i);
+                    if(myIdx == Integer.parseInt(userObject.get("idx").toString())){
+                        m__id =  getStringNoQuote(userObject.get("_id").toString());
+                        m_idx = Integer.parseInt(userObject.get("idx").toString());
+                        m_nickname =  getStringNoQuote(userObject.get("nickname").toString());
+                        m_avatar =  getStringNoQuote(userObject.get("avatar").toString());
+                    }else{
+                        f__id =  getStringNoQuote(userObject.get("_id").toString());
+                        f_idx = Integer.parseInt(userObject.get("idx").toString());
+                        f_nickname =  getStringNoQuote(userObject.get("nickname").toString());
+                        f_avatar =  getStringNoQuote(userObject.get("avatar").toString());
+                    }
+                }
+                created_at = getStringNoQuote(oneObject.get("created_at").toString());
+                updated_at = getStringNoQuote(oneObject.get("updated_at").toString());
+                __v = Integer.parseInt(oneObject.get("__v").toString());
+                last_message = getStringNoQuote(oneObject.get("last_message").toString());
+                last_type = getStringNoQuote(oneObject.get("last_mtype").toString());
+
+
+                // TODO 멤버변수에 대한 설명이 필요함
+                Dmrooms.add(new DMRoom(room_idx, f_idx, f_nickname, f_avatar, last_message, last_type, DatetoStr(updated_at)));
+            }
+
+        }else{
+            Dmrooms = null;
+        }
+
+        return Dmrooms;
     }
 }

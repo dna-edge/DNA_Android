@@ -1,7 +1,9 @@
 package com.konkuk.dna.friend.fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
@@ -9,16 +11,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.konkuk.dna.R;
+import com.konkuk.dna.Utils.HttpReqRes;
+import com.konkuk.dna.Utils.ServerURL;
+import com.konkuk.dna.chat.ChatListAdapter;
+import com.konkuk.dna.chat.ChatMessage;
+import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.friend.message.DMActivity;
 import com.konkuk.dna.friend.message.DMMessage;
 import com.konkuk.dna.friend.message.DMRoom;
 import com.konkuk.dna.friend.message.DMRoomListAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static com.konkuk.dna.Utils.JsonToObj.ChatAllJsonToObj;
+import static com.konkuk.dna.Utils.JsonToObj.DMRoomJsonToObj;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,15 +65,17 @@ public class RoomFragment extends Fragment {
 
     public void init() {
         roomList = (ListView) getView().findViewById(R.id.roomList);
-        rooms = new ArrayList<DMRoom>();
+        rooms = new ArrayList<>();
 
         // TODO 서버에서 room 리스트를 받아와서 초기화시켜줘야 합니다.
-        rooms.add(new DMRoom(0, 1, "3457soso", "https://pbs.twimg.com/media/DbYfg2IWkAENdiS.jpg", "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용", TYPE_MESSAGE, "2018-01-24"));
-        rooms.add(new DMRoom(1, 2, "test", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-23"));
-        rooms.add(new DMRoom(2, 3, "avatar", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-22"));
-
-        dmRoomListAdapter = new DMRoomListAdapter(getActivity(), R.layout.chat_item_room, rooms);
-        roomList.setAdapter(dmRoomListAdapter);
+        DMRoomAsyncTask dmrat = new DMRoomAsyncTask(getActivity(), dmRoomListAdapter, roomList);
+        dmrat.execute();
+//        rooms.add(new DMRoom(0, 1, "3457soso", "https://pbs.twimg.com/media/DbYfg2IWkAENdiS.jpg", "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용", TYPE_MESSAGE, "2018-01-24"));
+//        rooms.add(new DMRoom(1, 2, "test", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-23"));
+//        rooms.add(new DMRoom(2, 3, "avatar", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-22"));
+//
+//        dmRoomListAdapter = new DMRoomListAdapter(getActivity(), R.layout.chat_item_room, rooms);
+//        roomList.setAdapter(dmRoomListAdapter);
 
         roomList.setClickable(true);
         roomList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,7 +84,7 @@ public class RoomFragment extends Fragment {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
                 DMRoom room = (DMRoom) roomList.getItemAtPosition(position);
-                Intent intent = new Intent (getActivity(), DMActivity.class);
+                Intent intent = new Intent (getContext(), DMActivity.class);
                 intent.putExtra("roomIdx", room.getIdx());
                 intent.putExtra("roomUpdated", room.getUpdateDate());
                 startActivity(intent);
@@ -76,4 +92,63 @@ public class RoomFragment extends Fragment {
         });
     }
 
+}
+
+
+/*
+ * 비동기 Http 연결 작업 클래스
+ * */
+class DMRoomAsyncTask extends AsyncTask<Double, Integer, ArrayList<DMRoom>> {
+
+    private Context context;
+    private String m_token;
+
+    private Dbhelper dbhelper;
+
+    private DMRoomListAdapter dmRoomListAdapter;
+    private ListView roomList;
+
+
+    public DMRoomAsyncTask(Context context, DMRoomListAdapter dmRoomListAdapter, ListView roomList){
+        this.context=context;
+        this.dmRoomListAdapter = dmRoomListAdapter;
+        this.roomList = roomList;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected ArrayList<DMRoom> doInBackground(Double... doubles) {
+
+        //ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
+        ArrayList<DMRoom> rooms = new ArrayList<>();
+
+        HttpReqRes httpreq = new HttpReqRes();
+        dbhelper = new Dbhelper(context);
+        m_token = dbhelper.getAccessToken();
+
+        String repDMRooms = httpreq.requestHttpGETDMRooms(ServerURL.LOCAL_HOST+ServerURL.PORT_SOCKET_API+"/rooms/:page", m_token);
+
+        //TODO 오브젝트 치환
+        rooms = DMRoomJsonToObj(repDMRooms, dbhelper.getMyIdx());
+//
+//        rooms.add(new DMRoom(0, 1, "3457soso", "https://pbs.twimg.com/media/DbYfg2IWkAENdiS.jpg", "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용", TYPE_MESSAGE, "2018-01-24"));
+//        rooms.add(new DMRoom(1, 2, "test", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-23"));
+//        rooms.add(new DMRoom(2, 3, "avatar", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-22"));
+
+        return rooms;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<DMRoom> rooms) {
+        super.onPostExecute(rooms);
+
+        dmRoomListAdapter = new DMRoomListAdapter(context, R.layout.chat_item_room, rooms);
+        roomList.setAdapter(dmRoomListAdapter);
+
+        dmRoomListAdapter.notifyDataSetChanged();
+    }
 }

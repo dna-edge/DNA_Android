@@ -16,6 +16,7 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -99,10 +100,12 @@ public class ChatActivity extends BaseActivity {
         init();
         socketInit();
 
-//        JsonObject info = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
-//        Log.e("!!!store=", info.toString());
-//        mSocket.emit("store", info);
-
+//        msgListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                mSocket.emit("like", dbhelper.getAccessToken(), chatMessages.get(i).getMsg_idx());
+//            }
+//        });
     }
 
     public void init() {
@@ -167,9 +170,9 @@ public class ChatActivity extends BaseActivity {
 //
 //        chatListAdapter = new ChatListAdapter(this, R.layout.chat_item_left, chatMessages);
 //        msgListView.setAdapter(chatListAdapter);
-
-        // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
-        //scrollMyListViewToBottom();
+//
+////         생성된 후 바닥으로 메시지 리스트를 내려줍니다.
+//        scrollMyListViewToBottom();
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
 
@@ -369,6 +372,8 @@ public class ChatActivity extends BaseActivity {
         }
     }
 
+
+
     private void scrollMyListViewToBottom() {
         msgListView.post(new Runnable() {
             @Override
@@ -495,8 +500,8 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         dbhelper = new Dbhelper(context);
         m_token = dbhelper.getAccessToken();
 
-        String repBestChat = httpreq.requestHttpPostMsgAll(ServerURL.LOCAL_HOST+ServerURL.PORT_SOCKET_API+"/best", m_token, doubles[0], doubles[1], radius);
-        String repMsgAll = httpreq.requestHttpPostMsgAll(ServerURL.LOCAL_HOST+ServerURL.PORT_SOCKET_API+"/messages/:page", m_token, doubles[0], doubles[1], radius);
+        String repBestChat = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/best", m_token, doubles[0], doubles[1], radius);
+        String repMsgAll = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/messages", m_token, doubles[0], doubles[1], radius);
 
         resultArray.add(0, repBestChat);
         resultArray.add(1, repMsgAll);
@@ -526,6 +531,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
             bestChatNickname.setText("리보솜");
         }
 
+        Log.e("!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         /*
         * 전체 채팅 내용 세팅
         * */
@@ -533,13 +539,13 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         chatMessages = ChatAllJsonToObj(resultArray.get(1));
 
         //거꾸로 받아온 리스트를 역순으로 바꿈
-        Collections.reverse(chatMessages);
+        //Collections.reverse(chatMessages);
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
         msgListView.setAdapter(chatListAdapter);
-        msgListView.refreshDrawableState();
+//        msgListView.refreshDrawableState();
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
-        scrollMyListViewToBottom();
+        //scrollMyListViewToBottom();
 
         chatListAdapter.notifyDataSetChanged();
     }

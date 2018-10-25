@@ -24,7 +24,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class HttpReqRes {
 
     /*
-     * gwtAuthToken - GET
+     * getAuthToken - GET
      * */
     public String requestHttpGETAuth(String url, String refreshToken){
 
@@ -149,4 +149,29 @@ public class HttpReqRes {
         }
         return result;
     }
+
+
+    /*
+     * get DM Rooms- GET
+     * */
+    public String requestHttpGETDMRooms(String url, String accessToken){
+
+        String result=null;
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpGet get = new HttpGet(postURL);
+            get.setHeader("token", accessToken);
+
+            HttpResponse responseGET = client.execute(get);
+            HttpEntity resEntity = responseGET.getEntity();
+            if (resEntity != null) {
+                result = EntityUtils.toString(resEntity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }
