@@ -92,6 +92,18 @@ public class Dbhelper extends SQLiteOpenHelper {
     }
 
     /*
+     * 유저정보 제거(로그아웃) 메소드
+     * */
+    public void logoutUser(){
+        SQLiteDatabase db = getWritableDatabase();
+
+        /*
+         * 기존에 있는 내용을 딜리트
+         * */
+        db.delete(DNAEntry.TABLE_NAME,null, null);
+    }
+
+    /*
      * 토큰 갱신 메소드
      * */
     public void refreshTokenDB(HashMap<String, String> map){

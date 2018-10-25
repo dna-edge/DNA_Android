@@ -103,27 +103,19 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                     Picasso.get().load(message.getAvatar()).into(messageAvatar);
                 }
 
-<<<<<<<
-            } else if (position < 3 || position > 6) {  // 프로필 이미지 없는 상대 메시지
+            } else if (message.getIdx() != myIdx) {  // 프로필 이미지 없는 상대 메시지
                 if (message.getType().equals(TYPE_LOUDSPEAKER)) { // 확성기 상태일 경우
                     v = layoutInflater.inflate(R.layout.chat_item_loudspeaker_left, null);
                 } else {
                     v = layoutInflater.inflate(R.layout.chat_item_left, null);
                 }
-            } else {                                    // 내 메시지
+            } else if(message.getIdx() == myIdx){  // 내 메시지
                 if (message.getType().equals(TYPE_LOUDSPEAKER)) { // 확성기 상태일 경우
                     v = layoutInflater.inflate(R.layout.chat_item_loudspeaker_right, null);
                 } else {
                     v = layoutInflater.inflate(R.layout.chat_item_right, null);
                 }
-=======
-            } else if (message.getIdx() != myIdx) {  // 프로필 이미지 없는 상대 메시지
-                v = layoutInflater.inflate(R.layout.chat_item_left, null);
-            } else if(message.getIdx() == myIdx){  // 내 메시지
-                v = layoutInflater.inflate(R.layout.chat_item_right, null);
->>>>>>>
             }
-
         }
 
         LinearLayout messageLikeWrapper = (LinearLayout) v.findViewById(R.id.likeWrapper);
