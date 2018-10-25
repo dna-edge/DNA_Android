@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.konkuk.dna.Utils.ServerURL;
 import com.konkuk.dna.Utils.SocketConnection;
 import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.AnimHelpers;
@@ -214,8 +215,6 @@ public class ChatActivity extends BaseActivity {
     }
 
     public void socketInit(){
-        JsonObject storeJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
-
         SocketConnection socketCon = new SocketConnection();
         mSocket = socketCon.getSocket();
 
@@ -237,53 +236,37 @@ public class ChatActivity extends BaseActivity {
                 mSocket.emit("update", "geo", updateJson);
             }
         });
-        // 새로운 메시지가 오면 화면을 새로고침 할 것
+        // TODO: 새로운 메시지가 오면 화면을 새로고침 할 것
         mSocket.on("new_msg", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 Log.e("Socket GET MESSAGE", "MSG COME!!!");
+
                 ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
                 csat.execute(longitude, latitude);
-
-                //chatListAdapter.notifyDataSetChanged();
-
             }
         });
-        // 좋아요 신호가 오면 화면을 새로고침 할 것
+        // TODO: 좋아요 신호가 오면 화면을 새로고침 할 것
         mSocket.on("apply_like", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 Log.e("Socket GET Like", "Apply Like COME!!!");
+                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+                csat.execute(longitude, latitude);
+            }
+        });
+        // TODO: push가 오면 push 알림을 띄울 것
+        mSocket.on("speaker", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.e("Socket GET Like", "Apply Like COME!!!");
+                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+                csat.execute(longitude, latitude);
             }
         });
 
         mSocket.connect();
     }
-
-    private Emitter.Listener onPingReceived = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-
-        }
-    };
-
-    private Emitter.Listener onMessageReceived = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            Log.e("Socket GET MESSAGE", "MSG COME!!!");
-
-            //onResume();
-        }
-    };
-
-    private Emitter.Listener onLikeReceived = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            Log.e("Socket GET Like", "Apply Like COME!!!");
-
-            //onResume();
-        }
-    };
 
 
 
@@ -372,10 +355,12 @@ public class ChatActivity extends BaseActivity {
                 break;
 
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
+
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
-                Log.e("!!!=sendMsg", sendMsgJson.toString());
                 mSocket.emit("save_msg", sendMsgJson);
-                chatListAdapter.notifyDataSetChanged();
+
+//                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+//                csat.execute(longitude, latitude);
 
                 msgEditText.setText("");
                 msgEditText.setEnabled(true);
@@ -510,8 +495,8 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         dbhelper = new Dbhelper(context);
         m_token = dbhelper.getAccessToken();
 
-        String repBestChat = httpreq.requestHttpPostMsgAll("https://dna.soyoungpark.me:9014/api/best", m_token, doubles[0], doubles[1], radius);
-        String repMsgAll = httpreq.requestHttpPostMsgAll("https://dna.soyoungpark.me:9014/api/messages/:page", m_token, doubles[0], doubles[1], radius);
+        String repBestChat = httpreq.requestHttpPostMsgAll(ServerURL.LOCAL_HOST+ServerURL.PORT_SOCKET_API+"/best", m_token, doubles[0], doubles[1], radius);
+        String repMsgAll = httpreq.requestHttpPostMsgAll(ServerURL.LOCAL_HOST+ServerURL.PORT_SOCKET_API+"/messages/:page", m_token, doubles[0], doubles[1], radius);
 
         resultArray.add(0, repBestChat);
         resultArray.add(1, repMsgAll);
@@ -529,7 +514,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         ArrayList<ChatMessage> bestMessages = new ArrayList<ChatMessage>();
         bestMessages = ChatAllJsonToObj(resultArray.get(0));
 
-        if(bestMessages.size()>0) {
+        if(bestMessages.size()>0 && bestMessages != null) {
             Picasso.get()
                     .load(bestMessages.get(0).getAvatar())
                     .into(bestChatAvatar);
@@ -540,6 +525,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
             bestChatContent.setText("이 지역의 베스트챗이 존재하지 않아요ㅠ");
             bestChatNickname.setText("리보솜");
         }
+
         /*
         * 전체 채팅 내용 세팅
         * */
