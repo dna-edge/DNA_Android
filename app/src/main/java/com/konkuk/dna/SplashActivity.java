@@ -70,33 +70,33 @@ class AuthAsyncTask extends AsyncTask<Integer, Boolean, Boolean> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        dbhelper = new Dbhelper(context);
-        /*
-        * DB에 남은 토큰을 검색해서 expired 확인, 유효하면 바로 chatactivity진입
-        * */
+//        dbhelper = new Dbhelper(context);
+//        /*
+//        * DB에 남은 토큰을 검색해서 expired 확인, 유효하면 바로 chatactivity진입
+//        * */
+//
+//        HttpReqRes httpreq = new HttpReqRes();
+//        String responseResult = httpreq.requestHttpGETAuth("https://dna.soyoungpark.me:9011/api/auth/refresh", dbhelper.getRefreshToken());
+//
+//        JsonToObj jto = new JsonToObj();
+//        HashMap<String, String> map = jto.TokenJsonToObj(responseResult);
+//
+//
+//        if(map.get("issuccess").equals("true")){
+//            /*
+//             * 성공했으면 DB에 저장
+//             * */
+//            dbhelper = new Dbhelper(context);
+//            dbhelper.refreshTokenDB(map);
+//            isSuccess = true;
+//        }else{
+//            /*
+//             * 실패했으면 값만 반환
+//             * */
+//            isSuccess = false;
+//        }
 
-        HttpReqRes httpreq = new HttpReqRes();
-        String responseResult = httpreq.requestHttpGETAuth("https://dna.soyoungpark.me:9011/api/auth/refresh", dbhelper.getRefreshToken());
-
-        JsonToObj jto = new JsonToObj();
-        HashMap<String, String> map = jto.TokenJsonToObj(responseResult);
-
-
-        if(map.get("issuccess").equals("true")){
-            /*
-             * 성공했으면 DB에 저장
-             * */
-            dbhelper = new Dbhelper(context);
-            dbhelper.refreshTokenDB(map);
-            isSuccess = true;
-        }else{
-            /*
-             * 실패했으면 값만 반환
-             * */
-            isSuccess = false;
-        }
-
-        return isSuccess;
+        return true;
     }
 
     @Override
@@ -106,14 +106,19 @@ class AuthAsyncTask extends AsyncTask<Integer, Boolean, Boolean> {
 
         prgDialog.dismiss();
 
-        if(isToken){
-            Intent intent = new Intent(context, MainActivity.class);
-            context.startActivity(intent);
-            ((Activity)context).finish();
-        }else{
-            Intent intent = new Intent(context, LoginActivity.class);
-            context.startActivity(intent);
-            ((Activity)context).finish();
-        }
+
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+        ((Activity)context).finish();
+
+//        if(isToken){
+//            Intent intent = new Intent(context, MainActivity.class);
+//            context.startActivity(intent);
+//            ((Activity)context).finish();
+//        }else{
+//            Intent intent = new Intent(context, LoginActivity.class);
+//            context.startActivity(intent);
+//            ((Activity)context).finish();
+//        }
     }
 }
