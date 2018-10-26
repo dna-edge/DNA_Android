@@ -33,8 +33,9 @@ public class DMListAdapter extends ArrayAdapter<DMMessage> {
 
     /* 메시지의 타입을 구분하기 위한 변수들입니다 */
     private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
-    private final String TYPE_LOCATION = "Location";    // 현재 위치 전송
-    private final String TYPE_IMAGE = "Image";       // 이미지 전송
+    private final String TYPE_LOCATION = "Location";   // 현재 위치 전송
+    private final String TYPE_IMAGE = "Image";         // 이미지 전송
+    private final String TYPE_SHARE = "Share";         // 포스팅 공유
 
     public DMListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<DMMessage> objects) {
         super(context, resource, objects);
@@ -95,6 +96,7 @@ public class DMListAdapter extends ArrayAdapter<DMMessage> {
         RelativeLayout msgLocationWrapper = (RelativeLayout) v.findViewById(R.id.msgLocationWrapper);
         ImageView msgImage = (ImageView) v.findViewById(R.id.msgImage);
         TextView msgText = (TextView) v.findViewById(R.id.msgText);
+        TextView msgShare = (TextView) v.findViewById(R.id.msgShare);
         TextView dateText = (TextView) v.findViewById(R.id.dateText);
 
         switch(message.getType()) {
@@ -123,6 +125,13 @@ public class DMListAdapter extends ArrayAdapter<DMMessage> {
 //                    fragTransaction.commit();
 //                }
 
+                break;
+
+            case TYPE_SHARE:
+                if (msgShare != null) {
+                    msgShare.setVisibility(View.VISIBLE);
+                    msgShare.setText("[공유] " + message.getContents());
+                }
                 break;
         }
 

@@ -80,10 +80,12 @@ public class ChatActivity extends BaseActivity {
     private boolean mapIsOpen = true, bestChatIsOpen = true;
 
     /* 메시지의 타입을 구분하기 위한 변수들입니다 */
-    private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
-    private final String TYPE_LOUDSPEAKER = "LoudSpeaker"; // 확성기 전송
-    private final String TYPE_LOCATION = "Location";    // 현재 위치 전송
-    private final String TYPE_IMAGE = "Image";       // 이미지 전송
+    /* 메시지의 타입을 구분하기 위한 변수들입니다 */
+    private final String TYPE_MESSAGE = "Message";          // 일반 메시지 전송
+    private final String TYPE_LOUDSPEAKER = "LoudSpeaker";  // 확성기 전송
+    private final String TYPE_LOCATION = "Location";        // 현재 위치 전송
+    private final String TYPE_IMAGE = "Image";              // 이미지 전송
+    private final String TYPE_SHARE = "Share";              // 포스팅 공유
     private String messageType = TYPE_MESSAGE;
 
     private Dbhelper dbhelper;

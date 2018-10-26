@@ -34,8 +34,9 @@ public class DMActivity extends BaseActivity {
 
     /* 메시지의 타입을 구분하기 위한 변수들입니다 */
     private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
-    private final String TYPE_LOCATION = "Location";    // 현재 위치 전송
-    private final String TYPE_IMAGE = "Image";       // 이미지 전송
+    private final String TYPE_LOCATION = "Location";   // 현재 위치 전송
+    private final String TYPE_IMAGE = "Image";         // 이미지 전송
+    private final String TYPE_SHARE = "Share";         // 포스팅 공유
     private String messageType = TYPE_MESSAGE;
 
     @Override
@@ -71,7 +72,7 @@ public class DMActivity extends BaseActivity {
             dmMessages.add(new DMMessage(0, "내용내용내용", "오후 12:34", TYPE_MESSAGE));
             dmMessages.add(new DMMessage(1, "{\"lat\":37.550544099999996,\"lng\":127.07221989999998}", "오후 12:34", TYPE_LOCATION));
             dmMessages.add(new DMMessage(1, "http://www.ohfun.net/contents/article/images/2016/0830/1472551795750578.jpeg", "오후 12:34", TYPE_IMAGE));
-            dmMessages.add(new DMMessage(0, "내용내용333", "오후 12:34", TYPE_MESSAGE));
+            dmMessages.add(new DMMessage(0, "내용내용333", "오후 12:34", TYPE_SHARE));
         }
 
         dmListAdapter = new DMListAdapter(this, R.layout.chat_item_left, dmMessages);
