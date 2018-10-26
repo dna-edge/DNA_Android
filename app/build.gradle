@@ -49,6 +49,7 @@ dependencies {
 
     //implementation 'pub.devrel:easypermissions:2.0.0'
     implementation 'com.google.firebase:firebase-core:16.0.1'
+    compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
