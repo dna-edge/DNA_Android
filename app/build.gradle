@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.naver.maps.open:naver-map-api:2.1.2@aar'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.firebase:firebase-core:16.0.1'
+    compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

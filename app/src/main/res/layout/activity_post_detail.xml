@@ -290,33 +290,6 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:id="@+id/postCommentBtn"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:orientation="horizontal"
-                                    android:onClick="onClick">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginRight="7dp"
-                                        android:textColor="@color/concrete"
-                                        android:textSize="17dp"
-                                        android:text="@string/fa_chat"
-                                        android:tag="fas"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textColor="@color/concrete"
-                                        android:textSize="15dp"
-                                        android:text="댓글쓰기"
-                                        android:tag="nsb"/>
-                                </LinearLayout>
-
-                                <LinearLayout
                                     android:id="@+id/postScrapBtn"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
@@ -342,6 +315,33 @@
                                         android:textColor="@color/concrete"
                                         android:textSize="15dp"
                                         android:text="스크랩"
+                                        android:tag="nsb"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/postShareBtn"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:onClick="onClick">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="7dp"
+                                        android:textColor="@color/concrete"
+                                        android:textSize="17dp"
+                                        android:text="@string/fa_share"
+                                        android:tag="fas"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/concrete"
+                                        android:textSize="15dp"
+                                        android:text="공유하기"
                                         android:tag="nsb"/>
                                 </LinearLayout>
                             </LinearLayout>

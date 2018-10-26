@@ -1,5 +1,6 @@
 package com.konkuk.dna.post;
 
+import android.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.konkuk.dna.friend.manage.FriendDetailFragment;
 import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.helpers.InitHelpers;
 import com.konkuk.dna.R;
@@ -129,19 +131,22 @@ public class PostDetailActivity extends BaseActivity {
                 break;
 
             case R.id.addFriendBtn: // 친구 추가 버튼 클릭
+                Log.d("PostDetail", "add friend");
                 break;
 
             case R.id.postLikeBtn: // 좋아요 버튼 클릭
+                Log.d("PostDetail", "like");
                 break;
 
-            case R.id.postCommentBtn: // 댓글 버튼 클릭
-                Log.d("test", "here");
-                commentEdit.requestFocus();
-                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-                imm.showSoftInput(commentEdit, 0);
+            case R.id.postShareBtn: // 공유 버튼 클릭
+                FragmentManager fragmentManager = getFragmentManager();
+                PostShareFragment postShareFragment = new PostShareFragment();
+
+                postShareFragment.show(fragmentManager, "postShareFragment");
                 break;
 
             case R.id.postScrapBtn: // 스크랩 버튼 클릭
+                Log.d("PostDetail", "scrap");
                 break;
         }
     }

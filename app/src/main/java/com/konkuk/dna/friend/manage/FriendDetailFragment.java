@@ -109,8 +109,6 @@ public class FriendDetailFragment extends DialogFragment implements View.OnClick
     public void onResume() {
         super.onResume();
 
-        super.onResume();
-
         Window window = getDialog().getWindow();
         Point size = new Point();
 

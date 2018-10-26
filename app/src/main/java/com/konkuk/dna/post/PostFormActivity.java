@@ -2,6 +2,7 @@ package com.konkuk.dna.post;
 
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -19,6 +20,7 @@ public class PostFormActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
     private MapFragment mapFragment;
     private EditText postTitleEdit, postContentEdit;
+    private SwitchCompat isOnlyMe;
     private double longitude, latitude;
 
     @Override
@@ -35,6 +37,7 @@ public class PostFormActivity extends BaseActivity {
 
         postTitleEdit = (EditText) findViewById(R.id.postTitleEdit);
         postContentEdit = (EditText) findViewById(R.id.postContentEdit);
+        isOnlyMe = (SwitchCompat) findViewById(R.id.isOnlyMe);
 
         // TODO 위치 초기값 설정해줘야 합니다!
         longitude = 127.07934279999995;

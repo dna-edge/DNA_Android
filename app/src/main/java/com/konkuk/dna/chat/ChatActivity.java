@@ -60,10 +60,12 @@ public class ChatActivity extends BaseActivity {
     private boolean mapIsOpen = true, bestChatIsOpen = true;
 
     /* 메시지의 타입을 구분하기 위한 변수들입니다 */
-    private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
-    private final String TYPE_LOUDSPEAKER = "LoudSpeaker"; // 확성기 전송
-    private final String TYPE_LOCATION = "Location";    // 현재 위치 전송
-    private final String TYPE_IMAGE = "Image";       // 이미지 전송
+    /* 메시지의 타입을 구분하기 위한 변수들입니다 */
+    private final String TYPE_MESSAGE = "Message";          // 일반 메시지 전송
+    private final String TYPE_LOUDSPEAKER = "LoudSpeaker";  // 확성기 전송
+    private final String TYPE_LOCATION = "Location";        // 현재 위치 전송
+    private final String TYPE_IMAGE = "Image";              // 이미지 전송
+    private final String TYPE_SHARE = "Share";              // 포스팅 공유
     private String messageType = TYPE_MESSAGE;
 
     @Override
@@ -118,7 +120,7 @@ public class ChatActivity extends BaseActivity {
         chatMessages.add(new ChatMessage(1, "3457soso", null, "내용내용", "오후 12:34", "2", TYPE_LOUDSPEAKER, 127.0793427999999, 37.540762));
         chatMessages.add(new ChatMessage(2, "3457soso", null, "내용내용내용내용내용", "오후 12:34", "1", TYPE_MESSAGE, 127.079342799995, 37.540625));
         chatMessages.add(new ChatMessage(3, "3457soso", null, "내용내용내용내용내용", "오후 12:34", "1", TYPE_LOUDSPEAKER, 127.0734279999995, 37.5407625));
-        chatMessages.add(new ChatMessage(4, "3457soso", null, "내용내용내용", "오후 12:34", "0", TYPE_MESSAGE, 127.0794279999995, 37.507625));
+        chatMessages.add(new ChatMessage(4, "3457soso", null, "내용내용내용", "오후 12:34", "0", TYPE_SHARE, 127.0794279999995, 37.507625));
         chatMessages.add(new ChatMessage(5, "3457soso", null, "내용내용내용", "오후 12:34", "0", TYPE_MESSAGE, 127.0793427999995, 37.540625));
         chatMessages.add(new ChatMessage(6, "3457soso", null, "{\"lat\":37.550544099999996,\"lng\":127.07221989999998}", "오후 12:34", "1", TYPE_LOCATION, 127.07934279999995, 37.540762));
         chatMessages.add(new ChatMessage(7, "3457soso", null, "http://www.ohfun.net/contents/article/images/2016/0830/1472551795750578.jpeg", "오후 12:34", "2", TYPE_IMAGE, 127.079342799995, 37.5407625));
