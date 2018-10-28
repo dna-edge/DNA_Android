@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
+import com.konkuk.dna.Utils.ClickListeners;
 import com.konkuk.dna.dbmanage.Dbhelper;
 import com.squareup.picasso.Picasso;
 
@@ -89,7 +90,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
         }
 
         myIdx = 5;
-        v=null;
+        v = null;
         if (v == null) {
             LayoutInflater layoutInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -215,15 +216,28 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
         dateText.setTypeface(NSB);
         likeStar.setTypeface(fontAwesomeS);
 
-        boolean amILike = false;
+        isMyMessage = false;
         for(int i=0; i<message.getWhoLikes().size(); i++){
             if(message.getWhoLikes().get(i) == myIdx){
-                amILike = true;
+                isMyMessage = true;
+            }else{
+                isMyMessage = false;
             }
         }
 
+
+//        messageLikeWrapper.setClickable(true);
+//
+//        messageLikeWrapper.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //소켓에 눌렀다고 보내기
+//                isMyMessage = true;
+//            }
+//        });
+
         // TODO 내가 좋아요를 클릭했을 경우와 클릭하지 않았을 경우 다른 뷰를 보여줘야 합니다.
-        if (amILike) { // 클릭했을 경우
+        if (isMyMessage) { // 클릭했을 경우
             likeCount.setTextColor(context.getResources().getColor(R.color.yellow));
             likeStar.setTextColor(context.getResources().getColor(R.color.yellow));
             messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_like_clicked));

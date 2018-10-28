@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
@@ -150,6 +151,15 @@ public class ChatActivity extends BaseActivity {
         csat.execute(longitude, latitude);
 
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
+
+        msgListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ChatMessage cm = (ChatMessage) adapterView.getAdapter().getItem(i);
+
+                mSocket.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
+            }
+        });
 
         // TODO 베스트챗 내용 세팅해줘야 합니다!
 //        Picasso.get()
@@ -526,9 +536,6 @@ public class ChatActivity extends BaseActivity {
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
                 mSocket.emit("save_msg", sendMsgJson);
 
-//                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
-//                csat.execute(longitude, latitude);
-
                 msgEditText.setText("");
                 msgEditText.setEnabled(true);
                 messageType = TYPE_MESSAGE;
@@ -607,6 +614,7 @@ public class ChatActivity extends BaseActivity {
 
         super.onDestroy();
     }
+
 }
 
 
@@ -627,6 +635,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
     private ImageView bestChatAvatar;
 
     private ArrayList<ChatMessage> chatMessages;
+    private int now_pos=-1;
 
     private void scrollMyListViewToBottom() {
         msgListView.post(new Runnable() {
@@ -635,12 +644,20 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
                 msgListView.clearFocus();
                 chatListAdapter.notifyDataSetChanged();
                 msgListView.requestFocusFromTouch();
-                msgListView.setSelection(msgListView.getCount() - 1);
+
+                if(now_pos>0){
+                    msgListView.setSelection(now_pos);
+                }else{
+                    msgListView.setSelection(msgListView.getCount() - 1);
+                }
+
             }
         });
     }
 
-    public ChatSetAsyncTask(Context context, Integer radius, ListView msgListView, ImageView bcAvatar, TextView bcContent, TextView bcNickname, TextView bcDate, ArrayList<ChatMessage> chatMessages){
+    public ChatSetAsyncTask(Context context, Integer radius,
+                            ListView msgListView, ImageView bcAvatar, TextView bcContent, TextView bcNickname, TextView bcDate,
+                            ArrayList<ChatMessage> chatMessages){
         this.context=context;
         this.radius=radius;
         this.msgListView = msgListView;
@@ -653,6 +670,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
 
     @Override
     protected void onPreExecute() {
+        now_pos = msgListView.getFirstVisiblePosition();
         super.onPreExecute();
     }
 
@@ -715,5 +733,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
         scrollMyListViewToBottom();
+
+
     }
 }
