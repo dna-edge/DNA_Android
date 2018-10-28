@@ -32,8 +32,11 @@ public class ConvertType {
      * */
     public static String getStringNoQuote(String strQuote){
 
-        String[] nonQuote = strQuote.split("\"");
-        return nonQuote[1];
+        //strQuote.substring(1, strQuote.length());
+//        String[] nonQuote = strQuote.split("\"");
+//        return nonQuote[1];
+        //return strQuote;
+        return strQuote.replaceAll("^\"|\"$", "");
     }
 
     /*
