@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.konkuk.dna.MainActivity;
+import com.konkuk.dna.Utils.ServerURL;
 import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.BaseActivity;
 import com.konkuk.dna.R;
@@ -154,7 +155,7 @@ class LoginAsyncTask extends AsyncTask<String, Integer, Boolean> {
         boolean isSuccess = false;
 
         HttpReqRes httpreq = new HttpReqRes();
-        String responseResult = httpreq.requestHttpPostLogin("https://dna.soyoungpark.me:9011/api/users/login", strings[0], strings[1]);
+        String responseResult = httpreq.requestHttpPostLogin(ServerURL.DNA_SERVER+ServerURL.PORT_USER_API+"/users/login", strings[0], strings[1]);
 
         JsonToObj jto = new JsonToObj();
         HashMap<String, String> map = jto.LoginJsonToObj(responseResult);

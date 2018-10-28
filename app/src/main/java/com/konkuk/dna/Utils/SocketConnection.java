@@ -58,7 +58,7 @@ public class SocketConnection {
             opts.webSocketFactory = okHttpClient;
 
             //mSocket = IO.socket("https://13.125.78.77:9014", opts);
-            mSocket = IO.socket("http://192.168.0.14:9014", opts);
+            mSocket = IO.socket(ServerURL.LOCAL_HOST+ServerURL.PORT_SOCKET, opts);
 
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);

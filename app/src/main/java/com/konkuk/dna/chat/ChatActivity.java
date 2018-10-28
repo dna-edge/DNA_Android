@@ -16,6 +16,7 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.konkuk.dna.Utils.ServerURL;
 import com.konkuk.dna.Utils.SocketConnection;
 import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.helpers.AnimHelpers;
@@ -100,10 +102,12 @@ public class ChatActivity extends BaseActivity {
         init();
         socketInit();
 
-//        JsonObject info = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
-//        Log.e("!!!store=", info.toString());
-//        mSocket.emit("store", info);
-
+//        msgListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                mSocket.emit("like", dbhelper.getAccessToken(), chatMessages.get(i).getMsg_idx());
+//            }
+//        });
     }
 
     public void init() {
@@ -141,7 +145,7 @@ public class ChatActivity extends BaseActivity {
         bestChatDate = (TextView) findViewById(R.id.bestChatDate);
         bestChatAvatar = (ImageView) findViewById(R.id.bestChatAvatar);
 
-        //베스챗, 채팅 불러오기
+        //베스트 챗, 채팅 불러오기
         ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
         csat.execute(longitude, latitude);
 
@@ -149,9 +153,9 @@ public class ChatActivity extends BaseActivity {
 //        Picasso.get()
 //                .load("http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg")
 //                .into(bestChatAvatar);
-//        bestChatContent.setText("좋아요를 많이 받은 베스트챗의 내용이로다...");
-//        bestChatNickname.setText("3457soso");
-//        bestChatDate.setText("오후 01:30");
+//        bestChatContent.setText("아ㅠㅠ저희 아이가 사라졌어요!!5세 남아고 빨간 상의에 하얀 반바지를 입고있어요. 백화점 행사매대 구경하는 사이에 사라져서 어디로 갔는지 모르겠네요ㅠㅠ");
+//        bestChatNickname.setText("낄렵");
+//        bestChatDate.setText("오후 06:06");
 
         // TODO chatMessages 배열에 실제 메시지 추가해야 합니다.
 //        chatMessages = new ArrayList<ChatMessage>();
@@ -166,11 +170,168 @@ public class ChatActivity extends BaseActivity {
 //        chatMessages.add(new ChatMessage(8, "3457soso", null, "내용내용", "오후 12:34", "2", TYPE_MESSAGE, 127.0793427999995, 37.540625));
 //        chatMessages.add(new ChatMessage(10, "3457soso", null, "{\"lat\":37.550544099999,\"lng\":127.07221989999}", "오후 12:34", "1", TYPE_LOCATION, 127.07934279999995, 37.540762));
 //
-//        chatListAdapter = new ChatListAdapter(this, R.layout.chat_item_left, chatMessages);
-//        msgListView.setAdapter(chatListAdapter);
+//        ArrayList<Integer> temp = new ArrayList<>();
+//        chatMessages.add(new ChatMessage(25, "fakerzzang", null, "와 오늘 날씨 짱이네",
+//                "오후 06:02", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                "ㅇㅇ다 같은생각으로 놀러나왔나봄. 사람 엄청많네",
+//                "오후 06:03", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(30, "heeyeon", "https://t1.daumcdn.net/cfile/tistory/2342E74059073F6F22",
+//                "사거리에서 버스킹하는 사람들 되게 잘한다",
+//                "오후 06:04", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(20, "낄렵", null,
+//                "아 저 아 저희 아이가 사라졌는데 빨간 상의 입은 5세 남아에요!!혹시 보신분 계시면 DM주세요ㅠㅠㅠ",
+//                "오후 06:05", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                " 확성기 사용하시는게 좋을것 같은데..!",
+//                "오후 06:05", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(20, "낄렵", null,
+//                "아ㅠㅠ저희 아이가 사라졌어요!!5세 남아고 빨간 상의에 하얀 반바지를 입고있어요. 백화점 행사매대 구경하는 사이에 사라져서 어디로 갔는지 모르겠네요ㅠㅠ",
+//                "오후 06:06", "5", "LoudSpeaker", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                "혹시 아이 사진 같은건 없나요??",
+//                "오후 06:07", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(20, "낄렵", null,
+//                "오늘 찍은건 아니긴한데 이렇게 생겼어요!",
+//                "오후 06:09", "0", "Image", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(20, "낄렵", null,
+//                "https://s3.ap-northeast-2.amazonaws.com/dna-edge/images/1540458541495_%C3%A1%C2%84%C2%8B%C3%A1%C2%85%C2%AA%C3%A1%C2%86%C2%BC%C3%A1%C2%84%C2%89%C3%A1%C2%85%C2%A5%C3%A1%C2%86%C2%A8%C3%A1%C2%84%C2%92%C3%A1%C2%85%C2%A7%C3%A1%C2%86%C2%AB%C3%A1%C2%84%C2%81%C3%A1%C2%85%C2%A9%C3%A1%C2%84%C2%86%C3%A1%C2%85%C2%A1.jpg",
+//                "오후 06:09", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(5, "fakerzzang", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                "에구..저도 그 근처니까 한번 찾아볼게요!",
+//                "오후 06:11", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                "어 저 저 지금 본거같은데!!애기 혹시 무지개색 운동화 신은거 맞나요??",
+//                "오후 06:20", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(20, "낄렵", null,
+//                "헐 맞아요!!!저 죄송한데 혹시 애기 붙잡고 DM좀 주실수있나요??거기 어딘가요ㅠ갈게요ㅠㅠ",
+//                "오후 06:20", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
 
-        // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
-        //scrollMyListViewToBottom();
+//
+//        chatMessages.add(new ChatMessage(40, "messizzang", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540454607080_cut.jpg",
+//                "지금도 접속중이신 분들 꽤 있으시네요",
+//                "오전 03:05", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(40, "messizzang", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540454607080_cut.jpg",
+//                "챔스 보시는 분?",
+//                "오전 03:05", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(50, "who_sy", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540456685047_postman.png",
+//                "ㅋㅋ이런 경기는 봐야죠",
+//                "오전 03:06", "2", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(40, "messizzang", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540454607080_cut.jpg",
+//                "세비야전에서 부상당했는데",
+//                "오전 03:06", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(40, "messizzang", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540454607080_cut.jpg",
+//                "참고하세요 ㅠ 3주 아웃이라고 했어요",
+//                "오전 03:06", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(50, "who_sy", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540456685047_postman.png",
+//                "와 방금 수아레즈 패스가",
+//                "오전 03:25", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                "흠ㅠㅠ 3주라니 챔스 조 1위 가능하려나",
+//                "오후 03:26", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(50, "who_sy", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540456685047_postman.png",
+//                "(ㅋㅋ)",
+//                "오전 03:26", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(40, "messizzang", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540454607080_cut.jpg",
+//                "메시 관중석에 있네요",
+//                "오전 03:30", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(50, "who_sy", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540456685047_postman.png",
+//                "쟤도 공 차다 앉아있으려니 심심하겠다",
+//                "오전 03:31", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                "수아레즈 크로스가 진짜 좋았네",
+//                "오후 04:15", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(40, "messizzang", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540454607080_cut.jpg",
+//                "진짜 택배인줄 발 앞에 딱 갖다줌ㅋㅋ",
+//                "오전 04:15", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(40, "messizzang", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540454607080_cut.jpg",
+//                "박소영님 혹시 꾸레세요?",
+//                "오전 04:15", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(50, "who_sy", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540456685047_postman.png",
+//                "바르샤가 뭔가 얄미워도 잘하긴 잘하는 듯",
+//                "오전 04:16", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                "넵ㅋㅋ",
+//                "오후 04:17", "2", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(40, "messizzang", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540454607080_cut.jpg",
+//                "혹시 이번주에 엘클라시코 있는 것도 같이 보실래요??",
+//                "오전 04:18", "1", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                "오 좋아요 친추주세요~~",
+//                "오후 04:18", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(50, "who_sy", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540456685047_postman.png",
+//                "부럽다ㅠㅠ 전 출근...",
+//                "오전 04:20", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(50, "who_sy", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540456685047_postman.png",
+//                "이번 엘클이",
+//                "오전 04:20", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(50, "who_sy", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540456685047_postman.png",
+//                "호날두 메시 둘 다 없다는데 그래서 기대됨ㅋ",
+//                "오전 04:21", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(40, "messizzang", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540454607080_cut.jpg",
+//                "봉황당이라고 예전에 갔던 곳인데 엘클이라 여기서 중계해줄 것 같아요!",
+//                "오전 04:24", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                "흠 좀 멀긴한데 같이 갑시당",
+//                "오후 04:25", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                "같은 아파트니까 만나서 가여^^~",
+//                "오후 04:25", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//
+//        chatMessages.add(new ChatMessage(50, "who_sy", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540456685047_postman.png",
+//                "담엔 저도ㅠㅠ!",
+//                "오전 04:26", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(40, "messizzang", "https://s3.ap-northeast-2.amazonaws.com/dna-edge-profile/profile/1540454607080_cut.jpg",
+//                "다른 후기들도 있으니까 한번 봐주세요~",
+//                "오전 04:26", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+
+//
+//        chatMessages.add(new ChatMessage(30, "heeyeon", "https://t1.daumcdn.net/cfile/tistory/2342E74059073F6F22",
+//                " 날씨 개좋다ㅠ과제 정말 죽어버리고만 싶고..",
+//                "오후 03:04", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                " 시험 끝나니까 과제지옥이네 진심ㅋㅋㅋ",
+//                "오후 03:05", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(50, "히짱", null,
+//                "헐 님들 공C에서 불남!!!!꽤 큰데??공대 사람들 다 대피해야할듯",
+//                "오후 03:05", "2", "LoudSpeaker", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(51, "faker", "https://www.thesuperplay.com/web/upload/NNEditor/20170908/17-08-22_FAKER_0186_shop1_004642.jpg",
+//                "헐 공A인데 불 바로 안꺼질거같아요?",
+//                "오후 03:06", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(50, "히짱", null,
+//                "네네 저도 지금 짐챙겨서 대피하긴했는데 오늘 건조하고 바람도 쎄서 금방 번질거같아요 님도 얼른 가방챙겨 나오세요ㅠㅠ",
+//                "오후 03:06", "-", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+//        chatMessages.add(new ChatMessage(5, "박소영", "http://blogfiles.naver.net/MjAxODAyMDlfMjE4/MDAxNTE4MTU0NTQ1OTg0.g4NXMX_nSSbOlNao9TdWsPCqBwvpzxg-jO8QNLUgP0og.7FBB9GplCKhCu0Wf84ow6RsASBqwWWP87x4qdVUmbwAg.JPEG.elsa0613/1517870953274.jpg",
+//                "헐 공대 안그래도 건물 약한데 무너지는거 아님?",
+//                "오후 03:07", "0", "Message", 127.07221989999998,37.550544099999996, temp, 12));
+
+
+
+
+//         생성된 후 바닥으로 메시지 리스트를 내려줍니다.
+        chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
+//        msgListView.setAdapter(chatListAdapter);
+//        scrollMyListViewToBottom();
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
 
@@ -216,8 +377,6 @@ public class ChatActivity extends BaseActivity {
     }
 
     public void socketInit(){
-        JsonObject storeJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
-
         SocketConnection socketCon = new SocketConnection();
         mSocket = socketCon.getSocket();
 
@@ -239,53 +398,39 @@ public class ChatActivity extends BaseActivity {
                 mSocket.emit("update", "geo", updateJson);
             }
         });
-        // 새로운 메시지가 오면 화면을 새로고침 할 것
+        // TODO: 새로운 메시지가 오면 화면을 새로고침 할 것
         mSocket.on("new_msg", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 Log.e("Socket GET MESSAGE", "MSG COME!!!");
+
                 ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
                 csat.execute(longitude, latitude);
-
-                //chatListAdapter.notifyDataSetChanged();
-
+                scrollMyListViewToBottom();
             }
         });
-        // 좋아요 신호가 오면 화면을 새로고침 할 것
+        // TODO: 좋아요 신호가 오면 화면을 새로고침 할 것
         mSocket.on("apply_like", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 Log.e("Socket GET Like", "Apply Like COME!!!");
+                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+                csat.execute(longitude, latitude);
+                scrollMyListViewToBottom();
+            }
+        });
+        // TODO: push가 오면 push 알림을 띄울 것
+        mSocket.on("speaker", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.e("Socket GET Like", "Apply Like COME!!!");
+                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+                csat.execute(longitude, latitude);
             }
         });
 
         mSocket.connect();
     }
-
-    private Emitter.Listener onPingReceived = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-
-        }
-    };
-
-    private Emitter.Listener onMessageReceived = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            Log.e("Socket GET MESSAGE", "MSG COME!!!");
-
-            //onResume();
-        }
-    };
-
-    private Emitter.Listener onLikeReceived = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            Log.e("Socket GET Like", "Apply Like COME!!!");
-
-            //onResume();
-        }
-    };
 
 
 
@@ -374,10 +519,12 @@ public class ChatActivity extends BaseActivity {
                 break;
 
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
+
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
-                Log.e("!!!=sendMsg", sendMsgJson.toString());
                 mSocket.emit("save_msg", sendMsgJson);
-                chatListAdapter.notifyDataSetChanged();
+
+//                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+//                csat.execute(longitude, latitude);
 
                 msgEditText.setText("");
                 msgEditText.setEnabled(true);
@@ -385,6 +532,8 @@ public class ChatActivity extends BaseActivity {
                 break;
         }
     }
+
+
 
     private void scrollMyListViewToBottom() {
         msgListView.post(new Runnable() {
@@ -512,8 +661,8 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         dbhelper = new Dbhelper(context);
         m_token = dbhelper.getAccessToken();
 
-        String repBestChat = httpreq.requestHttpPostMsgAll("https://dna.soyoungpark.me:9014/api/best", m_token, doubles[0], doubles[1], radius);
-        String repMsgAll = httpreq.requestHttpPostMsgAll("https://dna.soyoungpark.me:9014/api/messages/:page", m_token, doubles[0], doubles[1], radius);
+        String repBestChat = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/best", m_token, doubles[0], doubles[1], radius);
+        String repMsgAll = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/messages", m_token, doubles[0], doubles[1], radius);
 
         resultArray.add(0, repBestChat);
         resultArray.add(1, repMsgAll);
@@ -529,9 +678,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         * 베스트챗 내용 세팅
         * */
         ArrayList<ChatMessage> bestMessages = new ArrayList<ChatMessage>();
-        bestMessages = ChatAllJsonToObj(resultArray.get(0));
+        bestMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(0));
 
-        if(bestMessages.size()>0) {
+        if(bestMessages.size()>0 && bestMessages != null) {
             Picasso.get()
                     .load(bestMessages.get(0).getAvatar())
                     .into(bestChatAvatar);
@@ -542,21 +691,21 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
             bestChatContent.setText("이 지역의 베스트챗이 존재하지 않아요ㅠ");
             bestChatNickname.setText("리보솜");
         }
+
+        //Log.e("!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         /*
         * 전체 채팅 내용 세팅
         * */
         ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
-        chatMessages = ChatAllJsonToObj(resultArray.get(1));
+        chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
 
         //거꾸로 받아온 리스트를 역순으로 바꿈
         Collections.reverse(chatMessages);
+
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
         msgListView.setAdapter(chatListAdapter);
-        msgListView.refreshDrawableState();
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
         scrollMyListViewToBottom();
-
-        chatListAdapter.notifyDataSetChanged();
     }
 }
