@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.konkuk.dna.chat.ChatMessage;
+import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.friend.message.DMRoom;
 
 import java.util.ArrayList;
@@ -139,7 +140,7 @@ public class JsonToObj {
     /*
      * 전체 메세지 조회해서 날아온 Json변환 메소드
      * */
-    public static ArrayList<ChatMessage> ChatAllJsonToObj(String jsonResult){
+    public static ArrayList<ChatMessage> ChatAllJsonToObj(int myIdx, String jsonResult){
         ArrayList<ChatMessage> chatMessages = new ArrayList<>();
 
         JsonParser jsonParser = new JsonParser();
@@ -147,11 +148,14 @@ public class JsonToObj {
 
         ArrayList<Integer> whoLikes = new ArrayList<>();
         int user_idx;
-        String nickname, avatar, position,like_count;
+        String nickname, avatar, position, like_count;
         double lng, lat;
         String msg_type, _id, contents, created_at;
         int msg_idx, __v;
+        int viewType;
 
+        // 이전 메세지의 idx확인
+        int prev_idx = -1;
 
         if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
             JsonArray resultArray = (JsonArray) jsonObject.get("result");
@@ -184,13 +188,31 @@ public class JsonToObj {
                 msg_idx = Integer.parseInt(oneObject.get("idx").toString());
                 __v = Integer.parseInt(oneObject.get("__v").toString());
 
+
+                if(myIdx == user_idx){
+                    //내 메세지이면
+                    viewType = 0;
+                }else{
+                    if(i==0){
+                        // 첫번째 메세지이면 프로필 필요
+                        viewType = 1;
+                    }else if(prev_idx!=user_idx){
+                        // 이전과 다른 사람의 메세지면 프로필 필요
+                        viewType = 1;
+                    }else{
+                        viewType = 2;
+                    }
+                }
+                prev_idx = user_idx;
+
                 Log.e(msg_type, resultArray.get(i).toString());
 
                 //Log.e("!!!", user_idx+"/"+nickname+"/"+avatar+"/"+contents+"/"+created_at+"/"+like_count+"/"+msg_type+"/"+msg_idx);
-                chatMessages.add(0,new ChatMessage(user_idx, nickname, avatar, contents, DatetoStr(created_at), like_count, msg_type, lng, lat, whoLikes, msg_idx));
+                chatMessages.add(new ChatMessage(user_idx, nickname, avatar, contents, DatetoStr(created_at), like_count, msg_type, lng, lat, whoLikes, msg_idx, viewType));
 
             }
         }else{
+            Log.e("!!!=", "This area NO MSG.");
             chatMessages = null;
         }
 

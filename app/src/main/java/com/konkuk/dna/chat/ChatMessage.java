@@ -15,19 +15,22 @@ public class ChatMessage {
 
     private ArrayList<Integer> whoLikes;
     private int msg_idx;
+    private String type;
 
     /* 메시지의 타입을 구분하기 위한 변수들입니다 */
     private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
     private final String TYPE_LOUDSPEAKER = "LoudSpeaker"; // 확성기 전송
     private final String TYPE_LOCATION = "Location";    // 현재 위치 전송
     private final String TYPE_IMAGE = "Image";       // 이미지 전송
-    private String type;
+
+    private int viewType;
+
 
     public ChatMessage(){}
 
 
     public ChatMessage(int idx, String userName, String avatar, String contents, String date,
-                       String like, String type, double lng, double lat, ArrayList<Integer> whoLikes, int msg_idx){
+                       String like, String type, double lng, double lat, ArrayList<Integer> whoLikes, int msg_idx, int viewType){
         this.idx = idx;
         this.userName = userName;
         this.avatar = avatar;
@@ -39,6 +42,7 @@ public class ChatMessage {
         this.lat = lat;
         this.whoLikes = whoLikes;
         this.msg_idx = msg_idx;
+        this.viewType = viewType;
 
     }
 
@@ -95,5 +99,12 @@ public class ChatMessage {
     }
     public void setMsg_idx(int msg_idx) {
         this.msg_idx = msg_idx;
+    }
+
+    public int getViewType() {
+        return viewType;
+    }
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
     }
 }
