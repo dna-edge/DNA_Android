@@ -89,6 +89,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
         }
 
         myIdx = 5;
+        v=null;
         if (v == null) {
             LayoutInflater layoutInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
