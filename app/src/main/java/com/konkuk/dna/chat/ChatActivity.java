@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
@@ -139,8 +140,19 @@ public class ChatActivity extends BaseActivity {
         bestChatAvatar = (ImageView) findViewById(R.id.bestChatAvatar);
 
         //베스트 챗, 채팅 불러오기
-        ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+        ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
         csat.execute(longitude, latitude);
+
+        chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
+
+        msgListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ChatMessage cm = (ChatMessage) adapterView.getAdapter().getItem(i);
+
+                mSocket.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
+            }
+        });
 
         // TODO 베스트챗 내용 세팅해줘야 합니다!
 //        Picasso.get()
@@ -322,8 +334,7 @@ public class ChatActivity extends BaseActivity {
 
 
 //         생성된 후 바닥으로 메시지 리스트를 내려줍니다.
-        chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
-//        msgListView.setAdapter(chatListAdapter);
+
 //        scrollMyListViewToBottom();
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
@@ -397,9 +408,9 @@ public class ChatActivity extends BaseActivity {
             public void call(Object... args) {
                 Log.e("Socket GET MESSAGE", "MSG COME!!!");
 
-                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
                 csat.execute(longitude, latitude);
-                scrollMyListViewToBottom();
+                //scrollMyListViewToBottom();
             }
         });
         // TODO: 좋아요 신호가 오면 화면을 새로고침 할 것
@@ -407,9 +418,10 @@ public class ChatActivity extends BaseActivity {
             @Override
             public void call(Object... args) {
                 Log.e("Socket GET Like", "Apply Like COME!!!");
-                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+
+                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
                 csat.execute(longitude, latitude);
-                scrollMyListViewToBottom();
+                //scrollMyListViewToBottom();
             }
         });
         // TODO: push가 오면 push 알림을 띄울 것
@@ -417,8 +429,9 @@ public class ChatActivity extends BaseActivity {
             @Override
             public void call(Object... args) {
                 Log.e("Socket GET Like", "Apply Like COME!!!");
-                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
-                csat.execute(longitude, latitude);
+
+//                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+//                csat.execute(longitude, latitude);
             }
         });
 
@@ -516,9 +529,6 @@ public class ChatActivity extends BaseActivity {
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
                 mSocket.emit("save_msg", sendMsgJson);
 
-//                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
-//                csat.execute(longitude, latitude);
-
                 msgEditText.setText("");
                 msgEditText.setEnabled(true);
                 messageType = TYPE_MESSAGE;
@@ -597,6 +607,7 @@ public class ChatActivity extends BaseActivity {
 
         super.onDestroy();
     }
+
 }
 
 
@@ -616,6 +627,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
     private TextView bestChatContent, bestChatNickname, bestChatDate;
     private ImageView bestChatAvatar;
 
+    private ArrayList<ChatMessage> chatMessages;
+    private int now_pos=-1;
+
     private void scrollMyListViewToBottom() {
         msgListView.post(new Runnable() {
             @Override
@@ -623,12 +637,20 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
                 msgListView.clearFocus();
                 chatListAdapter.notifyDataSetChanged();
                 msgListView.requestFocusFromTouch();
-                msgListView.setSelection(msgListView.getCount() - 1);
+
+                if(now_pos>0){
+                    msgListView.setSelection(now_pos);
+                }else{
+                    msgListView.setSelection(msgListView.getCount() - 1);
+                }
+
             }
         });
     }
 
-    public ChatSetAsyncTask(Context context, Integer radius, ListView msgListView, ImageView bcAvatar, TextView bcContent, TextView bcNickname, TextView bcDate){
+    public ChatSetAsyncTask(Context context, Integer radius,
+                            ListView msgListView, ImageView bcAvatar, TextView bcContent, TextView bcNickname, TextView bcDate,
+                            ArrayList<ChatMessage> chatMessages){
         this.context=context;
         this.radius=radius;
         this.msgListView = msgListView;
@@ -636,10 +658,12 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         this.bestChatContent = bcContent;
         this.bestChatDate = bcDate;
         this.bestChatNickname = bcNickname;
+        this.chatMessages = chatMessages;
     }
 
     @Override
     protected void onPreExecute() {
+        now_pos = msgListView.getFirstVisiblePosition();
         super.onPreExecute();
     }
 
@@ -689,7 +713,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         /*
         * 전체 채팅 내용 세팅
         * */
-        ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
+        if(chatMessages!=null) {
+            chatMessages.clear();
+        }
         chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
 
         //거꾸로 받아온 리스트를 역순으로 바꿈
@@ -700,5 +726,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
         scrollMyListViewToBottom();
+
+
     }
 }

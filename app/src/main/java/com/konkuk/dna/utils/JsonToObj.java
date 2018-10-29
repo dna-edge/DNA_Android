@@ -150,7 +150,7 @@ public class JsonToObj {
         double lng, lat;
         String msg_type, _id, contents, created_at;
         int msg_idx, __v;
-        int viewType;
+        int viewType=-1;
 
         // 이전 메세지의 idx확인
         int prev_idx = -1;
@@ -187,20 +187,39 @@ public class JsonToObj {
                 __v = Integer.parseInt(oneObject.get("__v").toString());
 
 
+
                 if(myIdx == user_idx){
-                    //내 메세지이면
+                    //지금 메세지가 내 메세지이면
+                    if(i!=0 && prev_idx!=user_idx) {
+                        // 이전에 있던 메시지가 다른사람것이라면 프로필이 필요해! 물론 내메세지가 리스트의 마지막이 아니였다면
+                        ChatMessage tmp = chatMessages.get(chatMessages.size()-1);
+                        tmp.setViewType(1);
+                        chatMessages.remove(chatMessages.size()-1);
+                        chatMessages.add(tmp);
+                    }
+
                     viewType = 0;
+
                 }else{
-                    if(i==0){
-                        // 첫번째 메세지이면 프로필 필요
+                    //지금 메세지가 남의 메세지라면
+                    if(i==resultArray.size()-1){
+                        // 그지역의 첫번째 메세지이면 지금 메세지에 프로필 필요
                         viewType = 1;
-                    }else if(prev_idx!=user_idx){
-                        // 이전과 다른 사람의 메세지면 프로필 필요
-                        viewType = 1;
+
+                    }else if(i!=0 && prev_idx!=user_idx && prev_idx != myIdx){
+                        // 이전사람이 내가 아니고 지금메세지와도 다른 사람의 메세지면 프로필 필요
+                        ChatMessage tmp = chatMessages.get(chatMessages.size()-1);
+                        tmp.setViewType(1);
+                        chatMessages.remove(chatMessages.size()-1);
+                        chatMessages.add(tmp);
+
+                        viewType = 2;
                     }else{
+                        //
                         viewType = 2;
                     }
                 }
+
                 prev_idx = user_idx;
 
                 Log.e(msg_type, resultArray.get(i).toString());
