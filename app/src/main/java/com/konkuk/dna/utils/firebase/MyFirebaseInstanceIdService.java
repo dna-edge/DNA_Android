@@ -2,8 +2,6 @@ package com.konkuk.dna.utils.firebase;
 
 import android.util.Log;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.events.Subscriber;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
@@ -13,8 +11,6 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-
-import static android.content.ContentValues.TAG;
 
 // 사용자의 기기별로 token을 생성함
 // 나중에 push 알림을 특정 타겟에 보낼 때 사용된다.

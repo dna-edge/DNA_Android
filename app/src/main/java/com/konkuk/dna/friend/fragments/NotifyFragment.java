@@ -11,9 +11,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.konkuk.dna.R;
 import com.konkuk.dna.utils.helpers.AnimHelpers;
 import com.konkuk.dna.utils.helpers.BaseFragment;
-import com.konkuk.dna.R;
 import com.konkuk.dna.friend.manage.Request;
 import com.konkuk.dna.friend.manage.RequestListAdapter;
 

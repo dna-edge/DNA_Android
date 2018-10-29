@@ -19,10 +19,10 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.chat.ChatActivity;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.AnimHelpers;
-import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.map.MapFragment;
 import com.konkuk.dna.post.Comment;

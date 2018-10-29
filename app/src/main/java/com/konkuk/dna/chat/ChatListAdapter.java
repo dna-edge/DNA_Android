@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.konkuk.dna.R;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
-import com.konkuk.dna.Utils.ClickListeners;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
