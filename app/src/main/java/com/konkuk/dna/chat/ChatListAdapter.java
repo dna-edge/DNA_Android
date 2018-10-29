@@ -1,10 +1,6 @@
 package com.konkuk.dna.chat;
 
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -19,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
-import com.konkuk.dna.dbmanage.Dbhelper;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

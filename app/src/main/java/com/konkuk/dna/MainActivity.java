@@ -8,27 +8,26 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.konkuk.dna.chat.ChatActivity;
-import com.konkuk.dna.dbmanage.Dbhelper;
-import com.konkuk.dna.helpers.AnimHelpers;
-import com.konkuk.dna.helpers.BaseActivity;
-import com.konkuk.dna.helpers.InitHelpers;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
+import com.konkuk.dna.utils.helpers.AnimHelpers;
+import com.konkuk.dna.utils.helpers.BaseActivity;
+import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.map.MapFragment;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostFormActivity;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -56,8 +55,12 @@ public class MainActivity extends BaseActivity {
         InitHelpers.getPermission(this);
 
         setContentView(R.layout.activity_main);
-        init();
 
+        // firebase (push)
+        FirebaseMessaging.getInstance().subscribeToTopic("chat");
+        FirebaseInstanceId.getInstance().getToken();
+
+        init();
     }
 
     public void init() {

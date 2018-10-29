@@ -8,12 +8,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.konkuk.dna.Utils.HttpReqRes;
-import com.konkuk.dna.Utils.JsonToObj;
 import com.konkuk.dna.auth.LoginActivity;
-import com.konkuk.dna.dbmanage.Dbhelper;
-
-import java.util.HashMap;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 
 import static com.konkuk.dna.SplashActivity.prgDialog;
 import static com.konkuk.dna.SplashActivity.showProgressDialog;

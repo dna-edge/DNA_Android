@@ -1,4 +1,4 @@
-package com.konkuk.dna.Utils;
+package com.konkuk.dna.utils;
 import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;

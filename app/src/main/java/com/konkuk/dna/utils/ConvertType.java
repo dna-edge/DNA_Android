@@ -1,11 +1,8 @@
-package com.konkuk.dna.Utils;
-
-import android.util.Log;
+package com.konkuk.dna.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class ConvertType {
     /*

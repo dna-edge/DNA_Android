@@ -1,4 +1,4 @@
-package com.konkuk.dna.dbmanage;
+package com.konkuk.dna.utils.dbmanage;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
 
 import java.util.HashMap;
 
-import static com.konkuk.dna.Utils.ConvertType.getStringNoQuote;
+import static com.konkuk.dna.utils.ConvertType.getStringNoQuote;
 
 public class Dbhelper extends SQLiteOpenHelper {
 

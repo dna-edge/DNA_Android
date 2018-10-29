@@ -11,28 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.konkuk.dna.R;
-import com.konkuk.dna.Utils.HttpReqRes;
-import com.konkuk.dna.Utils.ServerURL;
-import com.konkuk.dna.chat.ChatListAdapter;
-import com.konkuk.dna.chat.ChatMessage;
-import com.konkuk.dna.dbmanage.Dbhelper;
+import com.konkuk.dna.utils.HttpReqRes;
+import com.konkuk.dna.utils.ServerURL;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.friend.message.DMActivity;
-import com.konkuk.dna.friend.message.DMMessage;
 import com.konkuk.dna.friend.message.DMRoom;
 import com.konkuk.dna.friend.message.DMRoomListAdapter;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-import static com.konkuk.dna.Utils.JsonToObj.ChatAllJsonToObj;
-import static com.konkuk.dna.Utils.JsonToObj.DMRoomJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.DMRoomJsonToObj;
 
 /**
  * A simple {@link Fragment} subclass.

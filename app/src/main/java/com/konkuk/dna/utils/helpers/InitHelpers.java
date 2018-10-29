@@ -1,22 +1,13 @@
-package com.konkuk.dna.helpers;
+package com.konkuk.dna.utils.helpers;
 
 import android.Manifest;
-import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,15 +19,7 @@ import com.konkuk.dna.chat.ChatUserAdapter;
 import com.konkuk.dna.friend.FriendActivity;
 import com.konkuk.dna.user.MyPageActivity;
 import com.konkuk.dna.user.UserSettingActivity;
-import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import static android.view.View.GONE;

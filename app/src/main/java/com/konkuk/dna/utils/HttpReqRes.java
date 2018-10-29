@@ -1,4 +1,4 @@
-package com.konkuk.dna.Utils;
+package com.konkuk.dna.utils;
 
 import android.util.Log;
 

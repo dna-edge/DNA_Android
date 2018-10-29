@@ -1,4 +1,4 @@
-package com.konkuk.dna.Utils;
+package com.konkuk.dna.utils;
 
 import android.util.Log;
 
@@ -6,15 +6,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.konkuk.dna.chat.ChatMessage;
-import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.friend.message.DMRoom;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.konkuk.dna.Utils.ConvertType.DatetoStr;
-import static com.konkuk.dna.Utils.ConvertType.getStringAddQuote;
-import static com.konkuk.dna.Utils.ConvertType.getStringNoQuote;
+import static com.konkuk.dna.utils.ConvertType.DatetoStr;
+import static com.konkuk.dna.utils.ConvertType.getStringNoQuote;
 
 public class JsonToObj {
     /*

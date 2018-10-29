@@ -15,12 +15,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.konkuk.dna.MainActivity;
-import com.konkuk.dna.Utils.ServerURL;
-import com.konkuk.dna.dbmanage.Dbhelper;
-import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.utils.ServerURL;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
+import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.R;
-import com.konkuk.dna.Utils.HttpReqRes;
-import com.konkuk.dna.Utils.JsonToObj;
+import com.konkuk.dna.utils.HttpReqRes;
+import com.konkuk.dna.utils.JsonToObj;
 
 import java.util.HashMap;
 

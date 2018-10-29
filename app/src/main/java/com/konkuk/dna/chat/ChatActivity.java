@@ -16,7 +16,6 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,35 +25,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.konkuk.dna.Utils.ServerURL;
-import com.konkuk.dna.Utils.SocketConnection;
-import com.konkuk.dna.dbmanage.Dbhelper;
-import com.konkuk.dna.helpers.AnimHelpers;
-import com.konkuk.dna.helpers.BaseActivity;
-import com.konkuk.dna.helpers.InitHelpers;
+import com.konkuk.dna.utils.ServerURL;
+import com.konkuk.dna.utils.SocketConnection;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
+import com.konkuk.dna.utils.helpers.AnimHelpers;
+import com.konkuk.dna.utils.helpers.BaseActivity;
+import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
-import com.konkuk.dna.Utils.HttpReqRes;
+import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 
-import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
-import static com.konkuk.dna.Utils.JsonToObj.ChatAllJsonToObj;
-import static com.konkuk.dna.Utils.ObjToJson.SendMsgObjToJson;
-import static com.konkuk.dna.Utils.ObjToJson.StoreObjToJson;
+import static com.konkuk.dna.utils.JsonToObj.ChatAllJsonToObj;
+import static com.konkuk.dna.utils.ObjToJson.SendMsgObjToJson;
+import static com.konkuk.dna.utils.ObjToJson.StoreObjToJson;
 
 public class ChatActivity extends BaseActivity {
     private DrawerLayout menuDrawer;

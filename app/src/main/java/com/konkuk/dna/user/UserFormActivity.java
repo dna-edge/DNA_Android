@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.konkuk.dna.helpers.BaseActivity;
-import com.konkuk.dna.helpers.InitHelpers;
+import com.konkuk.dna.utils.helpers.BaseActivity;
+import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.R;
 
 public class UserFormActivity extends BaseActivity {

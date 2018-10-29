@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
-import com.konkuk.dna.helpers.AnimHelpers;
+import com.konkuk.dna.utils.helpers.AnimHelpers;
 
 public class PostShareFragment extends DialogFragment implements View.OnClickListener{
     private static Typeface NSB;

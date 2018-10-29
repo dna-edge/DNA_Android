@@ -18,8 +18,8 @@ import android.widget.ListView;
 
 import com.konkuk.dna.friend.manage.FriendDetailFragment;
 import com.konkuk.dna.friend.manage.OnFriendListAdapter;
-import com.konkuk.dna.helpers.BaseFragment;
-import com.konkuk.dna.helpers.AnimHelpers;
+import com.konkuk.dna.utils.helpers.BaseFragment;
+import com.konkuk.dna.utils.helpers.AnimHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.friend.manage.Friend;
 import com.konkuk.dna.friend.manage.FriendListAdapter;

@@ -1,27 +1,19 @@
 package com.konkuk.dna.friend.manage;
 
-import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Typeface;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
-import com.konkuk.dna.helpers.AnimHelpers;
+import com.konkuk.dna.utils.helpers.AnimHelpers;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

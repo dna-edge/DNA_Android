@@ -23,7 +23,6 @@ public class ChatMessage {
     private final String TYPE_LOCATION = "Location";        // 현재 위치 전송
     private final String TYPE_IMAGE = "Image";              // 이미지 전송
     private final String TYPE_SHARE = "Share";              // 포스팅 공유
-    private String type;
 
     private int viewType;
 

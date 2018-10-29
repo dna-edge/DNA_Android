@@ -11,9 +11,9 @@ import android.support.v7.widget.SwitchCompat;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.konkuk.dna.dbmanage.Dbhelper;
-import com.konkuk.dna.helpers.BaseActivity;
-import com.konkuk.dna.helpers.InitHelpers;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
+import com.konkuk.dna.utils.helpers.BaseActivity;
+import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
 
