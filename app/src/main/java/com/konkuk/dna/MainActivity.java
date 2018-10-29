@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
@@ -58,7 +59,7 @@ public class MainActivity extends BaseActivity {
 
         // firebase (push)
         FirebaseMessaging.getInstance().subscribeToTopic("chat");
-        FirebaseInstanceId.getInstance().getToken();
+        Log.d("MainActivity", "token : " + FirebaseInstanceId.getInstance().getToken());
 
         init();
     }

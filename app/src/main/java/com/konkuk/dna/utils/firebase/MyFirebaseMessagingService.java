@@ -16,6 +16,7 @@ import com.konkuk.dna.R;
 
 import java.util.Map;
 
+// 푸시 메시지를 받았을 때 실제 사용자에게 푸시 알림을 만들어서 띄워주는 클래스
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "FirebaseMsgService";
 

@@ -16,7 +16,10 @@ import okhttp3.RequestBody;
 
 import static android.content.ContentValues.TAG;
 
+// 사용자의 기기별로 token을 생성함
+// 나중에 push 알림을 특정 타겟에 보낼 때 사용된다.
 public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
+    private static final String TAG = "FirebaseInstanceId";
 
     @Override
     public void onTokenRefresh() {
@@ -24,7 +27,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
         String token = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "Refreshed token: " + token);
 
-        // 생성등록된 토큰을 개인 앱서버에 보내 저장해 두었다가 추가 뭔가를 하고 싶으면 할 수 있도록 한다.
+        // 생성, 등록된 토큰을 개인 앱서버에 보내 저장해 두었다가 추가 뭔가를 하고 싶으면 할 수 있도록 한다.
         sendRegistrationToServer(token);
     }
 
