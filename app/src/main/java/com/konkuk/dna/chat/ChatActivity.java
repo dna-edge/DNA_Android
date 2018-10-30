@@ -101,13 +101,6 @@ public class ChatActivity extends BaseActivity {
 
         init();
         socketInit();
-
-//        msgListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                mSocket.emit("like", dbhelper.getAccessToken(), chatMessages.get(i).getMsg_idx());
-//            }
-//        });
     }
 
     public void init() {
@@ -156,7 +149,7 @@ public class ChatActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ChatMessage cm = (ChatMessage) adapterView.getAdapter().getItem(i);
 
-                SocketConnection.getSocket().emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
+                SocketConnection.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
                 //mSocket.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
             }
         });
@@ -517,7 +510,7 @@ public class ChatActivity extends BaseActivity {
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
 
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
-                SocketConnection.getSocket().emit("save_msg", sendMsgJson);
+                SocketConnection.emit("save_msg", sendMsgJson);
 
                 msgEditText.setText("");
                 msgEditText.setEnabled(true);

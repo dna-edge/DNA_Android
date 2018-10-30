@@ -98,19 +98,19 @@ public class SocketConnection {
         }
     }
 
-    public static void emit_store(String event, Object args){
+    public static void emit(String event, Object args){
         if(SocketConnection.getSocket().connected() == false){
             Log.e("Socket is Connected", SocketConnection.getSocket().connected()+"");
             SocketConnection.getSocket().connect();
         }
         SocketConnection.getSocket().emit(event, args);
     }
-    public static void emit_update(String event, String mode, Object args){
+    public static void emit(String event, Object arg1, Object arg2){
         if(SocketConnection.getSocket().connected() == false){
             Log.e("Socket is Connected", SocketConnection.getSocket().connected()+"");
             SocketConnection.getSocket().connect();
         }
-        SocketConnection.getSocket().emit(event, mode, args);
+        SocketConnection.getSocket().emit(event, arg1, arg2);
     }
 
 

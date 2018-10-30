@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.konkuk.dna.chat.ChatMessage;
+import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.friend.message.DMRoom;
 
 import java.util.ArrayList;
@@ -301,4 +302,35 @@ public class JsonToObj {
 
         return Dmrooms;
     }
+
+
+    /*
+     * 현재 접속 멤버 홛인 Json변환 메소드
+     * */
+    public static ArrayList<ChatUser> ConnectUserJsonToObj(String jsonResult){
+
+        ArrayList<ChatUser> result= new ArrayList<>();
+        int idx;
+        String nickname, avatar;
+        boolean inside;
+
+        JsonParser jsonParser = new JsonParser();
+        JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonResult);
+        //JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+        for(int i=0; i<jsonArray.size(); i++){
+            JsonObject arr = (JsonObject) jsonArray.get(i);
+
+            idx = Integer.parseInt(getStringNoQuote(arr.get("idx").toString()));
+            nickname = getStringNoQuote(arr.get("nickname").toString());
+            avatar = getStringNoQuote(arr.get("avatar").toString());
+            inside = arr.get("inside").getAsBoolean();
+
+            Log.e("nickname", nickname);
+            result.add(new ChatUser(idx, nickname, avatar, inside));
+        }
+
+        return result;
+    }
+
 }

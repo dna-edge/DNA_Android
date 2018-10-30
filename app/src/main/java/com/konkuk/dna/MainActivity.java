@@ -72,6 +72,31 @@ public class MainActivity extends BaseActivity {
     }
 
     public void init() {
+
+        dbhelper = new Dbhelper(this);
+        //소켓을 사용하는 가장 첫번째 액티비티에서 소켓 커넥션을 실행한다.
+        SocketConnection.initInstance();
+        // 소켓 연결되면 store 할 것
+        SocketConnection.getSocket().on(SocketConnection.getSocket().EVENT_CONNECT, new Emitter.Listener() {
+            //mSocket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.e("Socket Connected",SocketConnection.getSocket().connected()+"");
+                JsonObject storeJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
+                SocketConnection.emit("store", storeJson);
+            }
+        });
+        // 핑이 오면 update 할 것
+        SocketConnection.getSocket().on("ping", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.e("Socket Ping", "COME!!!");
+                JsonObject updateJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
+                SocketConnection.emit("update", "geo", updateJson);
+            }
+        });
+
+
         menuDrawer = findViewById(R.id.drawer_layout);
         InitHelpers.initDrawer(this, menuDrawer, 0);
 
@@ -90,30 +115,6 @@ public class MainActivity extends BaseActivity {
                 AnimHelpers.dpToPx(this, -80), AnimHelpers.dpToPx(this, 25));
 
         // TODO 반경, 위치 초기값 설정해줘야 합니다!
-
-        //소켓을 사용하는 가장 첫번째 액티비티에서 소켓 커넥션을 실행한다.
-        SocketConnection.initInstance();
-        // 소켓 연결되면 store 할 것
-        SocketConnection.getSocket().on(SocketConnection.getSocket().EVENT_CONNECT, new Emitter.Listener() {
-            //mSocket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                Log.e("Socket Connected",SocketConnection.getSocket().connected()+"");
-                JsonObject storeJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
-                SocketConnection.getSocket().emit("store", storeJson);
-            }
-        });
-        // 핑이 오면 update 할 것
-        SocketConnection.getSocket().on("ping", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                Log.e("Socket Ping", "COME!!!");
-                JsonObject updateJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
-                SocketConnection.getSocket().emit("update", "geo", updateJson);
-            }
-        });
-
-        dbhelper = new Dbhelper(this);
         radius = dbhelper.getMyRadius();
         longitude = gpsTracker.getLongitude();
         latitude = gpsTracker.getLatitude();
