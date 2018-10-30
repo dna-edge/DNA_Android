@@ -3,12 +3,15 @@ package com.konkuk.dna.chat;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,35 +29,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.konkuk.dna.Utils.ServerURL;
-import com.konkuk.dna.Utils.SocketConnection;
-import com.konkuk.dna.dbmanage.Dbhelper;
-import com.konkuk.dna.helpers.AnimHelpers;
-import com.konkuk.dna.helpers.BaseActivity;
-import com.konkuk.dna.helpers.InitHelpers;
+import com.konkuk.dna.utils.helpers.BaseActivity;
+import com.konkuk.dna.utils.ServerURL;
+import com.konkuk.dna.utils.SocketConnection;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
+import com.konkuk.dna.utils.helpers.AnimHelpers;
+import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
-import com.konkuk.dna.Utils.HttpReqRes;
+import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 
-import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
-import static com.konkuk.dna.Utils.JsonToObj.ChatAllJsonToObj;
-import static com.konkuk.dna.Utils.ObjToJson.SendMsgObjToJson;
-import static com.konkuk.dna.Utils.ObjToJson.StoreObjToJson;
+import static com.konkuk.dna.utils.JsonToObj.ChatAllJsonToObj;
+import static com.konkuk.dna.utils.ObjToJson.SendMsgObjToJson;
+import static com.konkuk.dna.utils.ObjToJson.StoreObjToJson;
 
 public class ChatActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
@@ -93,6 +90,9 @@ public class ChatActivity extends BaseActivity {
     private Dbhelper dbhelper;
     private Socket mSocket;
     private Context context = this;
+
+    private final int GET_FROM_GALLERY = 3;
+    private Uri selectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,8 +146,19 @@ public class ChatActivity extends BaseActivity {
         bestChatAvatar = (ImageView) findViewById(R.id.bestChatAvatar);
 
         //베스트 챗, 채팅 불러오기
-        ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+        ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
         csat.execute(longitude, latitude);
+
+        chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
+
+        msgListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ChatMessage cm = (ChatMessage) adapterView.getAdapter().getItem(i);
+
+                mSocket.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
+            }
+        });
 
         // TODO 베스트챗 내용 세팅해줘야 합니다!
 //        Picasso.get()
@@ -329,8 +340,7 @@ public class ChatActivity extends BaseActivity {
 
 
 //         생성된 후 바닥으로 메시지 리스트를 내려줍니다.
-        chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
-//        msgListView.setAdapter(chatListAdapter);
+
 //        scrollMyListViewToBottom();
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
@@ -404,9 +414,9 @@ public class ChatActivity extends BaseActivity {
             public void call(Object... args) {
                 Log.e("Socket GET MESSAGE", "MSG COME!!!");
 
-                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
                 csat.execute(longitude, latitude);
-                scrollMyListViewToBottom();
+                //scrollMyListViewToBottom();
             }
         });
         // TODO: 좋아요 신호가 오면 화면을 새로고침 할 것
@@ -414,9 +424,10 @@ public class ChatActivity extends BaseActivity {
             @Override
             public void call(Object... args) {
                 Log.e("Socket GET Like", "Apply Like COME!!!");
-                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+
+                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
                 csat.execute(longitude, latitude);
-                scrollMyListViewToBottom();
+                //scrollMyListViewToBottom();
             }
         });
         // TODO: push가 오면 push 알림을 띄울 것
@@ -424,8 +435,9 @@ public class ChatActivity extends BaseActivity {
             @Override
             public void call(Object... args) {
                 Log.e("Socket GET Like", "Apply Like COME!!!");
-                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
-                csat.execute(longitude, latitude);
+
+//                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+//                csat.execute(longitude, latitude);
             }
         });
 
@@ -508,10 +520,13 @@ public class ChatActivity extends BaseActivity {
             case R.id.msgImageBtn: // 이미지 전송 버튼 클릭
                 // TODO 현재 주소를 messageEditText에 채워줍니다.
                 if (messageType.equals(TYPE_MESSAGE) || messageType.equals(TYPE_LOUDSPEAKER)) {
-                    msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
-                    msgEditText.setText("Doraemon.png");
-                    msgEditText.setEnabled(false);
-                    messageType = TYPE_IMAGE;
+
+                    startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+
+//                    msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
+//                    msgEditText.setText("Doraemon.png");
+//                    msgEditText.setEnabled(false);
+//                    messageType = TYPE_IMAGE;
                 } else {
                     DialogSimple();
                     messageType = TYPE_MESSAGE;
@@ -522,9 +537,6 @@ public class ChatActivity extends BaseActivity {
 
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
                 mSocket.emit("save_msg", sendMsgJson);
-
-//                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
-//                csat.execute(longitude, latitude);
 
                 msgEditText.setText("");
                 msgEditText.setEnabled(true);
@@ -604,6 +616,20 @@ public class ChatActivity extends BaseActivity {
 
         super.onDestroy();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK){
+            selectedImage = data.getData();
+            msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
+            msgEditText.setText(selectedImage.toString());
+            msgEditText.setEnabled(false);
+            messageType = TYPE_IMAGE;
+            //Bitmap bitmap = null;
+        }
+    }
 }
 
 
@@ -623,6 +649,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
     private TextView bestChatContent, bestChatNickname, bestChatDate;
     private ImageView bestChatAvatar;
 
+    private ArrayList<ChatMessage> chatMessages;
+    private int now_pos=-1;
+
     private void scrollMyListViewToBottom() {
         msgListView.post(new Runnable() {
             @Override
@@ -630,12 +659,20 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
                 msgListView.clearFocus();
                 chatListAdapter.notifyDataSetChanged();
                 msgListView.requestFocusFromTouch();
-                msgListView.setSelection(msgListView.getCount() - 1);
+
+                if(now_pos>0){
+                    msgListView.setSelection(now_pos);
+                }else{
+                    msgListView.setSelection(msgListView.getCount() - 1);
+                }
+
             }
         });
     }
 
-    public ChatSetAsyncTask(Context context, Integer radius, ListView msgListView, ImageView bcAvatar, TextView bcContent, TextView bcNickname, TextView bcDate){
+    public ChatSetAsyncTask(Context context, Integer radius,
+                            ListView msgListView, ImageView bcAvatar, TextView bcContent, TextView bcNickname, TextView bcDate,
+                            ArrayList<ChatMessage> chatMessages){
         this.context=context;
         this.radius=radius;
         this.msgListView = msgListView;
@@ -643,10 +680,12 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         this.bestChatContent = bcContent;
         this.bestChatDate = bcDate;
         this.bestChatNickname = bcNickname;
+        this.chatMessages = chatMessages;
     }
 
     @Override
     protected void onPreExecute() {
+        now_pos = msgListView.getFirstVisiblePosition();
         super.onPreExecute();
     }
 
@@ -696,7 +735,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         /*
         * 전체 채팅 내용 세팅
         * */
-        ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
+        if(chatMessages!=null) {
+            chatMessages.clear();
+        }
         chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
 
         //거꾸로 받아온 리스트를 역순으로 바꿈
@@ -707,5 +748,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
         scrollMyListViewToBottom();
+
+
     }
 }

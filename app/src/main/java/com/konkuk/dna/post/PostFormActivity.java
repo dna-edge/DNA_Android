@@ -8,8 +8,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 
-import com.konkuk.dna.helpers.BaseActivity;
-import com.konkuk.dna.helpers.InitHelpers;
+import com.konkuk.dna.utils.helpers.BaseActivity;
+import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
 

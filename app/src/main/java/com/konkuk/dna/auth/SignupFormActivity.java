@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.konkuk.dna.helpers.BaseActivity;
+import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.R;
 
 public class SignupFormActivity extends BaseActivity {

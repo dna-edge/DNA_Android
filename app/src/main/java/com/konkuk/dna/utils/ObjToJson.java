@@ -1,12 +1,8 @@
-package com.konkuk.dna.Utils;
-
-import android.util.Log;
+package com.konkuk.dna.utils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.konkuk.dna.dbmanage.Dbhelper;
-
-import static com.konkuk.dna.Utils.ConvertType.getStringAddQuote;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 
 public class ObjToJson {
 

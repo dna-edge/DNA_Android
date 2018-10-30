@@ -48,7 +48,8 @@ dependencies {
     implementation ('io.socket:socket.io-client:1.0.0')
 
     //implementation 'pub.devrel:easypermissions:2.0.0'
-    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-messaging:17.3.3'
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
 }
 

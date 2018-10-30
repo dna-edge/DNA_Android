@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:minHeight="35dp"
-            android:padding="5dp"
+            android:padding="3dp"
             android:layout_marginRight="7dp"
             android:background="@drawable/ripple_effect_chat_left">
 

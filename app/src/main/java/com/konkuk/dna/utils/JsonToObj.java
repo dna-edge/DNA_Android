@@ -1,4 +1,4 @@
-package com.konkuk.dna.Utils;
+package com.konkuk.dna.utils;
 
 import android.util.Log;
 
@@ -6,15 +6,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.konkuk.dna.chat.ChatMessage;
-import com.konkuk.dna.dbmanage.Dbhelper;
 import com.konkuk.dna.friend.message.DMRoom;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.konkuk.dna.Utils.ConvertType.DatetoStr;
-import static com.konkuk.dna.Utils.ConvertType.getStringAddQuote;
-import static com.konkuk.dna.Utils.ConvertType.getStringNoQuote;
+import static com.konkuk.dna.utils.ConvertType.DatetoStr;
+import static com.konkuk.dna.utils.ConvertType.getStringNoQuote;
 
 public class JsonToObj {
     /*
@@ -152,7 +150,7 @@ public class JsonToObj {
         double lng, lat;
         String msg_type, _id, contents, created_at;
         int msg_idx, __v;
-        int viewType;
+        int viewType=-1;
 
         // 이전 메세지의 idx확인
         int prev_idx = -1;
@@ -189,20 +187,39 @@ public class JsonToObj {
                 __v = Integer.parseInt(oneObject.get("__v").toString());
 
 
+
                 if(myIdx == user_idx){
-                    //내 메세지이면
+                    //지금 메세지가 내 메세지이면
+                    if(i!=0 && prev_idx!=user_idx) {
+                        // 이전에 있던 메시지가 다른사람것이라면 프로필이 필요해! 물론 내메세지가 리스트의 마지막이 아니였다면
+                        ChatMessage tmp = chatMessages.get(chatMessages.size()-1);
+                        tmp.setViewType(1);
+                        chatMessages.remove(chatMessages.size()-1);
+                        chatMessages.add(tmp);
+                    }
+
                     viewType = 0;
+
                 }else{
-                    if(i==0){
-                        // 첫번째 메세지이면 프로필 필요
+                    //지금 메세지가 남의 메세지라면
+                    if(i==resultArray.size()-1){
+                        // 그지역의 첫번째 메세지이면 지금 메세지에 프로필 필요
                         viewType = 1;
-                    }else if(prev_idx!=user_idx){
-                        // 이전과 다른 사람의 메세지면 프로필 필요
-                        viewType = 1;
+
+                    }else if(i!=0 && prev_idx!=user_idx && prev_idx != myIdx){
+                        // 이전사람이 내가 아니고 지금메세지와도 다른 사람의 메세지면 프로필 필요
+                        ChatMessage tmp = chatMessages.get(chatMessages.size()-1);
+                        tmp.setViewType(1);
+                        chatMessages.remove(chatMessages.size()-1);
+                        chatMessages.add(tmp);
+
+                        viewType = 2;
                     }else{
+                        //
                         viewType = 2;
                     }
                 }
+
                 prev_idx = user_idx;
 
                 Log.e(msg_type, resultArray.get(i).toString());
@@ -246,7 +263,7 @@ public class JsonToObj {
 
                 JsonArray blindarray = (JsonArray) oneObject.get("blind");
                 for(int j=0; j<blindarray.size(); j++){
-                    //blind 무엇?
+                    //blind 무엇? blind 배열 안에 현재 유저의 idx에 포함되어 있을 경우 해당 채팅방을 리스트에 보여주지 않습니다.
                 }
                 _id = getStringNoQuote(oneObject.get("_id").toString());
                 room_idx = Integer.parseInt(oneObject.get("idx").toString());
@@ -269,10 +286,12 @@ public class JsonToObj {
                 created_at = getStringNoQuote(oneObject.get("created_at").toString());
                 updated_at = getStringNoQuote(oneObject.get("updated_at").toString());
                 __v = Integer.parseInt(oneObject.get("__v").toString());
-                last_message = getStringNoQuote(oneObject.get("last_message").toString());
-                last_type = getStringNoQuote(oneObject.get("last_mtype").toString());
+//                last_message = getStringNoQuote(oneObject.get("last_message").toString()); // NullPointerException 발생
+                last_message = "";
+                last_type = getStringNoQuote(oneObject.get("last_type").toString());
 
 
+                Log.e(f_nickname,last_message);
                 // TODO 멤버변수에 대한 설명이 필요함
                 Dmrooms.add(new DMRoom(room_idx, f_idx, f_nickname, f_avatar, last_message, last_type, DatetoStr(updated_at)));
             }

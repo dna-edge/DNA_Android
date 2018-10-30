@@ -1,21 +1,17 @@
-package com.konkuk.dna.helpers;
+package com.konkuk.dna.utils.helpers;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.konkuk.dna.R;
-
-public class BaseActivity extends AppCompatActivity {
+public class BaseFragment extends Fragment{
     private static Typeface NSEB;
     private static Typeface NSB;
     private static Typeface NSR;
@@ -26,38 +22,40 @@ public class BaseActivity extends AppCompatActivity {
 
     private static Typeface fontAwesomeR;
     private static Typeface fontAwesomeS;
-    private DrawerLayout menuDrawer;
-    protected GPSTracker gpsTracker;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        gpsTracker = new GPSTracker(this);
-
-        // 상태바 색상 변경
-        View view = getWindow().getDecorView();
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDarker));
-    }
 
     public static Typeface getTypeface(Context context, String font) {
         return Typeface.createFromAsset(context.getAssets(), font);
     }
 
     @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-        if(NSEB == null)  NSEB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareEB.ttf");
-        if(NSB == null)   NSB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareB.ttf");
-        if(NSR == null)   NSR = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareR.ttf");
-        if(NSREB == null) NSREB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareRoundEB.ttf");
-        if(NSRB == null)  NSRB = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareRoundB.ttf");
-        if(NSRR == null)  NSRR = Typeface.createFromAsset(this.getAssets(), "fonts/NanumSquareRoundR.ttf");
-        if(fontAwesomeR == null) fontAwesomeR = Typeface.createFromAsset(this.getAssets(), "fonts/fa-regular-400.ttf");
-        if(fontAwesomeS == null) fontAwesomeS = Typeface.createFromAsset(this.getAssets(), "fonts/fa-solid-900.ttf");
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        setGlobalFont(getWindow().getDecorView());
-
-        menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if(NSEB == null) {
+            NSEB = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumSquareEB.ttf");
+        }
+        if(NSB == null) {
+            NSB = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumSquareB.ttf");
+        }
+        if(NSR == null) {
+            NSR = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumSquareR.ttf");
+        }
+        if(NSREB == null) {
+            NSREB = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumSquareRoundEB.ttf");
+        }
+        if(NSRB == null) {
+            NSRB = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumSquareRoundB.ttf");
+        }
+        if(NSRR == null) {
+            NSRR = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumSquareRoundR.ttf");
+        }
+        if(fontAwesomeR == null) {
+            fontAwesomeR = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fa-regular-400.ttf");
+        }
+        if(fontAwesomeS == null) {
+            fontAwesomeS = Typeface.createFromAsset(getActivity().getAssets(), "fonts/fa-solid-900.ttf");
+        }
+        setGlobalFont(getActivity().getWindow().getDecorView());
     }
 
     private void setGlobalFont(View view) {
@@ -98,15 +96,6 @@ public class BaseActivity extends AppCompatActivity {
                     setGlobalFont(v);
                 }
             }
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (menuDrawer != null) {
-            menuDrawer.closeDrawer(Gravity.RIGHT);
         }
     }
 }

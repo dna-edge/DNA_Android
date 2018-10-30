@@ -15,20 +15,20 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.chat.ChatActivity;
-import com.konkuk.dna.dbmanage.Dbhelper;
-import com.konkuk.dna.helpers.AnimHelpers;
-import com.konkuk.dna.helpers.BaseActivity;
-import com.konkuk.dna.helpers.InitHelpers;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
+import com.konkuk.dna.utils.helpers.AnimHelpers;
+import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.map.MapFragment;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostFormActivity;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -56,8 +56,12 @@ public class MainActivity extends BaseActivity {
         InitHelpers.getPermission(this);
 
         setContentView(R.layout.activity_main);
-        init();
 
+        // firebase (push)
+        FirebaseMessaging.getInstance().subscribeToTopic("chat");
+        Log.d("MainActivity", "token : " + FirebaseInstanceId.getInstance().getToken());
+
+        init();
     }
 
     public void init() {
@@ -89,12 +93,11 @@ public class MainActivity extends BaseActivity {
 
         // TODO 포스트의 리스트를 서버에서 불러와서 넣어줘야 합니다.
         posts.add(new Post(0, "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
-                "3457soso", "2018.10.05", "제목입니다",
-                "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
+                "3457soso", "2018.10.05", "건국대학교 맛집입니다",
+                "꼬막집인데 양도 정말 많구요! 밥보다도 꼬막이 많아서 정말 좋습니다ㅠㅠ \n저만 알기 아까워서 공유합니다ㅠ\n꼭 한번 가보세요!",
                 127.081958, 37.537484, 1, 2, 3,
                 new ArrayList<Comment>(
-                        Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
-                                new Comment(null,"test","2018.10.05","이건 댓글입니다."))
+                        Arrays.asList(new Comment(null,"who_sy","2018.10.05","오 감사합니다 ㅎㅎ 가봐야겠어요."))
                 )
         ));
         posts.add(new Post(1, "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
