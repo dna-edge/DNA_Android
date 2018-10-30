@@ -190,7 +190,7 @@
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp"
                         android:divider="@android:color/transparent"
-                        android:dividerHeight="5dp"
+                        android:dividerHeight="7dp"
                         android:listSelector="@android:color/transparent"/>
                 </LinearLayout>
                 <LinearLayout

@@ -73,7 +73,7 @@ public class DMRoomListAdapter extends ArrayAdapter<DMRoom> {
             v = layoutInflater.inflate(R.layout.chat_item_room, null);
 
             ImageView roomAvatar = (ImageView) v.findViewById(R.id.roomAvatar);
-            if (room.getAvatar() != null) {
+            if (room.getAvatar() != null && room.getAvatar() != "") {
                 Picasso.get().load(room.getAvatar()).into(roomAvatar);
             }
 

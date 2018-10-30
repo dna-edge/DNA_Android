@@ -53,6 +53,12 @@ public class LoginActivity extends BaseActivity {
 //        MissPW = (TextView)findViewById(R.id.miss_pw);
         SignUp = (TextView)findViewById(R.id.sign_up);
 
+        // TODO 추후 삭제해야 합니다
+        // TODO 테스트 편하게 하기 위해 추가한 부분입니다.
+        UserID.setText("3457soso");
+        UserPW.setText("qwer1234");
+        // TODO 추후 삭제해야 합니다
+
         //링크에 밑줄처리하기
 //        String udata="비밀번호가 기억나지 않는다면?";
 //        SpannableString content = new SpannableString(udata);

@@ -263,7 +263,7 @@ public class JsonToObj {
 
                 JsonArray blindarray = (JsonArray) oneObject.get("blind");
                 for(int j=0; j<blindarray.size(); j++){
-                    //blind 무엇?
+                    //blind 무엇? blind 배열 안에 현재 유저의 idx에 포함되어 있을 경우 해당 채팅방을 리스트에 보여주지 않습니다.
                 }
                 _id = getStringNoQuote(oneObject.get("_id").toString());
                 room_idx = Integer.parseInt(oneObject.get("idx").toString());
@@ -286,8 +286,9 @@ public class JsonToObj {
                 created_at = getStringNoQuote(oneObject.get("created_at").toString());
                 updated_at = getStringNoQuote(oneObject.get("updated_at").toString());
                 __v = Integer.parseInt(oneObject.get("__v").toString());
-                last_message = getStringNoQuote(oneObject.get("last_message").toString());
-                last_type = getStringNoQuote(oneObject.get("last_mtype").toString());
+//                last_message = getStringNoQuote(oneObject.get("last_message").toString()); // NullPointerException 발생
+                last_message = "";
+                last_type = getStringNoQuote(oneObject.get("last_type").toString());
 
 
                 Log.e(f_nickname,last_message);
