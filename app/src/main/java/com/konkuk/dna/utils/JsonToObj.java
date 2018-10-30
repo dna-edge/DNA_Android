@@ -290,6 +290,7 @@ public class JsonToObj {
                 last_type = getStringNoQuote(oneObject.get("last_mtype").toString());
 
 
+                Log.e(f_nickname,last_message);
                 // TODO 멤버변수에 대한 설명이 필요함
                 Dmrooms.add(new DMRoom(room_idx, f_idx, f_nickname, f_avatar, last_message, last_type, DatetoStr(updated_at)));
             }

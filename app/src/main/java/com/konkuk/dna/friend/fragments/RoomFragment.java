@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,7 +123,9 @@ class DMRoomAsyncTask extends AsyncTask<Double, Integer, ArrayList<DMRoom>> {
         dbhelper = new Dbhelper(context);
         m_token = dbhelper.getAccessToken();
 
-        String repDMRooms = httpreq.requestHttpGETDMRooms(ServerURL.LOCAL_HOST+ServerURL.PORT_SOCKET_API+"/rooms/:page", m_token);
+        String repDMRooms = httpreq.requestHttpGETDMRooms(ServerURL.LOCAL_HOST+ServerURL.PORT_SOCKET_API+"/rooms/", m_token);
+
+        Log.e("!!!!!!!", repDMRooms);
 
         //TODO 오브젝트 치환
         rooms = DMRoomJsonToObj(repDMRooms, dbhelper.getMyIdx());

@@ -3,12 +3,15 @@ package com.konkuk.dna.chat;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
@@ -87,6 +90,9 @@ public class ChatActivity extends BaseActivity {
     private Dbhelper dbhelper;
     private Socket mSocket;
     private Context context = this;
+
+    private final int GET_FROM_GALLERY = 3;
+    private Uri selectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -514,10 +520,13 @@ public class ChatActivity extends BaseActivity {
             case R.id.msgImageBtn: // 이미지 전송 버튼 클릭
                 // TODO 현재 주소를 messageEditText에 채워줍니다.
                 if (messageType.equals(TYPE_MESSAGE) || messageType.equals(TYPE_LOUDSPEAKER)) {
-                    msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
-                    msgEditText.setText("Doraemon.png");
-                    msgEditText.setEnabled(false);
-                    messageType = TYPE_IMAGE;
+
+                    startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+
+//                    msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
+//                    msgEditText.setText("Doraemon.png");
+//                    msgEditText.setEnabled(false);
+//                    messageType = TYPE_IMAGE;
                 } else {
                     DialogSimple();
                     messageType = TYPE_MESSAGE;
@@ -608,6 +617,19 @@ public class ChatActivity extends BaseActivity {
         super.onDestroy();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK){
+            selectedImage = data.getData();
+            msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
+            msgEditText.setText(selectedImage.toString());
+            msgEditText.setEnabled(false);
+            messageType = TYPE_IMAGE;
+            //Bitmap bitmap = null;
+        }
+    }
 }
 
 
