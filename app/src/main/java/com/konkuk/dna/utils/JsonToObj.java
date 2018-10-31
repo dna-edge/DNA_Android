@@ -271,8 +271,9 @@ public class JsonToObj {
 
                 JsonArray usersarray = (JsonArray) oneObject.get("users");
                 for(int j=0; j<2; j++){
-                    JsonObject userObject = (JsonObject) usersarray.get(i);
+                    JsonObject userObject = (JsonObject) usersarray.get(j);
                     if(myIdx == Integer.parseInt(userObject.get("idx").toString())){
+
                         m__id =  getStringNoQuote(userObject.get("_id").toString());
                         m_idx = Integer.parseInt(userObject.get("idx").toString());
                         m_nickname =  getStringNoQuote(userObject.get("nickname").toString());
@@ -287,12 +288,15 @@ public class JsonToObj {
                 created_at = getStringNoQuote(oneObject.get("created_at").toString());
                 updated_at = getStringNoQuote(oneObject.get("updated_at").toString());
                 __v = Integer.parseInt(oneObject.get("__v").toString());
-//                last_message = getStringNoQuote(oneObject.get("last_message").toString()); // NullPointerException 발생
+
                 last_message = "";
+                if(oneObject.get("last_message")!=null){
+                    last_message = getStringNoQuote(oneObject.get("last_message").toString());
+                }
+//                last_message = getStringNoQuote(oneObject.get("last_message").toString()); // NullPointerException 발생
+                //last_message = "";
                 last_type = getStringNoQuote(oneObject.get("last_type").toString());
 
-
-                Log.e(f_nickname,last_message);
                 // TODO 멤버변수에 대한 설명이 필요함
                 Dmrooms.add(new DMRoom(room_idx, f_idx, f_nickname, f_avatar, last_message, last_type, DatetoStr(updated_at)));
             }
@@ -308,7 +312,7 @@ public class JsonToObj {
     /*
      * 현재 접속 멤버 홛인 Json변환 메소드
      * */
-    public static ArrayList<ChatUser> ConnectUserJsonToObj(String jsonResult){
+    public static ArrayList<ChatUser> ConnectUserJsonToObj(String jsonResult, int myIdx){
 
         ArrayList<ChatUser> result= new ArrayList<>();
         int idx;
@@ -327,8 +331,9 @@ public class JsonToObj {
             avatar = getStringNoQuote(arr.get("avatar").toString());
             inside = arr.get("inside").getAsBoolean();
 
-            Log.e("nickname", nickname);
-            result.add(new ChatUser(idx, nickname, avatar, inside));
+            if(myIdx != idx){
+                result.add(new ChatUser(idx, nickname, avatar, inside));
+            }
         }
 
         return result;

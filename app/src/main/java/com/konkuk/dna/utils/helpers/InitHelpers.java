@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +22,8 @@ import com.konkuk.dna.friend.FriendActivity;
 import com.konkuk.dna.user.MyPageActivity;
 import com.konkuk.dna.user.UserSettingActivity;
 import com.konkuk.dna.utils.SocketConnection;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,6 +34,7 @@ import static com.konkuk.dna.utils.JsonToObj.ConnectUserJsonToObj;
 
 public class InitHelpers {
 
+    private static Dbhelper dbhelper;
     private static ArrayList<ChatUser> cu = new ArrayList<>();
     private static ChatUserAdapter chatUserAdapter;
     private static ListView ccuListView;
@@ -42,15 +46,18 @@ public class InitHelpers {
         TextView pfNickname = (TextView) v.findViewById(R.id.PfNickname);
         TextView pfID = (TextView) v.findViewById(R.id.PfID);
 
-//        if (getAvatar() != null) { // TODO 현재 유저의 프로필 url이 null이 아닐 경우를 조건으로 줘야 합니다.
-//            Picasso.get().load(post.getAvatar()).into(postAvatar);
-//        }
+       // ;
 
-        pfNickname.setText("soyoungpark");
-        pfID.setText("3457soso");
+        if (dbhelper.getMyAvatar() != null) { // TODO 현재 유저의 프로필 url이 null이 아닐 경우를 조건으로 줘야 합니다.
+            Picasso.get().load(dbhelper.getMyAvatar()).into(pfAvatar);
+        }
+
+        pfNickname.setText(dbhelper.getMyNickname());
+        pfID.setText(dbhelper.getMyId());
     }
 
     public static void initDrawer(final Context context, View v, int type) {
+        dbhelper = new Dbhelper(context);
         setProfile(v);
         LinearLayout drawerForUserList = (LinearLayout) v.findViewById(R.id.drawerForUserList);
         LinearLayout drawerForFriend = (LinearLayout) v.findViewById(R.id.drawerForFriend);
@@ -59,6 +66,9 @@ public class InitHelpers {
         LinearLayout homeBtn = (LinearLayout) v.findViewById(R.id.homeBtn);
         RelativeLayout setChatBtn = (RelativeLayout) v.findViewById(R.id.setChatBtn);
         RelativeLayout setFriendBtn = (RelativeLayout) v.findViewById(R.id.setFriendBtn);
+
+        TextView drawerPosition = v.findViewById(R.id.drawerPosition);
+        TextView drawerRadius = v.findViewById(R.id.drawerRadius);
 
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +102,14 @@ public class InitHelpers {
             }
         });
 
+
+        /*
+        * 현재 채팅 환경
+        * */
+        drawerPosition.setText("지도api로 위치정보 받아오기");
+        drawerRadius.setText(dbhelper.getMyRadius()+"m");
+
+
         if (type == 0) {
             drawerForFriend.setVisibility(GONE);
 
@@ -105,7 +123,7 @@ public class InitHelpers {
                 public void call(Object... args) {
                     //Log.e("Socket Ping-geo", args[0].toString());
                     DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
-                    dat.execute(args[0].toString());
+                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
 
                 }
             });
@@ -135,6 +153,19 @@ public class InitHelpers {
         }
     }
 
+    public static void updateDrawer(final Context context, View v) {
+        TextView drawerPosition = v.findViewById(R.id.drawerPosition);
+        TextView drawerRadius = v.findViewById(R.id.drawerRadius);
+
+        /*
+         * 현재 채팅 환경
+         * */
+        drawerPosition.setText("지도api로 위치정보 받아오기");
+        drawerRadius.setText(dbhelper.getMyRadius()+"m");
+        Log.e("updateDrawer", dbhelper.getMyRadius()+"m");
+
+
+    }
     public static void getPermission(Activity activity) {
 //        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 //            //권한이 없을 경우
@@ -177,7 +208,7 @@ class DrawyerAsyncTask extends AsyncTask<String, Integer, ArrayList<ChatUser>> {
 
     @Override
     protected ArrayList<ChatUser> doInBackground(String... strings) {
-        ArrayList<ChatUser> cu = ConnectUserJsonToObj(strings[0]);
+        ArrayList<ChatUser> cu = ConnectUserJsonToObj(strings[0], Integer.parseInt(strings[1]));
         return cu;
     }
 

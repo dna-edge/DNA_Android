@@ -1,5 +1,7 @@
 package com.konkuk.dna.utils;
 
+import android.util.Log;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
@@ -25,8 +27,6 @@ public class ObjToJson {
         jObj.add("position", posarr);
 
         jObj.addProperty("radius", dbhelper.getMyRadius());
-
-        //Log.d("Json", jObj.toString());
         return jObj;
     }
 
