@@ -43,55 +43,59 @@ public class SocketConnection {
     }
 
     public static void connectSocket(){
-        if(socket==null){
+        if(SocketConnection.getSocket()==null){
             try{
-                HostnameVerifier hostnameVerifier = new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                };
-                TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
-                    @Override
-                    public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
-
-                    }
-
-                    @Override
-                    public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
-
-                    }
-
-                    @Override
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                        return new java.security.cert.X509Certificate[0];
-                    }
-                }};
-                X509TrustManager trustManager = (X509TrustManager) trustAllCerts[0];
-
-                SSLContext sslContext = SSLContext.getInstance("SSL");
-                sslContext.init(null, trustAllCerts, null);
-                SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
-
-                OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                        .hostnameVerifier(hostnameVerifier)
-                        .sslSocketFactory(sslSocketFactory, trustManager)
-                        .build();
-
+//                HostnameVerifier hostnameVerifier = new HostnameVerifier() {
+//                    @Override
+//                    public boolean verify(String hostname, SSLSession session) {
+//                        return true;
+//                    }
+//                };
+//                TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+//                    @Override
+//                    public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+//
+//                    }
+//
+//                    @Override
+//                    public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+//
+//                    }
+//
+//                    @Override
+//                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+//                        return new java.security.cert.X509Certificate[0];
+//                    }
+//                }};
+//                X509TrustManager trustManager = (X509TrustManager) trustAllCerts[0];
+//
+//                SSLContext sslContext = SSLContext.getInstance("SSL");
+//                sslContext.init(null, trustAllCerts, null);
+//                SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+//
+//                OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                        .hostnameVerifier(hostnameVerifier)
+//                        .sslSocketFactory(sslSocketFactory, trustManager)
+//                        .build();
+//
                 IO.Options opts = new IO.Options();
-                opts.callFactory = okHttpClient;
-                opts.webSocketFactory = okHttpClient;
+//                opts.callFactory = okHttpClient;
+//                opts.webSocketFactory = okHttpClient;
+                String[] trans = {"websocket"};
+                opts.forceNew = true;
+                opts.reconnection = false;
+                opts.transports = trans;
 
                 //socket = IO.socket("https://13.125.78.77:9014", opts);
-                socket = IO.socket(ServerURL.LOCAL_HOST+ServerURL.PORT_SOCKET, opts);
+                SocketConnection.setSocket(IO.socket(ServerURL.LOCAL_HOST+ServerURL.PORT_SOCKET, opts));
 
                 //연결!
-                socket.connect();
+                SocketConnection.getSocket().connect();
 
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (KeyManagementException e) {
-                e.printStackTrace();
+//            } catch (NoSuchAlgorithmException e) {
+//                e.printStackTrace();
+//            } catch (KeyManagementException e) {
+//                e.printStackTrace();
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
@@ -103,6 +107,7 @@ public class SocketConnection {
             Log.e("Socket is Connected", SocketConnection.getSocket().connected()+"");
             SocketConnection.getSocket().connect();
         }
+        Log.e("Socket Emit", event);
         SocketConnection.getSocket().emit(event, args);
     }
     public static void emit(String event, Object arg1, Object arg2){
@@ -110,9 +115,15 @@ public class SocketConnection {
             Log.e("Socket is Connected", SocketConnection.getSocket().connected()+"");
             SocketConnection.getSocket().connect();
         }
+        Log.e("Socket Emit", event);
         SocketConnection.getSocket().emit(event, arg1, arg2);
     }
 
+    public static void disconnect() {
+        SocketConnection.getSocket().disconnect();
+        SocketConnection.setSocket(null);
+        SocketConnection.setInstance(null);
+    }
 
     public static Socket getSocket() {
         return socket;

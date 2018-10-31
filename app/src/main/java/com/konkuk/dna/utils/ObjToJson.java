@@ -51,18 +51,27 @@ public class ObjToJson {
         jObj.addProperty("radius", dbhelper.getMyRadius());
         jObj.addProperty("testing", false);
 
-//        data = {
-//                token,
-//                messageData : {
-//                    lng,
-//                    lat,
-//                    type,
-//                    contents
-//                }
-//            radius,
-//        };
-
         return jObj;
+    }
+
+
+    /*
+     * 메세지 전송 용 Json 생성
+     * */
+    public static JsonObject SendDMObjToJson(Dbhelper dbhelper, int roomIdx, String msgType, String contents) {
+
+        //JsonObject jObj = new JsonObject();
+        JsonObject mdataObj = new JsonObject();
+
+        mdataObj.addProperty("roomIdx", roomIdx);
+        mdataObj.addProperty("type", msgType);
+        mdataObj.addProperty("contents", contents);
+
+        //jObj.add("messageData", mdataObj);
+
+        Log.e("SendDMG2J", mdataObj.toString());
+
+        return mdataObj;
     }
 
 }

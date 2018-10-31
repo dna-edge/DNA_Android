@@ -56,6 +56,15 @@ public class RoomFragment extends Fragment {
         init();
     }
 
+    @Override
+    public void onResume() {
+
+        DMRoomAsyncTask dmrat = new DMRoomAsyncTask(getActivity(), dmRoomListAdapter, roomList);
+        dmrat.execute();
+
+        super.onResume();
+    }
+
     public void init() {
         roomList = (ListView) getView().findViewById(R.id.roomList);
         rooms = new ArrayList<>();

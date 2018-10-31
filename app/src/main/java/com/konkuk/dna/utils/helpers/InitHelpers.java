@@ -25,9 +25,13 @@ import com.konkuk.dna.friend.FriendActivity;
 import com.konkuk.dna.friend.manage.FriendDetailFragment;
 import com.konkuk.dna.user.MyPageActivity;
 import com.konkuk.dna.user.UserSettingActivity;
+import com.konkuk.dna.utils.EventListener;
 import com.konkuk.dna.utils.SocketConnection;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -42,6 +46,11 @@ public class InitHelpers {
     private static ArrayList<ChatUser> cu = new ArrayList<>();
     private static ChatUserAdapter chatUserAdapter;
     private static ListView ccuListView;
+
+    private static Context cont;
+
+    private static final int SOCKET_GEO = 6;
+    private static final int SOCKET_DIRECT = 7;
 
     public static void setProfile(View v) {
         // TODO 현재 유저의 정보를 초기화해줍니다.
@@ -60,7 +69,23 @@ public class InitHelpers {
         pfID.setText(dbhelper.getMyId());
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnEventListener(EventListener event) {
+        DrawyerAsyncTask dat;
+        switch (event.message) {
+            case SOCKET_GEO:
+                dat = new DrawyerAsyncTask(cont, ccuListView);
+                dat.execute(event.args, String.valueOf(dbhelper.getMyIdx()));
+                break;
+            case SOCKET_DIRECT:
+                break;
+            default:
+                break;
+        }
+    }
+
     public static void initDrawer(final Context context, View v, int type) {
+        cont = context;
         dbhelper = new Dbhelper(context);
         setProfile(v);
         LinearLayout drawerForUserList = (LinearLayout) v.findViewById(R.id.drawerForUserList);
@@ -122,15 +147,15 @@ public class InitHelpers {
             ccuListView = (ListView) v.findViewById(R.id.ccuList);
             final ArrayList<ChatUser> chatUsers = new ArrayList<ChatUser>();
 
-            SocketConnection.getSocket().on("geo", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    //Log.e("Socket Ping-geo", args[0].toString());
-                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
-                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
-
-                }
-            });
+//            SocketConnection.getSocket().on("geo", new Emitter.Listener() {
+//                @Override
+//                public void call(Object... args) {
+//                    //Log.e("Socket Ping-geo", args[0].toString());
+//                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
+//                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+//
+//                }
+//            });
 
             chatUserAdapter = new ChatUserAdapter(context, R.layout.chat_item_ccu, cu);
             ccuListView.setAdapter(chatUserAdapter);
@@ -161,9 +186,7 @@ public class InitHelpers {
          * */
         drawerPosition.setText("지도api로 위치정보 받아오기");
         drawerRadius.setText(dbhelper.getMyRadius()+"m");
-        Log.e("updateDrawer", dbhelper.getMyRadius()+"m");
-
-
+        v.invalidate();
     }
     public static void getPermission(Activity activity) {
 //        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
