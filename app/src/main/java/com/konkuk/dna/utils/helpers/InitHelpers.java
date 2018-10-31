@@ -2,12 +2,14 @@ package com.konkuk.dna.utils.helpers;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,7 +20,9 @@ import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
 import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.chat.ChatUserAdapter;
+import com.konkuk.dna.chat.ChatUserDetailFragment;
 import com.konkuk.dna.friend.FriendActivity;
+import com.konkuk.dna.friend.manage.FriendDetailFragment;
 import com.konkuk.dna.user.MyPageActivity;
 import com.konkuk.dna.user.UserSettingActivity;
 import com.konkuk.dna.utils.SocketConnection;
@@ -128,11 +132,6 @@ public class InitHelpers {
                 }
             });
 
-
-//            chatUsers.add(new ChatUser("3457soso", null, true));
-//            chatUsers.add(new ChatUser("test", null, true));
-//            chatUsers.add(new ChatUser("test2", null, false));
-
             chatUserAdapter = new ChatUserAdapter(context, R.layout.chat_item_ccu, cu);
             ccuListView.setAdapter(chatUserAdapter);
         } else if (type == 1){
@@ -213,10 +212,20 @@ class DrawyerAsyncTask extends AsyncTask<String, Integer, ArrayList<ChatUser>> {
     }
 
     @Override
-    protected void onPostExecute(ArrayList<ChatUser> arCU) {
+    protected void onPostExecute(final ArrayList<ChatUser> arCU) {
         super.onPostExecute(arCU);
 
         chatUserAdapter = new ChatUserAdapter(context, R.layout.chat_item_ccu, arCU);
+        ccuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+                ChatUserDetailFragment chatUserDetailFragment = new ChatUserDetailFragment();
+
+                chatUserDetailFragment.setData(arCU.get(i));
+                chatUserDetailFragment.show(fragmentManager, "chatUserDetailFragment");
+            }
+        });
         ccuListView.setAdapter(chatUserAdapter);
         chatUserAdapter.notifyDataSetChanged();
     }
