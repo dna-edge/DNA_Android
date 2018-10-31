@@ -146,6 +146,7 @@ public class JsonToObj {
         JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
 
         ArrayList<Integer> whoLikes = new ArrayList<>();
+        boolean amILike = false;
         int user_idx;
         String nickname, avatar, position, like_count;
         double lng, lat;
@@ -177,8 +178,12 @@ public class JsonToObj {
 
                 like_count = oneObject.get("like_count").toString();
                 JsonArray wholikesArray = (JsonArray) oneObject.get("likes");
+                amILike = false;
                 for(int j=0; j<wholikesArray.size(); j++){
                     whoLikes.add(Integer.parseInt(wholikesArray.get(j).toString()));
+                    if(whoLikes.get(j) == myIdx){
+                        amILike = true;
+                    }
                 }
 
                 _id = getStringNoQuote(oneObject.get("_id").toString());
@@ -226,7 +231,7 @@ public class JsonToObj {
                 Log.e(msg_type, resultArray.get(i).toString());
 
                 //Log.e("!!!", user_idx+"/"+nickname+"/"+avatar+"/"+contents+"/"+created_at+"/"+like_count+"/"+msg_type+"/"+msg_idx);
-                chatMessages.add(new ChatMessage(user_idx, nickname, avatar, contents, DatetoStr(created_at), like_count, msg_type, lng, lat, whoLikes, msg_idx, viewType));
+                chatMessages.add(new ChatMessage(user_idx, nickname, avatar, contents, DatetoStr(created_at), like_count, msg_type, lng, lat, whoLikes, msg_idx, viewType, amILike));
 
             }
         }else{

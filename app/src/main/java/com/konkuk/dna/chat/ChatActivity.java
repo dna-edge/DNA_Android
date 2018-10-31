@@ -396,7 +396,7 @@ public class ChatActivity extends BaseActivity {
         SocketConnection.getSocket().on("apply_like", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.e("Socket GET Like", "Apply Like COME!!!");
+                Log.e("Socket GET Like", "Apply Like COME!!!"+args[0].toString());
 
                 ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
                 csat.execute(longitude, latitude);
@@ -407,7 +407,7 @@ public class ChatActivity extends BaseActivity {
         SocketConnection.getSocket().on("speaker", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.e("Socket GET Like", "Apply Like COME!!!");
+                Log.e("Socket PUSH", "PUSH COME!!!");
 
 //                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
 //                csat.execute(longitude, latitude);

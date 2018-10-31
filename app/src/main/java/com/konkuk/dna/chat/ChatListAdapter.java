@@ -5,6 +5,9 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +87,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
             prev_message = messages.get(position-1);
         }
 
-        myIdx = 5;
         v = null;
         if (v == null) {
             LayoutInflater layoutInflater = (LayoutInflater)
@@ -157,33 +159,32 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
 //                    Picasso.get().load(message.getAvatar()).into(messageAvatar);
 //                }
 //            }
-        }
 
-        LinearLayout messageLikeWrapper = (LinearLayout) v.findViewById(R.id.likeWrapper);
-        RelativeLayout msgLocationWrapper = (RelativeLayout) v.findViewById(R.id.msgLocationWrapper);
-        ImageView msgImage = (ImageView) v.findViewById(R.id.msgImage);
-        TextView msgText = (TextView) v.findViewById(R.id.msgText);
-        TextView msgShare = (TextView) v.findViewById(R.id.msgShare);
-        TextView likeCount = (TextView) v.findViewById(R.id.likeCount);
-        TextView dateText = (TextView) v.findViewById(R.id.dateText);
-        TextView likeStar = (TextView) v.findViewById(R.id.likeStar);
+            LinearLayout messageLikeWrapper = (LinearLayout) v.findViewById(R.id.likeWrapper);
+            RelativeLayout msgLocationWrapper = (RelativeLayout) v.findViewById(R.id.msgLocationWrapper);
+            ImageView msgImage = (ImageView) v.findViewById(R.id.msgImage);
+            TextView msgText = (TextView) v.findViewById(R.id.msgText);
+            TextView msgShare = (TextView) v.findViewById(R.id.msgShare);
+            TextView likeCount = (TextView) v.findViewById(R.id.likeCount);
+            TextView dateText = (TextView) v.findViewById(R.id.dateText);
+            TextView likeStar = (TextView) v.findViewById(R.id.likeStar);
 
 
-        switch(message.getType()) {
-            case TYPE_LOUDSPEAKER:
-            case TYPE_MESSAGE:
-                if (msgText != null) {
-                    msgText.setVisibility(View.VISIBLE);
-                    msgText.setText(message.getContents());
-                }
-                break;
-            case TYPE_IMAGE:
-                if (msgImage != null) {
-                    msgImage.setVisibility(View.VISIBLE);
-                    Picasso.get().load(message.getContents()).into(msgImage);
-                }
-                break;
-            case TYPE_LOCATION:
+            switch(message.getType()) {
+                case TYPE_LOUDSPEAKER:
+                case TYPE_MESSAGE:
+                    if (msgText != null) {
+                        msgText.setVisibility(View.VISIBLE);
+                        msgText.setText(message.getContents());
+                    }
+                    break;
+                case TYPE_IMAGE:
+                    if (msgImage != null) {
+                        msgImage.setVisibility(View.VISIBLE);
+                        Picasso.get().load(message.getContents()).into(msgImage);
+                    }
+                    break;
+                case TYPE_LOCATION:
 //                if (msgLocationWrapper != null) {
 //                    msgLocationWrapper.setVisibility(View.VISIBLE);
 //                    msgLocationWrapper.setId(message.getIdx());
@@ -196,29 +197,30 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
 //                    fragTransaction.commit();
 //                }
 
-                break;
-            case TYPE_SHARE:
-                if (msgShare != null) {
-                    msgShare.setVisibility(View.VISIBLE);
-                    msgShare.setText("[공유] " + message.getContents());
-                }
-                break;
-        }
-
-        likeCount.setText(message.getLike());
-        dateText.setText(message.getDate());
-
-        dateText.setTypeface(NSB);
-        likeStar.setTypeface(fontAwesomeS);
-
-        isMyMessage = false;
-        for(int i=0; i<message.getWhoLikes().size(); i++){
-            if(message.getWhoLikes().get(i) == myIdx){
-                isMyMessage = true;
-            }else{
-                isMyMessage = false;
+                    break;
+                case TYPE_SHARE:
+                    if (msgShare != null) {
+                        msgShare.setVisibility(View.VISIBLE);
+                        msgShare.setText("[공유] " + message.getContents());
+                    }
+                    break;
             }
-        }
+
+            likeCount.setText(message.getLike());
+            dateText.setText(message.getDate());
+
+            dateText.setTypeface(NSB);
+            likeStar.setTypeface(fontAwesomeS);
+
+//        isMyMessage = false;
+//
+//        for(int i=0; i<message.getWhoLikes().size(); i++){
+//            if(message.getWhoLikes().get(i) == myIdx){
+//                isMyMessage = true;
+//            }else{
+//                isMyMessage = false;
+//            }
+//        }
 
 
 //        messageLikeWrapper.setClickable(true);
@@ -231,16 +233,20 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
 //            }
 //        });
 
-        // TODO 내가 좋아요를 클릭했을 경우와 클릭하지 않았을 경우 다른 뷰를 보여줘야 합니다.
-        if (isMyMessage) { // 클릭했을 경우
-            likeCount.setTextColor(context.getResources().getColor(R.color.yellow));
-            likeStar.setTextColor(context.getResources().getColor(R.color.yellow));
-            messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_like_clicked));
+            // TODO 내가 좋아요를 클릭했을 경우와 클릭하지 않았을 경우 다른 뷰를 보여줘야 합니다.
+            if (messages.get(position).isAmILike()) { // 클릭했을 경우
+                likeCount.setTextColor(context.getResources().getColor(R.color.yellow));
+                likeStar.setTextColor(context.getResources().getColor(R.color.yellow));
+                //messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_like_clicked));
+                messageLikeWrapper.setBackgroundResource(R.drawable.button_like_clicked);
 
-        } else {
-            likeCount.setTextColor(context.getResources().getColor(R.color.grayDark));
-            likeStar.setTextColor(context.getResources().getColor(R.color.grayLighter));
-            messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_like_default));
+            } else {
+                likeCount.setTextColor(context.getResources().getColor(R.color.grayDark));
+                likeStar.setTextColor(context.getResources().getColor(R.color.grayLighter));
+                //messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_like_default));
+                messageLikeWrapper.setBackgroundResource(R.drawable.button_like_default);
+            }
+
         }
 
         return v;
