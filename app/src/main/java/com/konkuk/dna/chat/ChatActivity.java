@@ -79,7 +79,6 @@ public class ChatActivity extends BaseActivity {
     private boolean mapIsOpen = true, bestChatIsOpen = true;
 
     /* 메시지의 타입을 구분하기 위한 변수들입니다 */
-    /* 메시지의 타입을 구분하기 위한 변수들입니다 */
     private final String TYPE_MESSAGE = "Message";          // 일반 메시지 전송
     private final String TYPE_LOUDSPEAKER = "LoudSpeaker";  // 확성기 전송
     private final String TYPE_LOCATION = "Location";        // 현재 위치 전송
@@ -88,7 +87,7 @@ public class ChatActivity extends BaseActivity {
     private String messageType = TYPE_MESSAGE;
 
     private Dbhelper dbhelper;
-    private Socket mSocket;
+    //private Socket mSocket;
     private Context context = this;
 
     private final int GET_FROM_GALLERY = 3;
@@ -101,13 +100,6 @@ public class ChatActivity extends BaseActivity {
 
         init();
         socketInit();
-
-//        msgListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                mSocket.emit("like", dbhelper.getAccessToken(), chatMessages.get(i).getMsg_idx());
-//            }
-//        });
     }
 
     public void init() {
@@ -156,7 +148,8 @@ public class ChatActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ChatMessage cm = (ChatMessage) adapterView.getAdapter().getItem(i);
 
-                mSocket.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
+                SocketConnection.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
+                //mSocket.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
             }
         });
 
@@ -387,29 +380,8 @@ public class ChatActivity extends BaseActivity {
     }
 
     public void socketInit(){
-        SocketConnection socketCon = new SocketConnection();
-        mSocket = socketCon.getSocket();
-
-        // 소켓 연결되면 store 할 것
-        mSocket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                Log.e("Socket Connected",mSocket.connected()+"");
-                JsonObject storeJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
-                mSocket.emit("store", storeJson);
-            }
-        });
-        // 핑이 오면 update 할 것
-        mSocket.on("ping", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                Log.e("Socket Ping", "COME!!!");
-                JsonObject updateJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
-                mSocket.emit("update", "geo", updateJson);
-            }
-        });
         // TODO: 새로운 메시지가 오면 화면을 새로고침 할 것
-        mSocket.on("new_msg", new Emitter.Listener() {
+        SocketConnection.getSocket().on("new_msg", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 Log.e("Socket GET MESSAGE", "MSG COME!!!");
@@ -420,10 +392,10 @@ public class ChatActivity extends BaseActivity {
             }
         });
         // TODO: 좋아요 신호가 오면 화면을 새로고침 할 것
-        mSocket.on("apply_like", new Emitter.Listener() {
+        SocketConnection.getSocket().on("apply_like", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.e("Socket GET Like", "Apply Like COME!!!");
+                Log.e("Socket GET Like", "Apply Like COME!!!"+args[0].toString());
 
                 ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
                 csat.execute(longitude, latitude);
@@ -431,17 +403,18 @@ public class ChatActivity extends BaseActivity {
             }
         });
         // TODO: push가 오면 push 알림을 띄울 것
-        mSocket.on("speaker", new Emitter.Listener() {
+        SocketConnection.getSocket().on("speaker", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.e("Socket GET Like", "Apply Like COME!!!");
+                Log.e("Socket PUSH", "PUSH COME!!!");
 
 //                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
 //                csat.execute(longitude, latitude);
             }
         });
 
-        mSocket.connect();
+
+        //mSocket.connect();
     }
 
 
@@ -536,7 +509,7 @@ public class ChatActivity extends BaseActivity {
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
 
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
-                mSocket.emit("save_msg", sendMsgJson);
+                SocketConnection.emit("save_msg", sendMsgJson);
 
                 msgEditText.setText("");
                 msgEditText.setEnabled(true);
@@ -611,8 +584,8 @@ public class ChatActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        mSocket.close();
-        mSocket.disconnect();
+//        mSocket.close();
+//        mSocket.disconnect();
 
         super.onDestroy();
     }

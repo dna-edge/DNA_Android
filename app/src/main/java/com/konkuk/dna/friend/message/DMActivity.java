@@ -1,23 +1,34 @@
 package com.konkuk.dna.friend.message;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.konkuk.dna.utils.HttpReqRes;
+import com.konkuk.dna.utils.ServerURL;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.R;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
+
+import static com.konkuk.dna.utils.JsonToObj.ChatAllJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.DMMsgJsonToObj;
 
 public class DMActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
@@ -25,6 +36,7 @@ public class DMActivity extends BaseActivity {
     private ListView dmListView;
     private EditText dmEditText;
     private TextView updatedAtText;
+    private TextView sentWhoText;
     private Button dmLocationBtn, dmImageBtn;
     private ArrayList<DMMessage> dmMessages;
     private DMListAdapter dmListAdapter;
@@ -56,30 +68,35 @@ public class DMActivity extends BaseActivity {
         dmLocationBtn = (Button) findViewById(R.id.dmLocationBtn);
         dmImageBtn = (Button) findViewById(R.id.dmImageBtn);
         updatedAtText = (TextView) findViewById(R.id.updatedAtText);
+        sentWhoText = (TextView) findViewById(R.id.friendNicknameText);
 
         dmMessages = new ArrayList<DMMessage>();
         roomIdx = getIntent().getIntExtra("roomIdx", -1);
 
         if (roomIdx != -1) {
             updatedAtText.setText(getIntent().getStringExtra("roomUpdated"));
+            sentWhoText.setText((getIntent().getStringExtra("roomWho")));
+            //DM채팅 불러오기
+            DMSetAsyncTask dsat = new DMSetAsyncTask(this, dmListView);
+            dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
 
             // TODO dmMessages 배열에 실제 메시지 추가해야 합니다. roomIdx로 가져오면 됩니다.
-            dmMessages.add(new DMMessage(1, "http://file3.instiz.net/data/cached_img/upload/2018/06/22/14/2439cadf98e7bebdabd174ed41ca0849.jpg", "오후 12:34", TYPE_IMAGE));
-            dmMessages.add(new DMMessage(0, "내용내용", "오후 12:34", TYPE_MESSAGE));
-            dmMessages.add(new DMMessage(0, "내용내용내용내용내용", "오후 12:34", TYPE_MESSAGE));
-            dmMessages.add(new DMMessage(0, "https://pbs.twimg.com/media/DbYfg2IWkAENdiS.jpg", "오후 12:34", TYPE_IMAGE));
-            dmMessages.add(new DMMessage(1, "내용내용내용", "오후 12:34", TYPE_MESSAGE));
-            dmMessages.add(new DMMessage(0, "내용내용내용", "오후 12:34", TYPE_MESSAGE));
-            dmMessages.add(new DMMessage(1, "{\"lat\":37.550544099999996,\"lng\":127.07221989999998}", "오후 12:34", TYPE_LOCATION));
-            dmMessages.add(new DMMessage(1, "http://www.ohfun.net/contents/article/images/2016/0830/1472551795750578.jpeg", "오후 12:34", TYPE_IMAGE));
-            dmMessages.add(new DMMessage(0, "내용내용333", "오후 12:34", TYPE_SHARE));
+//            dmMessages.add(new DMMessage(1, "http://file3.instiz.net/data/cached_img/upload/2018/06/22/14/2439cadf98e7bebdabd174ed41ca0849.jpg", "오후 12:34", TYPE_IMAGE));
+//            dmMessages.add(new DMMessage(0, "내용내용", "오후 12:34", TYPE_MESSAGE));
+//            dmMessages.add(new DMMessage(0, "내용내용내용내용내용", "오후 12:34", TYPE_MESSAGE));
+//            dmMessages.add(new DMMessage(0, "https://pbs.twimg.com/media/DbYfg2IWkAENdiS.jpg", "오후 12:34", TYPE_IMAGE));
+//            dmMessages.add(new DMMessage(1, "내용내용내용", "오후 12:34", TYPE_MESSAGE));
+//            dmMessages.add(new DMMessage(0, "내용내용내용", "오후 12:34", TYPE_MESSAGE));
+//            dmMessages.add(new DMMessage(1, "{\"lat\":37.550544099999996,\"lng\":127.07221989999998}", "오후 12:34", TYPE_LOCATION));
+//            dmMessages.add(new DMMessage(1, "http://www.ohfun.net/contents/article/images/2016/0830/1472551795750578.jpeg", "오후 12:34", TYPE_IMAGE));
+//            dmMessages.add(new DMMessage(0, "내용내용333", "오후 12:34", TYPE_SHARE));
         }
 
         dmListAdapter = new DMListAdapter(this, R.layout.chat_item_left, dmMessages);
-        dmListView.setAdapter(dmListAdapter);
-
-        // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
-        scrollMyListViewToBottom();
+//        dmListView.setAdapter(dmListAdapter);
+//
+//        // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
+//        scrollMyListViewToBottom();
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
     }
@@ -161,5 +178,90 @@ public class DMActivity extends BaseActivity {
                 });
         AlertDialog alert = alt_bld.create();
         alert.show();
+    }
+}
+
+
+
+/*
+ * 비동기 Http 연결 작업 클래스
+ * */
+class DMSetAsyncTask extends AsyncTask<String, Integer, ArrayList<DMMessage>> {
+    private Context context;
+    private String m_token;
+    private Dbhelper dbhelper;
+
+    private DMListAdapter dmListAdapter;
+    private ListView dmListView;
+
+    private ArrayList<DMMessage> dmMessages;
+    private int now_pos=-1;
+
+    private void scrollMyListViewToBottom() {
+        dmListView.post(new Runnable() {
+            @Override
+            public void run() {
+                dmListView.clearFocus();
+                dmListAdapter.notifyDataSetChanged();
+                dmListView.requestFocusFromTouch();
+
+                if(now_pos>0){
+                    dmListView.setSelection(now_pos);
+                }else{
+                    dmListView.setSelection(dmListView.getCount() - 1);
+                }
+
+            }
+        });
+    }
+
+    public DMSetAsyncTask(Context context, ListView dmListView){
+        this.context=context;
+        this.dmListView = dmListView;
+        //this.dmMessages = dmMessages;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        now_pos = dmListView.getFirstVisiblePosition();
+        super.onPreExecute();
+    }
+
+    @Override
+    protected ArrayList<DMMessage> doInBackground(String... args) {
+
+        HttpReqRes httpreq = new HttpReqRes();
+        dbhelper = new Dbhelper(context);
+        m_token = dbhelper.getAccessToken();
+
+        String repMsgAll = httpreq.requestHttpGETDmMsgs
+                (ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/room/"+args[0]+"/messages/", m_token);
+
+        ArrayList<DMMessage> dmMessages = new ArrayList<DMMessage>();
+
+        if(dmMessages!=null) {
+            dmMessages.clear();
+        }
+
+        //내 idx, 상대방 닉네임, 메세지 전문
+        dmMessages = DMMsgJsonToObj(dbhelper.getMyIdx(), args[1], repMsgAll);
+
+        return dmMessages;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<DMMessage> dmMessages) {
+        super.onPostExecute(dmMessages);
+
+        //거꾸로 받아온 리스트를 역순으로 바꿈
+        //Collections.reverse(dmMessages);
+
+        dmListAdapter = new DMListAdapter(context, R.layout.chat_item_left, dmMessages);
+        dmListView.setAdapter(dmListAdapter);
+
+        // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
+        scrollMyListViewToBottom();
+
+
     }
 }
