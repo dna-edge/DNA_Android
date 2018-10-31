@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.konkuk.dna.chat.ChatMessage;
 import com.konkuk.dna.chat.ChatUser;
+import com.konkuk.dna.friend.manage.Friend;
 import com.konkuk.dna.friend.message.DMMessage;
 import com.konkuk.dna.friend.message.DMRoom;
 
@@ -22,8 +23,6 @@ public class JsonToObj {
     * 클래스 설명
     * : Json Java Object로 변환하는 클래스
     * */
-
-
 
     /*
     * 로그인 할때 날아온 Json변환 메소드
@@ -66,6 +65,39 @@ public class JsonToObj {
         }
 
         return hm;
+    }
+
+    /*
+     * 유저정보 검색 Jsn변환 메소드
+     * */
+    public static Friend SearchUserJsonToObj(String jsonResult){
+
+        String id, nickname, avatar, description;
+        boolean status=true;
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+        if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")){
+            // 리스폰스가 정상이고 서버 응답이 200이라면?
+            JsonObject resultObject = (JsonObject) jsonObject.get("result");
+            id = getStringNoQuote(String.valueOf(resultObject.get("id")));
+            nickname = getStringNoQuote(String.valueOf(resultObject.get("nickname")));
+            avatar = getStringNoQuote(String.valueOf(resultObject.get("avatar")));
+            description = getStringNoQuote(String.valueOf(resultObject.get("description")));
+            nickname = getStringNoQuote(String.valueOf(resultObject.get("nickname")));
+
+        }else{
+            //리스폰스에 하자가 있다면
+            Log.e(jsonObject.get("code").toString(), jsonObject.get("message").toString());
+//            hm.put("issuccess", "false");
+//            hm.put("code", jsonObject.get("code").toString());
+//            hm.put("message", jsonObject.get("message").toString());
+            return null;
+        }
+
+//        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
+        return new Friend(id, nickname, avatar, description, status);
     }
 
     /*

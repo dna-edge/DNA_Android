@@ -34,6 +34,7 @@ import com.konkuk.dna.map.MapFragment;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostFormActivity;
+import com.nhn.android.maps.NMapView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -97,6 +98,7 @@ public class MainActivity extends BaseActivity {
 
         socketinit();
         init();
+        //socketinit();
 
 
     }
@@ -122,9 +124,10 @@ public class MainActivity extends BaseActivity {
         SocketConnection.getSocket().on("ping", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.e("Socket ON", "ping");
+                Log.e("Socket ON", "ping, radius:"+dbhelper.getMyRadius());
                 JsonObject updateJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
                 SocketConnection.emit("update", "geo", updateJson);
+                SocketConnection.emit("update", "direct", updateJson);
             }
         });
 
@@ -161,22 +164,25 @@ public class MainActivity extends BaseActivity {
         });
 
         //TODO: InitHelpers Listener
-        SocketConnection.getSocket().on("geo", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                EventBus.getDefault().post(new EventListener(SOCKET_GEO, args[0].toString()));
-            }
-        });
-
+//        SocketConnection.getSocket().on("geo", new Emitter.Listener() {
+//            @Override
+//            public void call(Object... args) {
+//                EventBus.getDefault().post(new EventListener(SOCKET_GEO, args[0].toString()));
+//            }
+//        });
+//
         SocketConnection.getSocket().on("direct", new Emitter.Listener() {
+
             @Override
             public void call(Object... args) {
+                //Log.e("Socket direct", args[0].toString());
                 EventBus.getDefault().post(new EventListener(SOCKET_DIRECT, args[0].toString()));
             }
         });
     }
 
     public void init() {
+        //dbhelper = new Dbhelper(this);
 
         menuDrawer = findViewById(R.id.drawer_layout);
         InitHelpers.initDrawer(this, menuDrawer, 0);
@@ -333,6 +339,8 @@ public class MainActivity extends BaseActivity {
             SocketConnection.getSocket().off("new_dm");
             SocketConnection.getSocket().off("speaker");
             SocketConnection.getSocket().off("apply_like");
+            SocketConnection.getSocket().off("geo");
+            SocketConnection.getSocket().off("direct");
         }
         SocketConnection.disconnect();
 

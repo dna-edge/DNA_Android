@@ -199,6 +199,29 @@ public class HttpReqRes {
     }
 
     /*
+     * get DM Messages- GET
+     * */
+    public static String requestHttpGETUserInfo(String url, String accessToken){
+
+        String result=null;
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpGet get = new HttpGet(postURL);
+            get.setHeader("token", accessToken);
+
+            HttpResponse responseGET = client.execute(get);
+            HttpEntity resEntity = responseGET.getEntity();
+            if (resEntity != null) {
+                result = EntityUtils.toString(resEntity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /*
      * 사진 람다업로드 후 주소받아오기 - post
      * */
     public static String requestHttpPostLambda(String url, String imgURL){

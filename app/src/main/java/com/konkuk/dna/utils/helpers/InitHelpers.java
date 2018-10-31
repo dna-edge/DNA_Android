@@ -78,10 +78,12 @@ public class InitHelpers {
         DrawyerAsyncTask dat;
         switch (event.message) {
             case SOCKET_GEO:
+                Log.e("Socket ON", "geo");
                 dat = new DrawyerAsyncTask(cont, ccuListView);
                 dat.execute(event.args, String.valueOf(dbhelper.getMyIdx()));
                 break;
             case SOCKET_DIRECT:
+                Log.e("Socket ON", "direct");
                 break;
             default:
                 break;
@@ -165,7 +167,7 @@ public class InitHelpers {
         /*
         * 현재 채팅 환경
         * */
-        drawerPosition.setText("지도api로 위치정보 받아오기");
+        drawerPosition.setText("서울특별시 광진구 능동로 120 건국대학교");
         drawerRadius.setText(dbhelper.getMyRadius()+"m");
 
 
@@ -177,21 +179,31 @@ public class InitHelpers {
             ccuListView = (ListView) v.findViewById(R.id.ccuList);
             final ArrayList<ChatUser> chatUsers = new ArrayList<ChatUser>();
 
-//            SocketConnection.getSocket().on("geo", new Emitter.Listener() {
-//                @Override
-//                public void call(Object... args) {
-//                    //Log.e("Socket Ping-geo", args[0].toString());
-//                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
-//                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
-//
-//                }
-//            });
+            SocketConnection.getSocket().on("geo", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    //Log.e("Socket Ping-geo", args[0].toString());
+                    Log.e("Socket Ping-geo", "geo");
+                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
+                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+
+                }
+            });
 
             chatUserAdapter = new ChatUserAdapter(context, R.layout.chat_item_ccu, cu);
             ccuListView.setAdapter(chatUserAdapter);
         } else if (type == 1){
             drawerForUserList.setVisibility(GONE);
 
+            SocketConnection.getSocket().on("direct", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    Log.e("Socket Ping-direct", args[0].toString());
+//                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
+//                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+
+                }
+            });
             // TODO 해당 친구의 프로필을 입력해줘야 합니다.
             ImageView friendAvatar = (ImageView) v.findViewById(R.id.friendAvatar);
             TextView friendNickname = (TextView) v.findViewById(R.id.friendNickname);
