@@ -374,12 +374,14 @@ public class JsonToObj {
                 __v = Integer.parseInt(oneObject.get("__v").toString());
 
                 last_message = "";
-                if(oneObject.get("last_message")!=null){
+                if (oneObject.get("last_message")!=null) {
                     last_message = getStringNoQuote(oneObject.get("last_message").toString());
                 }
-//                last_message = getStringNoQuote(oneObject.get("last_message").toString()); // NullPointerException 발생
-                //last_message = "";
-                last_type = getStringNoQuote(oneObject.get("last_type").toString());
+
+                last_type = "";
+                if (oneObject.get("last_type")!=null) {
+                    last_type = getStringNoQuote(oneObject.get("last_type").toString());
+                }
 
                 // TODO 멤버변수에 대한 설명이 필요함
                 Dmrooms.add(new DMRoom(room_idx, f_idx, f_nickname, f_avatar, last_message, last_type, DatetoStr(updated_at)));
