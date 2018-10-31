@@ -133,7 +133,7 @@ class DMRoomAsyncTask extends AsyncTask<Double, Integer, ArrayList<DMRoom>> {
         dbhelper = new Dbhelper(context);
         m_token = dbhelper.getAccessToken();
 
-        String repDMRooms = httpreq.requestHttpGETDMRooms(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/rooms/", m_token);
+        String repDMRooms = httpreq.requestHttpGETDMRooms(ServerURL.LOCAL_HOST+ServerURL.PORT_SOCKET_API+"/rooms/", m_token);
 
         Log.e("!!!!!!!", repDMRooms);
 

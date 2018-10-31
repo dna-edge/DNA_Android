@@ -5,12 +5,9 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -49,7 +46,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,7 +54,6 @@ import java.util.Locale;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
-import static com.konkuk.dna.utils.HttpReqRes.requestHttpPostLambda;
 import static com.konkuk.dna.utils.JsonToObj.ChatAllJsonToObj;
 import static com.konkuk.dna.utils.ObjToJson.SendMsgObjToJson;
 import static com.konkuk.dna.utils.ObjToJson.StoreObjToJson;
@@ -154,7 +149,7 @@ public class ChatActivity extends BaseActivity {
         bestChatAvatar = (ImageView) findViewById(R.id.bestChatAvatar);
 
         //베스트 챗, 채팅 불러오기
-        ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages, 0);
+        ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
         csat.execute(longitude, latitude);
 
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
@@ -401,12 +396,12 @@ public class ChatActivity extends BaseActivity {
         switch (event.message){
             case SOCKET_NEW_MSG:
                 Log.e("Socket GET MESSAGE", "MSG COME!!!");
-                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages, 0);
+                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
                 csat.execute(longitude, latitude);
                 break;
             case SOCKET_APPLY_LIKE:
                 Log.e("Socket GET Like", "Apply Like COME!!!" + event.args);
-                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages,1);
+                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
                 csat.execute(longitude, latitude);
                 break;
             case SOCKET_SPEAKER:
@@ -529,9 +524,9 @@ public class ChatActivity extends BaseActivity {
                 if (messageType.equals(TYPE_MESSAGE) || messageType.equals(TYPE_LOUDSPEAKER)) {
 
                     startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
-                    //activityResult로 가시오.
+
 //                    msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
-//                    msgEditText.setText("사진 첨부됨");
+//                    msgEditText.setText("Doraemon.png");
 //                    msgEditText.setEnabled(false);
 //                    messageType = TYPE_IMAGE;
                 } else {
@@ -631,53 +626,17 @@ public class ChatActivity extends BaseActivity {
 
         if(requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK){
             selectedImage = data.getData();
-
-            getLambdaImageAsyncTask glat = new getLambdaImageAsyncTask(context);
-            glat.execute(data.getData().toString());
-
-//            msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
-//            msgEditText.setText(selectedImage.toString());
-//            msgEditText.setEnabled(false);
-//            messageType = TYPE_IMAGE;
+            msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
+            msgEditText.setText(selectedImage.toString());
+            msgEditText.setEnabled(false);
+            messageType = TYPE_IMAGE;
             //Bitmap bitmap = null;
         }
     }
 }
 
 
-class getLambdaImageAsyncTask extends AsyncTask<String, Integer, String>{
-    private Context context;
-    private ProgressDialog dialogImage;
 
-    public getLambdaImageAsyncTask(Context context) {
-        this.context = context;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        dialogImage = new ProgressDialog(context);
-        dialogImage.setCancelable(false);
-        dialogImage.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialogImage.setMessage("사진 첨부 중 입니다..");
-        // show dialog
-        dialogImage.show();
-    }
-
-    @Override
-    protected String doInBackground(String... strings) {
-
-        String result = requestHttpPostLambda(ServerURL.AWS_LAMBDA_API_URL, strings[0]);
-
-        return result;
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        dialogImage.dismiss();
-    }
-}
 
 /*
 * 비동기 Http 연결 작업 클래스
@@ -696,13 +655,27 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
     private ArrayList<ChatMessage> chatMessages;
     private int now_pos=-1;
 
-    private int mode;
-    private static final int MODE_RENEW = 0;
-    private static final int MODE_LIKE = 1;
+    private void scrollMyListViewToBottom() {
+        msgListView.post(new Runnable() {
+            @Override
+            public void run() {
+                msgListView.clearFocus();
+                chatListAdapter.notifyDataSetChanged();
+                msgListView.requestFocusFromTouch();
+
+                if(now_pos>0){
+                    msgListView.setSelection(now_pos);
+                }else{
+                    msgListView.setSelection(msgListView.getCount() - 1);
+                }
+
+            }
+        });
+    }
 
     public ChatSetAsyncTask(Context context, Integer radius,
                             ListView msgListView, ImageView bcAvatar, TextView bcContent, TextView bcNickname, TextView bcDate,
-                            ArrayList<ChatMessage> chatMessages, int mode){
+                            ArrayList<ChatMessage> chatMessages){
         this.context=context;
         this.radius=radius;
         this.msgListView = msgListView;
@@ -711,13 +684,12 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         this.bestChatDate = bcDate;
         this.bestChatNickname = bcNickname;
         this.chatMessages = chatMessages;
-        this.mode = mode;
     }
 
     @Override
     protected void onPreExecute() {
-        //now_pos = msgListView.getLastVisiblePosition();
-        now_pos = msgListView.getFirstVisiblePosition();
+        now_pos = msgListView.getLastVisiblePosition();
+        //now_pos = msgListView.getFirstVisiblePosition();
         super.onPreExecute();
     }
 
@@ -779,41 +751,8 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         msgListView.setAdapter(chatListAdapter);
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
-        switch (mode){
-            case MODE_RENEW:
-                scrollMyListViewToBottom();
-                break;
-            case MODE_LIKE:
-                scrollMyListViewToMemory();
-                break;
-        }
-
-    }
+        scrollMyListViewToBottom();
 
 
-    private void scrollMyListViewToBottom() {
-        msgListView.post(new Runnable() {
-            @Override
-            public void run() {
-                msgListView.clearFocus();
-                chatListAdapter.notifyDataSetChanged();
-                msgListView.requestFocusFromTouch();
-
-                msgListView.setSelection(msgListView.getCount() - 1);
-            }
-        });
-    }
-
-    private void scrollMyListViewToMemory() {
-        msgListView.post(new Runnable() {
-            @Override
-            public void run() {
-                msgListView.clearFocus();
-                chatListAdapter.notifyDataSetChanged();
-                msgListView.requestFocusFromTouch();
-
-                msgListView.setSelection(now_pos);
-            }
-        });
     }
 }

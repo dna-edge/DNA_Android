@@ -100,7 +100,7 @@ public class DMActivity extends BaseActivity {
             sentWhoText.setText((getIntent().getStringExtra("roomWho")));
 
             //DM채팅 불러오기
-            DMSetAsyncTask dsat = new DMSetAsyncTask(this, dmListView, 0);
+            DMSetAsyncTask dsat = new DMSetAsyncTask(this, dmListView);
             dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
 
             // TODO dmMessages 배열에 실제 메시지 추가해야 합니다. roomIdx로 가져오면 됩니다.
@@ -130,7 +130,7 @@ public class DMActivity extends BaseActivity {
         switch (event.message){
             case SOCKET_NEW_DM:
                 Log.e("Socket ON", "new_dm");
-                dsat = new DMSetAsyncTask(context, dmListView, 1);
+                dsat = new DMSetAsyncTask(context, dmListView);
                 dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
                 scrollMyListViewToBottom();
                 break;
@@ -197,7 +197,7 @@ public class DMActivity extends BaseActivity {
 
                 SocketConnection.emit("save_dm", dbhelper.getAccessToken(), sendMsgJson);
 
-                DMSetAsyncTask dsat = new DMSetAsyncTask(context, dmListView, 0);
+                DMSetAsyncTask dsat = new DMSetAsyncTask(context, dmListView);
                 dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
                 scrollMyListViewToBottom();
 
@@ -272,17 +272,30 @@ class DMSetAsyncTask extends AsyncTask<String, Integer, ArrayList<DMMessage>> {
     private DMListAdapter dmListAdapter;
     private ListView dmListView;
 
-    private int mode;
-
     private ArrayList<DMMessage> dmMessages;
     private int now_pos=-1;
-    private static final int MODE_RENEW = 0;
-    private static final int MODE_LIKE = 1;
 
-    public DMSetAsyncTask(Context context, ListView dmListView, int mode){
+    private void scrollMyListViewToBottom() {
+        dmListView.post(new Runnable() {
+            @Override
+            public void run() {
+                dmListView.clearFocus();
+                dmListAdapter.notifyDataSetChanged();
+                dmListView.requestFocusFromTouch();
+
+                if(now_pos>0){
+                    dmListView.setSelection(now_pos);
+                }else{
+                    dmListView.setSelection(dmListView.getCount() - 1);
+                }
+
+            }
+        });
+    }
+
+    public DMSetAsyncTask(Context context, ListView dmListView){
         this.context=context;
         this.dmListView = dmListView;
-        this.mode = mode;
         //this.dmMessages = dmMessages;
     }
 
@@ -321,40 +334,8 @@ class DMSetAsyncTask extends AsyncTask<String, Integer, ArrayList<DMMessage>> {
         dmListView.setAdapter(dmListAdapter);
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
-        switch (mode){
-            case MODE_RENEW:
-                scrollMyListViewToBottom();
-                break;
-            case MODE_LIKE:
-                scrollMyListViewToMemory();
-                break;
-        }
+        scrollMyListViewToBottom();
 
-    }
 
-    private void scrollMyListViewToBottom() {
-        dmListView.post(new Runnable() {
-            @Override
-            public void run() {
-                dmListView.clearFocus();
-                dmListAdapter.notifyDataSetChanged();
-                dmListView.requestFocusFromTouch();
-
-                dmListView.setSelection(dmListView.getCount() - 1);
-
-            }
-        });
-    }
-
-    private void scrollMyListViewToMemory() {
-        dmListView.post(new Runnable() {
-            @Override
-            public void run() {
-                dmListView.clearFocus();
-                dmListAdapter.notifyDataSetChanged();
-                dmListView.requestFocusFromTouch();
-                dmListView.setSelection(now_pos);
-            }
-        });
     }
 }

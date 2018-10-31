@@ -15,7 +15,6 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,44 +196,5 @@ public class HttpReqRes {
         }
         return result;
     }
-
-    /*
-     * 사진 람다업로드 후 주소받아오기 - post
-     * */
-    public static String requestHttpPostLambda(String url, String imgURL){
-
-        /*
-         await axios.post(`${AWS_LAMBDA_API_URL}?type=${type}`, formData,
-    { headers: { 'Content-Type': 'multipart/form-data' }})
-    .then((response) => {result = response});
-         */
-
-        //File file = new File(imgURL);
-
-        //TODO: js에서 file으로 넘기는게 무슨 객체인지, 어떤 형식인지 알아야 풀 수 있을 것 같다.
-        String result=null;
-        try {
-            HttpClient client = new DefaultHttpClient();
-            String postURL = url+"?type=image";
-            HttpPost post = new HttpPost(postURL);
-            post.setHeader(HTTP.CONTENT_TYPE, "multipart/form-data");
-
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("image", imgURL));
-
-            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
-            post.setEntity(ent);
-            HttpResponse responsePOST = client.execute(post);
-            HttpEntity resEntity = responsePOST.getEntity();
-            if (resEntity != null) {
-                result = EntityUtils.toString(resEntity);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Log.e("Upload, Get Image", result);
-        return result;
-    }
-
 
 }

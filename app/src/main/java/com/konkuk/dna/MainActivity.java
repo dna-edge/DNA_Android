@@ -3,9 +3,6 @@ package com.konkuk.dna;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -63,8 +60,6 @@ public class MainActivity extends BaseActivity {
 
     private Dbhelper dbhelper;
 
-    private ProgressDialog dialogWaitSocket;
-
     private static final int SOCKET_CONNECT = 0;
     private static final int SOCKET_PING = 1;
     private static final int SOCKET_NEW_DM = 2;
@@ -86,24 +81,12 @@ public class MainActivity extends BaseActivity {
         FirebaseMessaging.getInstance().subscribeToTopic("chat");
         Log.d("MainActivity", "token : " + FirebaseInstanceId.getInstance().getToken());
 
-        if(SocketConnection.getSocket()==null){
-            dialogWaitSocket = new ProgressDialog(this);
-            dialogWaitSocket.setCancelable(false);
-            dialogWaitSocket.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialogWaitSocket.setMessage("서버 연동 중 입니다..");
-            // show dialog
-            dialogWaitSocket.show();
-        }
-
         socketinit();
         init();
-
-
     }
 
     public void socketinit(){
         dbhelper = new Dbhelper(this);
-
         //소켓을 사용하는 가장 첫번째 액티비티에서 소켓 커넥션을 실행한다.
         SocketConnection.initInstance();
 
@@ -115,7 +98,6 @@ public class MainActivity extends BaseActivity {
                 Log.e("Socket Connected",SocketConnection.getSocket().connected()+"");
                 JsonObject storeJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
                 SocketConnection.emit("store", storeJson);
-                dialogWaitSocket.dismiss();
             }
         });
         // 핑이 오면 update 할 것
@@ -132,7 +114,7 @@ public class MainActivity extends BaseActivity {
         SocketConnection.getSocket().on("new_dm", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.e("Socket ON", "new_dm");
+
                 EventBus.getDefault().post(new EventListener(SOCKET_NEW_DM, null));
             }
         });
@@ -283,7 +265,6 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -320,20 +301,18 @@ public class MainActivity extends BaseActivity {
     public void finish() {
         super.finish();
         Log.e("Acivity", "finish");
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        if(SocketConnection.getSocket()!=null) {
-            SocketConnection.getSocket().off("ping");
-            SocketConnection.getSocket().off("new_msg");
-            SocketConnection.getSocket().off("new_dm");
-            SocketConnection.getSocket().off("speaker");
-            SocketConnection.getSocket().off("apply_like");
-        }
+        SocketConnection.getSocket().off("ping");
+        SocketConnection.getSocket().off("new_msg");
+        SocketConnection.getSocket().off("new_dm");
+        SocketConnection.getSocket().off("speaker");
+        SocketConnection.getSocket().off("apply_like");
+
         SocketConnection.disconnect();
 
         Log.e("App", "destroy");
