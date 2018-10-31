@@ -2,8 +2,10 @@ package com.konkuk.dna.utils.helpers;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 
 import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
+import com.konkuk.dna.auth.LoginActivity;
 import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.chat.ChatUserAdapter;
 import com.konkuk.dna.chat.ChatUserDetailFragment;
@@ -37,6 +40,7 @@ import java.util.ArrayList;
 
 import io.socket.emitter.Emitter;
 
+import static android.support.v4.app.ActivityCompat.finishAffinity;
 import static android.view.View.GONE;
 import static com.konkuk.dna.utils.JsonToObj.ConnectUserJsonToObj;
 
@@ -93,6 +97,7 @@ public class InitHelpers {
 
         LinearLayout myPageBtn = (LinearLayout) v.findViewById(R.id.myPageBtn);
         LinearLayout homeBtn = (LinearLayout) v.findViewById(R.id.homeBtn);
+        LinearLayout logoutBtn = (LinearLayout) v.findViewById(R.id.logoutBtn);
         RelativeLayout setChatBtn = (RelativeLayout) v.findViewById(R.id.setChatBtn);
         RelativeLayout setFriendBtn = (RelativeLayout) v.findViewById(R.id.setFriendBtn);
 
@@ -104,6 +109,31 @@ public class InitHelpers {
             public void onClick(View view) {
                 Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
+            }
+        });
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder alt_bld = new AlertDialog.Builder(context);
+                alt_bld.setMessage("정말 로그아웃 하실건가요?").setCancelable(
+                        false).setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent intent = new Intent(context, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent);
+                                dialog.cancel();
+                            }
+                        }).setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = alt_bld.create();
+                alert.show();
             }
         });
 
