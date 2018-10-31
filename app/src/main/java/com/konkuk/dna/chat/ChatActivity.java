@@ -94,6 +94,13 @@ public class ChatActivity extends BaseActivity {
     private final int GET_FROM_GALLERY = 3;
     private Uri selectedImage;
 
+    public Emitter.Listener listenerNewMsg = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -382,6 +389,14 @@ public class ChatActivity extends BaseActivity {
 
     public void socketInit(){
         // TODO: 새로운 메시지가 오면 화면을 새로고침 할 것
+
+        Emitter.Listener listenerNewMsg = new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+
+            }
+        };
+
         SocketConnection.getSocket().on("new_msg", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
@@ -413,8 +428,7 @@ public class ChatActivity extends BaseActivity {
 //                csat.execute(longitude, latitude);
             }
         });
-
-
+        SocketConnection.getSocket().connect();
         //mSocket.connect();
     }
 

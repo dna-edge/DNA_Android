@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +15,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
 import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.utils.ServerURL;
+import com.konkuk.dna.utils.SocketConnection;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.helpers.InitHelpers;
@@ -27,11 +30,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
+import io.socket.emitter.Emitter;
+
+import static com.konkuk.dna.utils.ConvertType.DatetoStr;
 import static com.konkuk.dna.utils.JsonToObj.ChatAllJsonToObj;
 import static com.konkuk.dna.utils.JsonToObj.DMMsgJsonToObj;
+import static com.konkuk.dna.utils.ObjToJson.SendDMObjToJson;
+import static com.konkuk.dna.utils.ObjToJson.SendMsgObjToJson;
 
 public class DMActivity extends BaseActivity {
     private DrawerLayout menuDrawer;
+
+    private Context context = this;
+    private Dbhelper dbhelper;
 
     private ListView dmListView;
     private EditText dmEditText;
@@ -57,6 +68,7 @@ public class DMActivity extends BaseActivity {
         setContentView(R.layout.activity_friend_dm);
 
         init();
+        socketInit();
     }
 
     public void init() {
@@ -69,6 +81,8 @@ public class DMActivity extends BaseActivity {
         dmImageBtn = (Button) findViewById(R.id.dmImageBtn);
         updatedAtText = (TextView) findViewById(R.id.updatedAtText);
         sentWhoText = (TextView) findViewById(R.id.friendNicknameText);
+
+        dbhelper = new Dbhelper(this);
 
         dmMessages = new ArrayList<DMMessage>();
         roomIdx = getIntent().getIntExtra("roomIdx", -1);
@@ -99,6 +113,20 @@ public class DMActivity extends BaseActivity {
 //        scrollMyListViewToBottom();
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
+    }
+
+    public void socketInit() {
+        // TODO: 새로운 메시지가 오면 화면을 새로고침 할 것
+        SocketConnection.getSocket().on("new_dm", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.e("Socket GET D_MESSAGE", "D_MSG COME!!!");
+
+                DMSetAsyncTask dsat = new DMSetAsyncTask(context, dmListView);
+                dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
+                scrollMyListViewToBottom();
+            }
+        });
     }
 
     public void onClick(View v) {
@@ -140,6 +168,18 @@ public class DMActivity extends BaseActivity {
                 break;
 
             case R.id.dmSendBtn: // 메시지 전송 버튼 클릭
+                JsonObject sendMsgJson
+                        = SendDMObjToJson(dbhelper, roomIdx ,messageType, dmEditText.getText().toString());
+
+                SocketConnection.emit("save_dm", dbhelper.getAccessToken(), sendMsgJson);
+
+                DMSetAsyncTask dsat = new DMSetAsyncTask(context, dmListView);
+                dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
+                scrollMyListViewToBottom();
+
+                dmEditText.setText("");
+                dmEditText.setEnabled(true);
+                messageType = TYPE_MESSAGE;
                 break;
         }
     }
@@ -238,10 +278,6 @@ class DMSetAsyncTask extends AsyncTask<String, Integer, ArrayList<DMMessage>> {
                 (ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/room/"+args[0]+"/messages/", m_token);
 
         ArrayList<DMMessage> dmMessages = new ArrayList<DMMessage>();
-
-        if(dmMessages!=null) {
-            dmMessages.clear();
-        }
 
         //내 idx, 상대방 닉네임, 메세지 전문
         dmMessages = DMMsgJsonToObj(dbhelper.getMyIdx(), args[1], repMsgAll);
