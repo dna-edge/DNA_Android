@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,12 +20,21 @@ import com.konkuk.dna.chat.ChatUserAdapter;
 import com.konkuk.dna.friend.FriendActivity;
 import com.konkuk.dna.user.MyPageActivity;
 import com.konkuk.dna.user.UserSettingActivity;
+import com.konkuk.dna.utils.SocketConnection;
 
 import java.util.ArrayList;
 
+import io.socket.emitter.Emitter;
+
 import static android.view.View.GONE;
+import static com.konkuk.dna.utils.JsonToObj.ConnectUserJsonToObj;
 
 public class InitHelpers {
+
+    private static ArrayList<ChatUser> cu = new ArrayList<>();
+    private static ChatUserAdapter chatUserAdapter;
+    private static ListView ccuListView;
+
     public static void setProfile(View v) {
         // TODO 현재 유저의 정보를 초기화해줍니다.
 
@@ -86,12 +96,26 @@ public class InitHelpers {
             drawerForFriend.setVisibility(GONE);
 
             // TODO chatUsers 배열에 실제 접속중인 유저 리스트 추가해야 합니다.
-            ListView ccuListView = (ListView) v.findViewById(R.id.ccuList);
-            ArrayList<ChatUser> chatUsers = new ArrayList<ChatUser>();
-            chatUsers.add(new ChatUser("3457soso", null, true));
-            chatUsers.add(new ChatUser("test", null, true));
-            chatUsers.add(new ChatUser("test2", null, false));
-            ChatUserAdapter chatUserAdapter = new ChatUserAdapter(context, R.layout.chat_item_ccu, chatUsers);
+
+            ccuListView = (ListView) v.findViewById(R.id.ccuList);
+            final ArrayList<ChatUser> chatUsers = new ArrayList<ChatUser>();
+
+            SocketConnection.getSocket().on("geo", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    //Log.e("Socket Ping-geo", args[0].toString());
+                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
+                    dat.execute(args[0].toString());
+
+                }
+            });
+
+
+//            chatUsers.add(new ChatUser("3457soso", null, true));
+//            chatUsers.add(new ChatUser("test", null, true));
+//            chatUsers.add(new ChatUser("test2", null, false));
+
+            chatUserAdapter = new ChatUserAdapter(context, R.layout.chat_item_ccu, cu);
             ccuListView.setAdapter(chatUserAdapter);
         } else if (type == 1){
             drawerForUserList.setVisibility(GONE);
@@ -128,4 +152,42 @@ public class InitHelpers {
 
         ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
     }
+}
+
+/*
+ * 비동기 Http 연결 작업 클래스
+ * */
+class DrawyerAsyncTask extends AsyncTask<String, Integer, ArrayList<ChatUser>> {
+    private Context context;
+    private ListView ccuListView;
+    private ChatUserAdapter chatUserAdapter;
+
+    public DrawyerAsyncTask(Context context, ListView ccuListView) {
+        this.context = context;
+        this.ccuListView = ccuListView;
+        //super();
+    }
+
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+
+    @Override
+    protected ArrayList<ChatUser> doInBackground(String... strings) {
+        ArrayList<ChatUser> cu = ConnectUserJsonToObj(strings[0]);
+        return cu;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<ChatUser> arCU) {
+        super.onPostExecute(arCU);
+
+        chatUserAdapter = new ChatUserAdapter(context, R.layout.chat_item_ccu, arCU);
+        ccuListView.setAdapter(chatUserAdapter);
+        chatUserAdapter.notifyDataSetChanged();
+    }
+
 }
