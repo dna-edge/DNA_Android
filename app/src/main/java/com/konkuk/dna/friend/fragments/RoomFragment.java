@@ -58,8 +58,10 @@ public class RoomFragment extends Fragment {
 
     @Override
     public void onResume() {
+
         DMRoomAsyncTask dmrat = new DMRoomAsyncTask(getActivity(), dmRoomListAdapter, roomList);
         dmrat.execute();
+
         super.onResume();
     }
 

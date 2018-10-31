@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.konkuk.dna.utils.EventListener;
 import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.utils.ServerURL;
 import com.konkuk.dna.utils.SocketConnection;
@@ -24,6 +25,10 @@ import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.R;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,13 +67,16 @@ public class DMActivity extends BaseActivity {
     private final String TYPE_SHARE = "Share";         // 포스팅 공유
     private String messageType = TYPE_MESSAGE;
 
+    private static final int SOCKET_NEW_DM = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_dm);
+        EventBus.getDefault().register(this);
 
         init();
-        socketInit();
+        //socketInit();
     }
 
     public void init() {
@@ -90,6 +98,7 @@ public class DMActivity extends BaseActivity {
         if (roomIdx != -1) {
             updatedAtText.setText(getIntent().getStringExtra("roomUpdated"));
             sentWhoText.setText((getIntent().getStringExtra("roomWho")));
+
             //DM채팅 불러오기
             DMSetAsyncTask dsat = new DMSetAsyncTask(this, dmListView);
             dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
@@ -115,18 +124,33 @@ public class DMActivity extends BaseActivity {
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
     }
 
-    public void socketInit() {
-        // TODO: 새로운 메시지가 오면 화면을 새로고침 할 것
-        SocketConnection.getSocket().on("new_dm", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                Log.e("Socket GET D_MESSAGE", "D_MSG COME!!!");
-
-                DMSetAsyncTask dsat = new DMSetAsyncTask(context, dmListView);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnEventListener(EventListener event) {
+        DMSetAsyncTask dsat;
+        switch (event.message){
+            case SOCKET_NEW_DM:
+                Log.e("Socket ON", "new_dm");
+                dsat = new DMSetAsyncTask(context, dmListView);
                 dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
                 scrollMyListViewToBottom();
-            }
-        });
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void socketInit() {
+        // TODO: 새로운 메시지가 오면 화면을 새로고침 할 것
+//        SocketConnection.getSocket().on("new_dm", new Emitter.Listener() {
+//            @Override
+//            public void call(Object... args) {
+//                Log.e("Socket GET D_MESSAGE", "D_MSG COME!!!");
+//
+//                DMSetAsyncTask dsat = new DMSetAsyncTask(context, dmListView);
+//                dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
+//                scrollMyListViewToBottom();
+//            }
+//        });
     }
 
     public void onClick(View v) {
@@ -218,6 +242,20 @@ public class DMActivity extends BaseActivity {
                 });
         AlertDialog alert = alt_bld.create();
         alert.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }
 

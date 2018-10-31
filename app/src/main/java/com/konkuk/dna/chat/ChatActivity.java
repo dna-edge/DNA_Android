@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.konkuk.dna.utils.EventListener;
 import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.ServerURL;
 import com.konkuk.dna.utils.SocketConnection;
@@ -40,6 +41,10 @@ import com.konkuk.dna.R;
 import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -94,20 +99,19 @@ public class ChatActivity extends BaseActivity {
     private final int GET_FROM_GALLERY = 3;
     private Uri selectedImage;
 
-    public Emitter.Listener listenerNewMsg = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-
-        }
-    };
+    private static final int SOCKET_NEW_MSG = 3;
+    private static final int SOCKET_APPLY_LIKE = 4;
+    private static final int SOCKET_SPEAKER = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        EventBus.getDefault().register(this);
+
         init();
-        socketInit();
+        //socketInit();
     }
 
     public void init() {
@@ -387,52 +391,63 @@ public class ChatActivity extends BaseActivity {
         set = new AnimatorSet();
     }
 
-    public void socketInit(){
-        // TODO: 새로운 메시지가 오면 화면을 새로고침 할 것
-
-        Emitter.Listener listenerNewMsg = new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-
-            }
-        };
-
-        SocketConnection.getSocket().on("new_msg", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnEventListener(EventListener event){
+        ChatSetAsyncTask csat;
+        switch (event.message){
+            case SOCKET_NEW_MSG:
                 Log.e("Socket GET MESSAGE", "MSG COME!!!");
-
-                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
+                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
                 csat.execute(longitude, latitude);
-                //scrollMyListViewToBottom();
-            }
-        });
-        // TODO: 좋아요 신호가 오면 화면을 새로고침 할 것
-        SocketConnection.getSocket().on("apply_like", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                Log.e("Socket GET Like", "Apply Like COME!!!"+args[0].toString());
-
-                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
+                break;
+            case SOCKET_APPLY_LIKE:
+                Log.e("Socket GET Like", "Apply Like COME!!!" + event.args);
+                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
                 csat.execute(longitude, latitude);
-                //scrollMyListViewToBottom();
-            }
-        });
-        // TODO: push가 오면 push 알림을 띄울 것
-        SocketConnection.getSocket().on("speaker", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
+                break;
+            case SOCKET_SPEAKER:
                 Log.e("Socket PUSH", "PUSH COME!!!");
-
-//                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
-//                csat.execute(longitude, latitude);
-            }
-        });
-        SocketConnection.getSocket().connect();
-        //mSocket.connect();
+                break;
+            default:
+                break;
+        }
     }
 
+    public void socketInit(){
+//        // TODO: 새로운 메시지가 오면 화면을 새로고침 할 것
+//        SocketConnection.getSocket().on("new_msg", new Emitter.Listener() {
+//            @Override
+//            public void call(Object... args) {
+//                Log.e("Socket GET MESSAGE", "MSG COME!!!");
+//
+//                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
+//                csat.execute(longitude, latitude);
+//                //scrollMyListViewToBottom();
+//            }
+//        });
+//        // TODO: 좋아요 신호가 오면 화면을 새로고침 할 것
+//        SocketConnection.getSocket().on("apply_like", new Emitter.Listener() {
+//            @Override
+//            public void call(Object... args) {
+//                Log.e("Socket GET Like", "Apply Like COME!!!"+args[0].toString());
+//
+//                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages);
+//                csat.execute(longitude, latitude);
+//                //scrollMyListViewToBottom();
+//            }
+//        });
+//        // TODO: push가 오면 push 알림을 띄울 것
+//        SocketConnection.getSocket().on("speaker", new Emitter.Listener() {
+//            @Override
+//            public void call(Object... args) {
+//                Log.e("Socket PUSH", "PUSH COME!!!");
+//
+////                ChatSetAsyncTask csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate);
+////                csat.execute(longitude, latitude);
+//            }
+//        });
 
+    }
 
 
     public void onClick(View v) {
@@ -595,14 +610,15 @@ public class ChatActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mapFragment.initMapCenter(longitude, latitude, radius);
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override
-    protected void onDestroy() {
-//        mSocket.close();
-//        mSocket.disconnect();
-
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -673,7 +689,8 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
 
     @Override
     protected void onPreExecute() {
-        now_pos = msgListView.getFirstVisiblePosition();
+        now_pos = msgListView.getLastVisiblePosition();
+        //now_pos = msgListView.getFirstVisiblePosition();
         super.onPreExecute();
     }
 

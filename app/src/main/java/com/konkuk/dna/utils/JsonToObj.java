@@ -230,9 +230,6 @@ public class JsonToObj {
 
                 prev_idx = user_idx;
 
-                Log.e(msg_type, resultArray.get(i).toString());
-
-                //Log.e("!!!", user_idx+"/"+nickname+"/"+avatar+"/"+contents+"/"+created_at+"/"+like_count+"/"+msg_type+"/"+msg_idx);
                 chatMessages.add(new ChatMessage(user_idx, nickname, avatar, contents, DatetoStr(created_at), like_count, msg_type, lng, lat, whoLikes, msg_idx, viewType, amILike));
 
             }
@@ -379,8 +376,10 @@ public class JsonToObj {
                 }
 //                last_message = getStringNoQuote(oneObject.get("last_message").toString()); // NullPointerException 발생
                 //last_message = "";
-                last_type = getStringNoQuote(oneObject.get("last_type").toString());
-
+                last_type = "Message";
+                if(oneObject.get("last_message")!=null) {
+                    last_type = getStringNoQuote(oneObject.get("last_type").toString());
+                }
                 // TODO 멤버변수에 대한 설명이 필요함
                 Dmrooms.add(new DMRoom(room_idx, f_idx, f_nickname, f_avatar, last_message, last_type, DatetoStr(updated_at)));
             }
