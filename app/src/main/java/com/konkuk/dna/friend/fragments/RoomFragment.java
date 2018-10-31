@@ -79,6 +79,7 @@ public class RoomFragment extends Fragment {
                 DMRoom room = (DMRoom) roomList.getItemAtPosition(position);
                 Intent intent = new Intent (getContext(), DMActivity.class);
                 intent.putExtra("roomIdx", room.getIdx());
+                intent.putExtra("roomWho", room.getNickname());
                 intent.putExtra("roomUpdated", room.getUpdateDate());
                 startActivity(intent);
             }

@@ -7,12 +7,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.konkuk.dna.chat.ChatMessage;
 import com.konkuk.dna.chat.ChatUser;
+import com.konkuk.dna.friend.message.DMMessage;
 import com.konkuk.dna.friend.message.DMRoom;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.konkuk.dna.utils.ConvertType.DatetoStr;
+import static com.konkuk.dna.utils.ConvertType.getStringAddQuote;
 import static com.konkuk.dna.utils.ConvertType.getStringNoQuote;
 
 public class JsonToObj {
@@ -242,6 +244,83 @@ public class JsonToObj {
         return chatMessages;
     }
 
+
+    /*
+     * DM 방 채팅 리스트 조회
+     * */
+    public static ArrayList<DMMessage> DMMsgJsonToObj(int myIdx, String nickname, String jsonResult){
+        //Log.e("DM MSG", jsonResult);
+        ArrayList<DMMessage> dmMessages = new ArrayList<>();
+        String type="", created_at="", _id, contents="";
+        String avatar;
+        int sender_idx=-1;
+
+        // 이전 메세지의 idx확인
+        int prev_idx = -1;
+        // 내꺼, 너꺼, 사진있는 너꺼
+        int viewType=-1;
+
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+        if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
+            JsonObject resultObject = (JsonObject) jsonObject.get("result");
+            avatar = getStringNoQuote(resultObject.get("avatar").toString());
+
+            JsonArray dmsArray = (JsonArray) resultObject.get("DMs");
+            for(int i=0; i<dmsArray.size(); i++){
+                JsonObject oneDMObject = (JsonObject) dmsArray.get(i);
+                type = getStringNoQuote(oneDMObject.get("type").toString());
+                created_at = getStringNoQuote(oneDMObject.get("created_at").toString());
+                _id = getStringNoQuote(oneDMObject.get("_id").toString());
+                sender_idx = Integer.parseInt(oneDMObject.get("sender_idx").toString());
+                contents = getStringNoQuote(oneDMObject.get("contents").toString());
+
+                if(myIdx == sender_idx){
+                    //지금 메세지가 내 메세지이면
+                    if(i!=0 && prev_idx!=sender_idx) {
+                        // 이전에 있던 메시지가 다른사람것이라면 프로필이 필요해! 물론 내메세지가 리스트의 마지막이 아니였다면
+                        DMMessage tmp = dmMessages.get(dmMessages.size()-1);
+                        tmp.setViewType(1);
+                        dmMessages.remove(dmMessages.size()-1);
+                        dmMessages.add(tmp);
+                    }
+                    viewType = 0;
+
+                }else{
+                    //지금 메세지가 남의 메세지라면
+                    if(i == dmsArray.size()-1){
+                        // 그지역의 첫번째 메세지이면 지금 메세지에 프로필 필요
+
+                        viewType = 1;
+
+                    }else if(i!=0 && prev_idx!=sender_idx && prev_idx != myIdx){
+                        // 이전사람이 내가 아니고 지금메세지와도 다른 사람의 메세지면 프로필 필요
+                        DMMessage tmp = dmMessages.get(dmMessages.size()-1);
+                        tmp.setViewType(1);
+                        dmMessages.remove(dmMessages.size()-1);
+                        dmMessages.add(tmp);
+
+                        viewType = 2;
+                    }else{
+                        //
+                        viewType = 2;
+                    }
+                }
+
+                prev_idx = sender_idx;
+
+                dmMessages.add(new DMMessage(sender_idx, contents, DatetoStr(created_at), type, viewType, avatar, nickname));
+            }
+        }
+        else{
+            Log.e("!!!=", "SERVER ERROR, CANNOT RECEIVE MSG.");
+            dmMessages = null;
+        }
+        return dmMessages;
+    }
+
     /*
      * DM방 목록 검색으로 날아온 Json변환 메소드
      * */
@@ -343,5 +422,6 @@ public class JsonToObj {
 
         return result;
     }
+
 
 }

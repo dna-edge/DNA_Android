@@ -44,6 +44,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
     private final String TYPE_IMAGE = "Image";              // 이미지 전송
     private final String TYPE_SHARE = "Share";              // 포스팅 공유
 
+    private final int VTYPE_SYSTEM = -1;
     private final int VTYPE_MINE = 0;
     private final int VTYPE_OTHER_AVATAR = 1;
     private final int VTYPE_OTHER_NONE = 2;
@@ -82,10 +83,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
     @Override
     public View getView(int position, @Nullable View v, @NonNull ViewGroup parent) {
         ChatMessage message = messages.get(position);
-        ChatMessage prev_message = null;
-        if(position>0){
-            prev_message = messages.get(position-1);
-        }
 
         v = null;
         if (v == null) {
@@ -126,39 +123,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                     v = layoutInflater.inflate(R.layout.chat_item_left, null);
                 }
             }
-//
-//            if(message.getIdx() == myIdx){
-//                // 내 메세지, 프로필 없음
-//                if (message.getType().equals(TYPE_LOUDSPEAKER)) { // 확성기 상태일 경우
-//                    v = layoutInflater.inflate(R.layout.chat_item_loudspeaker_right, null);
-//                } else {
-//                    v = layoutInflater.inflate(R.layout.chat_item_right, null);
-//                }
-//            }else if(prev_message!=null && (prev_message.getIdx() == message.getIdx())){
-//                // 남의 메세지, 프로필 없음
-//                if (message.getType().equals(TYPE_LOUDSPEAKER)) { // 확성기 상태일 경우
-//                    v = layoutInflater.inflate(R.layout.chat_item_loudspeaker_left, null);
-//                } else {
-//                    v = layoutInflater.inflate(R.layout.chat_item_left, null);
-//                }
-//            }else{
-//                // 남의 메세지, 프로필 있음
-//                if (message.getType().equals(TYPE_LOUDSPEAKER)) { // 확성기 상태일 경우
-//                    v = layoutInflater.inflate(R.layout.chat_item_loudspeaker_with_profile, null);
-//                } else {
-//                    v = layoutInflater.inflate(R.layout.chat_item_with_profile, null);
-//                }
-//
-//                TextView messageNickname = (TextView) v.findViewById(R.id.msgNickname);
-//                messageNickname.setText(message.getUserName());
-//                messageNickname.setTypeface(NSB);
-//
-//                ImageView messageAvatar = (ImageView) v.findViewById(R.id.msgAvatar);
-//
-//                if (message.getAvatar() != null) {
-//                    Picasso.get().load(message.getAvatar()).into(messageAvatar);
-//                }
-//            }
 
             LinearLayout messageLikeWrapper = (LinearLayout) v.findViewById(R.id.likeWrapper);
             RelativeLayout msgLocationWrapper = (RelativeLayout) v.findViewById(R.id.msgLocationWrapper);
@@ -212,26 +176,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
             dateText.setTypeface(NSB);
             likeStar.setTypeface(fontAwesomeS);
 
-//        isMyMessage = false;
-//
-//        for(int i=0; i<message.getWhoLikes().size(); i++){
-//            if(message.getWhoLikes().get(i) == myIdx){
-//                isMyMessage = true;
-//            }else{
-//                isMyMessage = false;
-//            }
-//        }
-
-
-//        messageLikeWrapper.setClickable(true);
-//
-//        messageLikeWrapper.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //소켓에 눌렀다고 보내기
-//                isMyMessage = true;
-//            }
-//        });
 
             // TODO 내가 좋아요를 클릭했을 경우와 클릭하지 않았을 경우 다른 뷰를 보여줘야 합니다.
             if (messages.get(position).isAmILike()) { // 클릭했을 경우
