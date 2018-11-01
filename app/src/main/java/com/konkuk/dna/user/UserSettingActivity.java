@@ -1,5 +1,6 @@
 package com.konkuk.dna.user;
 
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.konkuk.dna.MainActivity;
+import com.konkuk.dna.auth.LoginActivity;
 import com.konkuk.dna.utils.SocketConnection;
 import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
@@ -107,11 +110,14 @@ public class UserSettingActivity extends BaseActivity {
                 SocketConnection.emit("store", storeJson);
 
                 //TODO: Drawer에 적혀있는 '현재 채팅 환경' update가 작동하지 않음. Drawer를 refresh하는 방법이 뭐지?
-                menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                Intent intent = new Intent(UserSettingActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                //menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 //InitHelpers.initDrawer(this, menuDrawer, 2);
                 //InitHelpers.updateDrawer(this, menuDrawer);
 
-                finish();
+                //finish();
                 break;
         }
     }
