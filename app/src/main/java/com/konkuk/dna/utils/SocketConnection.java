@@ -123,7 +123,9 @@ public class SocketConnection {
     }
 
     public static void disconnect() {
-        SocketConnection.getSocket().disconnect();
+        if(SocketConnection.getSocket()!=null){
+            SocketConnection.getSocket().disconnect();
+        }
         SocketConnection.setSocket(null);
         SocketConnection.setInstance(null);
     }
