@@ -2,8 +2,10 @@ package com.konkuk.dna.utils.helpers;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 
 import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
+import com.konkuk.dna.auth.LoginActivity;
 import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.chat.ChatUserAdapter;
 import com.konkuk.dna.chat.ChatUserDetailFragment;
@@ -37,6 +40,7 @@ import java.util.ArrayList;
 
 import io.socket.emitter.Emitter;
 
+import static android.support.v4.app.ActivityCompat.finishAffinity;
 import static android.view.View.GONE;
 import static com.konkuk.dna.utils.JsonToObj.ConnectUserJsonToObj;
 
@@ -74,10 +78,12 @@ public class InitHelpers {
         DrawyerAsyncTask dat;
         switch (event.message) {
             case SOCKET_GEO:
+                Log.e("Socket ON", "geo");
                 dat = new DrawyerAsyncTask(cont, ccuListView);
                 dat.execute(event.args, String.valueOf(dbhelper.getMyIdx()));
                 break;
             case SOCKET_DIRECT:
+                Log.e("Socket ON", "direct");
                 break;
             default:
                 break;
@@ -93,6 +99,7 @@ public class InitHelpers {
 
         LinearLayout myPageBtn = (LinearLayout) v.findViewById(R.id.myPageBtn);
         LinearLayout homeBtn = (LinearLayout) v.findViewById(R.id.homeBtn);
+        LinearLayout logoutBtn = (LinearLayout) v.findViewById(R.id.logoutBtn);
         RelativeLayout setChatBtn = (RelativeLayout) v.findViewById(R.id.setChatBtn);
         RelativeLayout setFriendBtn = (RelativeLayout) v.findViewById(R.id.setFriendBtn);
 
@@ -103,7 +110,33 @@ public class InitHelpers {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
+            }
+        });
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder alt_bld = new AlertDialog.Builder(context);
+                alt_bld.setMessage("정말 로그아웃 하실건가요?").setCancelable(
+                        false).setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent intent = new Intent(context, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent);
+                                dialog.cancel();
+                            }
+                        }).setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = alt_bld.create();
+                alert.show();
             }
         });
 
@@ -135,7 +168,7 @@ public class InitHelpers {
         /*
         * 현재 채팅 환경
         * */
-        drawerPosition.setText("지도api로 위치정보 받아오기");
+        drawerPosition.setText("서울특별시 광진구 능동로 120 건국대학교");
         drawerRadius.setText(dbhelper.getMyRadius()+"m");
 
 
@@ -147,21 +180,31 @@ public class InitHelpers {
             ccuListView = (ListView) v.findViewById(R.id.ccuList);
             final ArrayList<ChatUser> chatUsers = new ArrayList<ChatUser>();
 
-//            SocketConnection.getSocket().on("geo", new Emitter.Listener() {
-//                @Override
-//                public void call(Object... args) {
-//                    //Log.e("Socket Ping-geo", args[0].toString());
-//                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
-//                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
-//
-//                }
-//            });
+            SocketConnection.getSocket().on("geo", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    //Log.e("Socket Ping-geo", args[0].toString());
+                    Log.e("Socket Ping-geo", "geo");
+                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
+                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+
+                }
+            });
 
             chatUserAdapter = new ChatUserAdapter(context, R.layout.chat_item_ccu, cu);
             ccuListView.setAdapter(chatUserAdapter);
         } else if (type == 1){
             drawerForUserList.setVisibility(GONE);
 
+            SocketConnection.getSocket().on("direct", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    Log.e("Socket Ping-direct", args[0].toString());
+//                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
+//                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+
+                }
+            });
             // TODO 해당 친구의 프로필을 입력해줘야 합니다.
             ImageView friendAvatar = (ImageView) v.findViewById(R.id.friendAvatar);
             TextView friendNickname = (TextView) v.findViewById(R.id.friendNickname);
