@@ -43,6 +43,7 @@ import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.R;
 import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.map.MapFragment;
+import com.konkuk.dna.utils.helpers.NameHelpers;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -580,12 +581,24 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         bestMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(0));
 
         if (bestMessages != null && bestMessages.size() > 0) {
-            Picasso.get()
-                    .load(bestMessages.get(0).getAvatar())
-                    .into(bestChatAvatar);
-            bestChatContent.setText(bestMessages.get(0).getContents());
-            bestChatNickname.setText(bestMessages.get(0).getUserName());
-            bestChatDate.setText(bestMessages.get(0).getDate());
+            ChatMessage bestMessage = bestMessages.get(0);
+            if (bestMessage.getAvatar() != null && bestMessage.getAnonymity() != 1) {
+                Picasso.get()
+                        .load(bestMessage.getAvatar())
+                        .into(bestChatAvatar);
+            }
+
+            bestChatContent.setText(bestMessage.getContents());
+
+            String nickname = "";
+            if (bestMessage.getAnonymity() == 1) {
+                nickname = NameHelpers.makeName(bestMessage.getIdx());
+            } else {
+                nickname = bestMessage.getUserName();
+            }
+
+            bestChatNickname.setText(nickname);
+            bestChatDate.setText(bestMessage.getDate());
         }else{
             bestChatContent.setText("근처에 아직 작성된 베스트챗이 없습니다.");
             bestChatNickname.setText("from DNA.");
@@ -602,7 +615,6 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
 
         if (chatMessages == null || chatMessages.size() == 0) {
-            Log.d("ChatActivity_", "here");
             if (msgListView != null) msgListView.setVisibility(View.GONE);
             if (msgListEmpty != null) msgListEmpty.setVisibility(View.VISIBLE);
             return;

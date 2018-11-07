@@ -2,7 +2,7 @@ package com.konkuk.dna.utils.helpers;
 
 public class NameHelpers {
     public static String makeName(int idx) {
-        return ADJECTIVE[idx % 100] + "" + ANIMAL[idx % 100];
+        return ADJECTIVE[idx % 100] + " " + ANIMAL[idx % 100];
     }
 
     public static String[] ADJECTIVE = {

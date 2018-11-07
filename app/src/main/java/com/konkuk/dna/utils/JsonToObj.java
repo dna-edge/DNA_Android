@@ -182,15 +182,16 @@ public class JsonToObj {
 
         ArrayList<Integer> whoLikes = new ArrayList<>();
         boolean amILike = false;
-        int user_idx, anonymity;
+        int msg_idx, user_idx, anonymity;
         String nickname, avatar, position, like_count;
         double lng, lat;
-        String msg_type, _id, contents, created_at;
-        int msg_idx, __v;
+        String msg_type, contents, created_at;
         int viewType=-1;
 
         // 이전 메세지의 idx확인
         int prev_idx = -1;
+
+        Log.d("JsonToObj", jsonObject.toString());
 
         if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
             JsonArray resultArray = (JsonArray) jsonObject.get("result");
@@ -221,13 +222,9 @@ public class JsonToObj {
                     }
                 }
 
-                _id = getStringNoQuote(oneObject.get("_id").toString());
                 contents = getStringNoQuote(oneObject.get("contents").toString());
                 created_at = getStringNoQuote(oneObject.get("created_at").toString());
                 msg_idx = Integer.parseInt(oneObject.get("idx").toString());
-                __v = Integer.parseInt(oneObject.get("__v").toString());
-
-
 
                 if(myIdx == user_idx){
                     //지금 메세지가 내 메세지이면
@@ -432,7 +429,7 @@ public class JsonToObj {
     public static ArrayList<ChatUser> ConnectUserJsonToObj(String jsonResult, int myIdx){
 
         ArrayList<ChatUser> result= new ArrayList<>();
-        int idx;
+        int idx, anonymity;
         String nickname, avatar;
         boolean inside;
 
@@ -446,10 +443,11 @@ public class JsonToObj {
             idx = Integer.parseInt(getStringNoQuote(arr.get("idx").toString()));
             nickname = getStringNoQuote(arr.get("nickname").toString());
             avatar = getStringNoQuote(arr.get("avatar").toString());
+            anonymity = Integer.parseInt(getStringNoQuote(arr.get("anonymity").toString()));
             inside = arr.get("inside").getAsBoolean();
 
             if(myIdx != idx){
-                result.add(new ChatUser(idx, nickname, avatar, inside));
+                result.add(new ChatUser(idx, nickname, avatar, anonymity, inside));
             }
         }
 

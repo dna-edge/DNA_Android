@@ -97,6 +97,7 @@ public class HttpReqRes {
             HttpClient client = new DefaultHttpClient();
             String postURL = url;
             HttpPost post = new HttpPost(postURL);
+            post.setHeader("token", token);
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("lng", lng.toString()));
