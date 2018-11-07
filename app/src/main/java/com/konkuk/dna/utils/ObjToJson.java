@@ -20,6 +20,7 @@ public class ObjToJson {
         jObj.addProperty("idx", dbhelper.getMyIdx());
         jObj.addProperty("nickname", dbhelper.getMyNickname());
         jObj.addProperty("avatar", dbhelper.getMyAvatar());
+        jObj.addProperty("anonymity", dbhelper.getMyAnonymity());
 
         JsonArray posarr = new JsonArray();
         posarr.add(lng);

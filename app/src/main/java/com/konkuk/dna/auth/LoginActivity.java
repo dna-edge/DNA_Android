@@ -35,6 +35,15 @@ public class LoginActivity extends BaseActivity {
 
     private Context context;
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (loginDialog != null) {
+            loginDialog.dismiss();
+            loginDialog = null;
+        }
+    }
+
     static ProgressDialog loginDialog;
     private android.app.AlertDialog.Builder dialogCNC;
 

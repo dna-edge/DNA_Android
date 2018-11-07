@@ -16,7 +16,7 @@ public class Dbhelper extends SQLiteOpenHelper {
     /*
     * 업데이트를 하다가 디비구조가 변경되면 *반드시* 버전 숫자를 올려주어야 함
     * */
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "DNATokenDB.db";
 
     public static class DNAEntry implements BaseColumns{
@@ -29,7 +29,8 @@ public class Dbhelper extends SQLiteOpenHelper {
         public static final String COLUME_NAME_AVATAR = "avatar";
         public static final String COLUME_NAME_DESCRIPTION = "description";
         public static final String COLUME_NAME_RADIUS = "radius";
-        public static final String COLUME_NAME_ANONIMITY = "is_anonimity";
+        public static final String COLUME_NAME_ANONIMITY = "anonimity";
+        public static final String COLUME_NAME_SEARCHABLE = "searchable";
     }
 
     public static final String SQL_CREATE_ENTRIES =
@@ -41,6 +42,7 @@ public class Dbhelper extends SQLiteOpenHelper {
                     DNAEntry.COLUME_NAME_DESCRIPTION +  " TEXT," +
                     DNAEntry.COLUME_NAME_RADIUS +  " INTEGER," +
                     DNAEntry.COLUME_NAME_ANONIMITY +  " INTEGER," +
+                    DNAEntry.COLUME_NAME_SEARCHABLE +  " INTEGER," +
                     DNAEntry.COLUME_NAME_ACCESSTOKEN +  " TEXT," +
                     DNAEntry.COLUME_NAME_REFRESHTOKEN +  " TEXT )";
 
@@ -80,7 +82,8 @@ public class Dbhelper extends SQLiteOpenHelper {
         values.put(DNAEntry.COLUME_NAME_AVATAR, getStringNoQuote(map.get("avatar").toString()));
         values.put(DNAEntry.COLUME_NAME_DESCRIPTION, map.get("description").toString());
         values.put(DNAEntry.COLUME_NAME_RADIUS, Integer.parseInt(map.get("radius").toString()));
-        values.put(DNAEntry.COLUME_NAME_ANONIMITY, Integer.parseInt(map.get("is_anonymity").toString()));
+        values.put(DNAEntry.COLUME_NAME_ANONIMITY, Integer.parseInt(map.get("anonymity").toString()));
+        values.put(DNAEntry.COLUME_NAME_SEARCHABLE, Integer.parseInt(map.get("searchable").toString()));
         values.put(DNAEntry.COLUME_NAME_ACCESSTOKEN, getStringNoQuote(map.get("accessToken").toString()));
         values.put(DNAEntry.COLUME_NAME_REFRESHTOKEN, getStringNoQuote(map.get("refreshToken").toString()));
 
@@ -244,6 +247,20 @@ public class Dbhelper extends SQLiteOpenHelper {
             avatar = cursor.getString(3);
         }
         return avatar;
+    }
+
+    /*
+     * 내 anonymity 가져오기
+     * */
+    public int getMyAnonymity(){
+        int anonymity = 0;
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
+        while(cursor.moveToNext()){
+            anonymity = Integer.parseInt(cursor.getString(7));
+        }
+        return anonymity;
     }
 
 }

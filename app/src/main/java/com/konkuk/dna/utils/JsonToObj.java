@@ -46,7 +46,8 @@ public class JsonToObj {
             hm.put("avatar", profileObject.get("avatar").toString());
             hm.put("description", profileObject.get("description").toString());
             hm.put("radius", profileObject.get("radius").toString());
-            hm.put("is_anonymity", profileObject.get("is_anonymity").toString());
+            hm.put("anonymity", profileObject.get("anonymity").toString());
+            hm.put("searchable", profileObject.get("searchable").toString());
 
             //토큰을 해시맵에 저장
             JsonObject tokenObject = (JsonObject) resultObject.get("token");
