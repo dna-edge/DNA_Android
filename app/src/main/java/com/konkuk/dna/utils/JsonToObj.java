@@ -192,8 +192,6 @@ public class JsonToObj {
         // 이전 메세지의 idx확인
         int prev_idx = -1;
 
-        Log.d("JsonToObj", jsonObject.toString());
-
         if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
             JsonArray resultArray = (JsonArray) jsonObject.get("result");
             for(int i=0; i<resultArray.size(); i++){

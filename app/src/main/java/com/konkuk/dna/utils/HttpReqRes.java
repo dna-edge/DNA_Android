@@ -92,7 +92,6 @@ public class HttpReqRes {
         HttpsURLConnection urlConn = null;
         BufferedReader reader = null;
 
-        Log.e("HttpReqRes", "token: " + token);
         String result=null;
         try {
             HttpClient client = new DefaultHttpClient();

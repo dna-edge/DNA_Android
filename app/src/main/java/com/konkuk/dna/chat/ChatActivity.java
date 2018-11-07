@@ -72,7 +72,7 @@ public class ChatActivity extends BaseActivity {
     private ListView msgListView;
     private EditText msgEditText;
     private Button msgSpeakerBtn, msgLocationBtn, msgImageBtn;
-    private LinearLayout mapSizeBtn, bestChatBtn, bestChatMargin;
+    private LinearLayout mapSizeBtn, bestChatBtn, bestChatMargin, msgListEmpty;
     private RelativeLayout bestChatWrapper;
     private TextView mapSizeAngle, bestChatAngle, bestChatContent, bestChatNickname, bestChatDate;
     private ImageView bestChatAvatar;
@@ -137,6 +137,7 @@ public class ChatActivity extends BaseActivity {
         bestChatAngle = (TextView) findViewById(R.id.bestChatAngle);
         bestChatWrapper = (RelativeLayout) findViewById(R.id.bestChatWrapper);
         bestChatMargin = (LinearLayout) findViewById(R.id.bestChatMargin);
+        msgListEmpty = (LinearLayout) findViewById(R.id.msgListEmpty);
 
         /*
         * GPS 받아오기, 반경 설정하기
@@ -155,7 +156,8 @@ public class ChatActivity extends BaseActivity {
         bestChatAvatar = (ImageView) findViewById(R.id.bestChatAvatar);
 
         //베스트 챗, 채팅 불러오기
-        ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages, 0);
+        ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar,
+                bestChatContent, bestChatNickname, bestChatDate, msgListEmpty, chatMessages, 0);
         csat.execute(longitude, latitude);
 
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
@@ -222,12 +224,14 @@ public class ChatActivity extends BaseActivity {
         switch (event.message){
             case SOCKET_NEW_MSG:
                 Log.e("Socket GET MESSAGE", "MSG COME!!!");
-                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages, 0);
+                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent,
+                        bestChatNickname, bestChatDate, msgListEmpty, chatMessages, 0);
                 csat.execute(longitude, latitude);
                 break;
             case SOCKET_APPLY_LIKE:
                 Log.e("Socket GET Like", "Apply Like COME!!!" + event.args);
-                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent, bestChatNickname, bestChatDate, chatMessages,1);
+                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent,
+                        bestChatNickname, bestChatDate, msgListEmpty, chatMessages,1);
                 csat.execute(longitude, latitude);
                 break;
             case SOCKET_SPEAKER:
@@ -513,6 +517,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
     private ListView msgListView;
     private TextView bestChatContent, bestChatNickname, bestChatDate;
     private ImageView bestChatAvatar;
+    private LinearLayout msgListEmpty;
 
     private ArrayList<ChatMessage> chatMessages;
     private int now_pos=-1;
@@ -522,7 +527,8 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
     private static final int MODE_LIKE = 1;
 
     public ChatSetAsyncTask(Context context, Integer radius,
-                            ListView msgListView, ImageView bcAvatar, TextView bcContent, TextView bcNickname, TextView bcDate,
+                            ListView msgListView, ImageView bcAvatar, TextView bcContent, TextView bcNickname,
+                            TextView bcDate, LinearLayout msgListEmpty,
                             ArrayList<ChatMessage> chatMessages, int mode){
         this.context=context;
         this.radius=radius;
@@ -532,6 +538,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         this.bestChatDate = bcDate;
         this.bestChatNickname = bcNickname;
         this.chatMessages = chatMessages;
+        this.msgListEmpty = msgListEmpty;
         this.mode = mode;
     }
 
@@ -580,7 +587,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
             bestChatNickname.setText(bestMessages.get(0).getUserName());
             bestChatDate.setText(bestMessages.get(0).getDate());
         }else{
-            bestChatContent.setText("이 지역의 베스트챗이 존재하지 않아요ㅠ");
+            bestChatContent.setText("근처에 아직 작성된 베스트챗이 없습니다.");
             bestChatNickname.setText("from DNA.");
         }
 
@@ -594,7 +601,12 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
 
         chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
 
-        if (chatMessages == null) return;
+        if (chatMessages == null || chatMessages.size() == 0) {
+            Log.d("ChatActivity_", "here");
+            if (msgListView != null) msgListView.setVisibility(View.GONE);
+            if (msgListEmpty != null) msgListEmpty.setVisibility(View.VISIBLE);
+            return;
+        }
 
         //거꾸로 받아온 리스트를 역순으로 바꿈
         Collections.reverse(chatMessages);
