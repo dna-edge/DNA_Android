@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.HashMap;
 
@@ -145,8 +146,9 @@ public class Dbhelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
         while(cursor.moveToNext()){
-            str = cursor.getString(7);
+            str = cursor.getString(8);
         }
+
         return str;
     }
 
@@ -159,7 +161,7 @@ public class Dbhelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
         while(cursor.moveToNext()){
-            str = cursor.getString(8);
+            str = cursor.getString(9);
         }
         return str;
     }
