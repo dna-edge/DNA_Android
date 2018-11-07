@@ -9,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.GPSTracker;
 import com.konkuk.dna.R;
 import com.konkuk.dna.post.Post;
@@ -60,6 +62,8 @@ public class MapFragment extends Fragment
     private NMapCircleStyle circleStyle;
     private JSONObject centerPosition;
     private GPSTracker gpsTracker;
+
+    private LinearLayout mapLocBtn;
 
     private static final String CLIENT_ID = "d58JXyIkF7YXEmOLrYSD"; // 애플리케이션 클라이언트 아이디 값
 
@@ -167,6 +171,7 @@ public class MapFragment extends Fragment
         mapView = (NMapView)getView().findViewById(R.id.mapView);
         mapView.setClientId(CLIENT_ID);
         mapContext.setupMapView(mapView);
+        mapLocBtn = (LinearLayout) getView().findViewById(R.id.mapLocationBtn);
     }
 
     @Override
@@ -205,6 +210,15 @@ public class MapFragment extends Fragment
         circleData.setCircleStyle(circleStyle);
 
         OnMapViewStateChangeListener.onMapInitHandler(mapView, null);
+
+        mapLocBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dbhelper dbhelper = new Dbhelper(getActivity());
+                gpsTracker = new GPSTracker(getActivity());
+                updateRadiusCircle(gpsTracker.getLongitude(), gpsTracker.getLatitude(), dbhelper.getMyRadius());
+            }
+        });
     }
 
     private void startMyLocation() {
