@@ -182,7 +182,7 @@ public class JsonToObj {
 
         ArrayList<Integer> whoLikes = new ArrayList<>();
         boolean amILike = false;
-        int user_idx;
+        int user_idx, anonymity;
         String nickname, avatar, position, like_count;
         double lng, lat;
         String msg_type, _id, contents, created_at;
@@ -192,15 +192,17 @@ public class JsonToObj {
         // 이전 메세지의 idx확인
         int prev_idx = -1;
 
+        Log.d("JsonToObj", jsonObject.toString());
+
         if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
             JsonArray resultArray = (JsonArray) jsonObject.get("result");
-
             for(int i=0; i<resultArray.size(); i++){
                 JsonObject oneObject = (JsonObject) resultArray.get(i);
 
                 //Log.e("message "+i, oneObject.toString());
                 JsonObject userObject = (JsonObject) oneObject.get("user");
                 user_idx = Integer.parseInt(userObject.get("idx").toString());
+                anonymity = Integer.parseInt(userObject.get("anonymity").toString());
                 nickname = getStringNoQuote(userObject.get("nickname").toString());
                 avatar = getStringNoQuote(userObject.get("avatar").toString());
 
@@ -263,7 +265,8 @@ public class JsonToObj {
 
                 prev_idx = user_idx;
 
-                chatMessages.add(new ChatMessage(user_idx, nickname, avatar, contents, DatetoStr(created_at), like_count, msg_type, lng, lat, whoLikes, msg_idx, viewType, amILike));
+                chatMessages.add(new ChatMessage(user_idx, nickname, avatar, anonymity, contents, DatetoStr(created_at),
+                        like_count, msg_type, lng, lat, whoLikes, msg_idx, viewType, amILike));
 
             }
         }else{

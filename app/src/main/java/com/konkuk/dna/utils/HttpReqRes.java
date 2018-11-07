@@ -92,12 +92,12 @@ public class HttpReqRes {
         HttpsURLConnection urlConn = null;
         BufferedReader reader = null;
 
+        Log.d("HttpReqRes", "token: " + token);
         String result=null;
         try {
             HttpClient client = new DefaultHttpClient();
             String postURL = url;
             HttpPost post = new HttpPost(postURL);
-            post.setHeader("token", token);
 
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("lng", lng.toString()));
