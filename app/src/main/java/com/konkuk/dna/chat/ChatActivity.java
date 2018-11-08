@@ -631,9 +631,8 @@ public class ChatActivity extends BaseActivity {
 
         if(requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK){
             selectedImage = data.getData();
-
             getLambdaImageAsyncTask glat = new getLambdaImageAsyncTask(context);
-            glat.execute(data.getData().toString());
+            glat.execute(selectedImage.toString());
 
 //            msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
 //            msgEditText.setText(selectedImage.toString());
@@ -655,18 +654,19 @@ class getLambdaImageAsyncTask extends AsyncTask<String, Integer, String>{
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();
         dialogImage = new ProgressDialog(context);
         dialogImage.setCancelable(false);
         dialogImage.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialogImage.setMessage("사진 첨부 중 입니다..");
         // show dialog
         dialogImage.show();
+        super.onPreExecute();
     }
 
     @Override
     protected String doInBackground(String... strings) {
-
+        Log.e("doInBackground","start");
+        Log.e("doInBackground",strings[0]);
         String result = requestHttpPostLambda(ServerURL.AWS_LAMBDA_API_URL, strings[0]);
 
         return result;
@@ -732,11 +732,12 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         dbhelper = new Dbhelper(context);
         m_token = dbhelper.getAccessToken();
 
-        String repBestChat = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/best", m_token, doubles[0], doubles[1], radius);
-        String repMsgAll = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/messages", m_token, doubles[0], doubles[1], radius);
+        //String repBestChat = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/best", m_token, doubles[0], doubles[1], radius);
+        //String repMsgAll = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/messages/", m_token, doubles[0], doubles[1], radius);
 
-        resultArray.add(0, repBestChat);
-        resultArray.add(1, repMsgAll);
+        //resultArray.add(0, repBestChat);
+        //resultArray.add(1, repMsgAll);
+
 
         return resultArray;
     }
@@ -749,9 +750,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         * 베스트챗 내용 세팅
         * */
         ArrayList<ChatMessage> bestMessages = new ArrayList<ChatMessage>();
-        bestMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(0));
+        //bestMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(0));
 
-        if(bestMessages.size()>0 && bestMessages != null) {
+        if(bestMessages != null && bestMessages.size()>0) {
             Picasso.get()
                     .load(bestMessages.get(0).getAvatar())
                     .into(bestChatAvatar);
@@ -770,23 +771,23 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         if(chatMessages!=null) {
             chatMessages.clear();
         }
-        chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
+        //chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
 
         //거꾸로 받아온 리스트를 역순으로 바꿈
-        Collections.reverse(chatMessages);
-
-        chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
-        msgListView.setAdapter(chatListAdapter);
-
-        // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
-        switch (mode){
-            case MODE_RENEW:
-                scrollMyListViewToBottom();
-                break;
-            case MODE_LIKE:
-                scrollMyListViewToMemory();
-                break;
-        }
+//        Collections.reverse(chatMessages);
+//
+//        chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
+//        msgListView.setAdapter(chatListAdapter);
+//
+//        // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
+//        switch (mode){
+//            case MODE_RENEW:
+//                scrollMyListViewToBottom();
+//                break;
+//            case MODE_LIKE:
+//                scrollMyListViewToMemory();
+//                break;
+//        }
 
     }
 

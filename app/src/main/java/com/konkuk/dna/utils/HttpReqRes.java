@@ -9,6 +9,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
@@ -16,6 +18,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,9 +92,6 @@ public class HttpReqRes {
     * */
     public String requestHttpPostMsgAll(String url, String token, Double lng, Double lat, Integer radius){
 
-        HttpsURLConnection urlConn = null;
-        BufferedReader reader = null;
-
         String result=null;
         try {
             HttpClient client = new DefaultHttpClient();
@@ -114,6 +114,7 @@ public class HttpReqRes {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Log.e("get", result);
         return result;
     }
 
@@ -231,23 +232,36 @@ public class HttpReqRes {
     { headers: { 'Content-Type': 'multipart/form-data' }})
     .then((response) => {result = response});
          */
+        Log.e("Lambdahttp", url);
 
-        //File file = new File(imgURL);
+        File file = new File(imgURL);
+
+        MultipartEntity entity = new MultipartEntity();
+        entity.addPart("image", new FileBody(file));
+
+//        HttpPost request = new HttpPost(url);
+//        request.setEntity(entity);
+//
 
         //TODO: js에서 file으로 넘기는게 무슨 객체인지, 어떤 형식인지 알아야 풀 수 있을 것 같다.
         String result=null;
         try {
             HttpClient client = new DefaultHttpClient();
             String postURL = url+"?type=image";
-            HttpPost post = new HttpPost(postURL);
-            post.setHeader(HTTP.CONTENT_TYPE, "multipart/form-data");
 
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("image", imgURL));
+            HttpPost request = new HttpPost(postURL);
+            request.setEntity(entity);
 
-            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
-            post.setEntity(ent);
-            HttpResponse responsePOST = client.execute(post);
+            //HttpPost post = new HttpPost(postURL);
+            //request.setHeader(HTTP.CONTENT_TYPE, "multipart/form-data");
+
+//            List<NameValuePair> params = new ArrayList<NameValuePair>();
+//            params.add(new BasicNameValuePair("image", imgURL));
+//
+//            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+//            request.setEntity(ent);
+
+            HttpResponse responsePOST = client.execute(request);
             HttpEntity resEntity = responsePOST.getEntity();
             if (resEntity != null) {
                 result = EntityUtils.toString(resEntity);
@@ -255,7 +269,7 @@ public class HttpReqRes {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("Upload, Get Image", result);
+        Log.e("Upload, Get Image", result+"?");
         return result;
     }
 

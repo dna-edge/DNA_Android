@@ -145,7 +145,7 @@ public class Dbhelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
         while(cursor.moveToNext()){
-            str = cursor.getString(7);
+            str = cursor.getString(8);
         }
         return str;
     }
@@ -159,7 +159,7 @@ public class Dbhelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
         while(cursor.moveToNext()){
-            str = cursor.getString(8);
+            str = cursor.getString(9);
         }
         return str;
     }
