@@ -10,6 +10,7 @@ import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.friend.manage.Friend;
 import com.konkuk.dna.friend.message.DMMessage;
 import com.konkuk.dna.friend.message.DMRoom;
+import com.konkuk.dna.post.Post;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -455,5 +456,49 @@ public class JsonToObj {
         return result;
     }
 
+    /*
+     * Posting 조회로 받아온 Json변환 메소드
+     */
+    public static ArrayList<Post> PostingJsonToObj(String jsonResult){
+        ArrayList<Post> postings = new ArrayList<>();
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+        int posting_idx;
+        int writer_idx;
+        String date, title, content;
+        Double longitude, latitude;
+        int likeCount;
+        Boolean onlyme;
+
+        if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
+            JsonArray resultArray = (JsonArray) jsonObject.get("result");
+
+            for(int i=0; i<resultArray.size(); i++){
+                Log.v("in for loop", "start parsing");
+                JsonObject oneObject = (JsonObject) resultArray.get(i);
+
+                posting_idx = Integer.parseInt(oneObject.get("posting_idx").toString());
+                writer_idx = Integer.parseInt(oneObject.get("writer_idx").toString());
+                date = getStringNoQuote(oneObject.get("posting_date").toString());
+                title = getStringNoQuote(oneObject.get("title").toString());
+                content = getStringNoQuote(oneObject.get("contents").toString());
+                likeCount = Integer.parseInt(oneObject.get("likes_cnt").toString());
+                longitude = Double.parseDouble(oneObject.get("longitude").toString());
+                latitude = Double.parseDouble(oneObject.get("latitude").toString());
+//                JsonObject poslatObject = (JsonObject) oneObject.get("postLat");
+//                JsonObject poslngObject = (JsonObject) oneObject.get("postLng");
+//                onlyme = getStringNoQuote(oneObject.get("onlyme").toString());
+                onlyme = Boolean.parseBoolean(oneObject.get("onlyme").toString());
+
+                postings.add(new Post(posting_idx, writer_idx, date, title, content, longitude, latitude, likeCount, onlyme));
+
+            }
+        }else{
+            Log.e("!!!=", "No Postings");
+        }
+        return postings;
+    }
 
 }

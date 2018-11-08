@@ -54,33 +54,33 @@ public class MyPageActivity extends BaseActivity {
         scrapPosts = new ArrayList<Post>();
 
         // TODO 내가 작성한 포스트와 스크랩한 포스트의 리스트를 서버에서 불러와 추가해줘야 합니다.
-        myPosts.add(new Post(1, "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
-                "3457soso", "2018.10.05", "제목입니다",
-                "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
-                127.081958, 37.537484, 1, 2, 3,
-                new ArrayList<Comment>(
-                        Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
-                                new Comment(null,"test","2018.10.05","이건 댓글입니다."))
-                )
-        ));
-        myPosts.add(new Post(2, "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
-                "3457soso", "2018.10.05", "제목입니다22",
-                "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
-                127.083559, 37.535743, 3, 2, 1,
-                new ArrayList<Comment>(
-                        Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
-                                new Comment(null,"test","2018.10.05","이건 댓글입니다."))
-                )
-        ));
-        scrapPosts.add(new Post(3, "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
-                "3457soso", "2018.10.05", "제목입니다33",
-                "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
-                127.083559, 37.536343, 2, 1, 3,
-                new ArrayList<Comment>(
-                        Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
-                                new Comment(null,"test","2018.10.05","이건 댓글입니다."))
-                )
-        ));
+//        myPosts.add(new Post(1, "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
+//                "3457soso", "2018.10.05", "제목입니다",
+//                "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
+//                127.081958, 37.537484, 1, 2, 3,
+//                new ArrayList<Comment>(
+//                        Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
+//                                new Comment(null,"test","2018.10.05","이건 댓글입니다."))
+//                )
+//        ));
+//        myPosts.add(new Post(2, "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
+//                "3457soso", "2018.10.05", "제목입니다22",
+//                "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
+//                127.083559, 37.535743, 3, 2, 1,
+//                new ArrayList<Comment>(
+//                        Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
+//                                new Comment(null,"test","2018.10.05","이건 댓글입니다."))
+//                )
+//        ));
+//        scrapPosts.add(new Post(3, "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
+//                "3457soso", "2018.10.05", "제목입니다33",
+//                "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",
+//                127.083559, 37.536343, 2, 1, 3,
+//                new ArrayList<Comment>(
+//                        Arrays.asList(new Comment(null,"test","2018.10.05","이건 댓글입니다."),
+//                                new Comment(null,"test","2018.10.05","이건 댓글입니다."))
+//                )
+//        ));
 
         /* 내가 쓴 포스팅 */
         myPostListAdatper = new UserPostListAdapter(this, R.layout.post_list_item, myPosts, false);

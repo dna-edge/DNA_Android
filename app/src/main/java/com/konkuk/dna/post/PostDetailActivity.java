@@ -71,10 +71,10 @@ public class PostDetailActivity extends BaseActivity {
         Post extra = (Post) getIntent().getSerializableExtra("post");
         post = (extra == null) ? new Post() : extra;
 
-        if (post.getAvatar() != null) {
-            Picasso.get().load(post.getAvatar()).into(postAvatar);
-        }
-        postNickname.setText(post.getNickname());
+//        if (post.getAvatar() != null) {
+//            Picasso.get().load(post.getAvatar()).into(postAvatar);
+//        }
+//        postNickname.setText(post.getNickname());
 
         // TODO 해당 유저가 나와 친구 관계인지 아닌지 확인하고, 친구 추가 버튼을 보여줍니다.
         if (false) { // TODO 여기에 [친구 관계가 아닌] 조건을 추가해주면 됩니다.

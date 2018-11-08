@@ -5,35 +5,38 @@ import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class Post implements Serializable{
-    private int idx;
-    private String avatar;
-    private String nickname;
+    private int writer_idx;
+//    private String avatar;
+//    private String nickname;
 
+    private int posting_idx;
     private String date;
     private String title;
     private String content;
     private double longitude;
     private double latitude;
+    private Boolean onlyme;
 
     private ArrayList<Comment> comments;
 
     public Post() {}
 
-    public Post(int idx, String avatar, String nickname, String date, String title, String content,
-                double longitude, double latitude, int likeCount, int commentCount, int scrapCount,
-                ArrayList<Comment> comments) {
-        this.idx = idx;
-        this.avatar = avatar;
-        this.nickname = nickname;
+    public Post(int posting_idx, int writer_idx, String date, String title, String content,
+                double longitude, double latitude, int likeCount, boolean onlyme) {
+        this.writer_idx = writer_idx;
+//        this.avatar = avatar;
+//        this.nickname = nickname;
+        this.posting_idx = posting_idx;
         this.date = date;
         this.title = title;
         this.content = content;
         this.longitude = longitude;
         this.latitude = latitude;
         this.likeCount = likeCount;
-        this.commentCount = commentCount;
-        this.scrapCount = scrapCount;
-        this.comments = comments;
+        this.onlyme = onlyme;
+//        this.commentCount = commentCount;
+//        this.scrapCount = scrapCount;
+//        this.comments = comments;
     }
 
     private int likeCount;
@@ -41,25 +44,25 @@ public class Post implements Serializable{
     private int scrapCount;
 
     public int getIdx() {
-        return idx;
+        return writer_idx;
     }
     public void setIdx(int idx) {
-        this.idx = idx;
+        this.writer_idx = writer_idx;
     }
-
-    public String getAvatar() {
-        return avatar;
-    }
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+//
+//    public String getAvatar() {
+//        return avatar;
+//    }
+//    public void setAvatar(String avatar) {
+//        this.avatar = avatar;
+//    }
+//
+//    public String getNickname() {
+//        return nickname;
+//    }
+//    public void setNickname(String nickname) {
+//        this.nickname = nickname;
+//    }
 
     public String getDate() {
         return date;
@@ -101,6 +104,13 @@ public class Post implements Serializable{
     }
     public void setLikeCount(int likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public boolean getOnlyme() {
+        return onlyme;
+    }
+    public void setOnlyme(boolean onlyme) {
+        this.onlyme = onlyme;
     }
 
     public int getCommentCount() {

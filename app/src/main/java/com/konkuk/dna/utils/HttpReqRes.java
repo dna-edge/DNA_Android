@@ -1,6 +1,11 @@
 package com.konkuk.dna.utils;
 
+import android.icu.util.Output;
 import android.util.Log;
+
+import com.google.gson.JsonObject;
+import com.konkuk.dna.post.Post;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -9,17 +14,31 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+import org.json.JSONString;
+import org.json.JSONStringer;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import static junit.framework.Assert.assertEquals;
 
 
 public class HttpReqRes {
@@ -259,5 +278,101 @@ public class HttpReqRes {
         return result;
     }
 
+    /*
+     * get PostsLoc = GET
+     */
+    public String requestHttpGetPostingLoc(String url, String token){
 
+        HttpsURLConnection urlConn = null;
+        BufferedReader reader = null;
+
+        String result = null;
+
+        try{
+            HttpClient client = new DefaultHttpClient();
+            String getURL = url;
+            HttpGet get = new HttpGet(getURL);
+            get.setHeader("token", token);
+
+//            List<NameValuePair>
+            HttpResponse responseGET = client.execute(get);
+            HttpEntity resEntity = responseGET.getEntity();
+            if(resEntity != null){
+                result = EntityUtils.toString(resEntity);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /*
+     * get Posts = GET
+     */
+    public String requestHttpGetPosting(String url, Integer pidx){
+
+        HttpsURLConnection urlConn = null;
+        BufferedReader reader = null;
+
+        String result = null;
+
+        try{
+            HttpClient client = new DefaultHttpClient();
+            String getURL = url;
+            HttpGet get = new HttpGet(getURL);
+//            get.setHeader("token", token);
+
+//            List<NameValuePair>
+            HttpResponse responseGET = client.execute(get);
+            HttpEntity resEntity = responseGET.getEntity();
+            if(resEntity != null){
+                result = EntityUtils.toString(resEntity);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+//        Log.v("posting httpreqres", "get server result : "+result);
+        return result;
+    }
+
+    /*
+     * write Posts = Post
+     */
+    public String requestHttpPostPosting(String url, String token, Post posting) {
+        String result = null;
+        JSONObject json = null;
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpPost post = new HttpPost(postURL);
+
+            post.setHeader("token", token);
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+
+            String lng = String.valueOf(posting.getLongitude());
+            String lat = String.valueOf(posting.getLatitude());
+            String om = String.valueOf(posting.getOnlyme());
+
+            nameValuePairs.add(new BasicNameValuePair("date", posting.getDate()));
+            nameValuePairs.add(new BasicNameValuePair("title", posting.getTitle()));
+            nameValuePairs.add(new BasicNameValuePair("contents", posting.getContent()));
+            nameValuePairs.add(new BasicNameValuePair("latitude", lat));
+            nameValuePairs.add(new BasicNameValuePair("longitude", lng));
+            nameValuePairs.add(new BasicNameValuePair("onlyme", om));
+
+            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            HttpResponse response = client.execute(post);
+
+            Log.v("posting log", "json test : " + json.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return result;
+        }
+        Log.v("posting httpreqres", "get server result : " + result);
+
+        return result;
+    }
 }
