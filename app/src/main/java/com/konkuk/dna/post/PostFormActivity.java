@@ -60,7 +60,7 @@ public class PostFormActivity extends BaseActivity {
         post = new Post();
         isChecked = false;
         dt = new Date();
-        sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss ");
+        sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     }
 
     public void onClick(View v) {
@@ -103,7 +103,6 @@ public class PostFormActivity extends BaseActivity {
 class writePostingAsync extends AsyncTask<Post, Post, String> {
     private Context context;
     private Dbhelper dbhelper;
-//    private GPSTracker gpsTracker;
 
     @Override
     protected void onPreExecute() {
@@ -112,24 +111,17 @@ class writePostingAsync extends AsyncTask<Post, Post, String> {
     public writePostingAsync(Context context){
         this.context = context;
     }
-    //    @Override
+
+    @Override
     protected String doInBackground(Post... posts){
         HttpReqRes httpReqRes = new HttpReqRes();
-//        ObjToJson objToJson = new ObjToJson();
         dbhelper = new Dbhelper(context);
-//        Log.v("posting log", "token : " + FirebaseInstanceId.getInstance().getToken());
         try{
             httpReqRes.requestHttpPostPosting("https://dna.soyoungpark.me:9013/api/posting/", dbhelper.getAccessToken(), posts[0]);
         }finally {
-//
         }
         return null;
     }
-
-//    @Override
-//    protected void onProgressUpdate(Integer... params) {
-//
-//    }
 
     @Override
     protected void onPostExecute(String result) {

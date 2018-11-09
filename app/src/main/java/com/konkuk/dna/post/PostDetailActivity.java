@@ -1,6 +1,8 @@
 package com.konkuk.dna.post;
 
 import android.app.FragmentManager;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,11 +16,14 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class PostDetailActivity extends BaseActivity {
     protected DrawerLayout menuDrawer;
@@ -153,5 +158,56 @@ public class PostDetailActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mapFragment.initMapCenter(post.getLongitude(), post.getLatitude(), 0);
+    }
+}
+
+class PostingAsyncTask extends AsyncTask<String, Integer, ArrayList<Post>> {
+    private Context context;
+//    private OnFriendListAdapter onFriendListAdapter;
+//    private RecyclerView onFriendList;
+
+    public PostingAsyncTask(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected ArrayList<Post> doInBackground(String... strings) {
+        //Dbhelper dbhelper = new Dbhelper(context);
+        ArrayList<Post> posts = new ArrayList<>();
+        int idx=-1;
+        JsonParser jp = new JsonParser();
+        JsonArray ja = (JsonArray) jp.parse(strings[0]);
+
+        for(int i=0; i<ja.size(); i++){
+            JsonObject jo = (JsonObject) ja.get(i);
+            idx = jo.get("idx").getAsInt();
+            String res = requestHttpGETUserInfo(ServerURL.DNA_SERVER+ServerURL.PORT_USER_API+"/user/"+idx, strings[1]);
+            Log.e("after http", res);
+            friends.add(SearchUserJsonToObj(res));
+        }
+        return friends;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<Friend> fs) {
+        super.onPostExecute(fs);
+
+        RecyclerView.LayoutManager layoutManager;
+        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        onFriendList.setLayoutManager(layoutManager);
+        onFriendListAdapter = new OnFriendListAdapter(context, fs);
+        onFriendList.setAdapter(onFriendListAdapter);
+
+
+
+//        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
+//        allFriends.add(new Friend("3457soso", "socoing",
+//              "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg", "상태 메시지", true));
+
     }
 }

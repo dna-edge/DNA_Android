@@ -279,12 +279,9 @@ public class HttpReqRes {
     }
 
     /*
-     * get PostsLoc = GET
+     * get PostsAll = GET
      */
-    public String requestHttpGetPostingLoc(String url, String token){
-
-        HttpsURLConnection urlConn = null;
-        BufferedReader reader = null;
+    public String requestHttpGetPostingAll(String url, String token){
 
         String result = null;
 
@@ -294,7 +291,6 @@ public class HttpReqRes {
             HttpGet get = new HttpGet(getURL);
             get.setHeader("token", token);
 
-//            List<NameValuePair>
             HttpResponse responseGET = client.execute(get);
             HttpEntity resEntity = responseGET.getEntity();
             if(resEntity != null){
