@@ -732,11 +732,11 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         dbhelper = new Dbhelper(context);
         m_token = dbhelper.getAccessToken();
 
-        //String repBestChat = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/best", m_token, doubles[0], doubles[1], radius);
-        //String repMsgAll = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/messages/", m_token, doubles[0], doubles[1], radius);
+        String repBestChat = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/best", m_token, doubles[0], doubles[1], radius);
+        String repMsgAll = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/messages/", m_token, doubles[0], doubles[1], radius);
 
-        //resultArray.add(0, repBestChat);
-        //resultArray.add(1, repMsgAll);
+        resultArray.add(0, repBestChat);
+        resultArray.add(1, repMsgAll);
 
 
         return resultArray;
@@ -750,7 +750,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         * 베스트챗 내용 세팅
         * */
         ArrayList<ChatMessage> bestMessages = new ArrayList<ChatMessage>();
-        //bestMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(0));
+        bestMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(0));
 
         if(bestMessages != null && bestMessages.size()>0) {
             Picasso.get()
@@ -769,25 +769,25 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         * 전체 채팅 내용 세팅
         * */
         if(chatMessages!=null) {
-            chatMessages.clear();
+           // chatMessages.clear();
         }
-        //chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
+        chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
 
         //거꾸로 받아온 리스트를 역순으로 바꿈
-//        Collections.reverse(chatMessages);
-//
-//        chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
-//        msgListView.setAdapter(chatListAdapter);
-//
-//        // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
-//        switch (mode){
-//            case MODE_RENEW:
-//                scrollMyListViewToBottom();
-//                break;
-//            case MODE_LIKE:
-//                scrollMyListViewToMemory();
-//                break;
-//        }
+        Collections.reverse(chatMessages);
+
+        chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
+        msgListView.setAdapter(chatListAdapter);
+
+        // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
+        switch (mode){
+            case MODE_RENEW:
+                scrollMyListViewToBottom();
+                break;
+            case MODE_LIKE:
+                scrollMyListViewToMemory();
+                break;
+        }
 
     }
 
