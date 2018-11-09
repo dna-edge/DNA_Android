@@ -7,17 +7,23 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -232,37 +238,48 @@ public class HttpReqRes {
     { headers: { 'Content-Type': 'multipart/form-data' }})
     .then((response) => {result = response});
          */
-        Log.e("Lambdahttp", url);
-
-        File file = new File(imgURL);
-
-        MultipartEntity entity = new MultipartEntity();
-        entity.addPart("image", new FileBody(file));
-
-//        HttpPost request = new HttpPost(url);
-//        request.setEntity(entity);
-//
+        Log.e("Lambdahttp", imgURL);
 
         //TODO: js에서 file으로 넘기는게 무슨 객체인지, 어떤 형식인지 알아야 풀 수 있을 것 같다.
         String result=null;
         try {
-            HttpClient client = new DefaultHttpClient();
-            String postURL = url+"?type=image";
-
-            HttpPost request = new HttpPost(postURL);
-            request.setEntity(entity);
-
-            //HttpPost post = new HttpPost(postURL);
-            //request.setHeader(HTTP.CONTENT_TYPE, "multipart/form-data");
-
-//            List<NameValuePair> params = new ArrayList<NameValuePair>();
-//            params.add(new BasicNameValuePair("image", imgURL));
+//            File file = new File(imgURL);
 //
-//            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
-//            request.setEntity(ent);
+//            MultipartEntity entity = new MultipartEntity();
+//            entity.addPart("image", new FileBody(file));
+//
+//            HttpClient client = new DefaultHttpClient();
+            String postURL = url+"?type=image";
+//
+//            HttpPost request = new HttpPost(postURL);
+//            request.setEntity(entity);
+//
+//            //HttpPost post = new HttpPost(postURL);
+//            //request.setHeader(HTTP.CONTENT_TYPE, "multipart/form-data");
+//
+////            List<NameValuePair> params = new ArrayList<NameValuePair>();
+////            params.add(new BasicNameValuePair("image", imgURL));
+////
+////            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+////            request.setEntity(ent);
+//
+//            HttpResponse responsePOST = client.execute(request);
+//            HttpEntity resEntity = responsePOST.getEntity();
 
-            HttpResponse responsePOST = client.execute(request);
-            HttpEntity resEntity = responsePOST.getEntity();
+            HttpClient httpClient = HttpClients.createDefault();
+            HttpPost uploadFile = new HttpPost(postURL);
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+
+            // This attaches the file to the POST:
+            FileBody bin = new FileBody(new File(imgURL));
+            MultipartEntity reqEntity = new MultipartEntity();
+            reqEntity.addPart("upload_image", bin);
+
+            //HttpEntity multipart = builder.build();
+            uploadFile.setEntity(reqEntity);
+            HttpResponse response = httpClient.execute(uploadFile);
+            HttpEntity resEntity = response.getEntity();
+
             if (resEntity != null) {
                 result = EntityUtils.toString(resEntity);
             }

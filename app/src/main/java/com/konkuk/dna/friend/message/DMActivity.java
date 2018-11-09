@@ -193,13 +193,13 @@ public class DMActivity extends BaseActivity {
 
             case R.id.dmSendBtn: // 메시지 전송 버튼 클릭
                 JsonObject sendMsgJson
-                        = SendDMObjToJson(dbhelper, roomIdx ,messageType, dmEditText.getText().toString());
+                        = SendDMObjToJson(roomIdx ,messageType, dmEditText.getText().toString());
 
                 SocketConnection.emit("save_dm", dbhelper.getAccessToken(), sendMsgJson);
 
-                DMSetAsyncTask dsat = new DMSetAsyncTask(context, dmListView, 0);
-                dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
-                scrollMyListViewToBottom();
+//                DMSetAsyncTask dsat = new DMSetAsyncTask(context, dmListView, 0);
+//                dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
+//                scrollMyListViewToBottom();
 
                 dmEditText.setText("");
                 dmEditText.setEnabled(true);

@@ -59,12 +59,12 @@ public class ObjToJson {
     /*
      * 메세지 전송 용 Json 생성
      * */
-    public static JsonObject SendDMObjToJson(Dbhelper dbhelper, int roomIdx, String msgType, String contents) {
+    public static JsonObject SendDMObjToJson(int roomIdx, String msgType, String contents) {
 
         //JsonObject jObj = new JsonObject();
         JsonObject mdataObj = new JsonObject();
 
-        mdataObj.addProperty("roomIdx", roomIdx);
+        mdataObj.addProperty("room_idx", roomIdx);
         mdataObj.addProperty("type", msgType);
         mdataObj.addProperty("contents", contents);
 
