@@ -305,7 +305,7 @@ public class HttpReqRes {
     /*
      * get Posts = GET
      */
-    public String requestHttpGetPosting(String url, Integer pidx){
+    public String requestHttpGetPosting(String url){
 
         HttpsURLConnection urlConn = null;
         BufferedReader reader = null;

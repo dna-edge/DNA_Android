@@ -49,6 +49,13 @@ public class Post implements Serializable{
     public void setIdx(int idx) {
         this.writer_idx = writer_idx;
     }
+
+    public int getPostingIdx() {
+        return posting_idx;
+    }
+    public void setPostingIdx(int idx) {
+        this.posting_idx = posting_idx;
+    }
 //
 //    public String getAvatar() {
 //        return avatar;

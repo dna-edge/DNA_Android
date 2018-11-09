@@ -2,6 +2,7 @@ package com.konkuk.dna.post;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
@@ -16,6 +17,10 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.helpers.InitHelpers;
@@ -24,6 +29,8 @@ import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
 
 public class PostDetailActivity extends BaseActivity {
     protected DrawerLayout menuDrawer;
@@ -43,7 +50,13 @@ public class PostDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_post_detail);
+
+        Intent intent = getIntent();
+        int idx = intent.getIntExtra("pidx", 0);
+        Log.v("postdetailactivity", "param pidx : " + idx);
+        new PostingAsyncTask(this).execute(idx);
 
         init();
     }
@@ -69,8 +82,8 @@ public class PostDetailActivity extends BaseActivity {
         postCommentCnt = (TextView) findViewById(R.id.postCommentCnt);
         postScrapCnt = (TextView) findViewById(R.id.postScrapCnt);
 
-        commentEdit = (EditText) findViewById(R.id.commentEdit);
-        commentList = (ListView) findViewById(R.id.commentList);
+//        commentEdit = (EditText) findViewById(R.id.commentEdit);
+//        commentList = (ListView) findViewById(R.id.commentList);
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
         Post extra = (Post) getIntent().getSerializableExtra("post");
@@ -99,23 +112,23 @@ public class PostDetailActivity extends BaseActivity {
         postScrapBtnText.setTextColor(getResources().getColor(R.color.sunflower));
 
         postLikeCnt.setText(post.getLikeCount()+"개");
-        postCommentCnt.setText(post.getCommentCount()+"개");
-        postScrapCnt.setText(post.getScrapCount()+"개");
-        commentAdapter = new CommentAdapter(this, R.layout.post_comment_item, post.getComments());
-        commentList.setAdapter(commentAdapter);
+//        postCommentCnt.setText(post.getCommentCount()+"개");
+//        postScrapCnt.setText(post.getScrapCount()+"개");
+//        commentAdapter = new CommentAdapter(this, R.layout.post_comment_item, post.getComments());
+//        commentList.setAdapter(commentAdapter);
 
         // 댓글 갯수에 맞춰서 height 설정하기
         final int UNBOUNDED = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         int totalHeight = 0;
-        for (int i = 0; i < commentAdapter.getCount(); i++) {
-            View childView = commentAdapter.getView(i, null, commentList);
-            childView.measure(UNBOUNDED, UNBOUNDED);
-            totalHeight += childView.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = commentList.getLayoutParams();
-        params.height = totalHeight + (commentList.getDividerHeight() * (commentList.getCount() - 1));
-        commentList.setLayoutParams(params);
-        commentList.requestLayout();
+//        for (int i = 0; i < commentAdapter.getCount(); i++) {
+//            View childView = commentAdapter.getView(i, null, commentList);
+//            childView.measure(UNBOUNDED, UNBOUNDED);
+//            totalHeight += childView.getMeasuredHeight();
+//        }
+//        ViewGroup.LayoutParams params = commentList.getLayoutParams();
+//        params.height = totalHeight + (commentList.getDividerHeight() * (commentList.getCount() - 1));
+//        commentList.setLayoutParams(params);
+//        commentList.requestLayout();
 
         // 생성된 후 최상단으로 스크롤을 올려줍니다
         postScrollView.smoothScrollTo(0, 0);
@@ -157,11 +170,12 @@ public class PostDetailActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.v("postdetailactivity", "longitude : " + post.getLongitude() + ", latitude : " + post.getLatitude());
         mapFragment.initMapCenter(post.getLongitude(), post.getLatitude(), 0);
     }
 }
 
-class PostingAsyncTask extends AsyncTask<String, Integer, ArrayList<Post>> {
+class PostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
     private Context context;
 //    private OnFriendListAdapter onFriendListAdapter;
 //    private RecyclerView onFriendList;
@@ -176,32 +190,34 @@ class PostingAsyncTask extends AsyncTask<String, Integer, ArrayList<Post>> {
     }
 
     @Override
-    protected ArrayList<Post> doInBackground(String... strings) {
+    protected Post doInBackground(Integer... ints) {
         //Dbhelper dbhelper = new Dbhelper(context);
-        ArrayList<Post> posts = new ArrayList<>();
-        int idx=-1;
-        JsonParser jp = new JsonParser();
-        JsonArray ja = (JsonArray) jp.parse(strings[0]);
+        HttpReqRes httpReqRes = new HttpReqRes();
+        Post post = new Post();
+        int idx=ints[0];
 
-        for(int i=0; i<ja.size(); i++){
-            JsonObject jo = (JsonObject) ja.get(i);
-            idx = jo.get("idx").getAsInt();
-            String res = requestHttpGETUserInfo(ServerURL.DNA_SERVER+ServerURL.PORT_USER_API+"/user/"+idx, strings[1]);
-            Log.e("after http", res);
-            friends.add(SearchUserJsonToObj(res));
-        }
-        return friends;
+        String res = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/"+idx);
+        post = PostingJsonToObj(res).get(0);
+//        JsonParser jp = new JsonParser();
+//        JsonArray ja = (JsonArray) jp.parse(strings[0]);
+
+//        for(int i=0; i<ja.size(); i++){
+//            JsonObject jo = (JsonObject) ja.get(i);
+//            Log.e("after http", res);
+//            friends.add(SearchUserJsonToObj(res));
+//        }
+        return post;
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Friend> fs) {
-        super.onPostExecute(fs);
+    protected void onPostExecute(Post posting) {
+        super.onPostExecute(posting);
 
-        RecyclerView.LayoutManager layoutManager;
-        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        onFriendList.setLayoutManager(layoutManager);
-        onFriendListAdapter = new OnFriendListAdapter(context, fs);
-        onFriendList.setAdapter(onFriendListAdapter);
+//        RecyclerView.LayoutManager layoutManager;
+//        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+//        onFriendList.setLayoutManager(layoutManager);
+//        onFriendListAdapter = new OnFriendListAdapter(context, fs);
+//        onFriendList.setAdapter(onFriendListAdapter);
 
 
 
