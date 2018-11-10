@@ -44,6 +44,7 @@ public class PostDetailActivity extends BaseActivity {
     private EditText commentEdit;
     private ListView commentList;
     private CommentAdapter commentAdapter;
+    private int idx;
 
     private Post post;
 
@@ -54,9 +55,8 @@ public class PostDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_post_detail);
 
         Intent intent = getIntent();
-        int idx = intent.getIntExtra("pidx", 0);
-        Log.v("postdetailactivity", "param pidx : " + idx);
-        new PostingAsyncTask(this).execute(idx);
+        idx = intent.getIntExtra("pidx", 0);
+        new showPostingAsyncTask().execute(idx);
 
         init();
     }
@@ -113,7 +113,7 @@ public class PostDetailActivity extends BaseActivity {
 
         postLikeCnt.setText(post.getLikeCount()+"개");
 //        postCommentCnt.setText(post.getCommentCount()+"개");
-//        postScrapCnt.setText(post.getScrapCount()+"개");
+        postScrapCnt.setText(post.getScrapCount()+"개");
 //        commentAdapter = new CommentAdapter(this, R.layout.post_comment_item, post.getComments());
 //        commentList.setAdapter(commentAdapter);
 
@@ -146,23 +146,25 @@ public class PostDetailActivity extends BaseActivity {
                 }
                 break;
 
-            case R.id.addFriendBtn: // 친구 추가 버튼 클릭
+            case R.id.addFriendBtn: // 친구 추가 버튼 클릭 : 4
                 Log.d("PostDetail", "add friend");
                 break;
 
-            case R.id.postLikeBtn: // 좋아요 버튼 클릭
+            case R.id.postLikeBtn: // 좋아요 버튼 클릭 : 1
                 Log.d("PostDetail", "like");
+                new PostingAsyncTask(this).execute(1, idx);
                 break;
 
-            case R.id.postShareBtn: // 공유 버튼 클릭
+            case R.id.postShareBtn:
                 FragmentManager fragmentManager = getFragmentManager();
                 PostShareFragment postShareFragment = new PostShareFragment();
 
                 postShareFragment.show(fragmentManager, "postShareFragment");
                 break;
 
-            case R.id.postScrapBtn: // 스크랩 버튼 클릭
+            case R.id.postScrapBtn: // 스크랩 버튼 클릭 : 2
                 Log.d("PostDetail", "scrap");
+                new PostingAsyncTask(this).execute(2, idx);
                 break;
         }
     }
@@ -170,19 +172,11 @@ public class PostDetailActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.v("postdetailactivity", "longitude : " + post.getLongitude() + ", latitude : " + post.getLatitude());
         mapFragment.initMapCenter(post.getLongitude(), post.getLatitude(), 0);
     }
 }
 
-class PostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
-    private Context context;
-//    private OnFriendListAdapter onFriendListAdapter;
-//    private RecyclerView onFriendList;
-
-    public PostingAsyncTask(Context context) {
-        this.context = context;
-    }
+class showPostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
 
     @Override
     protected void onPreExecute() {
@@ -191,21 +185,13 @@ class PostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
 
     @Override
     protected Post doInBackground(Integer... ints) {
-        //Dbhelper dbhelper = new Dbhelper(context);
         HttpReqRes httpReqRes = new HttpReqRes();
         Post post = new Post();
-        int idx=ints[0];
+        int idx = ints[0];
 
-        String res = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/"+idx);
+        String res = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + idx);
         post = PostingJsonToObj(res).get(0);
-//        JsonParser jp = new JsonParser();
-//        JsonArray ja = (JsonArray) jp.parse(strings[0]);
 
-//        for(int i=0; i<ja.size(); i++){
-//            JsonObject jo = (JsonObject) ja.get(i);
-//            Log.e("after http", res);
-//            friends.add(SearchUserJsonToObj(res));
-//        }
         return post;
     }
 
@@ -213,17 +199,63 @@ class PostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
     protected void onPostExecute(Post posting) {
         super.onPostExecute(posting);
 
-//        RecyclerView.LayoutManager layoutManager;
-//        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-//        onFriendList.setLayoutManager(layoutManager);
-//        onFriendListAdapter = new OnFriendListAdapter(context, fs);
-//        onFriendList.setAdapter(onFriendListAdapter);
+    }
+}
 
+class PostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
+    Context context;
+    Dbhelper dbhelper;
 
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
 
-//        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
-//        allFriends.add(new Friend("3457soso", "socoing",
-//              "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg", "상태 메시지", true));
+    public PostingAsyncTask(Context context){ this.context = context; }
+
+    @Override
+    protected Post doInBackground(Integer... ints) {
+        dbhelper = new Dbhelper(context);
+        HttpReqRes httpReqRes = new HttpReqRes();
+        Post post = new Post();
+        int num = ints[0];
+        String res = null;
+
+        switch(num){
+            case 1:     // 포스팅 북마크
+                res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/like/" + ints[1], dbhelper.getAccessToken(), 1);
+
+                if(res.matches("(.*)201(.*)")){
+                    Log.v("postdetail", "status : 201");
+                    break;
+                }
+                else if(res.matches("(.*)400(.*)")){
+                    Log.v("postdetail", "status : 400");
+                    res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/like/" + ints[1], dbhelper.getAccessToken(), 3);
+                }
+                break;
+
+            case 2:     // 포스팅 북마크
+                res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[1], dbhelper.getAccessToken(), 2);
+
+                if(res.matches("(.*)201(.*)")){
+                    Log.v("postdetail", "status : 201");
+                    break;
+                }
+                else if(res.matches("(.*)400(.*)")){
+                    Log.v("postdetail", "status : 400");
+                    res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[1], dbhelper.getAccessToken(), 4);
+                }
+                break;
+
+        }
+
+        return post;
+    }
+
+    @Override
+    protected void onPostExecute(Post posting) {
+        super.onPostExecute(posting);
 
     }
 }

@@ -390,39 +390,5 @@ class showPostingAllAsync extends AsyncTask<Void, Void, ArrayList<Post>>{
     protected void onPostExecute(ArrayList<Post> postings) {
 
         super.onPostExecute(postings);
-        Log.v("posting log", "posting pos : " + postings);
     }
 }
-
-//class showPostingAsync extends AsyncTask<ArrayList<Post>, ArrayList<Post>, ArrayList<Post>>{
-//
-//    @Override
-//    protected void onPreExecute() {
-//        super.onPreExecute();
-//    }
-//
-//    @Override
-//    protected ArrayList<Post> doInBackground(ArrayList<Post>... postings){
-//        HttpReqRes httpReqRes = new HttpReqRes();
-////        postings[0] = PostingJsonToObj(result, 7);
-//        // 이러면 근데 포스팅에 아무것도 안들어있는상태로 길이를 불러와서 무조건 0임,,
-//        for(int i=0;i<postings.length;i++){
-//            String result = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + i, i);
-//            postings[i] = PostingJsonToObj(result, i);
-//            return postings[i];
-//        }
-//        return null;
-//    }
-//
-////    @Override
-////    protected void onProgressUpdate(Integer... params) {
-////
-////    }
-//
-//    @Override
-//    protected void onPostExecute(ArrayList<Post> postings) {
-//
-//        super.onPostExecute(postings);
-//        Log.v("posting log", "posting pos : " + postings);
-//    }
-//}

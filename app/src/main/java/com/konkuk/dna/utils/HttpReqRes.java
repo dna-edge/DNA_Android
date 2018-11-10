@@ -12,6 +12,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -38,6 +39,7 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
 import static junit.framework.Assert.assertEquals;
 
 
@@ -307,18 +309,13 @@ public class HttpReqRes {
      */
     public String requestHttpGetPosting(String url){
 
-        HttpsURLConnection urlConn = null;
-        BufferedReader reader = null;
-
         String result = null;
 
         try{
             HttpClient client = new DefaultHttpClient();
             String getURL = url;
             HttpGet get = new HttpGet(getURL);
-//            get.setHeader("token", token);
 
-//            List<NameValuePair>
             HttpResponse responseGET = client.execute(get);
             HttpEntity resEntity = responseGET.getEntity();
             if(resEntity != null){
@@ -327,14 +324,13 @@ public class HttpReqRes {
         }catch(Exception e){
             e.printStackTrace();
         }
-//        Log.v("posting httpreqres", "get server result : "+result);
         return result;
     }
 
     /*
      * write Posts = Post
      */
-    public String requestHttpPostPosting(String url, String token, Post posting) {
+    public String requestHttpPostWritePosting(String url, String token, Post posting) {
         String result = null;
         JSONObject json = null;
 
@@ -367,6 +363,93 @@ public class HttpReqRes {
             e.printStackTrace();
             return result;
         }
+        Log.v("posting httpreqres", "get server result : " + result);
+
+        return result;
+    }
+
+    /*
+     * Post DETAILS = Post
+     */
+    public String requestHttpPosting(String url, String token, int postCase) {
+        String result = null;
+        JSONObject json = null;
+        Post posting;
+
+        switch(postCase) {
+            case 1:        // like
+                try {
+                    HttpClient client = new DefaultHttpClient();
+                    String postURL = url;
+                    HttpPost post = new HttpPost(postURL);
+
+                    post.setHeader("token", token);
+
+                    HttpResponse response = client.execute(post);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+                break;
+
+            case 2:        // bookmark
+                try {
+                    HttpClient client = new DefaultHttpClient();
+                    String postURL = url;
+                    HttpPost post = new HttpPost(postURL);
+
+                    post.setHeader("token", token);
+
+                    HttpResponse response = client.execute(post);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+                break;
+            case 3:        // unlike
+                try {
+                    HttpClient client = new DefaultHttpClient();
+                    String deleteURL = url;
+                    HttpDelete del = new HttpDelete(deleteURL);
+
+
+                    del.setHeader("token", token);
+
+                    HttpResponse response = client.execute(del);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+                break;
+
+            case 4:        // dbookmark
+                try {
+                    HttpClient client = new DefaultHttpClient();
+                    String deleteURL = url;
+                    HttpDelete del = new HttpDelete(deleteURL);
+
+
+                    del.setHeader("token", token);
+
+                    HttpResponse response = client.execute(del);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+                break;
+            }
         Log.v("posting httpreqres", "get server result : " + result);
 
         return result;
