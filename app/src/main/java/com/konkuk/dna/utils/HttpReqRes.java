@@ -104,7 +104,7 @@ public class HttpReqRes {
             client.getParams().setParameter("http.protocol.expect-continue", false);
             client.getParams().setParameter("http.connection.timeout", 2000);
             client.getParams().setParameter("http.socket.timeout", 2000);
-            
+
             String postURL = url;
             HttpPost post = new HttpPost(postURL);
             post.setHeader("token", token);
@@ -160,7 +160,7 @@ public class HttpReqRes {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("requestHttpPostBestChat", "res: "+result);
+        //Log.e("requestHttpPostBestChat", "res: "+result);
         return result;
     }
 

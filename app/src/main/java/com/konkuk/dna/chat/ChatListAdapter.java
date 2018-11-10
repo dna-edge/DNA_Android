@@ -108,6 +108,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                 }
 
                 TextView messageNickname = (TextView) v.findViewById(R.id.msgNickname);
+
                 String nickname = "";
                 if (message.getAnonymity() == 1) {
                     nickname = NameHelpers.makeName(message.getIdx());

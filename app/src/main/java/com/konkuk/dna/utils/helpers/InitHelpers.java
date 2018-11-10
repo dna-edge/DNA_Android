@@ -185,8 +185,8 @@ public class InitHelpers {
                 public void call(Object... args) {
                     //Log.e("Socket Ping-geo", args[0].toString());
                     Log.e("Socket Ping-geo", "geo");
-//                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
-//                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    //DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
+                    //dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
 
                 }
             });

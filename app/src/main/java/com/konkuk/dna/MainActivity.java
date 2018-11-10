@@ -117,7 +117,9 @@ public class MainActivity extends BaseActivity {
                 Log.e("Socket Connected",SocketConnection.getSocket().connected()+"");
                 JsonObject storeJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
                 SocketConnection.emit("store", storeJson);
-                dialogWaitSocket.dismiss();
+                if(dialogWaitSocket!=null) {
+                    dialogWaitSocket.dismiss();
+                }
             }
         });
         // 핑이 오면 update 할 것

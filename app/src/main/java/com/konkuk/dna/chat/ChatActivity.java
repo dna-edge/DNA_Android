@@ -51,6 +51,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -610,7 +611,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
             bestChatNickname.setText("from DNA.");
         }
 
-        //Log.e("!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Log.e("!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         /*
         * 전체 채팅 내용 세팅
         * */
@@ -618,7 +619,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
             chatMessages.clear();
         }
 
-        chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
+        if(resultArray.get(1)!=null) {
+            chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
+        }
 
         if (chatMessages == null || chatMessages.size() == 0) {
             if (msgListView != null) msgListView.setVisibility(View.GONE);
@@ -626,8 +629,10 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
             return;
         }
 
+        Log.e("Here is", "BEFORE SORT");
         //거꾸로 받아온 리스트를 역순으로 바꿈
-        Collections.reverse(chatMessages);
+        Collections.sort(chatMessages);
+        //Collections.reverse(chatMessages);
 
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
         msgListView.setAdapter(null);

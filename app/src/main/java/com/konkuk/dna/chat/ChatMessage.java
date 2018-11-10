@@ -1,8 +1,10 @@
 package com.konkuk.dna.chat;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 
-public class ChatMessage {
+public class ChatMessage implements Comparable<ChatMessage>{
     private int idx;            // 인덱스
     private String userName;    // 보낸이
     private String avatar;      // 프로필 이미지 url
@@ -122,5 +124,15 @@ public class ChatMessage {
 
     public void setAmILike(boolean amILike) {
         this.amILike = amILike;
+    }
+
+    @Override
+    public int compareTo(@NonNull ChatMessage chatMessage) {
+        if(msg_idx > chatMessage.getMsg_idx()){
+            return 1;
+        }else if(msg_idx < chatMessage.getMsg_idx()){
+            return -1;
+        }
+        return 0;
     }
 }
