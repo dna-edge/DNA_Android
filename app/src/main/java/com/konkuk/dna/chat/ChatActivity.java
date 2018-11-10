@@ -355,7 +355,7 @@ public class ChatActivity extends BaseActivity {
                 if (messageType.equals(TYPE_MESSAGE) || messageType.equals(TYPE_LOUDSPEAKER)) {
 
                     startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
-                    //activityResult로 가시오.
+                    // Guide : activityResult로 가시오.
 //                    msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
 //                    msgEditText.setText("사진 첨부됨");
 //                    msgEditText.setEnabled(false);
@@ -432,7 +432,9 @@ public class ChatActivity extends BaseActivity {
 
         // TODO 1번 누르면 ChatActivity가 destroy되지 않고 그냥 mainActivity가 보임
         // TODO 2번쨰, 3번째 눌렀을때 앱이 종료 되도록 만들기
-        finish();
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
 
     }
 
@@ -545,8 +547,8 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
 
     @Override
     protected void onPreExecute() {
-        //now_pos = msgListView.getLastVisiblePosition();
-        now_pos = msgListView.getFirstVisiblePosition();
+        now_pos = msgListView.getLastVisiblePosition();
+        //now_pos = msgListView.getFirstVisiblePosition();
         super.onPreExecute();
     }
 
@@ -560,13 +562,14 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         HttpReqRes httpreq = new HttpReqRes();
         dbhelper = new Dbhelper(context);
         m_token = dbhelper.getAccessToken();
+        Double lng = doubles[0];
+        Double lat = doubles[1];
 
-        String repBestChat = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/best", m_token, doubles[0], doubles[1], radius);
-        String repMsgAll = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/messages/", m_token, doubles[0], doubles[1], radius);
+        String repBestChat = httpreq.requestHttpPostBestChat(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/best", m_token, lng, lat, radius);
+        String repMsgAll = httpreq.requestHttpPostMsgAll(ServerURL.DNA_SERVER+ServerURL.PORT_SOCKET_API+"/messages/", m_token, lng, lat, radius);
 
         resultArray.add(0, repBestChat);
         resultArray.add(1, repMsgAll);
-
 
         return resultArray;
     }
@@ -579,7 +582,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         * 베스트챗 내용 세팅
         * */
         ArrayList<ChatMessage> bestMessages = new ArrayList<ChatMessage>();
-        bestMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(0));
+        if(resultArray.get(0)!=null) {
+            bestMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(0));
+        }
 
         if (bestMessages != null && bestMessages.size() > 0) {
             ChatMessage bestMessage = bestMessages.get(0);
@@ -610,7 +615,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         * 전체 채팅 내용 세팅
         * */
         if(chatMessages!=null) {
-           // chatMessages.clear();
+            chatMessages.clear();
         }
 
         chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
@@ -625,6 +630,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         Collections.reverse(chatMessages);
 
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
+        msgListView.setAdapter(null);
         msgListView.setAdapter(chatListAdapter);
 
         // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.

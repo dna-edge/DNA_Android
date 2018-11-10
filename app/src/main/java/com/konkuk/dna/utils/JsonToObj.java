@@ -259,7 +259,7 @@ public class JsonToObj {
                 }
 
                 prev_idx = user_idx;
-
+                Log.e("msg_idx", msg_idx+"");
                 chatMessages.add(new ChatMessage(user_idx, nickname, avatar, anonymity, contents, DatetoStr(created_at),
                         like_count, msg_type, lng, lat, whoLikes, msg_idx, viewType, amILike));
 
@@ -268,6 +268,7 @@ public class JsonToObj {
             Log.e("!!!=", "This area NO MSG.");
             chatMessages = null;
         }
+
 
         return chatMessages;
     }

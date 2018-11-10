@@ -101,6 +101,10 @@ public class HttpReqRes {
         String result=null;
         try {
             HttpClient client = new DefaultHttpClient();
+            client.getParams().setParameter("http.protocol.expect-continue", false);
+            client.getParams().setParameter("http.connection.timeout", 2000);
+            client.getParams().setParameter("http.socket.timeout", 2000);
+            
             String postURL = url;
             HttpPost post = new HttpPost(postURL);
             post.setHeader("token", token);
@@ -120,7 +124,7 @@ public class HttpReqRes {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("get", result);
+        Log.e("requestHttpPostMsgAll", "res: "+result);
         return result;
     }
 
@@ -130,12 +134,13 @@ public class HttpReqRes {
      * */
     public String requestHttpPostBestChat(String url, String token, Double lng, Double lat, Integer radius){
 
-        HttpsURLConnection urlConn = null;
-        BufferedReader reader = null;
-
         String result=null;
         try {
             HttpClient client = new DefaultHttpClient();
+            client.getParams().setParameter("http.protocol.expect-continue", false);
+            client.getParams().setParameter("http.connection.timeout", 2000);
+            client.getParams().setParameter("http.socket.timeout", 2000);
+
             String postURL = url;
             HttpPost post = new HttpPost(postURL);
             post.setHeader("token", token);
@@ -155,6 +160,7 @@ public class HttpReqRes {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Log.e("requestHttpPostBestChat", "res: "+result);
         return result;
     }
 
@@ -243,50 +249,19 @@ public class HttpReqRes {
         //TODO: js에서 file으로 넘기는게 무슨 객체인지, 어떤 형식인지 알아야 풀 수 있을 것 같다.
         String result=null;
         try {
-//            File file = new File(imgURL);
-//
-//            MultipartEntity entity = new MultipartEntity();
-//            entity.addPart("image", new FileBody(file));
-//
-//            HttpClient client = new DefaultHttpClient();
-            String postURL = url+"?type=image";
-//
-//            HttpPost request = new HttpPost(postURL);
-//            request.setEntity(entity);
-//
-//            //HttpPost post = new HttpPost(postURL);
-//            //request.setHeader(HTTP.CONTENT_TYPE, "multipart/form-data");
-//
-////            List<NameValuePair> params = new ArrayList<NameValuePair>();
-////            params.add(new BasicNameValuePair("image", imgURL));
-////
-////            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
-////            request.setEntity(ent);
-//
-//            HttpResponse responsePOST = client.execute(request);
-//            HttpEntity resEntity = responsePOST.getEntity();
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpGet get = new HttpGet(postURL);
+            get.setHeader("Content-Type", "multipart/form-data");
 
-            HttpClient httpClient = HttpClients.createDefault();
-            HttpPost uploadFile = new HttpPost(postURL);
-            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-
-            // This attaches the file to the POST:
-            FileBody bin = new FileBody(new File(imgURL));
-            MultipartEntity reqEntity = new MultipartEntity();
-            reqEntity.addPart("upload_image", bin);
-
-            //HttpEntity multipart = builder.build();
-            uploadFile.setEntity(reqEntity);
-            HttpResponse response = httpClient.execute(uploadFile);
-            HttpEntity resEntity = response.getEntity();
-
+            HttpResponse responseGET = client.execute(get);
+            HttpEntity resEntity = responseGET.getEntity();
             if (resEntity != null) {
                 result = EntityUtils.toString(resEntity);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("Upload, Get Image", result+"?");
         return result;
     }
 
