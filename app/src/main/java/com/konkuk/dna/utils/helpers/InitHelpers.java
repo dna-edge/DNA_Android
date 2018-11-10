@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
@@ -185,8 +186,13 @@ public class InitHelpers {
                 public void call(Object... args) {
                     //Log.e("Socket Ping-geo", args[0].toString());
                     Log.e("Socket Ping-geo", "geo");
-                    //DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
-                    //dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
+
+                    if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+                        dat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    }else{
+                        dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    }
 
                 }
             });
@@ -200,9 +206,13 @@ public class InitHelpers {
                 @Override
                 public void call(Object... args) {
                     Log.e("Socket Ping-direct", args[0].toString());
-//                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
-//                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
 
+                    if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+                        dat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    }else{
+                        dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    }
                 }
             });
             // TODO 해당 친구의 프로필을 입력해줘야 합니다.

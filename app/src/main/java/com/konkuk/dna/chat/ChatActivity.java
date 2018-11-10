@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
@@ -160,7 +161,12 @@ public class ChatActivity extends BaseActivity {
         //베스트 챗, 채팅 불러오기
         ChatSetAsyncTask csat = new ChatSetAsyncTask(this, radius, msgListView, bestChatAvatar,
                 bestChatContent, bestChatNickname, bestChatDate, msgListEmpty, chatMessages, 0);
-        csat.execute(longitude, latitude);
+
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+            csat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, longitude, latitude);
+        }else{
+            csat.execute(longitude, latitude);
+        }
 
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
 
@@ -228,13 +234,23 @@ public class ChatActivity extends BaseActivity {
                 Log.e("Socket GET MESSAGE", "MSG COME!!!");
                 csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent,
                         bestChatNickname, bestChatDate, msgListEmpty, chatMessages, 0);
-                csat.execute(longitude, latitude);
+
+                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+                    csat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, longitude, latitude);
+                }else{
+                    csat.execute(longitude, latitude);
+                }
                 break;
             case SOCKET_APPLY_LIKE:
                 Log.e("Socket GET Like", "Apply Like COME!!!" + event.args);
                 csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent,
                         bestChatNickname, bestChatDate, msgListEmpty, chatMessages,1);
-                csat.execute(longitude, latitude);
+
+                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+                    csat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, longitude, latitude);
+                }else{
+                    csat.execute(longitude, latitude);
+                }
                 break;
             case SOCKET_SPEAKER:
                 Log.e("Socket PUSH", "PUSH COME!!!");
