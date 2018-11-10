@@ -6,7 +6,8 @@ public class ChatMessage {
     private int idx;            // 인덱스
     private String userName;    // 보낸이
     private String avatar;      // 프로필 이미지 url
-    private String contents;     // 메시지
+    private int anonymity;      // 보낸 사람의 익명성
+    private String contents;    // 메시지
 
     private String date;        // 시간
     private String like;        // 좋아요
@@ -31,11 +32,12 @@ public class ChatMessage {
     public ChatMessage(){}
 
 
-    public ChatMessage(int idx, String userName, String avatar, String contents, String date,
+    public ChatMessage(int idx, String userName, String avatar, int anonymity, String contents, String date,
                        String like, String type, double lng, double lat, ArrayList<Integer> whoLikes, int msg_idx, int viewType, boolean amILike){
         this.idx = idx;
         this.userName = userName;
         this.avatar = avatar;
+        this.anonymity = anonymity;
         this.contents = contents;
         this.date = date;
         this.like = like;
@@ -71,6 +73,9 @@ public class ChatMessage {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+    public int getAnonymity() { return anonymity; }
+    public void setAnonymity(int anonymity) { this.anonymity = anonymity; }
 
     public String getContents() { return contents; }
     public void setMessage(String contents){
