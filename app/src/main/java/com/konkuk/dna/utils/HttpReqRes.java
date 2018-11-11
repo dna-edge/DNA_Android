@@ -10,6 +10,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -225,6 +226,38 @@ public class HttpReqRes {
 
             HttpResponse responseGET = client.execute(get);
             HttpEntity resEntity = responseGET.getEntity();
+            if (resEntity != null) {
+                result = EntityUtils.toString(resEntity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    /*
+     * 채팅 환경설정 하기 - put
+     * */
+    public static String requestHttpPutSetting(String url, String token, int radius, int anonymity, int searchable){
+
+        String result=null;
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String putURL = url;
+            HttpPut put = new HttpPut(putURL);
+            put.setHeader("token", token);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("radius", String.valueOf(radius)));
+            params.add(new BasicNameValuePair("anonymity", String.valueOf(anonymity)));
+            params.add(new BasicNameValuePair("searchable", String.valueOf(searchable)));
+
+            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+            put.setEntity(ent);
+
+            HttpResponse responsePUT = client.execute(put);
+            HttpEntity resEntity = responsePUT.getEntity();
             if (resEntity != null) {
                 result = EntityUtils.toString(resEntity);
             }
