@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -476,6 +477,15 @@ public class ChatActivity extends BaseActivity {
 
         if(requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK){
             selectedImage = data.getData();
+
+//            String[] projection = { MediaStore.Images.Media.DATA };
+//            Cursor cursor = managedQuery(selectedImage, projection, null, null, null);
+//            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//            cursor.moveToFirst();
+//
+//            String imagepath = cursor.getString(column_index);
+
+//            Log.e("onActivityResult", imagepath);
             getLambdaImageAsyncTask glat = new getLambdaImageAsyncTask(context);
             glat.execute(selectedImage.toString());
 
@@ -510,8 +520,6 @@ class getLambdaImageAsyncTask extends AsyncTask<String, Integer, String>{
 
     @Override
     protected String doInBackground(String... strings) {
-        Log.e("doInBackground","start");
-        Log.e("doInBackground",strings[0]);
         String result = requestHttpPostLambda(ServerURL.AWS_LAMBDA_API_URL, strings[0]);
 
         return result;
@@ -520,7 +528,9 @@ class getLambdaImageAsyncTask extends AsyncTask<String, Integer, String>{
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        Log.e("doInBack", s+"!");
         dialogImage.dismiss();
+
     }
 }
 
@@ -632,7 +642,7 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         * 전체 채팅 내용 세팅
         * */
         if(chatMessages!=null) {
-            chatMessages.clear();
+           // chatMessages.clear();
         }
 
         if(resultArray.get(1)!=null) {
@@ -671,9 +681,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         msgListView.post(new Runnable() {
             @Override
             public void run() {
-                msgListView.clearFocus();
-                chatListAdapter.notifyDataSetChanged();
-                msgListView.requestFocusFromTouch();
+//                msgListView.clearFocus();
+//                chatListAdapter.notifyDataSetChanged();
+//                msgListView.requestFocusFromTouch();
 
                 msgListView.setSelection(msgListView.getCount() - 1);
             }

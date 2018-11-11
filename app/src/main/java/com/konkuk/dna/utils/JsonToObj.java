@@ -182,7 +182,7 @@ public class JsonToObj {
         JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
 
         ArrayList<Integer> whoLikes = new ArrayList<>();
-        boolean amILike = false;
+        boolean amILike;
         int msg_idx, user_idx, anonymity;
         String nickname, avatar, position, like_count;
         double lng, lat;
@@ -215,10 +215,11 @@ public class JsonToObj {
 
                 like_count = oneObject.get("like_count").toString();
                 JsonArray wholikesArray = (JsonArray) oneObject.get("likes");
+
                 amILike = false;
                 for(int j=0; j<wholikesArray.size(); j++){
                     whoLikes.add(Integer.parseInt(wholikesArray.get(j).toString()));
-                    if(whoLikes.get(j) == myIdx){
+                    if(Integer.parseInt(wholikesArray.get(j).toString()) == myIdx){
                         amILike = true;
                     }
                 }

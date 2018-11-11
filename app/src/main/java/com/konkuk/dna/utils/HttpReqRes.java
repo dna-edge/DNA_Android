@@ -12,8 +12,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -284,11 +286,17 @@ public class HttpReqRes {
         try {
             HttpClient client = new DefaultHttpClient();
             String postURL = url;
-            HttpGet get = new HttpGet(postURL);
-            get.setHeader("Content-Type", "multipart/form-data");
+            HttpPost post = new HttpPost(postURL);
+            post.setHeader("Content-Type", "multipart/form-data");
 
-            HttpResponse responseGET = client.execute(get);
-            HttpEntity resEntity = responseGET.getEntity();
+            File file = new File(imgURL);
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            builder.addPart("image", new FileBody(file, "application/octet"));
+            post.setEntity(builder.build());
+
+            HttpResponse responsePOST = client.execute(post);
+            HttpEntity resEntity = responsePOST.getEntity();
             if (resEntity != null) {
                 result = EntityUtils.toString(resEntity);
             }
