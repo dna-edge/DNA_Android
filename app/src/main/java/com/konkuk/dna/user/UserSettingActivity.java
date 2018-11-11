@@ -137,6 +137,7 @@ public class UserSettingActivity extends BaseActivity {
             case R.id.settingSaveBtn: // 저장 버튼 클릭
 
                 dbhelper.updateRadius(radius);
+                dbhelper.updateAnonymity(int_anony);
 
                 JsonObject storeJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
                 SocketConnection.emit("store", storeJson);

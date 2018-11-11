@@ -138,6 +138,21 @@ public class Dbhelper extends SQLiteOpenHelper {
     }
 
     /*
+     * 채팅 반경 변경 메소드
+     * */
+    public void updateAnonymity(int anonymity){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(DNAEntry.COLUME_NAME_ANONIMITY, anonymity);
+
+        /*
+         * 받아온 엑세스 토큰을 갱신함..
+         * */
+        db.update(DNAEntry.TABLE_NAME, values, null, null);
+    }
+
+    /*
     * 토큰 가져오기
     * */
     public String getAccessToken(){
@@ -260,9 +275,23 @@ public class Dbhelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
         while(cursor.moveToNext()){
-            anonymity = Integer.parseInt(cursor.getString(7));
+            anonymity = Integer.parseInt(cursor.getString(6));
         }
         return anonymity;
+    }
+
+    /*
+     * 내 searchable 가져오기
+     * */
+    public int getMySearchable(){
+        int searchable = 0;
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
+        while(cursor.moveToNext()){
+            searchable = Integer.parseInt(cursor.getString(7));
+        }
+        return searchable;
     }
 
 }
