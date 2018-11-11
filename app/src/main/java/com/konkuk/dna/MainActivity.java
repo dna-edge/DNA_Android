@@ -4,12 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Display;
@@ -159,8 +161,18 @@ public class MainActivity extends BaseActivity {
         });
         // push가 오면 push 알림을 띄울 것
         SocketConnection.getSocket().on("speaker", new Emitter.Listener() {
+            
             @Override
             public void call(Object... args) {
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(getApplicationContext())
+                                .setSmallIcon(R.mipmap.dna)
+                                .setContentTitle("Notification")
+                                .setContentText(args[0].toString());
+
+                NotificationManager mnm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                mnm.notify(0, mBuilder.build());
+
                 EventBus.getDefault().post(new EventListener(SOCKET_SPEAKER, null));
             }
         });

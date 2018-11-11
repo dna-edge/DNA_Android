@@ -313,8 +313,10 @@ public class MapFragment extends Fragment
         @Override
         public void onReverseGeocoderResponse(NMapPlacemark nMapPlacemark, NMapError nMapError) {
             Dbhelper dbhelper = new Dbhelper(getActivity());
-            dbhelper.updateAddress(nMapPlacemark.toString());
-            Log.e("LocationListen", nMapPlacemark.toString());
+            if(nMapPlacemark!=null) {
+                dbhelper.updateAddress(nMapPlacemark.toString());
+                Log.e("LocationListen", nMapPlacemark.toString());
+            }
 
         }
     };

@@ -110,7 +110,7 @@ public class SocketConnection {
             Log.e("Socket is Connected", SocketConnection.getSocket().connected()+"");
             SocketConnection.getSocket().connect();
         }
-        Log.e("Socket Emit", event);
+        //Log.e("Socket Emit", event);
         SocketConnection.getSocket().emit(event, args);
     }
     public static void emit(String event, Object arg1, Object arg2){
@@ -118,7 +118,7 @@ public class SocketConnection {
             Log.e("Socket is Connected", SocketConnection.getSocket().connected()+"");
             SocketConnection.getSocket().connect();
         }
-        Log.e("Socket Emit", event);
+        //Log.e("Socket Emit", event);
         SocketConnection.getSocket().emit(event, arg1, arg2);
     }
 

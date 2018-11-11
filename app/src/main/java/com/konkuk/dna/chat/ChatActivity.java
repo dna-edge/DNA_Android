@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
@@ -241,6 +243,7 @@ public class ChatActivity extends BaseActivity {
                 }else{
                     csat.execute(longitude, latitude);
                 }
+
                 break;
             case SOCKET_APPLY_LIKE:
                 Log.e("Socket GET Like", "Apply Like COME!!!" + event.args);
@@ -255,6 +258,7 @@ public class ChatActivity extends BaseActivity {
                 break;
             case SOCKET_SPEAKER:
                 Log.e("Socket PUSH", "PUSH COME!!!");
+
                 break;
             default:
                 break;

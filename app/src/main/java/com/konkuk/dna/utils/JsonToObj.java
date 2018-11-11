@@ -261,7 +261,7 @@ public class JsonToObj {
                 }
 
                 prev_idx = user_idx;
-                Log.e("msg", msg_idx+" "+contents+" "+DatetoStr(created_at));
+                //Log.e("msg", msg_idx+" "+contents+" "+DatetoStr(created_at));
                 chatMessages.add(new ChatMessage(user_idx, nickname, avatar, anonymity, contents, DatetoStr(created_at),
                         like_count, msg_type, lng, lat, whoLikes, msg_idx, viewType, amILike));
 
