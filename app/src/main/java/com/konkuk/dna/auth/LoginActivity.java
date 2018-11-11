@@ -215,6 +215,7 @@ class LoginAsyncTask extends AsyncTask<String, Integer, HashMap<String, String>>
              * */
             dbhelper = new Dbhelper(context);
             dbhelper.saveUserInfo(map);
+
             loginDialog.dismiss();
 
             Intent intent = new Intent(context, MainActivity.class);

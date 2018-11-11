@@ -17,7 +17,7 @@ public class Dbhelper extends SQLiteOpenHelper {
     /*
     * 업데이트를 하다가 디비구조가 변경되면 *반드시* 버전 숫자를 올려주어야 함
     * */
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "DNATokenDB.db";
 
     public static class DNAEntry implements BaseColumns{
@@ -32,6 +32,7 @@ public class Dbhelper extends SQLiteOpenHelper {
         public static final String COLUME_NAME_RADIUS = "radius";
         public static final String COLUME_NAME_ANONIMITY = "anonimity";
         public static final String COLUME_NAME_SEARCHABLE = "searchable";
+        public static final String COLUME_NAME_MY_ADDRESS = "address";
     }
 
     public static final String SQL_CREATE_ENTRIES =
@@ -45,7 +46,8 @@ public class Dbhelper extends SQLiteOpenHelper {
                     DNAEntry.COLUME_NAME_ANONIMITY +  " INTEGER," +
                     DNAEntry.COLUME_NAME_SEARCHABLE +  " INTEGER," +
                     DNAEntry.COLUME_NAME_ACCESSTOKEN +  " TEXT," +
-                    DNAEntry.COLUME_NAME_REFRESHTOKEN +  " TEXT )";
+                    DNAEntry.COLUME_NAME_REFRESHTOKEN +  " TEXT," +
+                    DNAEntry.COLUME_NAME_MY_ADDRESS +  " TEXT )";
 
     public Dbhelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -87,6 +89,7 @@ public class Dbhelper extends SQLiteOpenHelper {
         values.put(DNAEntry.COLUME_NAME_SEARCHABLE, Integer.parseInt(map.get("searchable").toString()));
         values.put(DNAEntry.COLUME_NAME_ACCESSTOKEN, getStringNoQuote(map.get("accessToken").toString()));
         values.put(DNAEntry.COLUME_NAME_REFRESHTOKEN, getStringNoQuote(map.get("refreshToken").toString()));
+        values.put(DNAEntry.COLUME_NAME_MY_ADDRESS, getStringNoQuote(map.get("address").toString()));
 
         /*
         * 기존에 있는 내용을 딜리트하고, 다시 유저의 정보를 디비에 저장.
@@ -145,6 +148,21 @@ public class Dbhelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(DNAEntry.COLUME_NAME_ANONIMITY, anonymity);
+
+        /*
+         * 받아온 엑세스 토큰을 갱신함..
+         * */
+        db.update(DNAEntry.TABLE_NAME, values, null, null);
+    }
+
+    /*
+     * 채팅 반경 변경 메소드
+     * */
+    public void updateAddress(String address){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(DNAEntry.COLUME_NAME_MY_ADDRESS, address);
 
         /*
          * 받아온 엑세스 토큰을 갱신함..
@@ -292,6 +310,20 @@ public class Dbhelper extends SQLiteOpenHelper {
             searchable = Integer.parseInt(cursor.getString(7));
         }
         return searchable;
+    }
+
+    /*
+     * 내 현재 위치 가져오기
+     * */
+    public String getMyAddress(){
+        String address = "";
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ DNAEntry.TABLE_NAME, null);
+        while(cursor.moveToNext()){
+            address = cursor.getString(10);
+        }
+        return address;
     }
 
 }

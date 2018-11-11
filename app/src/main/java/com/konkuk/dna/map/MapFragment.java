@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.Settings;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.konkuk.dna.utils.helpers.GPSTracker;
 import com.konkuk.dna.R;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostDetailActivity;
+import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapCompassManager;
 import com.nhn.android.maps.NMapContext;
 import com.nhn.android.maps.NMapController;
@@ -24,6 +26,7 @@ import com.nhn.android.maps.NMapLocationManager;
 import com.nhn.android.maps.NMapView;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.nmapmodel.NMapError;
+import com.nhn.android.maps.nmapmodel.NMapPlacemark;
 import com.nhn.android.maps.overlay.NMapCircleData;
 import com.nhn.android.maps.overlay.NMapCircleStyle;
 import com.nhn.android.maps.overlay.NMapPOIdata;
@@ -38,6 +41,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static com.konkuk.dna.utils.helpers.InitHelpers.updateDrawer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,6 +65,7 @@ public class MapFragment extends Fragment
     private NMapPOIdata poiData;
     private NMapCircleData circleData;
     private NMapCircleStyle circleStyle;
+    private NMapPlacemark placemark;
     private JSONObject centerPosition;
     private GPSTracker gpsTracker;
 
@@ -219,7 +225,13 @@ public class MapFragment extends Fragment
                 updateRadiusCircle(gpsTracker.getLongitude(), gpsTracker.getLatitude(), dbhelper.getMyRadius());
             }
         });
+
+        mapContext.setMapDataProviderListener(onDataProviderListener);
+        gpsTracker = new GPSTracker(getActivity());
+        mapContext.findPlacemarkAtLocation(gpsTracker.getLongitude(), gpsTracker.getLatitude());
+
     }
+
 
     private void startMyLocation() {
         if (mMyLocationOverlay != null) {
@@ -294,6 +306,16 @@ public class MapFragment extends Fragment
         @Override
         public void onLocationUnavailableArea(NMapLocationManager locationManager, NGeoPoint myLocation) {
             stopMyLocation();
+        }
+    };
+
+    public NMapActivity.OnDataProviderListener onDataProviderListener = new NMapActivity.OnDataProviderListener() {
+        @Override
+        public void onReverseGeocoderResponse(NMapPlacemark nMapPlacemark, NMapError nMapError) {
+            Dbhelper dbhelper = new Dbhelper(getActivity());
+            dbhelper.updateAddress(nMapPlacemark.toString());
+            Log.e("LocationListen", nMapPlacemark.toString());
+
         }
     };
 
