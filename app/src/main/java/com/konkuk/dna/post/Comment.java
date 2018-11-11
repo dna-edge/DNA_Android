@@ -17,6 +17,13 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
+    public Comment(String date, String content) {
+//        this.avatar = avatar;
+//        this.nickname = nickname;
+        this.date = date;
+        this.content = content;
+    }
+
     public String getAvatar() {
         return avatar;
     }

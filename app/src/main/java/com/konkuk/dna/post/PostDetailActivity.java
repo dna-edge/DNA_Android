@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -38,9 +39,10 @@ public class PostDetailActivity extends BaseActivity {
     private ScrollView postScrollView;
     private ImageView postAvatar;
     private ImageButton addFriendBtn;
+    private Button commentSaveBtn;
     private TextView postNickname, postDate, postTitle, postContent,
     postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText,
-    postLikeCnt, postCommentCnt, postScrapCnt;
+    postLikeCnt, postCommentCnt;
     private EditText commentEdit;
     private ListView commentList;
     private CommentAdapter commentAdapter;
@@ -56,7 +58,12 @@ public class PostDetailActivity extends BaseActivity {
 
         Intent intent = getIntent();
         idx = intent.getIntExtra("pidx", 0);
-        new showPostingAsyncTask().execute(idx);
+        post = new Post();
+        try {
+            post = new showPostingAsyncTask().execute(idx).get();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
         init();
     }
@@ -80,14 +87,15 @@ public class PostDetailActivity extends BaseActivity {
 
         postLikeCnt = (TextView) findViewById(R.id.postLikeCnt);
         postCommentCnt = (TextView) findViewById(R.id.postCommentCnt);
-        postScrapCnt = (TextView) findViewById(R.id.postScrapCnt);
+//        postScrapCnt = (TextView) findViewById(R.id.postScrapCnt);
 
-//        commentEdit = (EditText) findViewById(R.id.commentEdit);
-//        commentList = (ListView) findViewById(R.id.commentList);
+        commentEdit = (EditText) findViewById(R.id.commentEdit);
+        commentList = (ListView) findViewById(R.id.commentList);
+        commentSaveBtn = (Button) findViewById(R.id.commentSaveBtn);
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
-        Post extra = (Post) getIntent().getSerializableExtra("post");
-        post = (extra == null) ? new Post() : extra;
+//        Post extra = (Post) getIntent().getSerializableExtra("post");
+//        post = (extra == null) ? new Post() : extra;
 
 //        if (post.getAvatar() != null) {
 //            Picasso.get().load(post.getAvatar()).into(postAvatar);
@@ -112,23 +120,23 @@ public class PostDetailActivity extends BaseActivity {
         postScrapBtnText.setTextColor(getResources().getColor(R.color.sunflower));
 
         postLikeCnt.setText(post.getLikeCount()+"개");
-//        postCommentCnt.setText(post.getCommentCount()+"개");
-        postScrapCnt.setText(post.getScrapCount()+"개");
-//        commentAdapter = new CommentAdapter(this, R.layout.post_comment_item, post.getComments());
-//        commentList.setAdapter(commentAdapter);
+        postCommentCnt.setText(post.getCommentCount()+"개");
+//        postScrapCnt.setText(post.getScrapCount()+"개");
+        commentAdapter = new CommentAdapter(this, R.layout.post_comment_item, post.getComments());
+        commentList.setAdapter(commentAdapter);
 
         // 댓글 갯수에 맞춰서 height 설정하기
         final int UNBOUNDED = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         int totalHeight = 0;
-//        for (int i = 0; i < commentAdapter.getCount(); i++) {
-//            View childView = commentAdapter.getView(i, null, commentList);
-//            childView.measure(UNBOUNDED, UNBOUNDED);
-//            totalHeight += childView.getMeasuredHeight();
-//        }
-//        ViewGroup.LayoutParams params = commentList.getLayoutParams();
-//        params.height = totalHeight + (commentList.getDividerHeight() * (commentList.getCount() - 1));
-//        commentList.setLayoutParams(params);
-//        commentList.requestLayout();
+        for (int i = 0; i < commentAdapter.getCount(); i++) {
+            View childView = commentAdapter.getView(i, null, commentList);
+            childView.measure(UNBOUNDED, UNBOUNDED);
+            totalHeight += childView.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = commentList.getLayoutParams();
+        params.height = totalHeight + (commentList.getDividerHeight() * (commentList.getCount() - 1));
+        commentList.setLayoutParams(params);
+        commentList.requestLayout();
 
         // 생성된 후 최상단으로 스크롤을 올려줍니다
         postScrollView.smoothScrollTo(0, 0);
@@ -146,7 +154,7 @@ public class PostDetailActivity extends BaseActivity {
                 }
                 break;
 
-            case R.id.addFriendBtn: // 친구 추가 버튼 클릭 : 4
+            case R.id.addFriendBtn: // 친구 추가 버튼 클릭
                 Log.d("PostDetail", "add friend");
                 break;
 
@@ -165,6 +173,11 @@ public class PostDetailActivity extends BaseActivity {
             case R.id.postScrapBtn: // 스크랩 버튼 클릭 : 2
                 Log.d("PostDetail", "scrap");
                 new PostingAsyncTask(this).execute(2, idx);
+                break;
+
+            case R.id.commentSaveBtn:
+                Log.d("PostDetail", "save comment");
+                new writeCommentAsync(this).execute(String.valueOf(idx), commentEdit.getText().toString());
                 break;
         }
     }
@@ -190,7 +203,8 @@ class showPostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
         int idx = ints[0];
 
         String res = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + idx);
-        post = PostingJsonToObj(res).get(0);
+        post = PostingJsonToObj(res, 2).get(0);
+        Log.v("postdetail", "comment" + post.getComments().get(0).getContent());
 
         return post;
     }
@@ -247,7 +261,6 @@ class PostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
                     res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[1], dbhelper.getAccessToken(), 4);
                 }
                 break;
-
         }
 
         return post;
@@ -257,5 +270,35 @@ class PostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
     protected void onPostExecute(Post posting) {
         super.onPostExecute(posting);
 
+    }
+}
+
+class writeCommentAsync extends AsyncTask<String, String, String> {
+    private Context context;
+    private Dbhelper dbhelper;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+    public writeCommentAsync(Context context){
+        this.context = context;
+    }
+
+    @Override
+    protected String doInBackground(String... strings){
+        HttpReqRes httpReqRes = new HttpReqRes();
+        dbhelper = new Dbhelper(context);
+        try{
+            httpReqRes.requestHttpPostWritePosting("https://dna.soyoungpark.me:9013/api/posting/reply/" + Integer.parseInt(strings[0]), dbhelper.getAccessToken(), strings[1]);
+        }finally {
+        }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+
+        super.onPostExecute(result);
     }
 }

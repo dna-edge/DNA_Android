@@ -22,7 +22,7 @@ public class Post implements Serializable{
     public Post() {}
 
     public Post(int posting_idx, int writer_idx, String date, String title, String content,
-                double longitude, double latitude, int likeCount, boolean onlyme) {
+                double longitude, double latitude, int likeCount, boolean onlyme, ArrayList<Comment> comments) {
         this.writer_idx = writer_idx;
 //        this.avatar = avatar;
 //        this.nickname = nickname;
@@ -34,14 +34,14 @@ public class Post implements Serializable{
         this.latitude = latitude;
         this.likeCount = likeCount;
         this.onlyme = onlyme;
-//        this.commentCount = commentCount;
+        this.commentCount = commentCount;
 //        this.scrapCount = scrapCount;
-//        this.comments = comments;
+        this.comments = comments;
     }
 
     private int likeCount;
     private int commentCount;
-    private int scrapCount;
+//    private int scrapCount;
 
     public int getIdx() {
         return writer_idx;
@@ -127,12 +127,12 @@ public class Post implements Serializable{
         this.commentCount = commentCount;
     }
 
-    public int getScrapCount() {
-        return scrapCount;
-    }
-    public void setScrapCount(int scrapCount) {
-        this.scrapCount = scrapCount;
-    }
+//    public int getScrapCount() {
+//        return scrapCount;
+//    }
+//    public void setScrapCount(int scrapCount) {
+//        this.scrapCount = scrapCount;
+//    }
 
     public ArrayList<Comment> getComments() {
         return comments;

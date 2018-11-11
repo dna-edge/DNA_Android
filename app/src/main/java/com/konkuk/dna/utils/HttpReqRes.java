@@ -4,6 +4,7 @@ import android.icu.util.Output;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
+import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 
@@ -338,7 +339,6 @@ public class HttpReqRes {
             HttpClient client = new DefaultHttpClient();
             String postURL = url;
             HttpPost post = new HttpPost(postURL);
-
             post.setHeader("token", token);
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 
@@ -356,15 +356,13 @@ public class HttpReqRes {
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
             HttpResponse response = client.execute(post);
-
-            Log.v("posting log", "json test : " + json.toString());
+            HttpEntity resEntity = response.getEntity();
+            result = EntityUtils.toString(resEntity);
 
         } catch (Exception e) {
             e.printStackTrace();
             return result;
         }
-        Log.v("posting httpreqres", "get server result : " + result);
-
         return result;
     }
 
@@ -373,8 +371,8 @@ public class HttpReqRes {
      */
     public String requestHttpPosting(String url, String token, int postCase) {
         String result = null;
-        JSONObject json = null;
-        Post posting;
+//        JSONObject json = null;
+//        Post posting;
 
         switch(postCase) {
             case 1:        // like
@@ -393,6 +391,7 @@ public class HttpReqRes {
                     e.printStackTrace();
                     return result;
                 }
+
                 break;
 
             case 2:        // bookmark
@@ -411,7 +410,9 @@ public class HttpReqRes {
                     e.printStackTrace();
                     return result;
                 }
+
                 break;
+
             case 3:        // unlike
                 try {
                     HttpClient client = new DefaultHttpClient();
@@ -429,6 +430,7 @@ public class HttpReqRes {
                     e.printStackTrace();
                     return result;
                 }
+
                 break;
 
             case 4:        // dbookmark
@@ -436,7 +438,6 @@ public class HttpReqRes {
                     HttpClient client = new DefaultHttpClient();
                     String deleteURL = url;
                     HttpDelete del = new HttpDelete(deleteURL);
-
 
                     del.setHeader("token", token);
 
@@ -448,10 +449,41 @@ public class HttpReqRes {
                     e.printStackTrace();
                     return result;
                 }
+
                 break;
             }
         Log.v("posting httpreqres", "get server result : " + result);
 
+        return result;
+    }
+
+    /*
+     * write comments = Post
+     */
+    public String requestHttpPostWritePosting(String url, String token, String content) {
+        String result = null;
+        JSONObject json = null;
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpPost post = new HttpPost(postURL);
+            post.setHeader("token", token);
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+
+            nameValuePairs.add(new BasicNameValuePair("rcontents", content));
+
+            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            HttpResponse response = client.execute(post);
+            HttpEntity resEntity = response.getEntity();
+            result = EntityUtils.toString(resEntity);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return result;
+        }
+        Log.v("httpreqres", "result of reply : " + result);
         return result;
     }
 }

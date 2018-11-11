@@ -10,6 +10,7 @@ import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.friend.manage.Friend;
 import com.konkuk.dna.friend.message.DMMessage;
 import com.konkuk.dna.friend.message.DMRoom;
+import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 
 import java.util.ArrayList;
@@ -459,7 +460,7 @@ public class JsonToObj {
     /*
      * Posting 조회로 받아온 Json변환 메소드
      */
-    public static ArrayList<Post> PostingJsonToObj(String jsonResult){
+    public static ArrayList<Post> PostingJsonToObj(String jsonResult, int num){
         ArrayList<Post> postings = new ArrayList<>();
 
         JsonParser jsonParser = new JsonParser();
@@ -471,33 +472,72 @@ public class JsonToObj {
         Double longitude, latitude;
         int likeCount;
         Boolean onlyme;
+        JsonArray commentList;
+        ArrayList<Comment> comments = new ArrayList<>();
+        int user_idx;
+        int reply_idx;
+        String comment;
 
         if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
-            JsonArray resultArray = (JsonArray) jsonObject.get("result");
+            switch(num) {
+                case 1:
+                    JsonArray resultArray = (JsonArray) jsonObject.get("result");
 
-            for(int i=0; i<resultArray.size(); i++){
-                Log.v("in for loop", "start parsing");
-                JsonObject oneObject = (JsonObject) resultArray.get(i);
+                    for (int i = 0; i < resultArray.size(); i++) {
+                        JsonObject oneObject = (JsonObject) resultArray.get(0);
 
-                posting_idx = Integer.parseInt(oneObject.get("posting_idx").toString());
-                writer_idx = Integer.parseInt(oneObject.get("writer_idx").toString());
-                date = getStringNoQuote(oneObject.get("posting_date").toString());
-                title = getStringNoQuote(oneObject.get("title").toString());
-                content = getStringNoQuote(oneObject.get("contents").toString());
-                likeCount = Integer.parseInt(oneObject.get("likes_cnt").toString());
-                longitude = Double.parseDouble(oneObject.get("longitude").toString());
-                latitude = Double.parseDouble(oneObject.get("latitude").toString());
-//                JsonObject poslatObject = (JsonObject) oneObject.get("postLat");
-//                JsonObject poslngObject = (JsonObject) oneObject.get("postLng");
-//                onlyme = getStringNoQuote(oneObject.get("onlyme").toString());
-                onlyme = Boolean.parseBoolean(oneObject.get("onlyme").toString());
+                        Log.v("jsontoobj", "oneobject : " + oneObject.toString());
 
-                postings.add(new Post(posting_idx, writer_idx, date, title, content, longitude, latitude, likeCount, onlyme));
+                        posting_idx = Integer.parseInt(oneObject.get("posting_idx").toString());
+                        writer_idx = Integer.parseInt(oneObject.get("writer_idx").toString());
+                        date = getStringNoQuote(oneObject.get("posting_date").toString());
+                        title = getStringNoQuote(oneObject.get("title").toString());
+                        content = getStringNoQuote(oneObject.get("contents").toString());
+                        likeCount = Integer.parseInt(oneObject.get("likes_cnt").toString());
+                        longitude = Double.parseDouble(oneObject.get("longitude").toString());
+                        latitude = Double.parseDouble(oneObject.get("latitude").toString());
+                        onlyme = Boolean.parseBoolean(oneObject.get("onlyme").toString());
 
+                        postings.add(new Post(posting_idx, writer_idx, date, title, content, longitude, latitude, likeCount, onlyme, comments));
+
+                    }
+
+                    break;
+
+                case 2:
+                    JsonObject resultObject = (JsonObject) jsonObject.get("result");
+                    JsonObject postObject = (JsonObject) resultObject.get("pContents");
+
+                    posting_idx = Integer.parseInt(postObject.get("posting_idx").toString());
+                    writer_idx = Integer.parseInt(postObject.get("writer_idx").toString());
+                    date = getStringNoQuote(postObject.get("posting_date").toString());
+                    title = getStringNoQuote(postObject.get("title").toString());
+                    content = getStringNoQuote(postObject.get("contents").toString());
+                    likeCount = Integer.parseInt(postObject.get("likes_cnt").toString());
+                    longitude = Double.parseDouble(postObject.get("longitude").toString());
+                    latitude = Double.parseDouble(postObject.get("latitude").toString());
+                    onlyme = Boolean.parseBoolean(postObject.get("onlyme").toString());
+
+                    commentList = (JsonArray) resultObject.get("pReply");
+                    for (int j = 0; j < commentList.size(); j++) {
+                        JsonObject oneCommentObject = (JsonObject) commentList.get(j);
+                        user_idx = Integer.parseInt(oneCommentObject.get("user_idx").toString());
+                        reply_idx = Integer.parseInt(oneCommentObject.get("reply_idx").toString());
+                        comment = getStringNoQuote(oneCommentObject.get("reply_contents").toString());
+
+                        comments.add(new Comment(date, comment));
+                    }
+
+                    postings.add(new Post(posting_idx, writer_idx, date, title, content, longitude, latitude, likeCount, onlyme, comments));
+
+                    postings.get(0).setCommentCount(commentList.size());
+
+                    break;
             }
         }else{
             Log.e("!!!=", "No Postings");
         }
+
         return postings;
     }
 

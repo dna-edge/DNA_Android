@@ -213,8 +213,8 @@ public class MainActivity extends BaseActivity {
         // TODO 반경, 위치 초기값 설정해줘야 합니다!
         radius = dbhelper.getMyRadius();
         // 에뮬레이터가 위치를 못잡아서 임시로 넣어놨슴다
-        longitude = 127.07934280;
-        latitude = 37.54076250;
+        longitude = 127.17934280;
+        latitude = 37.56076250;
 //        longitude = gpsTracker.getLongitude();
 //        latitude = gpsTracker.getLatitude();
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
@@ -381,7 +381,7 @@ class showPostingAllAsync extends AsyncTask<Void, Void, ArrayList<Post>>{
 
         String result = httpReqRes.requestHttpGetPostingAll("https://dna.soyoungpark.me:9013/api/posting/showAll/", dbhelper.getAccessToken());
 
-        postings = PostingJsonToObj(result);
+        postings = PostingJsonToObj(result, 1);
 
         return postings;
     }
