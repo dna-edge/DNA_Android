@@ -219,10 +219,11 @@ public class MainActivity extends BaseActivity {
 //        latitude = gpsTracker.getLatitude();
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
-//        posts = new ArrayList<Post>();
+        posts = new ArrayList<Post>();
 
         try {
             posts = new showPostingAllAsync(this).execute().get();
+            Log.v("mainactivity", "show all posts" + posts.size());
         } catch (Exception e){
             e.printStackTrace();
 //        new showPostingAsync().execute(posts)

@@ -352,6 +352,8 @@ public class HttpReqRes {
             nameValuePairs.add(new BasicNameValuePair("latitude", lat));
             nameValuePairs.add(new BasicNameValuePair("longitude", lng));
             nameValuePairs.add(new BasicNameValuePair("onlyme", om));
+            nameValuePairs.add(new BasicNameValuePair("user_nick", posting.getNickname()));
+            nameValuePairs.add(new BasicNameValuePair("user_avatar", posting.getAvatar()));
 
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 

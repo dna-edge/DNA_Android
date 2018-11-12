@@ -54,6 +54,7 @@ public class MyPageActivity extends BaseActivity {
         scrapPosts = new ArrayList<Post>();
 
         // TODO 내가 작성한 포스트와 스크랩한 포스트의 리스트를 서버에서 불러와 추가해줘야 합니다.
+
 //        myPosts.add(new Post(1, "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg",
 //                "3457soso", "2018.10.05", "제목입니다",
 //                "이건 내용인데 사실 많이 쓸 필요는 없긴 한데... \n그래도 왠지 많이 써야할 것 같아서 쓰긴 씁니다.\n메롱메롱\n페이커가 최고임",

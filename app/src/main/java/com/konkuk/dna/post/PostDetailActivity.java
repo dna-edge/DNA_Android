@@ -58,12 +58,14 @@ public class PostDetailActivity extends BaseActivity {
 
         Intent intent = getIntent();
         idx = intent.getIntExtra("pidx", 0);
-        post = new Post();
-        try {
-            post = new showPostingAsyncTask().execute(idx).get();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+//        post = new Post();
+//        try {
+//            post = new showPostingAsyncTask().execute(idx).get();
+//            Log.v("postdetail", "get post successed : " + post.getPostingIdx());
+//        }catch(Exception e){
+//            e.printStackTrace();
+//            Log.v("postdetail", "get post failed");
+//        }
 
         init();
     }
@@ -94,13 +96,17 @@ public class PostDetailActivity extends BaseActivity {
         commentSaveBtn = (Button) findViewById(R.id.commentSaveBtn);
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
-//        Post extra = (Post) getIntent().getSerializableExtra("post");
-//        post = (extra == null) ? new Post() : extra;
+        Post extra = (Post) getIntent().getSerializableExtra("post");
+        post = (extra == null) ? new Post() : extra;
 
-//        if (post.getAvatar() != null) {
-//            Picasso.get().load(post.getAvatar()).into(postAvatar);
-//        }
-//        postNickname.setText(post.getNickname());
+        Log.v("postdetail", "get post successed : " + post.getPostingIdx());
+
+
+        if (post.getAvatar() != null) {
+            Picasso.get().load(post.getAvatar()).into(postAvatar);
+        }
+        Log.v("postdetail", "avatar : " + post.getAvatar());
+        postNickname.setText(post.getNickname());
 
         // TODO 해당 유저가 나와 친구 관계인지 아닌지 확인하고, 친구 추가 버튼을 보여줍니다.
         if (false) { // TODO 여기에 [친구 관계가 아닌] 조건을 추가해주면 됩니다.

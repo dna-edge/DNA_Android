@@ -468,7 +468,7 @@ public class JsonToObj {
 
         int posting_idx;
         int writer_idx;
-        String date, title, content;
+        String date, title, content, nickname = null, avatar = null;
         Double longitude, latitude;
         int likeCount;
         Boolean onlyme;
@@ -480,7 +480,7 @@ public class JsonToObj {
 
         if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
             switch(num) {
-                case 1:
+                case 1:     // show all
                     JsonArray resultArray = (JsonArray) jsonObject.get("result");
 
                     for (int i = 0; i < resultArray.size(); i++) {
@@ -489,27 +489,31 @@ public class JsonToObj {
                         Log.v("jsontoobj", "oneobject : " + oneObject.toString());
 
                         posting_idx = Integer.parseInt(oneObject.get("posting_idx").toString());
-                        writer_idx = Integer.parseInt(oneObject.get("writer_idx").toString());
-                        date = getStringNoQuote(oneObject.get("posting_date").toString());
+//                        writer_idx = Integer.parseInt(oneObject.get("writer_idx").toString());
+//                        date = getStringNoQuote(oneObject.get("posting_date").toString());
                         title = getStringNoQuote(oneObject.get("title").toString());
-                        content = getStringNoQuote(oneObject.get("contents").toString());
-                        likeCount = Integer.parseInt(oneObject.get("likes_cnt").toString());
+//                        content = getStringNoQuote(oneObject.get("contents").toString());
+//                        nickname = getStringNoQuote(oneObject.get("user_nick").toString());
+//                        avatar = getStringNoQuote(oneObject.get("user_avatar").toString());
+//                        likeCount = Integer.parseInt(oneObject.get("likes_cnt").toString());
                         longitude = Double.parseDouble(oneObject.get("longitude").toString());
                         latitude = Double.parseDouble(oneObject.get("latitude").toString());
                         onlyme = Boolean.parseBoolean(oneObject.get("onlyme").toString());
 
-                        postings.add(new Post(posting_idx, writer_idx, date, title, content, longitude, latitude, likeCount, onlyme, comments));
+                        postings.add(new Post(posting_idx, title, longitude, latitude, onlyme));
 
                     }
 
                     break;
 
-                case 2:
+                case 2:     // show one
                     JsonObject resultObject = (JsonObject) jsonObject.get("result");
                     JsonObject postObject = (JsonObject) resultObject.get("pContents");
 
                     posting_idx = Integer.parseInt(postObject.get("posting_idx").toString());
                     writer_idx = Integer.parseInt(postObject.get("writer_idx").toString());
+                    nickname = getStringNoQuote(postObject.get("user_nick").toString());
+                    avatar = getStringNoQuote(postObject.get("user_avatar").toString());
                     date = getStringNoQuote(postObject.get("posting_date").toString());
                     title = getStringNoQuote(postObject.get("title").toString());
                     content = getStringNoQuote(postObject.get("contents").toString());
@@ -521,14 +525,14 @@ public class JsonToObj {
                     commentList = (JsonArray) resultObject.get("pReply");
                     for (int j = 0; j < commentList.size(); j++) {
                         JsonObject oneCommentObject = (JsonObject) commentList.get(j);
-                        user_idx = Integer.parseInt(oneCommentObject.get("user_idx").toString());
-                        reply_idx = Integer.parseInt(oneCommentObject.get("reply_idx").toString());
+                        nickname = getStringNoQuote(oneCommentObject.get("user_nick").toString());
+                        avatar = getStringNoQuote(oneCommentObject.get("user_avatar").toString());
                         comment = getStringNoQuote(oneCommentObject.get("reply_contents").toString());
 
                         comments.add(new Comment(date, comment));
                     }
 
-                    postings.add(new Post(posting_idx, writer_idx, date, title, content, longitude, latitude, likeCount, onlyme, comments));
+                    postings.add(new Post(posting_idx, writer_idx, nickname, avatar, date, title, content, longitude, latitude, likeCount, onlyme, comments));
 
                     postings.get(0).setCommentCount(commentList.size());
 

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class Post implements Serializable{
     private int writer_idx;
-//    private String avatar;
-//    private String nickname;
+    private String avatar;
+    private String nickname;
 
     private int posting_idx;
     private String date;
@@ -21,11 +21,20 @@ public class Post implements Serializable{
 
     public Post() {}
 
-    public Post(int posting_idx, int writer_idx, String date, String title, String content,
+    public Post(int posting_idx, String title, double longitude, double latitude, boolean onlyme) {
+
+        this.posting_idx = posting_idx;
+        this.title = title;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.onlyme = onlyme;
+    }
+
+    public Post(int posting_idx, int writer_idx, String avatar, String nickname, String date, String title, String content,
                 double longitude, double latitude, int likeCount, boolean onlyme, ArrayList<Comment> comments) {
         this.writer_idx = writer_idx;
-//        this.avatar = avatar;
-//        this.nickname = nickname;
+        this.avatar = avatar;
+        this.nickname = nickname;
         this.posting_idx = posting_idx;
         this.date = date;
         this.title = title;
@@ -57,19 +66,19 @@ public class Post implements Serializable{
         this.posting_idx = posting_idx;
     }
 //
-//    public String getAvatar() {
-//        return avatar;
-//    }
-//    public void setAvatar(String avatar) {
-//        this.avatar = avatar;
-//    }
-//
-//    public String getNickname() {
-//        return nickname;
-//    }
-//    public void setNickname(String nickname) {
-//        this.nickname = nickname;
-//    }
+    public String getAvatar() {
+        return avatar;
+    }
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getDate() {
         return date;
