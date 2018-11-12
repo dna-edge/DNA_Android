@@ -482,16 +482,16 @@ public class ChatActivity extends BaseActivity {
         if(requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK){
             selectedImage = data.getData();
 
-//            String[] projection = { MediaStore.Images.Media.DATA };
-//            Cursor cursor = managedQuery(selectedImage, projection, null, null, null);
-//            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//            cursor.moveToFirst();
-//
-//            String imagepath = cursor.getString(column_index);
+            String[] projection = { MediaStore.Images.Media.DATA };
+            Cursor cursor = managedQuery(selectedImage, projection, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+
+            String imagepath = cursor.getString(column_index);
 
 //            Log.e("onActivityResult", imagepath);
             getLambdaImageAsyncTask glat = new getLambdaImageAsyncTask(context);
-            glat.execute(selectedImage.toString());
+            glat.execute(imagepath);
 
 //            msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
 //            msgEditText.setText(selectedImage.toString());

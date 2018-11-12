@@ -1,15 +1,21 @@
 package com.konkuk.dna.auth;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.konkuk.dna.MainActivity;
+import com.konkuk.dna.SplashActivity;
 import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.ServerURL;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
@@ -26,6 +33,8 @@ import com.konkuk.dna.utils.JsonToObj;
 
 import java.util.HashMap;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.konkuk.dna.auth.LoginActivity.DialogCannotConnect;
 import static com.konkuk.dna.auth.LoginActivity.loginDialog;
 import static com.konkuk.dna.auth.LoginActivity.showLoginDialog;
@@ -58,6 +67,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         dialogCNC = new android.app.AlertDialog.Builder(this);

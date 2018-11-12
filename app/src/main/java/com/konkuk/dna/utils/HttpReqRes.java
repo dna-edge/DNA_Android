@@ -296,6 +296,7 @@ public class HttpReqRes {
             post.setEntity(builder.build());
 
             HttpResponse responsePOST = client.execute(post);
+            Log.e("HttpResponse", responsePOST.getStatusLine()+"");
             HttpEntity resEntity = responsePOST.getEntity();
             if (resEntity != null) {
                 result = EntityUtils.toString(resEntity);

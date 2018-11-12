@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity {
         });
         // push가 오면 push 알림을 띄울 것
         SocketConnection.getSocket().on("speaker", new Emitter.Listener() {
-            
+
             @Override
             public void call(Object... args) {
                 NotificationCompat.Builder mBuilder =
