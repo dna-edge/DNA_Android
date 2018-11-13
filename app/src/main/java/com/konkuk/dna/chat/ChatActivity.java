@@ -651,6 +651,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
 
         if(resultArray.get(1)!=null) {
             chatMessages = ChatAllJsonToObj(dbhelper.getMyIdx(), resultArray.get(1));
+            //거꾸로 받아온 리스트를 역순으로 바꿈
+            Collections.sort(chatMessages);
+            //Collections.reverse(chatMessages);
         }
 
         if (chatMessages == null || chatMessages.size() == 0) {
@@ -658,11 +661,6 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
             if (msgListEmpty != null) msgListEmpty.setVisibility(View.VISIBLE);
             return;
         }
-
-        Log.e("Here is", "BEFORE SORT");
-        //거꾸로 받아온 리스트를 역순으로 바꿈
-        Collections.sort(chatMessages);
-        //Collections.reverse(chatMessages);
 
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
         msgListView.setAdapter(null);
@@ -685,9 +683,9 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
         msgListView.post(new Runnable() {
             @Override
             public void run() {
-//                msgListView.clearFocus();
-//                chatListAdapter.notifyDataSetChanged();
-//                msgListView.requestFocusFromTouch();
+                msgListView.clearFocus();
+                chatListAdapter.notifyDataSetChanged();
+                msgListView.requestFocusFromTouch();
 
                 msgListView.setSelection(msgListView.getCount() - 1);
             }
