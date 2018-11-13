@@ -179,7 +179,7 @@ public class LoginActivity extends BaseActivity {
 }
 
 
-class LoginAsyncTask extends AsyncTask<String, Integer, HashMap<String, String>> {
+class LoginAsyncTask extends AsyncTask<String, Integer, String> {
     private Context context;
     private android.app.AlertDialog.Builder dialogCNC;
     private Dbhelper dbhelper;
@@ -196,7 +196,7 @@ class LoginAsyncTask extends AsyncTask<String, Integer, HashMap<String, String>>
     }
 
     @Override
-    protected HashMap<String, String> doInBackground(String... strings) {
+    protected String doInBackground(String... strings) {
         //로그인 되어 있는지 확인
         //결과를 리턴
 
@@ -205,40 +205,41 @@ class LoginAsyncTask extends AsyncTask<String, Integer, HashMap<String, String>>
         HttpReqRes httpreq = new HttpReqRes();
         String responseResult = httpreq.requestHttpPostLogin(ServerURL.DNA_SERVER+ServerURL.PORT_USER_API+"/users/login", strings[0], strings[1]);
 
-        JsonToObj jto = new JsonToObj();
-        HashMap<String, String> map = jto.LoginJsonToObj(responseResult);
-
-        /*
-        * 리턴은 결과만 반환해서 밴할지 로그인 성공시킬지 결정
-        * */
-        return map;
+        return responseResult;
     }
 
     @Override
-    protected void onPostExecute(HashMap<String, String> map) {
+    protected void onPostExecute(String responseResult) {
         //되어있으면 ActivityChat
         //안 되어있으면 ActivityLogin
 
-        if(map.get("issuccess").equals("true")){
-            /*
-             * 성공했으면 DB에 저장
-             * */
-            dbhelper = new Dbhelper(context);
-            dbhelper.saveUserInfo(map);
+        if(responseResult!=null){
+            JsonToObj jto = new JsonToObj();
+            HashMap<String, String> map = jto.LoginJsonToObj(responseResult);
 
-            loginDialog.dismiss();
+            if(map.get("issuccess").equals("true")){
+                /*
+                 * 성공했으면 DB에 저장
+                 * */
+                dbhelper = new Dbhelper(context);
+                dbhelper.saveUserInfo(map);
 
-            Intent intent = new Intent(context, MainActivity.class);
-            context.startActivity(intent);
-            ((Activity)context).finish();
+                loginDialog.dismiss();
+
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+                ((Activity)context).finish();
+            }else{
+                /*
+                 * 실패했으면 값만 반환
+                * */
+                loginDialog.dismiss();
+
+                DialogCannotConnect(dialogCNC, map.get("message"));
+            }
         }else{
-            /*
-             * 실패했으면 값만 반환
-             * */
             loginDialog.dismiss();
-
-            DialogCannotConnect(dialogCNC, map.get("message"));
-
+            Toast.makeText(context, "서버에 문제가 있습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -93,11 +93,16 @@ public class HttpReqRes {
             UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
             post.setEntity(ent);
             HttpResponse responsePOST = client.execute(post);
-            HttpEntity resEntity = responsePOST.getEntity();
-            if (resEntity != null) {
-                result = EntityUtils.toString(resEntity);
-                Log.i("RESPONSE", result);
+            if(responsePOST.getStatusLine().getStatusCode()==200){
+                HttpEntity resEntity = responsePOST.getEntity();
+                if (resEntity != null) {
+                    result = EntityUtils.toString(resEntity);
+                    Log.i("RESPONSE", result);
+                }
+            }else{
+                result = null;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
