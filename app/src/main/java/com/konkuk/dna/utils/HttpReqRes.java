@@ -1,6 +1,12 @@
 package com.konkuk.dna.utils;
 
+import android.icu.util.Output;
 import android.util.Log;
+
+import com.google.gson.JsonObject;
+import com.konkuk.dna.post.Comment;
+import com.konkuk.dna.post.Post;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -8,18 +14,27 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+import org.json.JSONString;
+import org.json.JSONStringer;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,7 +45,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -40,6 +63,8 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
+import static junit.framework.Assert.assertEquals;
 
 
 public class HttpReqRes {
@@ -387,4 +412,225 @@ public class HttpReqRes {
 
     }
 
+    /*
+     * get PostsAll = GET
+     */
+    public String requestHttpGetPostingAll(String url, String token){
+
+        String result = null;
+
+        try{
+            HttpClient client = new DefaultHttpClient();
+            HttpParams params = client.getParams();
+            HttpConnectionParams.setConnectionTimeout(params, 5000);
+            HttpConnectionParams.setSoTimeout(params, 5000);
+
+            String getURL = url;
+            HttpGet get = new HttpGet(getURL);
+            get.setHeader("token", token);
+
+            HttpResponse responseGET = client.execute(get);
+            HttpEntity resEntity = responseGET.getEntity();
+            if(resEntity != null){
+                result = EntityUtils.toString(resEntity);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /*
+     * get Posts = GET
+     */
+    public String requestHttpGetPosting(String url){
+
+        String result = null;
+
+        try{
+            HttpClient client = new DefaultHttpClient();
+//            HttpParams params = client.getParams();
+//            HttpConnectionParams.setConnectionTimeout(params, 5000);
+//            HttpConnectionParams.setSoTimeout(params, 5000);
+            String getURL = url;
+            HttpGet get = new HttpGet(getURL);
+
+            HttpResponse responseGET = client.execute(get);
+            HttpEntity resEntity = responseGET.getEntity();
+            if(resEntity != null){
+                result = EntityUtils.toString(resEntity);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /*
+     * write Posts = Post
+     */
+    public String requestHttpPostWritePosting(String url, Dbhelper dbhelper, Post posting) {
+        String result = null;
+        JSONObject json = null;
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpPost post = new HttpPost(postURL);
+            post.setHeader("token", dbhelper.getAccessToken());
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+
+            String lng = String.valueOf(posting.getLongitude());
+            String lat = String.valueOf(posting.getLatitude());
+            String om = String.valueOf(posting.getOnlyme());
+
+            nameValuePairs.add(new BasicNameValuePair("date", posting.getDate()));
+            nameValuePairs.add(new BasicNameValuePair("title", posting.getTitle()));
+            nameValuePairs.add(new BasicNameValuePair("contents", posting.getContent()));
+            nameValuePairs.add(new BasicNameValuePair("latitude", lat));
+            nameValuePairs.add(new BasicNameValuePair("longitude", lng));
+            nameValuePairs.add(new BasicNameValuePair("onlyme", om));
+            nameValuePairs.add(new BasicNameValuePair("nickname", dbhelper.getMyNickname()));
+            nameValuePairs.add(new BasicNameValuePair("avatar", dbhelper.getMyAvatar()));
+
+            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            HttpResponse response = client.execute(post);
+            HttpEntity resEntity = response.getEntity();
+            result = EntityUtils.toString(resEntity);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return result;
+        }
+        return result;
+    }
+
+    /*
+     * Post DETAILS = Post
+     */
+    public String requestHttpPosting(String url, String token, int postCase) {
+        String result = null;
+//        JSONObject json = null;
+//        Post posting;
+
+        switch(postCase) {
+            case 1:        // like
+                try {
+                    HttpClient client = new DefaultHttpClient();
+                    String postURL = url;
+                    HttpPost post = new HttpPost(postURL);
+
+                    post.setHeader("token", token);
+
+                    HttpResponse response = client.execute(post);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+
+                break;
+
+            case 2:        // bookmark
+                try {
+                    HttpClient client = new DefaultHttpClient();
+                    String postURL = url;
+                    HttpPost post = new HttpPost(postURL);
+
+                    post.setHeader("token", token);
+
+                    HttpResponse response = client.execute(post);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+
+                break;
+
+            case 3:        // unlike
+                try {
+                    HttpClient client = new DefaultHttpClient();
+                    String deleteURL = url;
+                    HttpDelete del = new HttpDelete(deleteURL);
+
+
+                    del.setHeader("token", token);
+
+                    HttpResponse response = client.execute(del);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+
+                break;
+
+            case 4:        // dbookmark
+                try {
+                    HttpClient client = new DefaultHttpClient();
+                    String deleteURL = url;
+                    HttpDelete del = new HttpDelete(deleteURL);
+
+                    del.setHeader("token", token);
+
+                    HttpResponse response = client.execute(del);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+
+                break;
+            }
+        Log.v("posting httpreqres", "get server result : " + result);
+
+        return result;
+    }
+
+    /*
+     * write comments = Post
+     */
+    public String requestHttpPostWritePosting(String url, Dbhelper dbhelper, String content) {
+        String result = null;
+        Date dt = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        JSONObject json = null;
+
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpPost post = new HttpPost(postURL);
+            post.setHeader("token", dbhelper.getAccessToken());
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+
+            Log.v("httpreqres", "contents : " + content + "\n nick : " + dbhelper.getMyNickname() + "\n avatar : " + dbhelper.getMyAvatar());
+            nameValuePairs.add(new BasicNameValuePair("rcontents", content));
+            nameValuePairs.add(new BasicNameValuePair("nickname", dbhelper.getMyNickname()));
+            nameValuePairs.add(new BasicNameValuePair("avatar", dbhelper.getMyAvatar()));
+            nameValuePairs.add(new BasicNameValuePair("rdate", sdf.format(dt).toString()));
+
+            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            HttpResponse response = client.execute(post);
+            HttpEntity resEntity = response.getEntity();
+            result = EntityUtils.toString(resEntity);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return result;
+        }
+        Log.v("httpreqres", "result of reply : " + result);
+        return result;
+    }
 }
