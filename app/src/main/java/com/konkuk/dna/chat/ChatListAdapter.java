@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.konkuk.dna.R;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
+import com.konkuk.dna.utils.helpers.NameHelpers;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -107,12 +108,19 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                 }
 
                 TextView messageNickname = (TextView) v.findViewById(R.id.msgNickname);
-                messageNickname.setText(message.getUserName());
+
+                String nickname = "";
+                if (message.getAnonymity() == 1) {
+                    nickname = NameHelpers.makeName(message.getIdx());
+                } else {
+                    nickname = message.getUserName();
+                }
+                messageNickname.setText(nickname);
                 messageNickname.setTypeface(NSB);
 
                 ImageView messageAvatar = (ImageView) v.findViewById(R.id.msgAvatar);
 
-                if (message.getAvatar() != null) {
+                if (message.getAvatar() != null && message.getAnonymity() != 1) {
                     Picasso.get().load(message.getAvatar()).into(messageAvatar);
                 }
             }

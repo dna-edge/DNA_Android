@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,6 +33,7 @@ import com.konkuk.dna.user.UserSettingActivity;
 import com.konkuk.dna.utils.EventListener;
 import com.konkuk.dna.utils.SocketConnection;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
+import com.nhn.android.maps.nmapmodel.NMapPlacemark;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -43,8 +46,11 @@ import io.socket.emitter.Emitter;
 import static android.support.v4.app.ActivityCompat.finishAffinity;
 import static android.view.View.GONE;
 import static com.konkuk.dna.utils.JsonToObj.ConnectUserJsonToObj;
+import static com.konkuk.dna.utils.helpers.InitHelpers.updateDrawer;
 
 public class InitHelpers {
+
+    private static NMapPlacemark placemark = new NMapPlacemark();
 
     private static Dbhelper dbhelper;
     private static ArrayList<ChatUser> cu = new ArrayList<>();
@@ -52,6 +58,7 @@ public class InitHelpers {
     private static ListView ccuListView;
 
     private static Context cont;
+    private static View view;
 
     private static final int SOCKET_GEO = 6;
     private static final int SOCKET_DIRECT = 7;
@@ -79,7 +86,7 @@ public class InitHelpers {
         switch (event.message) {
             case SOCKET_GEO:
                 Log.e("Socket ON", "geo");
-                dat = new DrawyerAsyncTask(cont, ccuListView);
+                dat = new DrawyerAsyncTask(cont, ccuListView, view);
                 dat.execute(event.args, String.valueOf(dbhelper.getMyIdx()));
                 break;
             case SOCKET_DIRECT:
@@ -90,8 +97,9 @@ public class InitHelpers {
         }
     }
 
-    public static void initDrawer(final Context context, View v, int type) {
+    public static void initDrawer(final Context context, final View v, int type) {
         cont = context;
+        view = v;
         dbhelper = new Dbhelper(context);
         setProfile(v);
         LinearLayout drawerForUserList = (LinearLayout) v.findViewById(R.id.drawerForUserList);
@@ -164,11 +172,11 @@ public class InitHelpers {
             }
         });
 
-
         /*
         * 현재 채팅 환경
         * */
-        drawerPosition.setText("서울특별시 광진구 능동로 120 건국대학교");
+//        drawerPosition.setText("서울특별시 광진구 능동로 120 건국대학교");
+        drawerPosition.setText(dbhelper.getMyAddress());
         drawerRadius.setText(dbhelper.getMyRadius()+"m");
 
 
@@ -185,8 +193,13 @@ public class InitHelpers {
                 public void call(Object... args) {
                     //Log.e("Socket Ping-geo", args[0].toString());
                     Log.e("Socket Ping-geo", "geo");
-                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
-                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView, v);
+
+                    if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+                        dat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    }else{
+                        dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    }
 
                 }
             });
@@ -200,9 +213,13 @@ public class InitHelpers {
                 @Override
                 public void call(Object... args) {
                     Log.e("Socket Ping-direct", args[0].toString());
-//                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView);
-//                    dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView, v);
 
+                    if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+                        dat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    }else{
+                        dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+                    }
                 }
             });
             // TODO 해당 친구의 프로필을 입력해줘야 합니다.
@@ -227,7 +244,7 @@ public class InitHelpers {
         /*
          * 현재 채팅 환경
          * */
-        drawerPosition.setText("지도api로 위치정보 받아오기");
+        drawerPosition.setText(dbhelper.getMyAddress());
         drawerRadius.setText(dbhelper.getMyRadius()+"m");
         v.invalidate();
     }
@@ -257,10 +274,12 @@ class DrawyerAsyncTask extends AsyncTask<String, Integer, ArrayList<ChatUser>> {
     private Context context;
     private ListView ccuListView;
     private ChatUserAdapter chatUserAdapter;
+    private View v;
 
-    public DrawyerAsyncTask(Context context, ListView ccuListView) {
+    public DrawyerAsyncTask(Context context, ListView ccuListView, View v) {
         this.context = context;
         this.ccuListView = ccuListView;
+        this.v = v;
         //super();
     }
 
@@ -294,6 +313,8 @@ class DrawyerAsyncTask extends AsyncTask<String, Integer, ArrayList<ChatUser>> {
         });
         ccuListView.setAdapter(chatUserAdapter);
         chatUserAdapter.notifyDataSetChanged();
+
+        updateDrawer(context, v);
     }
 
 }

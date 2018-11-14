@@ -4,6 +4,7 @@ package com.konkuk.dna.friend.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
@@ -60,7 +61,12 @@ public class RoomFragment extends Fragment {
     public void onResume() {
 
         DMRoomAsyncTask dmrat = new DMRoomAsyncTask(getActivity(), dmRoomListAdapter, roomList);
-        dmrat.execute();
+
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+            dmrat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }else{
+            dmrat.execute();
+        }
 
         super.onResume();
     }
@@ -71,7 +77,11 @@ public class RoomFragment extends Fragment {
 
         // TODO 서버에서 room 리스트를 받아와서 초기화시켜줘야 합니다.
         DMRoomAsyncTask dmrat = new DMRoomAsyncTask(getActivity(), dmRoomListAdapter, roomList);
-        dmrat.execute();
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+            dmrat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }else{
+            dmrat.execute();
+        }
 //        rooms.add(new DMRoom(0, 1, "3457soso", "https://pbs.twimg.com/media/DbYfg2IWkAENdiS.jpg", "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용", TYPE_MESSAGE, "2018-01-24"));
 //        rooms.add(new DMRoom(1, 2, "test", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-23"));
 //        rooms.add(new DMRoom(2, 3, "avatar", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-22"));

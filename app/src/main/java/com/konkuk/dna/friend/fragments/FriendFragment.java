@@ -3,6 +3,7 @@ package com.konkuk.dna.friend.fragments;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -142,7 +143,12 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
             case SOCKET_DIRECT:
                 Log.e("Socket ON", "direct(friends list)");
                 FriendListAsyncTask flas = new FriendListAsyncTask(getContext(), onFriendListAdapter, onFriendList);
-                flas.execute(event.args, dbhelper.getAccessToken());
+
+                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+                    flas.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.args, dbhelper.getAccessToken());
+                }else{
+                    flas.execute(event.args, dbhelper.getAccessToken());
+                }
 
                 break;
             default:

@@ -10,6 +10,8 @@ import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.friend.manage.Friend;
 import com.konkuk.dna.friend.message.DMMessage;
 import com.konkuk.dna.friend.message.DMRoom;
+import com.konkuk.dna.post.Comment;
+import com.konkuk.dna.post.Post;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +48,9 @@ public class JsonToObj {
             hm.put("avatar", profileObject.get("avatar").toString());
             hm.put("description", profileObject.get("description").toString());
             hm.put("radius", profileObject.get("radius").toString());
-            hm.put("is_anonymity", profileObject.get("is_anonymity").toString());
+            hm.put("anonymity", profileObject.get("anonymity").toString());
+            hm.put("searchable", profileObject.get("searchable").toString());
+            hm.put("address", "불러오는 중..");
 
             //토큰을 해시맵에 저장
             JsonObject tokenObject = (JsonObject) resultObject.get("token");
@@ -180,26 +184,27 @@ public class JsonToObj {
         JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
 
         ArrayList<Integer> whoLikes = new ArrayList<>();
-        boolean amILike = false;
-        int user_idx;
+        boolean amILike;
+        int msg_idx, user_idx, anonymity;
         String nickname, avatar, position, like_count;
         double lng, lat;
-        String msg_type, _id, contents, created_at;
-        int msg_idx, __v;
+        String msg_type, contents, created_at;
         int viewType=-1;
 
         // 이전 메세지의 idx확인
         int prev_idx = -1;
 
+        Log.d("JsonToObj", jsonObject.toString());
+
         if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
             JsonArray resultArray = (JsonArray) jsonObject.get("result");
-
             for(int i=0; i<resultArray.size(); i++){
                 JsonObject oneObject = (JsonObject) resultArray.get(i);
 
                 //Log.e("message "+i, oneObject.toString());
                 JsonObject userObject = (JsonObject) oneObject.get("user");
                 user_idx = Integer.parseInt(userObject.get("idx").toString());
+                anonymity = Integer.parseInt(userObject.get("anonymity").toString());
                 nickname = getStringNoQuote(userObject.get("nickname").toString());
                 avatar = getStringNoQuote(userObject.get("avatar").toString());
 
@@ -212,21 +217,18 @@ public class JsonToObj {
 
                 like_count = oneObject.get("like_count").toString();
                 JsonArray wholikesArray = (JsonArray) oneObject.get("likes");
+
                 amILike = false;
                 for(int j=0; j<wholikesArray.size(); j++){
                     whoLikes.add(Integer.parseInt(wholikesArray.get(j).toString()));
-                    if(whoLikes.get(j) == myIdx){
+                    if(Integer.parseInt(wholikesArray.get(j).toString()) == myIdx){
                         amILike = true;
                     }
                 }
 
-                _id = getStringNoQuote(oneObject.get("_id").toString());
                 contents = getStringNoQuote(oneObject.get("contents").toString());
                 created_at = getStringNoQuote(oneObject.get("created_at").toString());
                 msg_idx = Integer.parseInt(oneObject.get("idx").toString());
-                __v = Integer.parseInt(oneObject.get("__v").toString());
-
-
 
                 if(myIdx == user_idx){
                     //지금 메세지가 내 메세지이면
@@ -261,14 +263,16 @@ public class JsonToObj {
                 }
 
                 prev_idx = user_idx;
-
-                chatMessages.add(new ChatMessage(user_idx, nickname, avatar, contents, DatetoStr(created_at), like_count, msg_type, lng, lat, whoLikes, msg_idx, viewType, amILike));
+                //Log.e("msg", msg_idx+" "+contents+" "+DatetoStr(created_at));
+                chatMessages.add(new ChatMessage(user_idx, nickname, avatar, anonymity, contents, DatetoStr(created_at),
+                        like_count, msg_type, lng, lat, whoLikes, msg_idx, viewType, amILike));
 
             }
         }else{
             Log.e("!!!=", "This area NO MSG.");
             chatMessages = null;
         }
+
 
         return chatMessages;
     }
@@ -430,7 +434,7 @@ public class JsonToObj {
     public static ArrayList<ChatUser> ConnectUserJsonToObj(String jsonResult, int myIdx){
 
         ArrayList<ChatUser> result= new ArrayList<>();
-        int idx;
+        int idx, anonymity;
         String nickname, avatar;
         boolean inside;
 
@@ -444,15 +448,108 @@ public class JsonToObj {
             idx = Integer.parseInt(getStringNoQuote(arr.get("idx").toString()));
             nickname = getStringNoQuote(arr.get("nickname").toString());
             avatar = getStringNoQuote(arr.get("avatar").toString());
+            anonymity = Integer.parseInt(getStringNoQuote(arr.get("anonymity").toString()));
             inside = arr.get("inside").getAsBoolean();
 
             if(myIdx != idx){
-                result.add(new ChatUser(idx, nickname, avatar, inside));
+                result.add(new ChatUser(idx, nickname, avatar, anonymity, inside));
             }
         }
 
         return result;
     }
 
+    /*
+     * Posting 조회로 받아온 Json변환 메소드
+     */
+    public static ArrayList<Post> PostingJsonToObj(String jsonResult, int num){
+        ArrayList<Post> postings = new ArrayList<>();
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+        int posting_idx, writer_idx;
+        String avatar, nickname;
+        String date, title, content;
+        Double longitude, latitude;
+        int likeCount;
+        Boolean onlyme;
+        JsonArray commentList;
+        ArrayList<Comment> comments = new ArrayList<>();
+        int user_idx, reply_idx;
+        String rdate;
+        String comment;
+        String ravatar, rnickname;
+
+        if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
+            switch(num) {
+                case 1:
+                    JsonArray resultArray = (JsonArray) jsonObject.get("result");
+
+                    for (int i = 0; i < resultArray.size(); i++) {
+                        JsonObject oneObject = (JsonObject) resultArray.get(i);
+
+                        Log.v("jsontoobj", "oneobject : " + oneObject.toString());
+
+                        posting_idx = Integer.parseInt(oneObject.get("posting_idx").toString());
+                        writer_idx = Integer.parseInt(oneObject.get("writer_idx").toString());
+                        nickname = getStringNoQuote(String.valueOf(oneObject.get("nickname")));
+                        avatar = getStringNoQuote(String.valueOf(oneObject.get("avatar")));
+                        date = getStringNoQuote(oneObject.get("posting_date").toString());
+                        title = getStringNoQuote(oneObject.get("title").toString());
+                        content = getStringNoQuote(oneObject.get("contents").toString());
+                        likeCount = Integer.parseInt(oneObject.get("likes_cnt").toString());
+                        longitude = Double.parseDouble(oneObject.get("longitude").toString());
+                        latitude = Double.parseDouble(oneObject.get("latitude").toString());
+                        onlyme = Boolean.parseBoolean(oneObject.get("onlyme").toString());
+
+                        postings.add(new Post(posting_idx, writer_idx, avatar, nickname, date, title, content, longitude, latitude, likeCount, onlyme, comments));
+
+                    }
+
+                    break;
+
+                case 2:
+                    JsonObject resultObject = (JsonObject) jsonObject.get("result");
+                    JsonObject postObject = (JsonObject) resultObject.get("pContents");
+
+                    posting_idx = Integer.parseInt(postObject.get("posting_idx").toString());
+                    writer_idx = Integer.parseInt(postObject.get("writer_idx").toString());
+                    nickname = getStringNoQuote(String.valueOf(postObject.get("nickname")));
+                    avatar = getStringNoQuote(String.valueOf(postObject.get("avatar")));
+                    date = getStringNoQuote(postObject.get("posting_date").toString());
+                    title = getStringNoQuote(postObject.get("title").toString());
+                    content = getStringNoQuote(postObject.get("contents").toString());
+                    likeCount = Integer.parseInt(postObject.get("likes_cnt").toString());
+                    longitude = Double.parseDouble(postObject.get("longitude").toString());
+                    latitude = Double.parseDouble(postObject.get("latitude").toString());
+                    onlyme = Boolean.parseBoolean(postObject.get("onlyme").toString());
+
+                    commentList = (JsonArray) resultObject.get("pReply");
+                    for (int j = 0; j < commentList.size(); j++) {
+                        JsonObject oneCommentObject = (JsonObject) commentList.get(j);
+
+                        reply_idx = j;
+                        rnickname = getStringNoQuote(oneCommentObject.get("nickname").toString());
+                        ravatar = getStringNoQuote(oneCommentObject.get("avatar").toString());
+                        comment = getStringNoQuote(oneCommentObject.get("reply_contents").toString());
+                        rdate = getStringNoQuote(oneCommentObject.get("date").toString());
+
+                        comments.add(new Comment(reply_idx, ravatar, rnickname, rdate, comment));
+                        Log.v("jsontoobj", "avatar and nick : " + ravatar + " &&&& " + comments.get(j).getAvatar());
+                    }
+
+                    postings.add(new Post(posting_idx, writer_idx, avatar, nickname, date, title, content, longitude, latitude, likeCount, onlyme, comments));
+
+                    postings.get(0).setCommentCount(commentList.size());
+
+                    break;
+            }
+        }else{
+            Log.e("!!!=", "No Postings");
+        }
+
+        return postings;
+    }
 
 }

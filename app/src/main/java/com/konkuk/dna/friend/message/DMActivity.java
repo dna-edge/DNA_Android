@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
@@ -99,9 +100,14 @@ public class DMActivity extends BaseActivity {
             updatedAtText.setText(getIntent().getStringExtra("roomUpdated"));
             sentWhoText.setText((getIntent().getStringExtra("roomWho")));
 
-            //DM채팅 불러오기
             DMSetAsyncTask dsat = new DMSetAsyncTask(this, dmListView, 0);
-            dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
+
+            //DM채팅 불러오기
+            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+                dsat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
+            }else{
+                dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
+            }
 
             // TODO dmMessages 배열에 실제 메시지 추가해야 합니다. roomIdx로 가져오면 됩니다.
 //            dmMessages.add(new DMMessage(1, "http://file3.instiz.net/data/cached_img/upload/2018/06/22/14/2439cadf98e7bebdabd174ed41ca0849.jpg", "오후 12:34", TYPE_IMAGE));
@@ -193,13 +199,13 @@ public class DMActivity extends BaseActivity {
 
             case R.id.dmSendBtn: // 메시지 전송 버튼 클릭
                 JsonObject sendMsgJson
-                        = SendDMObjToJson(dbhelper, roomIdx ,messageType, dmEditText.getText().toString());
+                        = SendDMObjToJson(roomIdx ,messageType, dmEditText.getText().toString());
 
                 SocketConnection.emit("save_dm", dbhelper.getAccessToken(), sendMsgJson);
 
-                DMSetAsyncTask dsat = new DMSetAsyncTask(context, dmListView, 0);
-                dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
-                scrollMyListViewToBottom();
+//                DMSetAsyncTask dsat = new DMSetAsyncTask(context, dmListView, 0);
+//                dsat.execute(String.valueOf(roomIdx), getIntent().getStringExtra("roomWho"));
+//                scrollMyListViewToBottom();
 
                 dmEditText.setText("");
                 dmEditText.setEnabled(true);

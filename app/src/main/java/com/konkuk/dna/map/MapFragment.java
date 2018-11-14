@@ -5,16 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.Settings;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.GPSTracker;
 import com.konkuk.dna.R;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostDetailActivity;
+import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapCompassManager;
 import com.nhn.android.maps.NMapContext;
 import com.nhn.android.maps.NMapController;
@@ -22,6 +26,7 @@ import com.nhn.android.maps.NMapLocationManager;
 import com.nhn.android.maps.NMapView;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.nmapmodel.NMapError;
+import com.nhn.android.maps.nmapmodel.NMapPlacemark;
 import com.nhn.android.maps.overlay.NMapCircleData;
 import com.nhn.android.maps.overlay.NMapCircleStyle;
 import com.nhn.android.maps.overlay.NMapPOIdata;
@@ -36,6 +41,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static com.konkuk.dna.utils.helpers.InitHelpers.updateDrawer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,8 +65,11 @@ public class MapFragment extends Fragment
     private NMapPOIdata poiData;
     private NMapCircleData circleData;
     private NMapCircleStyle circleStyle;
+    private NMapPlacemark placemark;
     private JSONObject centerPosition;
     private GPSTracker gpsTracker;
+
+    private LinearLayout mapLocBtn;
 
     private static final String CLIENT_ID = "d58JXyIkF7YXEmOLrYSD"; // 애플리케이션 클라이언트 아이디 값
 
@@ -105,8 +115,11 @@ public class MapFragment extends Fragment
 
             @Override
             public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
+                Log.v("mapgragment", "posting idx? : " + posts.get(nMapPOIitem.getId()).getPostingIdx());
+
                 Intent postIntent = new Intent(getActivity(), PostDetailActivity.class);
                 postIntent.putExtra("post", (Post) posts.get(nMapPOIitem.getId()));
+                postIntent.putExtra("pidx", posts.get(nMapPOIitem.getId()).getPostingIdx());
                 getActivity().startActivity(postIntent);
                 nMapPOIdataOverlay.setHidden(true);
             }
@@ -167,6 +180,7 @@ public class MapFragment extends Fragment
         mapView = (NMapView)getView().findViewById(R.id.mapView);
         mapView.setClientId(CLIENT_ID);
         mapContext.setupMapView(mapView);
+        mapLocBtn = (LinearLayout) getView().findViewById(R.id.mapLocationBtn);
     }
 
     @Override
@@ -205,7 +219,22 @@ public class MapFragment extends Fragment
         circleData.setCircleStyle(circleStyle);
 
         OnMapViewStateChangeListener.onMapInitHandler(mapView, null);
+
+        mapLocBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dbhelper dbhelper = new Dbhelper(getActivity());
+                gpsTracker = new GPSTracker(getActivity());
+                updateRadiusCircle(gpsTracker.getLongitude(), gpsTracker.getLatitude(), dbhelper.getMyRadius());
+            }
+        });
+
+        mapContext.setMapDataProviderListener(onDataProviderListener);
+        gpsTracker = new GPSTracker(getActivity());
+        mapContext.findPlacemarkAtLocation(gpsTracker.getLongitude(), gpsTracker.getLatitude());
+
     }
+
 
     private void startMyLocation() {
         if (mMyLocationOverlay != null) {
@@ -280,6 +309,18 @@ public class MapFragment extends Fragment
         @Override
         public void onLocationUnavailableArea(NMapLocationManager locationManager, NGeoPoint myLocation) {
             stopMyLocation();
+        }
+    };
+
+    public NMapActivity.OnDataProviderListener onDataProviderListener = new NMapActivity.OnDataProviderListener() {
+        @Override
+        public void onReverseGeocoderResponse(NMapPlacemark nMapPlacemark, NMapError nMapError) {
+            Dbhelper dbhelper = new Dbhelper(getActivity());
+            if(nMapPlacemark!=null) {
+                dbhelper.updateAddress(nMapPlacemark.toString());
+                Log.e("LocationListen", nMapPlacemark.toString());
+            }
+
         }
     };
 

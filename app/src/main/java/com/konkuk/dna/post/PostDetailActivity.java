@@ -1,12 +1,16 @@
 package com.konkuk.dna.post;
 
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,11 +18,21 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.konkuk.dna.utils.HttpReqRes;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
+import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
+import static com.konkuk.dna.utils.ServerURL.LOCAL_HOST;
 
 public class PostDetailActivity extends BaseActivity {
     protected DrawerLayout menuDrawer;
@@ -26,19 +40,33 @@ public class PostDetailActivity extends BaseActivity {
     private ScrollView postScrollView;
     private ImageView postAvatar;
     private ImageButton addFriendBtn;
+    private Button commentSaveBtn;
     private TextView postNickname, postDate, postTitle, postContent,
     postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText,
-    postLikeCnt, postCommentCnt, postScrapCnt;
+    postLikeCnt, postCommentCnt;
     private EditText commentEdit;
     private ListView commentList;
     private CommentAdapter commentAdapter;
+    private int idx;
 
     private Post post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_post_detail);
+
+//        Intent intent = getIntent();
+//        idx = intent.getIntExtra("pidx", 0);
+        post = new Post();
+//        try {
+//            post = new showPostingAsyncTask().execute(idx).get();
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
+//        Post extra = (Post) getIntent().getSerializableExtra("post");
+//        post = (extra == null) ? new Post() : extra;
 
         init();
     }
@@ -62,14 +90,23 @@ public class PostDetailActivity extends BaseActivity {
 
         postLikeCnt = (TextView) findViewById(R.id.postLikeCnt);
         postCommentCnt = (TextView) findViewById(R.id.postCommentCnt);
-        postScrapCnt = (TextView) findViewById(R.id.postScrapCnt);
+//        postScrapCnt = (TextView) findViewById(R.id.postScrapCnt);
 
         commentEdit = (EditText) findViewById(R.id.commentEdit);
         commentList = (ListView) findViewById(R.id.commentList);
+        commentSaveBtn = (Button) findViewById(R.id.commentSaveBtn);
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
-        Post extra = (Post) getIntent().getSerializableExtra("post");
-        post = (extra == null) ? new Post() : extra;
+//        Post extra = (Post) getIntent().getSerializableExtra("post");
+//        post = (extra == null) ? new Post() : extra;
+        try {
+            idx = getIntent().getIntExtra("pidx", 0);
+            post = new showPostingAsyncTask().execute(idx).get();
+//            post = (extra == null) ? new showPostingAsyncTask().execute(idx).get() : extra;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+//            post = new showPostingAsyncTask().execute(idx).get();
 
         if (post.getAvatar() != null) {
             Picasso.get().load(post.getAvatar()).into(postAvatar);
@@ -81,6 +118,7 @@ public class PostDetailActivity extends BaseActivity {
             addFriendBtn.setVisibility(View.GONE);
         }
 
+//        Log.v("postdetail", "comment testing,,, : " + post.getComments().get(0).getAvatar());
         postDate.setText(post.getDate());
         postTitle.setText(post.getTitle());
         postContent.setText(post.getContent());
@@ -95,7 +133,7 @@ public class PostDetailActivity extends BaseActivity {
 
         postLikeCnt.setText(post.getLikeCount()+"개");
         postCommentCnt.setText(post.getCommentCount()+"개");
-        postScrapCnt.setText(post.getScrapCount()+"개");
+//        postScrapCnt.setText(post.getScrapCount()+"개");
         commentAdapter = new CommentAdapter(this, R.layout.post_comment_item, post.getComments());
         commentList.setAdapter(commentAdapter);
 
@@ -132,19 +170,26 @@ public class PostDetailActivity extends BaseActivity {
                 Log.d("PostDetail", "add friend");
                 break;
 
-            case R.id.postLikeBtn: // 좋아요 버튼 클릭
+            case R.id.postLikeBtn: // 좋아요 버튼 클릭 : 1
                 Log.d("PostDetail", "like");
+                new PostingAsyncTask(this).execute(1, idx);
                 break;
 
-            case R.id.postShareBtn: // 공유 버튼 클릭
+            case R.id.postShareBtn:
                 FragmentManager fragmentManager = getFragmentManager();
                 PostShareFragment postShareFragment = new PostShareFragment();
 
                 postShareFragment.show(fragmentManager, "postShareFragment");
                 break;
 
-            case R.id.postScrapBtn: // 스크랩 버튼 클릭
+            case R.id.postScrapBtn: // 스크랩 버튼 클릭 : 2
                 Log.d("PostDetail", "scrap");
+                new PostingAsyncTask(this).execute(2, idx);
+                break;
+
+            case R.id.commentSaveBtn:
+                Log.d("PostDetail", "save comment");
+                new writeCommentAsync(this).execute(String.valueOf(idx), commentEdit.getText().toString());
                 break;
         }
     }
@@ -153,5 +198,119 @@ public class PostDetailActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mapFragment.initMapCenter(post.getLongitude(), post.getLatitude(), 0);
+    }
+}
+
+class showPostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected Post doInBackground(Integer... ints) {
+        HttpReqRes httpReqRes = new HttpReqRes();
+        Post post = new Post();
+        int idx = ints[0];
+
+        String res = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + idx);
+        post = PostingJsonToObj(res, 2).get(0);
+        Log.v("postdetail", "comment" + post.getComments().get(0).getAvatar());
+
+        return post;
+    }
+
+    @Override
+    protected void onPostExecute(Post posting) {
+        super.onPostExecute(posting);
+
+    }
+}
+
+class PostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
+    Context context;
+    Dbhelper dbhelper;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    public PostingAsyncTask(Context context){ this.context = context; }
+
+    @Override
+    protected Post doInBackground(Integer... ints) {
+        dbhelper = new Dbhelper(context);
+        HttpReqRes httpReqRes = new HttpReqRes();
+        Post post = new Post();
+        int num = ints[0];
+        String res = null;
+
+        switch(num){
+            case 1:     // 포스팅 북마크
+                res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/like/" + ints[1], dbhelper.getAccessToken(), 1);
+
+                if(res.matches("(.*)201(.*)")){
+                    Log.v("postdetail", "status : 201");
+                    break;
+                }
+                else if(res.matches("(.*)400(.*)")){
+                    Log.v("postdetail", "status : 400");
+                    res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/like/" + ints[1], dbhelper.getAccessToken(), 3);
+                }
+                break;
+
+            case 2:     // 포스팅 북마크
+                res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[1], dbhelper.getAccessToken(), 2);
+
+                if(res.matches("(.*)201(.*)")){
+                    Log.v("postdetail", "status : 201");
+                    break;
+                }
+                else if(res.matches("(.*)400(.*)")){
+                    Log.v("postdetail", "status : 400");
+                    res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[1], dbhelper.getAccessToken(), 4);
+                }
+                break;
+        }
+
+        return post;
+    }
+
+    @Override
+    protected void onPostExecute(Post posting) {
+        super.onPostExecute(posting);
+
+    }
+}
+
+class writeCommentAsync extends AsyncTask<String, String, String> {
+    private Context context;
+    private Dbhelper dbhelper;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+    public writeCommentAsync(Context context){
+        this.context = context;
+    }
+
+    @Override
+    protected String doInBackground(String... strings){
+        HttpReqRes httpReqRes = new HttpReqRes();
+        dbhelper = new Dbhelper(context);
+        try{
+            httpReqRes.requestHttpPostWritePosting("https://dna.soyoungpark.me:9013/api/posting/reply/" + Integer.parseInt(strings[0]), dbhelper, strings[1]);
+        }finally {
+        }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+
+        super.onPostExecute(result);
     }
 }

@@ -86,7 +86,7 @@ public class UserPostListAdapter extends ArrayAdapter<Post> {
         postCommentCntIcon.setTypeface(fontAwesomeS);
         postCommentCntText.setText(post.getCommentCount()+" ");
         postScrapCntIcon.setTypeface(fontAwesomeS);
-        postScrapCntText.setText(post.getScrapCount()+" ");
+//        postScrapCntText.setText(post.getScrapCount()+" ");
 
         return v;
     }
