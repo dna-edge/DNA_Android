@@ -219,11 +219,10 @@ public class MainActivity extends BaseActivity {
 //        latitude = gpsTracker.getLatitude();
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
-        posts = new ArrayList<Post>();
+//        posts = new ArrayList<Post>();
 
         try {
             posts = new showPostingAllAsync(this).execute().get();
-            Log.v("mainactivity", "show all posts" + posts.size());
         } catch (Exception e){
             e.printStackTrace();
 //        new showPostingAsync().execute(posts)
@@ -382,6 +381,7 @@ class showPostingAllAsync extends AsyncTask<Void, Void, ArrayList<Post>>{
 
         String result = httpReqRes.requestHttpGetPostingAll("https://dna.soyoungpark.me:9013/api/posting/showAll/", dbhelper.getAccessToken());
 
+        Log.v("mainactivity", "show allr httpreq result" + result);
         postings = PostingJsonToObj(result, 1);
 
         return postings;

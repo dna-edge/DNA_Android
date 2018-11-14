@@ -9,6 +9,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -33,7 +34,7 @@ public class PostFormActivity extends BaseActivity {
     private SwitchCompat isOnlyMe;
     private double longitude, latitude;
     private Post post;
-    private boolean isChecked;
+    private boolean isChecked = false;
     private Date dt;
     private SimpleDateFormat sdf;
 
@@ -52,13 +53,26 @@ public class PostFormActivity extends BaseActivity {
         postTitleEdit = (EditText) findViewById(R.id.postTitleEdit);
         postContentEdit = (EditText) findViewById(R.id.postContentEdit);
         isOnlyMe = (SwitchCompat) findViewById(R.id.isOnlyMe);
+        isOnlyMe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.getId() == R.id.isOnlyMe){
+                    if(isChecked){
+                        isChecked = false;
+                    }
+                    else{
+                        isChecked = true;
+                    }
+                }
+            }
+        });
 
         // TODO 위치 초기값 설정해줘야 합니다!
         longitude = 127.07934279999995;
         latitude = 37.5407625;
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
         post = new Post();
-        isChecked = false;
+//        isChecked = false;
         dt = new Date();
         sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     }
@@ -117,7 +131,7 @@ class writePostingAsync extends AsyncTask<Post, Post, String> {
         HttpReqRes httpReqRes = new HttpReqRes();
         dbhelper = new Dbhelper(context);
         try{
-            httpReqRes.requestHttpPostWritePosting("https://dna.soyoungpark.me:9013/api/posting/", dbhelper.getAccessToken(), posts[0]);
+            httpReqRes.requestHttpPostWritePosting("https://dna.soyoungpark.me:9013/api/posting/", dbhelper, posts[0]);
         }finally {
         }
         return null;

@@ -19,6 +19,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
@@ -35,7 +37,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -290,6 +294,10 @@ public class HttpReqRes {
 
         try{
             HttpClient client = new DefaultHttpClient();
+            HttpParams params = client.getParams();
+            HttpConnectionParams.setConnectionTimeout(params, 5000);
+            HttpConnectionParams.setSoTimeout(params, 5000);
+
             String getURL = url;
             HttpGet get = new HttpGet(getURL);
             get.setHeader("token", token);
@@ -314,6 +322,9 @@ public class HttpReqRes {
 
         try{
             HttpClient client = new DefaultHttpClient();
+//            HttpParams params = client.getParams();
+//            HttpConnectionParams.setConnectionTimeout(params, 5000);
+//            HttpConnectionParams.setSoTimeout(params, 5000);
             String getURL = url;
             HttpGet get = new HttpGet(getURL);
 
@@ -331,7 +342,7 @@ public class HttpReqRes {
     /*
      * write Posts = Post
      */
-    public String requestHttpPostWritePosting(String url, String token, Post posting) {
+    public String requestHttpPostWritePosting(String url, Dbhelper dbhelper, Post posting) {
         String result = null;
         JSONObject json = null;
 
@@ -339,7 +350,7 @@ public class HttpReqRes {
             HttpClient client = new DefaultHttpClient();
             String postURL = url;
             HttpPost post = new HttpPost(postURL);
-            post.setHeader("token", token);
+            post.setHeader("token", dbhelper.getAccessToken());
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 
             String lng = String.valueOf(posting.getLongitude());
@@ -352,8 +363,8 @@ public class HttpReqRes {
             nameValuePairs.add(new BasicNameValuePair("latitude", lat));
             nameValuePairs.add(new BasicNameValuePair("longitude", lng));
             nameValuePairs.add(new BasicNameValuePair("onlyme", om));
-            nameValuePairs.add(new BasicNameValuePair("user_nick", posting.getNickname()));
-            nameValuePairs.add(new BasicNameValuePair("user_avatar", posting.getAvatar()));
+            nameValuePairs.add(new BasicNameValuePair("nickname", dbhelper.getMyNickname()));
+            nameValuePairs.add(new BasicNameValuePair("avatar", dbhelper.getMyAvatar()));
 
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
@@ -462,18 +473,25 @@ public class HttpReqRes {
     /*
      * write comments = Post
      */
-    public String requestHttpPostWritePosting(String url, String token, String content) {
+    public String requestHttpPostWritePosting(String url, Dbhelper dbhelper, String content) {
         String result = null;
+        Date dt = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         JSONObject json = null;
+
 
         try {
             HttpClient client = new DefaultHttpClient();
             String postURL = url;
             HttpPost post = new HttpPost(postURL);
-            post.setHeader("token", token);
+            post.setHeader("token", dbhelper.getAccessToken());
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 
+            Log.v("httpreqres", "contents : " + content + "\n nick : " + dbhelper.getMyNickname() + "\n avatar : " + dbhelper.getMyAvatar());
             nameValuePairs.add(new BasicNameValuePair("rcontents", content));
+            nameValuePairs.add(new BasicNameValuePair("nickname", dbhelper.getMyNickname()));
+            nameValuePairs.add(new BasicNameValuePair("avatar", dbhelper.getMyAvatar()));
+            nameValuePairs.add(new BasicNameValuePair("rdate", sdf.format(dt).toString()));
 
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 

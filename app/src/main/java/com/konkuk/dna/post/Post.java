@@ -21,15 +21,6 @@ public class Post implements Serializable{
 
     public Post() {}
 
-    public Post(int posting_idx, String title, double longitude, double latitude, boolean onlyme) {
-
-        this.posting_idx = posting_idx;
-        this.title = title;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.onlyme = onlyme;
-    }
-
     public Post(int posting_idx, int writer_idx, String avatar, String nickname, String date, String title, String content,
                 double longitude, double latitude, int likeCount, boolean onlyme, ArrayList<Comment> comments) {
         this.writer_idx = writer_idx;
@@ -65,55 +56,27 @@ public class Post implements Serializable{
     public void setPostingIdx(int idx) {
         this.posting_idx = posting_idx;
     }
-//
-    public String getAvatar() {
-        return avatar;
-    }
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
 
-    public String getNickname() {
-        return nickname;
-    }
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+    public String getAvatar() { return avatar; }
+    public void setAvatar(String avatar) { this.avatar = avatar; }
 
-    public String getDate() {
-        return date;
-    }
-    public void setDate(String date) {
-        this.date = date;
-    }
+    public String getNickname() { return nickname; }
+    public void setNickname(String nickname) { this.nickname = nickname; }
 
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public String getDate() { return date; }
+    public void setDate(String date) { this.date = date; }
 
-    public String getContent() {
-        return content;
-    }
-    public void setContent(String content) {
-        this.content = content;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public double getLongitude() {
-        return longitude;
-    }
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
+    public String getContent() { return content; }
+    public void setContent(String content) { this.content = content; }
 
-    public double getLatitude() {
-        return latitude;
-    }
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
+    public double getLongitude() { return longitude; }
+    public void setLongitude(double longitude) { this.longitude = longitude; }
+
+    public double getLatitude() { return latitude; }
+    public void setLatitude(double latitude) { this.latitude = latitude; }
 
     public int getLikeCount() {
         return likeCount;
@@ -146,11 +109,11 @@ public class Post implements Serializable{
     public ArrayList<Comment> getComments() {
         return comments;
     }
-    public void setComments(ArrayList<Comment> comments) {
-        this.comments = comments;
-    }
+//    public void setComments(ArrayList<Comment> comments) {
+//        this.comments = comments;
+//    }
 
-    public int commentCount() {
-        return comments.size();
-    }
+//    public int commentCount() {
+//        return comments.size();
+//    }
 }

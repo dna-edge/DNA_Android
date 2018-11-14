@@ -32,6 +32,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
+import static com.konkuk.dna.utils.ServerURL.LOCAL_HOST;
 
 public class PostDetailActivity extends BaseActivity {
     protected DrawerLayout menuDrawer;
@@ -56,16 +57,16 @@ public class PostDetailActivity extends BaseActivity {
 
         setContentView(R.layout.activity_post_detail);
 
-        Intent intent = getIntent();
-        idx = intent.getIntExtra("pidx", 0);
-//        post = new Post();
+//        Intent intent = getIntent();
+//        idx = intent.getIntExtra("pidx", 0);
+        post = new Post();
 //        try {
 //            post = new showPostingAsyncTask().execute(idx).get();
-//            Log.v("postdetail", "get post successed : " + post.getPostingIdx());
 //        }catch(Exception e){
 //            e.printStackTrace();
-//            Log.v("postdetail", "get post failed");
 //        }
+//        Post extra = (Post) getIntent().getSerializableExtra("post");
+//        post = (extra == null) ? new Post() : extra;
 
         init();
     }
@@ -96,16 +97,20 @@ public class PostDetailActivity extends BaseActivity {
         commentSaveBtn = (Button) findViewById(R.id.commentSaveBtn);
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
-        Post extra = (Post) getIntent().getSerializableExtra("post");
-        post = (extra == null) ? new Post() : extra;
-
-        Log.v("postdetail", "get post successed : " + post.getPostingIdx());
-
+//        Post extra = (Post) getIntent().getSerializableExtra("post");
+//        post = (extra == null) ? new Post() : extra;
+        try {
+            idx = getIntent().getIntExtra("pidx", 0);
+            post = new showPostingAsyncTask().execute(idx).get();
+//            post = (extra == null) ? new showPostingAsyncTask().execute(idx).get() : extra;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+//            post = new showPostingAsyncTask().execute(idx).get();
 
         if (post.getAvatar() != null) {
             Picasso.get().load(post.getAvatar()).into(postAvatar);
         }
-        Log.v("postdetail", "avatar : " + post.getAvatar());
         postNickname.setText(post.getNickname());
 
         // TODO 해당 유저가 나와 친구 관계인지 아닌지 확인하고, 친구 추가 버튼을 보여줍니다.
@@ -113,6 +118,7 @@ public class PostDetailActivity extends BaseActivity {
             addFriendBtn.setVisibility(View.GONE);
         }
 
+//        Log.v("postdetail", "comment testing,,, : " + post.getComments().get(0).getAvatar());
         postDate.setText(post.getDate());
         postTitle.setText(post.getTitle());
         postContent.setText(post.getContent());
@@ -210,7 +216,7 @@ class showPostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
 
         String res = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + idx);
         post = PostingJsonToObj(res, 2).get(0);
-        Log.v("postdetail", "comment" + post.getComments().get(0).getContent());
+        Log.v("postdetail", "comment" + post.getComments().get(0).getAvatar());
 
         return post;
     }
@@ -296,7 +302,7 @@ class writeCommentAsync extends AsyncTask<String, String, String> {
         HttpReqRes httpReqRes = new HttpReqRes();
         dbhelper = new Dbhelper(context);
         try{
-            httpReqRes.requestHttpPostWritePosting("https://dna.soyoungpark.me:9013/api/posting/reply/" + Integer.parseInt(strings[0]), dbhelper.getAccessToken(), strings[1]);
+            httpReqRes.requestHttpPostWritePosting("https://dna.soyoungpark.me:9013/api/posting/reply/" + Integer.parseInt(strings[0]), dbhelper, strings[1]);
         }finally {
         }
         return null;

@@ -74,6 +74,8 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
     @Override
     public View getView(int position, @Nullable View v, @NonNull ViewGroup parent) {
         Comment comment = comments.get(position);
+//        if(comments.get(position)==comments.get())
+        Log.v("commentadapter", "comment idx?pos?:" + comment.getIdx());
 
         if (v == null) {
             LayoutInflater layoutInflater = (LayoutInflater)
@@ -82,7 +84,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
         }
 
         ImageView avatar = v.findViewById(R.id.commentAvatar);
-//        TextView nickname = v.findViewById(R.id.commentNickname);
+        TextView nickname = v.findViewById(R.id.commentNickname);
         TextView content = v.findViewById(R.id.commentContent);
         TextView date = v.findViewById(R.id.commentDate);
 
@@ -90,9 +92,9 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
             Picasso.get().load(comment.getAvatar()).into(avatar);
         }
 
-//        nickname.setTypeface(NSB);
-//        nickname.setText(comment.getNickname());
-        Log.v("commentadapter", "comment content : " + comment.getContent());
+        nickname.setTypeface(NSB);
+        nickname.setText(comment.getNickname());
+        Log.v("commentadapter", "comment nick : " + comment.getNickname());
         content.setText(comment.getContent());
         date.setText(comment.getDate());
 
