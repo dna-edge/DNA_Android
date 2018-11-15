@@ -14,6 +14,7 @@ import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static com.konkuk.dna.utils.ConvertType.DatetoStr;
@@ -463,6 +464,7 @@ public class JsonToObj {
      * Posting 조회로 받아온 Json변환 메소드
      */
     public static ArrayList<Post> PostingJsonToObj(String jsonResult, int num){
+        Log.v("jsontoobj", "jsonresult at pjtoo : " + jsonResult);
         ArrayList<Post> postings = new ArrayList<>();
 
         JsonParser jsonParser = new JsonParser();
@@ -511,45 +513,103 @@ public class JsonToObj {
 
                 case 2:
                     JsonObject resultObject = (JsonObject) jsonObject.get("result");
-                    JsonObject postObject = (JsonObject) resultObject.get("pContents");
+                    if((JsonObject)resultObject.get("pContents")!=null) {
+                        JsonObject postObject = (JsonObject) resultObject.get("pContents");
 
-                    posting_idx = Integer.parseInt(postObject.get("posting_idx").toString());
-                    writer_idx = Integer.parseInt(postObject.get("writer_idx").toString());
-                    nickname = getStringNoQuote(String.valueOf(postObject.get("nickname")));
-                    avatar = getStringNoQuote(String.valueOf(postObject.get("avatar")));
-                    date = getStringNoQuote(postObject.get("posting_date").toString());
-                    title = getStringNoQuote(postObject.get("title").toString());
-                    content = getStringNoQuote(postObject.get("contents").toString());
-                    likeCount = Integer.parseInt(postObject.get("likes_cnt").toString());
-                    longitude = Double.parseDouble(postObject.get("longitude").toString());
-                    latitude = Double.parseDouble(postObject.get("latitude").toString());
-                    onlyme = Boolean.parseBoolean(postObject.get("onlyme").toString());
+                        posting_idx = Integer.parseInt(postObject.get("posting_idx").toString());
+                        writer_idx = Integer.parseInt(postObject.get("writer_idx").toString());
+                        nickname = getStringNoQuote(String.valueOf(postObject.get("nickname")));
+                        avatar = getStringNoQuote(String.valueOf(postObject.get("avatar")));
+                        date = getStringNoQuote(postObject.get("posting_date").toString());
+                        title = getStringNoQuote(postObject.get("title").toString());
+                        content = getStringNoQuote(postObject.get("contents").toString());
+                        likeCount = Integer.parseInt(postObject.get("likes_cnt").toString());
+                        longitude = Double.parseDouble(postObject.get("longitude").toString());
+                        latitude = Double.parseDouble(postObject.get("latitude").toString());
+                        onlyme = Boolean.parseBoolean(postObject.get("onlyme").toString());
 
-                    commentList = (JsonArray) resultObject.get("pReply");
-                    for (int j = 0; j < commentList.size(); j++) {
-                        JsonObject oneCommentObject = (JsonObject) commentList.get(j);
+                        commentList = (JsonArray) resultObject.get("pReply");
+                        for (int j = 0; j < commentList.size(); j++) {
+                            JsonObject oneCommentObject = (JsonObject) commentList.get(j);
 
-                        reply_idx = j;
-                        rnickname = getStringNoQuote(oneCommentObject.get("nickname").toString());
-                        ravatar = getStringNoQuote(oneCommentObject.get("avatar").toString());
-                        comment = getStringNoQuote(oneCommentObject.get("reply_contents").toString());
-                        rdate = getStringNoQuote(oneCommentObject.get("date").toString());
+                            reply_idx = j;
+                            rnickname = getStringNoQuote(oneCommentObject.get("nickname").toString());
+                            ravatar = getStringNoQuote(oneCommentObject.get("avatar").toString());
+                            comment = getStringNoQuote(oneCommentObject.get("reply_contents").toString());
+                            rdate = getStringNoQuote(oneCommentObject.get("date").toString());
 
-                        comments.add(new Comment(reply_idx, ravatar, rnickname, rdate, comment));
-                        Log.v("jsontoobj", "avatar and nick : " + ravatar + " &&&& " + comments.get(j).getAvatar());
+                            comments.add(new Comment(reply_idx, ravatar, rnickname, rdate, comment));
+                            Log.v("jsontoobj", "avatar and nick : " + ravatar + " &&&& " + comments.get(j).getAvatar());
+                        }
+
+                        postings.add(new Post(posting_idx, writer_idx, avatar, nickname, date, title, content, longitude, latitude, likeCount, onlyme, comments));
+
+                        postings.get(0).setCommentCount(commentList.size());
+
+                    }
+                    else{
+                        posting_idx = Integer.parseInt(resultObject.get("posting_idx").toString());
+                        writer_idx = Integer.parseInt(resultObject.get("writer_idx").toString());
+                        nickname = getStringNoQuote(String.valueOf(resultObject.get("nickname")));
+                        avatar = getStringNoQuote(String.valueOf(resultObject.get("avatar")));
+                        date = getStringNoQuote(resultObject.get("posting_date").toString());
+                        title = getStringNoQuote(resultObject.get("title").toString());
+                        content = getStringNoQuote(resultObject.get("contents").toString());
+                        likeCount = Integer.parseInt(resultObject.get("likes_cnt").toString());
+                        longitude = Double.parseDouble(resultObject.get("longitude").toString());
+                        latitude = Double.parseDouble(resultObject.get("latitude").toString());
+                        onlyme = Boolean.parseBoolean(resultObject.get("onlyme").toString());
+
+                        Log.v("jsontoobj", "without reply : " + posting_idx + " : " + content);
+
+
+                        postings.add(new Post(posting_idx, writer_idx, avatar, nickname, date, title, content, longitude, latitude, likeCount, onlyme, comments));
                     }
 
-                    postings.add(new Post(posting_idx, writer_idx, avatar, nickname, date, title, content, longitude, latitude, likeCount, onlyme, comments));
-
-                    postings.get(0).setCommentCount(commentList.size());
-
                     break;
+
             }
         }else{
             Log.e("!!!=", "No Postings");
         }
 
         return postings;
+    }
+
+
+    /*
+     * Posting 조회로 받아온 Json변환 메소드
+     */
+    public static int[] PostingCntJsonToObj(String jsonResult){
+        ArrayList<Post> postings = new ArrayList<>();
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+        int[] posting_idx;
+
+        if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
+
+            JsonArray resultArray = (JsonArray) jsonObject.get("result");
+
+            posting_idx = new int[resultArray.size()];
+
+            for (int i = 0; i < resultArray.size(); i++) {
+                JsonObject oneObject = (JsonObject) resultArray.get(i);
+
+                Log.v("jsontoobj", "oneobject : " + oneObject.toString());
+
+                posting_idx[i] = Integer.parseInt(oneObject.get("posting_idx").toString());
+                Log.v("jsontoobj", "idx : " + i + ", " + posting_idx[i]);
+
+            }
+            return posting_idx;
+
+        }else{
+            Log.e("!!!=", "No Postings");
+        }
+
+        return null;
     }
 
 }

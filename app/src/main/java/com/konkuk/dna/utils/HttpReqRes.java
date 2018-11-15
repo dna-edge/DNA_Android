@@ -4,6 +4,7 @@ import android.icu.util.Output;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
@@ -421,9 +422,6 @@ public class HttpReqRes {
 
         try{
             HttpClient client = new DefaultHttpClient();
-            HttpParams params = client.getParams();
-            HttpConnectionParams.setConnectionTimeout(params, 5000);
-            HttpConnectionParams.setSoTimeout(params, 5000);
 
             String getURL = url;
             HttpGet get = new HttpGet(getURL);
@@ -437,7 +435,13 @@ public class HttpReqRes {
         }catch(Exception e){
             e.printStackTrace();
         }
+
         return result;
+//        JsonParser jsonParser = new JsonParser();
+//        JsonObject jsonObject = (JsonObject) jsonParser.parse(result);
+//
+//        int cnt = Integer.parseInt(jsonObject.get("result").toString());
+//        return cnt;
     }
 
     /*
@@ -452,6 +456,7 @@ public class HttpReqRes {
 //            HttpParams params = client.getParams();
 //            HttpConnectionParams.setConnectionTimeout(params, 5000);
 //            HttpConnectionParams.setSoTimeout(params, 5000);
+            Log.v("httpreqres", "url when get posting : " + url);
             String getURL = url;
             HttpGet get = new HttpGet(getURL);
 
@@ -600,12 +605,12 @@ public class HttpReqRes {
     /*
      * write comments = Post
      */
-    public String requestHttpPostWritePosting(String url, Dbhelper dbhelper, String content) {
+    public String requestHttpPostWriteComment(String url, Dbhelper dbhelper, String content) {
+        Log.v("httpreqrs", "url : "  + url);
         String result = null;
         Date dt = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         JSONObject json = null;
-
 
         try {
             HttpClient client = new DefaultHttpClient();
@@ -614,10 +619,9 @@ public class HttpReqRes {
             post.setHeader("token", dbhelper.getAccessToken());
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 
-            Log.v("httpreqres", "contents : " + content + "\n nick : " + dbhelper.getMyNickname() + "\n avatar : " + dbhelper.getMyAvatar());
             nameValuePairs.add(new BasicNameValuePair("rcontents", content));
-            nameValuePairs.add(new BasicNameValuePair("nickname", dbhelper.getMyNickname()));
-            nameValuePairs.add(new BasicNameValuePair("avatar", dbhelper.getMyAvatar()));
+            nameValuePairs.add(new BasicNameValuePair("userNick", dbhelper.getMyNickname()));
+            nameValuePairs.add(new BasicNameValuePair("userAvatar", dbhelper.getMyAvatar()));
             nameValuePairs.add(new BasicNameValuePair("rdate", sdf.format(dt).toString()));
 
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -632,5 +636,37 @@ public class HttpReqRes {
         }
         Log.v("httpreqres", "result of reply : " + result);
         return result;
+    }
+
+    public String requestHttpPostAddFriend(String url, Dbhelper dbhelper, int ridx){
+        String result = null;
+        JSONObject json = null;
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpPost post = new HttpPost(postURL);
+            post.setHeader("token", dbhelper.getAccessToken());
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+
+            String recidx = String.valueOf(ridx);
+
+            nameValuePairs.add(new BasicNameValuePair("receiverIdx", recidx));
+
+            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            HttpResponse response = client.execute(post);
+            HttpEntity resEntity = response.getEntity();
+            result = EntityUtils.toString(resEntity);
+            Log.v("httpreq", "status : " + response.getStatusLine());
+            Log.v("httpreqres", "result after parsing : " + result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return result;
+        }
+        Log.v("httpreqres", "result of reply : " + result);
+        return result;
+
     }
 }

@@ -50,6 +50,7 @@ import java.util.Arrays;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
+import static com.konkuk.dna.utils.JsonToObj.PostingCntJsonToObj;
 import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
 import static com.konkuk.dna.utils.ObjToJson.StoreObjToJson;
 
@@ -389,14 +390,22 @@ class showPostingAllAsync extends AsyncTask<Void, Void, ArrayList<Post>>{
     @Override
     protected ArrayList<Post> doInBackground(Void... voids){
         ArrayList<Post> postings = new ArrayList<>();
+        int[] pidx;
 
         HttpReqRes httpReqRes = new HttpReqRes();
         dbhelper = new Dbhelper(context);
 
         String result = httpReqRes.requestHttpGetPostingAll("https://dna.soyoungpark.me:9013/api/posting/showAll/", dbhelper.getAccessToken());
 
-        Log.v("mainactivity", "show allr httpreq result" + result);
-        postings = PostingJsonToObj(result, 1);
+//        Log.v("mainactivity", "show allr httpreq result" + result);
+        pidx = PostingCntJsonToObj(result);
+
+        for(int i=0;i<pidx.length;i++){
+            String result1 = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + pidx[i]);
+            postings.add(PostingJsonToObj(result1, 2).get(0));
+
+        }
+//        postings = PostingJsonToObj(result, 2);
 
         return postings;
     }

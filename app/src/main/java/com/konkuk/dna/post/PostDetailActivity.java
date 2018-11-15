@@ -59,7 +59,7 @@ public class PostDetailActivity extends BaseActivity {
 
 //        Intent intent = getIntent();
 //        idx = intent.getIntExtra("pidx", 0);
-        post = new Post();
+//        post = new Post();
 //        try {
 //            post = new showPostingAsyncTask().execute(idx).get();
 //        }catch(Exception e){
@@ -97,16 +97,20 @@ public class PostDetailActivity extends BaseActivity {
         commentSaveBtn = (Button) findViewById(R.id.commentSaveBtn);
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
-//        Post extra = (Post) getIntent().getSerializableExtra("post");
-//        post = (extra == null) ? new Post() : extra;
-        try {
-            idx = getIntent().getIntExtra("pidx", 0);
-            post = new showPostingAsyncTask().execute(idx).get();
-//            post = (extra == null) ? new showPostingAsyncTask().execute(idx).get() : extra;
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-//            post = new showPostingAsyncTask().execute(idx).get();
+//        idx = (Integer)getIntent().getSerializableExtra("pidx");
+        Post extra = (Post) getIntent().getSerializableExtra("post");
+//        idx = extra.getPostingIdx();
+        post = (extra == null) ? new Post() : extra;
+        idx = post.getPostingIdx();
+//        idx = extra.getPostingIdx();
+//        try {
+//            Log.v("postdetail", "pidx from,,,," + idx);
+////            post = new showPostingAsyncTask().execute(idx).get();
+////            post = (extra == null) ? new showPostingAsyncTask().execute(idx).get() : extra;
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
+//        post = new showPostingAsyncTask().execute(idx).get();
 
         if (post.getAvatar() != null) {
             Picasso.get().load(post.getAvatar()).into(postAvatar);
@@ -168,6 +172,7 @@ public class PostDetailActivity extends BaseActivity {
 
             case R.id.addFriendBtn: // 친구 추가 버튼 클릭
                 Log.d("PostDetail", "add friend");
+                new addFriendAsync(this).execute(post.getIdx());
                 break;
 
             case R.id.postLikeBtn: // 좋아요 버튼 클릭 : 1
@@ -202,30 +207,32 @@ public class PostDetailActivity extends BaseActivity {
 }
 
 class showPostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
+    String res = null;
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
+//    @Override
+//    protected void onPreExecute() {
+//        super.onPreExecute();
+//    }
 
     @Override
     protected Post doInBackground(Integer... ints) {
         HttpReqRes httpReqRes = new HttpReqRes();
         Post post = new Post();
         int idx = ints[0];
+        Log.v("postdetail", "idx in asynctassk : " + idx);
+        res = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + idx);
 
-        String res = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + idx);
         post = PostingJsonToObj(res, 2).get(0);
-        Log.v("postdetail", "comment" + post.getComments().get(0).getAvatar());
+//        Log.v("postdetail", "comment" + post.getComments().get(0).getAvatar());
 
         return post;
     }
 
-    @Override
-    protected void onPostExecute(Post posting) {
-        super.onPostExecute(posting);
-
-    }
+//    @Override
+//    protected void onPostExecute(Post posting) {
+//        super.onPostExecute(posting);
+//
+//    }
 }
 
 class PostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
@@ -302,7 +309,7 @@ class writeCommentAsync extends AsyncTask<String, String, String> {
         HttpReqRes httpReqRes = new HttpReqRes();
         dbhelper = new Dbhelper(context);
         try{
-            httpReqRes.requestHttpPostWritePosting("https://dna.soyoungpark.me:9013/api/posting/reply/" + Integer.parseInt(strings[0]), dbhelper, strings[1]);
+            httpReqRes.requestHttpPostWriteComment("https://dna.soyoungpark.me:9013/api/posting/reply/" + Integer.parseInt(strings[0]), dbhelper, strings[1]);
         }finally {
         }
         return null;
@@ -313,4 +320,33 @@ class writeCommentAsync extends AsyncTask<String, String, String> {
 
         super.onPostExecute(result);
     }
+}
+
+class addFriendAsync extends AsyncTask<Integer, String, String> {
+    private Context context;
+    private Dbhelper dbhelper;
+
+//    @Override
+//    protected void onPreExecute() {
+//        super.onPreExecute();
+//    }
+    public addFriendAsync(Context context){
+        this.context = context;
+    }
+
+    @Override
+    protected String doInBackground(Integer... ints){
+        HttpReqRes httpReqRes = new HttpReqRes();
+        dbhelper = new Dbhelper(context);
+
+        httpReqRes.requestHttpPostAddFriend("https://dna.soyoungpark.me:9013/api/friends/", dbhelper, ints[0]);
+
+        return null;
+    }
+
+//    @Override
+//    protected void onPostExecute(String result) {
+//
+//        super.onPostExecute();
+//    }
 }

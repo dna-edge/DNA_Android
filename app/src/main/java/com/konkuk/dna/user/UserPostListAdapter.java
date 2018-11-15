@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import com.konkuk.dna.R;
 import com.konkuk.dna.post.Post;
+import com.konkuk.dna.utils.HttpReqRes;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 
 import java.util.ArrayList;
 
@@ -23,6 +26,7 @@ public class UserPostListAdapter extends ArrayAdapter<Post> {
     Context context;
     ArrayList<Post> posts;
     Boolean isBookMark;
+    int idx;
 
     private static Typeface fontAwesomeR;
     private static Typeface fontAwesomeS;
@@ -50,6 +54,7 @@ public class UserPostListAdapter extends ArrayAdapter<Post> {
     @Override
     public View getView(int position, @Nullable View v, @NonNull ViewGroup parent) {
         Post post = posts.get(position);
+        idx = post.getPostingIdx();
 
         if (v == null) {
             LayoutInflater layoutInflater = (LayoutInflater)
@@ -75,6 +80,7 @@ public class UserPostListAdapter extends ArrayAdapter<Post> {
                 @Override
                 public void onClick(View view) {
                     DialogSimple();
+                    new deleteBookmarkAsync(context).execute(idx);
                 }
             });
         }
@@ -113,3 +119,35 @@ public class UserPostListAdapter extends ArrayAdapter<Post> {
     }
 }
 
+class deleteBookmarkAsync extends AsyncTask<Integer, Integer, Void> {
+
+    private Context context;
+    private Dbhelper dbhelper;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    public deleteBookmarkAsync(Context context){
+        this.context = context;
+    }
+
+    @Override
+    protected Void doInBackground(Integer... ints){
+        ArrayList<Post> postings = new ArrayList<>();
+
+        HttpReqRes httpReqRes = new HttpReqRes();
+        dbhelper = new Dbhelper(context);
+
+        httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[0], dbhelper.getAccessToken(), 4);
+
+        return null;
+    }
+
+//    @Override
+//    protected void onPostExecute(ArrayList<Post> postings) {
+//
+//        super.onPostExecute(postings);
+//    }
+}
