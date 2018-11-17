@@ -158,6 +158,21 @@ public class Dbhelper extends SQLiteOpenHelper {
     /*
      * 채팅 반경 변경 메소드
      * */
+    public void updateSearchable(int searchable){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(DNAEntry.COLUME_NAME_SEARCHABLE, searchable);
+
+        /*
+         * 받아온 엑세스 토큰을 갱신함..
+         * */
+        db.update(DNAEntry.TABLE_NAME, values, null, null);
+    }
+
+    /*
+     * 채팅 반경 변경 메소드
+     * */
     public void updateAddress(String address){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
