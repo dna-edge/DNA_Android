@@ -19,6 +19,7 @@ public class Dbhelper extends SQLiteOpenHelper {
     * */
     public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "DNATokenDB.db";
+    public static Boolean isNewbie = true;
 
     public static class DNAEntry implements BaseColumns{
         public static final String TABLE_NAME = "userinfo";
@@ -96,6 +97,8 @@ public class Dbhelper extends SQLiteOpenHelper {
         * */
         db.delete(DNAEntry.TABLE_NAME,null, null);
         db.insert(DNAEntry.TABLE_NAME, null, values);
+
+        isNewbie = false;
     }
 
     /*
@@ -108,6 +111,8 @@ public class Dbhelper extends SQLiteOpenHelper {
          * 기존에 있는 내용을 딜리트
          * */
         db.delete(DNAEntry.TABLE_NAME,null, null);
+
+        isNewbie = true;
     }
 
     /*
@@ -341,4 +346,7 @@ public class Dbhelper extends SQLiteOpenHelper {
         return address;
     }
 
+    public static Boolean getIsNewbie() {
+        return isNewbie;
+    }
 }

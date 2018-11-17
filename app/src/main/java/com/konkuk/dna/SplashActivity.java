@@ -24,6 +24,8 @@ import com.konkuk.dna.utils.dbmanage.Dbhelper;
 
 import java.util.HashMap;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.konkuk.dna.SplashActivity.prgDialog;
@@ -60,32 +62,52 @@ public class SplashActivity extends AppCompatActivity {
 
         return ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 ;
     }
     private void requestPermissionAndContinue() {
         if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                && ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, WRITE_EXTERNAL_STORAGE)
-                    && ActivityCompat.shouldShowRequestPermissionRationale(this, READ_EXTERNAL_STORAGE)) {
+                    && ActivityCompat.shouldShowRequestPermissionRationale(this, READ_EXTERNAL_STORAGE)
+                    && ActivityCompat.shouldShowRequestPermissionRationale(this, ACCESS_FINE_LOCATION)
+                    && ActivityCompat.shouldShowRequestPermissionRationale(this, ACCESS_COARSE_LOCATION)) {
+
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                 alertBuilder.setCancelable(true);
                 alertBuilder.setTitle("권한설정 확인");
-                alertBuilder.setMessage("파일 입출력 권한");
+                alertBuilder.setMessage("DNA에 필요한 권한을 요청합니다.");
                 alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
                     public void onClick(DialogInterface dialog, int which) {
                         ActivityCompat.requestPermissions(SplashActivity.this, new String[]{WRITE_EXTERNAL_STORAGE
-                                , READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                                , READ_EXTERNAL_STORAGE, ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_CODE);
                         openActivity();
                     }
                 });
                 AlertDialog alert = alertBuilder.create();
                 alert.show();
                 Log.e("", "permission denied, show dialog");
+
+                android.app.AlertDialog.Builder alt_bld = new android.app.AlertDialog.Builder(this);
+                alt_bld.setMessage("권한이 없어 DNA를 실행할 수 없습니다. 앱을 종료합니다.").setCancelable(
+                        false).setPositiveButton("네ㅠㅠ",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                finish();
+                            }
+                        });
+                android.app.AlertDialog alerts = alt_bld.create();
+                alerts.show();
+
             } else {
                 ActivityCompat.requestPermissions(SplashActivity.this, new String[]{WRITE_EXTERNAL_STORAGE,
-                        READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                        READ_EXTERNAL_STORAGE, ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_CODE);
             }
         } else {
             openActivity();
@@ -103,7 +125,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 }
 
-class AuthAsyncTask extends AsyncTask<Integer, Boolean, Boolean> {
+class AuthAsyncTask extends AsyncTask<Integer, Boolean, Integer> {
     private Context context;
     private Dbhelper dbhelper;
 
@@ -118,11 +140,11 @@ class AuthAsyncTask extends AsyncTask<Integer, Boolean, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(Integer... integers) {
+    protected Integer doInBackground(Integer... integers) {
         //로그인 되어 있는지 확인
         //결과를 리턴
 
-        boolean isSuccess;
+        int isSuccess;
 //        try {
 //            Thread.sleep(2000);
 //        } catch (InterruptedException e) {
@@ -146,19 +168,19 @@ class AuthAsyncTask extends AsyncTask<Integer, Boolean, Boolean> {
              * */
             dbhelper = new Dbhelper(context);
             dbhelper.refreshTokenDB(map);
-            isSuccess = true;
+            isSuccess = 1;
         }else{
             /*
              * 실패했으면 값만 반환
              * */
-            isSuccess = false;
+            isSuccess = 0;
         }
 
         return isSuccess;
     }
 
     @Override
-    protected void onPostExecute(Boolean isToken) {
+    protected void onPostExecute(Integer isToken) {
         //되어있으면 ActivityChat
         //안 되어있으면 ActivityLogin
 
@@ -169,31 +191,37 @@ class AuthAsyncTask extends AsyncTask<Integer, Boolean, Boolean> {
 //        context.startActivity(intent);
 //        ((Activity)context).finish();
 
-        if(isToken){
+        if(isToken==1){
             Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
             ((Activity)context).finish();
         }else{
-            android.app.AlertDialog.Builder alt_bld = new android.app.AlertDialog.Builder(context);
-            alt_bld.setMessage("로그인 정보가 만료되었습니다. 로그인 하시겠습니까?").setCancelable(
-                    false).setPositiveButton("YES",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                            Intent intent = new Intent(context, LoginActivity.class);
-                            context.startActivity(intent);
-                            ((Activity)context).finish();
-                        }
-                    }).setNegativeButton("NO",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                            ((Activity)context).finish();
-                        }
-                    });
-            android.app.AlertDialog alert = alt_bld.create();
-            alert.show();
-
+            if(!dbhelper.getIsNewbie()) {
+                android.app.AlertDialog.Builder alt_bld = new android.app.AlertDialog.Builder(context);
+                alt_bld.setMessage("로그인 정보가 만료되었습니다. 로그인 하시겠습니까?").setCancelable(
+                        false).setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                Intent intent = new Intent(context, LoginActivity.class);
+                                context.startActivity(intent);
+                                ((Activity) context).finish();
+                            }
+                        }).setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                ((Activity) context).finish();
+                            }
+                        });
+                android.app.AlertDialog alert = alt_bld.create();
+                alert.show();
+            }else{
+                Toast.makeText(context, "처음이시군요!", Toast.LENGTH_SHORT);
+                Intent intent = new Intent(context, LoginActivity.class);
+                context.startActivity(intent);
+                ((Activity) context).finish();
+            }
 
         }
     }

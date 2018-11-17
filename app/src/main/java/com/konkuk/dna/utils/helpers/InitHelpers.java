@@ -129,15 +129,16 @@ public class InitHelpers {
 
                 AlertDialog.Builder alt_bld = new AlertDialog.Builder(context);
                 alt_bld.setMessage("정말 로그아웃 하실건가요?").setCancelable(
-                        false).setPositiveButton("YES",
+                        false).setPositiveButton("네",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                dbhelper.logoutUser();
                                 Intent intent = new Intent(context, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
                                 dialog.cancel();
                             }
-                        }).setNegativeButton("NO",
+                        }).setNegativeButton("아니오",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
