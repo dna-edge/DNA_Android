@@ -552,4 +552,46 @@ public class JsonToObj {
         return postings;
     }
 
+    //{
+    //     "user":
+    //     {
+    //         "idx":3,
+    //         "nickname":"박소영",
+    //         "avatar":"http:\/\/post.phinf.naver.net\/MjAxNzExMDZfMjE3\/MDAxNTA5OTAzMzExOTE0.hWqSum3lvcV-c-vt4dS0XBKtw0KmUj0oHayTd8pjMpcg.uWh86C3tGlvwNnP2Jh8No0xF9DNXokGH3AGdFgBX_SAg.JPEG\/IytQi_Q_5akvz1zJBDXYrVcHQLNg.jpg",
+    //         "anonymity":0
+    //     },
+    //     "position":{
+    //         "type":"Point",
+    //         "coordinates":[127.1792579,37.5647535]
+    //     },
+    //     "type":"LoudSpeaker",
+    //     "like_count":0,
+    //     "likes":[],
+    //     "contents":"ㅋㅋ",
+    //     "created_at":"2018-11-17T07:43:35.213Z"
+    //}
+
+    /*
+     * 푸시알림 Json변환 메소드
+     * */
+    public static ArrayList<String> PushJsonToObj(String jsonResult){
+
+        ArrayList<String> pm= new ArrayList<>();
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+        JsonObject userObject = (JsonObject) jsonObject.get("user");
+
+        pm.add(getStringNoQuote(userObject.get("nickname").toString()));
+        pm.add(getStringNoQuote(userObject.get("avatar").toString()));
+        pm.add(getStringNoQuote(userObject.get("anonymity").toString()));
+
+        pm.add(getStringNoQuote(jsonObject.get("contents").toString()));
+        pm.add(getStringNoQuote(jsonObject.get("created_at").toString()));
+
+        //이름, 아바타, 익명, 내용, 작성시간
+        return pm;
+    }
 }
+
+

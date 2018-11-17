@@ -4,13 +4,17 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -44,9 +48,15 @@ import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostFormActivity;
 import com.nhn.android.maps.NMapView;
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -54,6 +64,7 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.PushJsonToObj;
 import static com.konkuk.dna.utils.ObjToJson.StoreObjToJson;
 
 public class MainActivity extends BaseActivity {
@@ -176,18 +187,13 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void call(Object... args) {
-                NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(getApplicationContext())
-                                .setSmallIcon(R.mipmap.dna)
-                                .setContentTitle("근처에서 확성기를 사용했습니다.")
-                                .setContentText(args[0].toString());
+                ArrayList<String> result = PushJsonToObj(args[0].toString());
 
-                NotificationManager mnm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                int icon = R.id.msgAvatar;
+                //TODO : add Asynctask
 
-                Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                vibe.vibrate(500);
-
-                mnm.notify(0, mBuilder.build());
+                new generatePictureStyleNotification(getApplicationContext(), result.get(0), result.get(3),
+                        result.get(1)).execute();
 
                 EventBus.getDefault().post(new EventListener(SOCKET_SPEAKER, null));
             }
@@ -412,5 +418,77 @@ class showPostingAllAsync extends AsyncTask<Void, Void, ArrayList<Post>>{
     protected void onPostExecute(ArrayList<Post> postings) {
 
         super.onPostExecute(postings);
+    }
+}
+
+class generatePictureStyleNotification extends AsyncTask<String, Void, Bitmap> {
+
+    private Context mContext;
+    private String user, message, imageUrl;
+
+    public generatePictureStyleNotification(Context context, String user, String message, String imageUrl) {
+        super();
+        this.mContext = context;
+        this.user = user;
+        this.message = message;
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
+    protected Bitmap doInBackground(String... params) {
+
+        InputStream in;
+        try {
+            URL url = new URL(imageUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            in = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(in);
+            return myBitmap;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Bitmap result) {
+        super.onPostExecute(result);
+
+        Intent intent = new Intent(mContext, SplashActivity.class);
+        intent.putExtra("key", "value");
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 100, intent, PendingIntent.FLAG_ONE_SHOT);
+
+
+        long[] vPattern = {100, 1000, 200, 1000}; //쉼,진동,쉼,진동
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(mContext)
+                        .setVibrate(vPattern)
+                        .setContentIntent(pendingIntent)
+                        .setSmallIcon(R.mipmap.dna)
+                        .setLargeIcon(result)
+                        .setContentTitle(user+"님의 확성기") //nickname
+                        .setContentText(message);
+
+        NotificationManager mnm = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+        mnm.notify(0, mBuilder.build());
+//
+//        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+//        Notification notif = new Notification.Builder(mContext)
+//                .setContentIntent(pendingIntent)
+//                .setContentTitle(user)
+//                .setContentText(message)
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setLargeIcon(result)
+//                .setStyle(new Notification.BigPictureStyle().bigPicture(result))
+//                .build();
+//        notif.flags |= Notification.FLAG_AUTO_CANCEL;
+//        notificationManager.notify(1, notif);
     }
 }
