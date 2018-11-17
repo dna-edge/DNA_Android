@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -12,7 +13,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -176,10 +179,14 @@ public class MainActivity extends BaseActivity {
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(getApplicationContext())
                                 .setSmallIcon(R.mipmap.dna)
-                                .setContentTitle("Notification")
+                                .setContentTitle("근처에서 확성기를 사용했습니다.")
                                 .setContentText(args[0].toString());
 
                 NotificationManager mnm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibe.vibrate(500);
+
                 mnm.notify(0, mBuilder.build());
 
                 EventBus.getDefault().post(new EventListener(SOCKET_SPEAKER, null));
@@ -396,7 +403,7 @@ class showPostingAllAsync extends AsyncTask<Void, Void, ArrayList<Post>>{
         String result = httpReqRes.requestHttpGetPostingAll("https://dna.soyoungpark.me:9013/api/posting/showAll/", dbhelper.getAccessToken());
 
         Log.v("mainactivity", "show allr httpreq result" + result);
-        postings = PostingJsonToObj(result, 1);
+        //postings = PostingJsonToObj(result, 1);
 
         return postings;
     }

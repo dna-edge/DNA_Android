@@ -72,6 +72,7 @@ public class SplashActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         ActivityCompat.requestPermissions(SplashActivity.this, new String[]{WRITE_EXTERNAL_STORAGE
                                 , READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                        openActivity();
                     }
                 });
                 AlertDialog alert = alertBuilder.create();
