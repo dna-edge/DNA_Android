@@ -486,6 +486,7 @@ class generatePictureStyleNotification extends AsyncTask<String, Void, Bitmap> {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(mContext)
+                        .setPriority(NotificationCompat.PRIORITY_MAX)
                         .setVibrate(vPattern)
                         .setContentIntent(pendingIntent)
                         .setSmallIcon(R.mipmap.dna)
