@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -47,6 +48,7 @@ import com.konkuk.dna.map.MapFragment;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostFormActivity;
+import com.konkuk.dna.utils.helpers.NameHelpers;
 import com.nhn.android.maps.NMapView;
 import com.squareup.picasso.Picasso;
 
@@ -189,11 +191,22 @@ public class MainActivity extends BaseActivity {
             public void call(Object... args) {
                 ArrayList<String> result = PushJsonToObj(args[0].toString());
 
-                int icon = R.id.msgAvatar;
                 //TODO : add Asynctask
+                String name = "";
+                String avatar = null;
+                String contents = result.get(3);
 
-                new generatePictureStyleNotification(getApplicationContext(), result.get(0), result.get(3),
-                        result.get(1)).execute();
+                if(Integer.parseInt(result.get(2))==0){
+                    //when anonymity = 0
+                    name = result.get(0);
+                    avatar = result.get(1);
+                }else{
+                    //when anonymity = 1
+                    name = NameHelpers.makeName(Integer.parseInt(result.get(4)));
+                    avatar = null;
+                }
+                new generatePictureStyleNotification(getApplicationContext(), name, contents,
+                        avatar).execute();
 
                 EventBus.getDefault().post(new EventListener(SOCKET_SPEAKER, null));
             }
@@ -438,18 +451,24 @@ class generatePictureStyleNotification extends AsyncTask<String, Void, Bitmap> {
     protected Bitmap doInBackground(String... params) {
 
         InputStream in;
-        try {
-            URL url = new URL(imageUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            in = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(in);
-            return myBitmap;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(imageUrl!=null) {
+            try {
+                URL url = new URL(imageUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                in = connection.getInputStream();
+                Bitmap myBitmap = BitmapFactory.decodeStream(in);
+                return myBitmap;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Bitmap icon = BitmapFactory.decodeResource(mContext.getResources(),
+                    R.drawable.avatar);
+            return icon;
         }
         return null;
     }

@@ -587,9 +587,9 @@ public class JsonToObj {
         pm.add(getStringNoQuote(userObject.get("anonymity").toString()));
 
         pm.add(getStringNoQuote(jsonObject.get("contents").toString()));
-        pm.add(getStringNoQuote(jsonObject.get("created_at").toString()));
+        pm.add(getStringNoQuote(userObject.get("idx").toString()));
 
-        //이름, 아바타, 익명, 내용, 작성시간
+        //이름, 아바타, 익명, 내용, idx
         return pm;
     }
 }
