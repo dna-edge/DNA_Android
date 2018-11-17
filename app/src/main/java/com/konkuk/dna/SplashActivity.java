@@ -15,9 +15,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.konkuk.dna.auth.LoginActivity;
+import com.konkuk.dna.utils.HttpReqRes;
+import com.konkuk.dna.utils.JsonToObj;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
+
+import java.util.HashMap;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -118,38 +123,38 @@ class AuthAsyncTask extends AsyncTask<Integer, Boolean, Boolean> {
         //결과를 리턴
 
         boolean isSuccess;
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-//        dbhelper = new Dbhelper(context);
-//        /*
-//        * DB에 남은 토큰을 검색해서 expired 확인, 유효하면 바로 chatactivity진입
-//        * */
-//
-//        HttpReqRes httpreq = new HttpReqRes();
-//        String responseResult = httpreq.requestHttpGETAuth("https://dna.soyoungpark.me:9011/api/auth/refresh", dbhelper.getRefreshToken());
-//
-//        JsonToObj jto = new JsonToObj();
-//        HashMap<String, String> map = jto.TokenJsonToObj(responseResult);
-//
-//
-//        if(map.get("issuccess").equals("true")){
-//            /*
-//             * 성공했으면 DB에 저장
-//             * */
-//            dbhelper = new Dbhelper(context);
-//            dbhelper.refreshTokenDB(map);
-//            isSuccess = true;
-//        }else{
-//            /*
-//             * 실패했으면 값만 반환
-//             * */
-//            isSuccess = false;
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
 //        }
+        dbhelper = new Dbhelper(context);
+        /*
+        * DB에 남은 토큰을 검색해서 expired 확인, 유효하면 바로 chatactivity진입
+        * */
 
-        return true;
+        HttpReqRes httpreq = new HttpReqRes();
+        String responseResult = httpreq.requestHttpGETAuth("https://dna.soyoungpark.me:9011/api/auth/refresh", dbhelper.getRefreshToken());
+
+        JsonToObj jto = new JsonToObj();
+        HashMap<String, String> map = jto.TokenJsonToObj(responseResult);
+
+
+        if(map.get("issuccess").equals("true")){
+            /*
+             * 성공했으면 DB에 저장
+             * */
+            dbhelper = new Dbhelper(context);
+            dbhelper.refreshTokenDB(map);
+            isSuccess = true;
+        }else{
+            /*
+             * 실패했으면 값만 반환
+             * */
+            isSuccess = false;
+        }
+
+        return isSuccess;
     }
 
     @Override
@@ -160,18 +165,36 @@ class AuthAsyncTask extends AsyncTask<Integer, Boolean, Boolean> {
         prgDialog.dismiss();
 
 
-        Intent intent = new Intent(context, LoginActivity.class);
-        context.startActivity(intent);
-        ((Activity)context).finish();
+//        Intent intent = new Intent(context, LoginActivity.class);
+//        context.startActivity(intent);
+//        ((Activity)context).finish();
 
-//        if(isToken){
-//            Intent intent = new Intent(context, MainActivity.class);
-//            context.startActivity(intent);
-//            ((Activity)context).finish();
-//        }else{
-//            Intent intent = new Intent(context, LoginActivity.class);
-//            context.startActivity(intent);
-//            ((Activity)context).finish();
-//        }
+        if(isToken){
+            Intent intent = new Intent(context, MainActivity.class);
+            context.startActivity(intent);
+            ((Activity)context).finish();
+        }else{
+            android.app.AlertDialog.Builder alt_bld = new android.app.AlertDialog.Builder(context);
+            alt_bld.setMessage("로그인 정보가 만료되었습니다. 로그인 하시겠습니까?").setCancelable(
+                    false).setPositiveButton("YES",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            Intent intent = new Intent(context, LoginActivity.class);
+                            context.startActivity(intent);
+                            ((Activity)context).finish();
+                        }
+                    }).setNegativeButton("NO",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            ((Activity)context).finish();
+                        }
+                    });
+            android.app.AlertDialog alert = alt_bld.create();
+            alert.show();
+
+
+        }
     }
 }

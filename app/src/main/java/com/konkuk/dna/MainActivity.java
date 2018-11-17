@@ -498,17 +498,5 @@ class generatePictureStyleNotification extends AsyncTask<String, Void, Bitmap> {
 
 
         mnm.notify(0, mBuilder.build());
-//
-//        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-//        Notification notif = new Notification.Builder(mContext)
-//                .setContentIntent(pendingIntent)
-//                .setContentTitle(user)
-//                .setContentText(message)
-//                .setSmallIcon(R.mipmap.ic_launcher)
-//                .setLargeIcon(result)
-//                .setStyle(new Notification.BigPictureStyle().bigPicture(result))
-//                .build();
-//        notif.flags |= Notification.FLAG_AUTO_CANCEL;
-//        notificationManager.notify(1, notif);
     }
 }
