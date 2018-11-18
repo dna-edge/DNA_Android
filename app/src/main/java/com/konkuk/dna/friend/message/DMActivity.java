@@ -3,6 +3,7 @@ package com.konkuk.dna.friend.message;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
@@ -119,6 +120,15 @@ public class DMActivity extends BaseActivity {
 //            dmMessages.add(new DMMessage(1, "{\"lat\":37.550544099999996,\"lng\":127.07221989999998}", "오후 12:34", TYPE_LOCATION));
 //            dmMessages.add(new DMMessage(1, "http://www.ohfun.net/contents/article/images/2016/0830/1472551795750578.jpeg", "오후 12:34", TYPE_IMAGE));
 //            dmMessages.add(new DMMessage(0, "내용내용333", "오후 12:34", TYPE_SHARE));
+
+            String postTitle = getIntent().getStringExtra("postTitle");
+            int postNum = getIntent().getIntExtra("postNum",-1);
+            if(postNum!=-1){
+                dmEditText.setText("포스팅["+postNum+"]: "+postTitle);
+                dmEditText.setEnabled(false);
+                dmEditText.setBackgroundColor(Color.GRAY);
+                messageType = TYPE_SHARE;
+            }
         }
 
         dmListAdapter = new DMListAdapter(this, R.layout.chat_item_left, dmMessages);
@@ -209,6 +219,7 @@ public class DMActivity extends BaseActivity {
 
                 dmEditText.setText("");
                 dmEditText.setEnabled(true);
+                dmEditText.setBackgroundColor(Color.WHITE);
                 messageType = TYPE_MESSAGE;
                 break;
         }

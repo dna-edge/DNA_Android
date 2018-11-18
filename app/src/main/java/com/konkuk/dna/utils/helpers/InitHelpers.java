@@ -216,11 +216,11 @@ public class InitHelpers {
                     Log.e("Socket Ping-direct", args[0].toString());
                     DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView, v);
 
-                    if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
-                        dat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
-                    }else{
-                        dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
-                    }
+//                    if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+//                        dat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+//                    }else{
+//                        dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+//                    }
                 }
             });
             // TODO 해당 친구의 프로필을 입력해줘야 합니다.

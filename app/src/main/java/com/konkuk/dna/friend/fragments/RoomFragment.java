@@ -100,6 +100,11 @@ public class RoomFragment extends Fragment {
                 intent.putExtra("roomIdx", room.getIdx());
                 intent.putExtra("roomWho", room.getNickname());
                 intent.putExtra("roomUpdated", room.getUpdateDate());
+
+                if(getActivity().getIntent().getIntExtra("postNum", -1) != -1) {
+                    intent.putExtra("postNum", getActivity().getIntent().getIntExtra("postNum", -1));
+                    intent.putExtra("postTitle", getActivity().getIntent().getStringExtra("postTitle"));
+                }
                 startActivity(intent);
             }
         });
