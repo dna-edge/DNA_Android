@@ -36,6 +36,7 @@ import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.nhn.android.maps.nmapmodel.NMapPlacemark;
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -80,27 +81,32 @@ public class InitHelpers {
         pfID.setText(dbhelper.getMyId());
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnEventListener(EventListener event) {
-        DrawyerAsyncTask dat;
-        switch (event.message) {
-            case SOCKET_GEO:
-                Log.e("Socket ON", "geo");
-                dat = new DrawyerAsyncTask(cont, ccuListView, view);
-                dat.execute(event.args, String.valueOf(dbhelper.getMyIdx()));
-                break;
-            case SOCKET_DIRECT:
-                Log.e("Socket ON", "direct");
-                break;
-            default:
-                break;
-        }
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void OnEventListener(EventListener event) {
+//        DrawyerAsyncTask dat = new DrawyerAsyncTask(cont, ccuListView, view);
+//        switch (event.message) {
+//            case SOCKET_GEO:
+//                Log.e("Socket ON", "geo");
+//                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+//                    dat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.args, String.valueOf(dbhelper.getMyIdx()));
+//                }else{
+//                    dat.execute(event.args, String.valueOf(dbhelper.getMyIdx()));
+//                }
+//                break;
+//            case SOCKET_DIRECT:
+//                Log.e("Socket ON", "direct");
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     public static void initDrawer(final Context context, final View v, int type) {
         cont = context;
         view = v;
         dbhelper = new Dbhelper(context);
+
+
         setProfile(v);
         LinearLayout drawerForUserList = (LinearLayout) v.findViewById(R.id.drawerForUserList);
         LinearLayout drawerForFriend = (LinearLayout) v.findViewById(R.id.drawerForFriend);

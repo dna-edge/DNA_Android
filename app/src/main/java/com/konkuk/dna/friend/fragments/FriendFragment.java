@@ -176,25 +176,25 @@ class FriendListAsyncTask extends AsyncTask<String, Integer, ArrayList<Friend>> 
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    @Override
     protected ArrayList<Friend> doInBackground(String... strings) {
-        //Dbhelper dbhelper = new Dbhelper(context);
+        Dbhelper dbhelper = new Dbhelper(context);
+
+
+        // 접속 친구
         ArrayList<Friend> friends = new ArrayList<>();
         int idx=-1;
         JsonParser jp = new JsonParser();
         JsonArray ja = (JsonArray) jp.parse(strings[0]);
 
-        for(int i=0; i<ja.size(); i++){
+        for(int i=1; i<ja.size(); i++){
             JsonObject jo = (JsonObject) ja.get(i);
             idx = jo.get("idx").getAsInt();
+
             String res = requestHttpGETUserInfo(ServerURL.DNA_SERVER+ServerURL.PORT_USER_API+"/user/"+idx, strings[1]);
-            Log.e("after http", res);
+            //Log.e("after http", res);
             friends.add(SearchUserJsonToObj(res));
         }
+        Log.e("String", strings[0]);
         return friends;
     }
 
@@ -207,13 +207,6 @@ class FriendListAsyncTask extends AsyncTask<String, Integer, ArrayList<Friend>> 
         onFriendList.setLayoutManager(layoutManager);
         onFriendListAdapter = new OnFriendListAdapter(context, fs);
         onFriendList.setAdapter(onFriendListAdapter);
-
-
-
-//        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
-//        allFriends.add(new Friend("3457soso", "socoing",
-//              "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg", "상태 메시지", true));
-
     }
 }
 

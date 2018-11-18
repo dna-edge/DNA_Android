@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,6 +19,7 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -35,6 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.konkuk.dna.utils.EventListener;
@@ -198,6 +201,29 @@ public class ChatActivity extends BaseActivity {
                     default:
                         break;
                 }
+            }
+        });
+
+        //TODO : 채팅 길게 눌렀을 때 구현
+        msgListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Vibrator vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vib.vibrate(50);
+
+                ChatMessage clicked_msg = (ChatMessage) adapterView.getAdapter().getItem(i);
+
+                if(clicked_msg.getIdx() != dbhelper.getMyIdx()) {
+                    FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+                    ChatUserDetailFragment chatUserDetailFragment = new ChatUserDetailFragment();
+
+                    //TODO : 해당 유저 정보 받아서 세팅하기
+                    chatUserDetailFragment.setData(new ChatUser(clicked_msg.getIdx(), clicked_msg.getUserName(), clicked_msg.getAvatar(), clicked_msg.getAnonymity(), true));
+                    chatUserDetailFragment.show(fragmentManager, "chatUserDetailFragment");
+                }else{
+                    Toast.makeText(context, "스스로가 왜 궁금하시죠?^~^", Toast.LENGTH_SHORT).show();
+                }
+                return false;
             }
         });
 
