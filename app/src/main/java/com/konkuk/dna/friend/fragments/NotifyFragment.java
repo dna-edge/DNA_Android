@@ -1,6 +1,8 @@
 package com.konkuk.dna.friend.fragments;
 
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
+import com.konkuk.dna.utils.HttpReqRes;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.AnimHelpers;
 import com.konkuk.dna.utils.helpers.BaseFragment;
 import com.konkuk.dna.friend.manage.Request;
@@ -139,3 +143,45 @@ public class NotifyFragment extends BaseFragment implements View.OnClickListener
         }
     }
 }
+
+/*
+ * 비동기 Http 연결 작업 클래스
+ * */
+//class notifyAsyncTask extends AsyncTask<Double, Integer, ArrayList<Request>> {
+//
+//    private Context context;
+//    private Dbhelper dbhelper;
+//
+//    public notifyAsyncTask(Context context){
+//        this.context=context;
+//    }
+//
+//    @Override
+//    protected void onPreExecute() {
+//        super.onPreExecute();
+//    }
+//
+//    @Override
+//    protected ArrayList<Request> doInBackground(Double... doubles) {
+//        dbhelper = new Dbhelper(context);
+//        HttpReqRes httpReqRes = new HttpReqRes();
+//
+//        ArrayList<Request> reqs = new ArrayList<>();
+//
+//        String res = httpReqRes.requestHttpDoRequests("", dbhelper.getAccessToken(), 1);
+//
+//
+//        //TODO 오브젝트 치환
+//        rooms = DMRoomJsonToObj(repDMRooms, dbhelper.getMyIdx());
+////
+////        rooms.add(new DMRoom(0, 1, "3457soso", "https://pbs.twimg.com/media/DbYfg2IWkAENdiS.jpg", "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용", TYPE_MESSAGE, "2018-01-24"));
+////        rooms.add(new DMRoom(1, 2, "test", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-23"));
+////        rooms.add(new DMRoom(2, 3, "avatar", null, "마지막 메시지2", TYPE_MESSAGE, "2018-01-22"));
+//
+//        return null;
+//    }
+//
+////    @Override
+////    protected void onPostExecute() {
+////    }
+//}

@@ -414,9 +414,9 @@ public class HttpReqRes {
     }
 
     /*
-     * get PostsAll = GET
+     * get WAS APIs = GET
      */
-    public String requestHttpGetPostingAll(String url, String token){
+    public String requestHttpGetWASPIwToken(String url, String token){
 
         String result = null;
 
@@ -437,11 +437,6 @@ public class HttpReqRes {
         }
 
         return result;
-//        JsonParser jsonParser = new JsonParser();
-//        JsonObject jsonObject = (JsonObject) jsonParser.parse(result);
-//
-//        int cnt = Integer.parseInt(jsonObject.get("result").toString());
-//        return cnt;
     }
 
     /*
@@ -638,6 +633,9 @@ public class HttpReqRes {
         return result;
     }
 
+    /*
+     * Friend Accepts = post
+     */
     public String requestHttpPostAddFriend(String url, Dbhelper dbhelper, int ridx){
         String result = null;
         JSONObject json = null;
@@ -669,4 +667,96 @@ public class HttpReqRes {
         return result;
 
     }
+
+//    /*
+//     * Friend Requests = put/delete
+//     */
+//    public String requestHttpDoRequests(String url, String token, int rCase) {
+//        String result = null;
+////        JSONObject json = null;
+////        Post posting;
+//
+//        switch(rCase) {
+//            case 1:        // accept
+//                try {
+//                    HttpClient client = new DefaultHttpClient();
+//                    String putURL = url;
+//                    HttpPost post = new HttpPost(putURL);
+//
+//                    post.setHeader("token", token);
+//
+//                    HttpResponse response = client.execute(post);
+//                    HttpEntity resEntity = response.getEntity();
+//                    result = EntityUtils.toString(resEntity);
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    return result;
+//                }
+//
+//                break;
+//
+//            case 2:        // bookmark
+//                try {
+//                    HttpClient client = new DefaultHttpClient();
+//                    String postURL = url;
+//                    HttpPost post = new HttpPost(postURL);
+//
+//                    post.setHeader("token", token);
+//
+//                    HttpResponse response = client.execute(post);
+//                    HttpEntity resEntity = response.getEntity();
+//                    result = EntityUtils.toString(resEntity);
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    return result;
+//                }
+//
+//                break;
+//
+//            case 3:        // unlike
+//                try {
+//                    HttpClient client = new DefaultHttpClient();
+//                    String deleteURL = url;
+//                    HttpDelete del = new HttpDelete(deleteURL);
+//
+//
+//                    del.setHeader("token", token);
+//
+//                    HttpResponse response = client.execute(del);
+//                    HttpEntity resEntity = response.getEntity();
+//                    result = EntityUtils.toString(resEntity);
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    return result;
+//                }
+//
+//                break;
+//
+//            case 4:        // dbookmark
+//                try {
+//                    HttpClient client = new DefaultHttpClient();
+//                    String deleteURL = url;
+//                    HttpDelete del = new HttpDelete(deleteURL);
+//
+//                    del.setHeader("token", token);
+//
+//                    HttpResponse response = client.execute(del);
+//                    HttpEntity resEntity = response.getEntity();
+//                    result = EntityUtils.toString(resEntity);
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    return result;
+//                }
+//
+//                break;
+//        }
+//        Log.v("posting httpreqres", "get server result : " + result);
+//
+//        return result;
+//    }
+//
 }

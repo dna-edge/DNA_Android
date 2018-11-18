@@ -23,6 +23,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.konkuk.dna.utils.EventListener;
+import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.utils.ServerURL;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.AnimHelpers;
@@ -215,3 +216,54 @@ class FriendListAsyncTask extends AsyncTask<String, Integer, ArrayList<Friend>> 
 
     }
 }
+
+//class FriendListAsyncTask extends AsyncTask<String, Integer, ArrayList<Friend>> {
+//    private Context context;
+//    private OnFriendListAdapter onFriendListAdapter;
+//    private RecyclerView onFriendList;
+//
+//    public FriendListAsyncTask(Context context, OnFriendListAdapter onFriendListAdapter, RecyclerView onFriendList) {
+//        this.context = context;
+//        this.onFriendListAdapter = onFriendListAdapter;
+//        this.onFriendList = onFriendList;
+//    }
+//
+//    @Override
+//    protected void onPreExecute() {
+//        super.onPreExecute();
+//    }
+//
+//    @Override
+//    protected ArrayList<Friend> doInBackground(String... strings) {
+//        Dbhelper dbhelper = new Dbhelper(context);
+//        HttpReqRes httpReqRes = new HttpReqRes();
+//
+//        ArrayList<Friend> friends = new ArrayList<>();
+//
+//        String res = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/friends/show", dbhelper.getAccessToken());
+////        int idx=-1;
+////        JsonParser jp = new JsonParser();
+////        JsonArray ja = (JsonArray) jp.parse(strings[0]);
+//
+////        for(int i=0; i<ja.size(); i++){
+////            JsonObject jo = (JsonObject) ja.get(i);
+////            idx = jo.get("idx").getAsInt();
+////            String res = requestHttpGETUserInfo(ServerURL.DNA_SERVER+ServerURL.PORT_USER_API+"/user/"+idx, strings[1]);
+////            Log.e("after http", res);
+////            friends.add(SearchUserJsonToObj(res));
+////        }
+//        return friends;
+//    }
+//
+//    @Override
+//    protected void onPostExecute(ArrayList<Friend> fs) {
+//        super.onPostExecute(fs);
+//
+//        RecyclerView.LayoutManager layoutManager;
+//        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+//        onFriendList.setLayoutManager(layoutManager);
+//        onFriendListAdapter = new OnFriendListAdapter(context, fs);
+//        onFriendList.setAdapter(onFriendListAdapter);
+//
+//    }
+//}

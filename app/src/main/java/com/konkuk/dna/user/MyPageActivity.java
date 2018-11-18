@@ -147,10 +147,10 @@ class showPostingBookmarkAsync extends AsyncTask<Integer, Void, ArrayList<Post>>
 
         switch(ints[0]){
             case 1:
-                result = httpReqRes.requestHttpGetPostingAll("https://dna.soyoungpark.me:9013/api/posting/bookmark/", dbhelper.getAccessToken());
+                result = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/posting/bookmark/", dbhelper.getAccessToken());
                 break;
             case 0:
-                result = httpReqRes.requestHttpGetPostingAll("https://dna.soyoungpark.me:9013/api/posting/showMine/", dbhelper.getAccessToken());
+                result = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/posting/showMine/", dbhelper.getAccessToken());
                 break;
         }
 

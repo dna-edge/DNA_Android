@@ -395,7 +395,7 @@ class showPostingAllAsync extends AsyncTask<Void, Void, ArrayList<Post>>{
         HttpReqRes httpReqRes = new HttpReqRes();
         dbhelper = new Dbhelper(context);
 
-        String result = httpReqRes.requestHttpGetPostingAll("https://dna.soyoungpark.me:9013/api/posting/showAll/", dbhelper.getAccessToken());
+        String result = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/posting/showAll/", dbhelper.getAccessToken());
 
 //        Log.v("mainactivity", "show allr httpreq result" + result);
         pidx = PostingCntJsonToObj(result);
