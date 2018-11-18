@@ -40,6 +40,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.konkuk.dna.post.Post;
+import com.konkuk.dna.post.PostDetailActivity;
 import com.konkuk.dna.utils.EventListener;
 import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.ServerURL;
@@ -196,6 +198,9 @@ public class ChatActivity extends BaseActivity {
 
                     case TYPE_SHARE:
                         //TODO : 공유된 포스팅 들어가기
+//                        Intent postIntent = new Intent(context, PostDetailActivity.class);
+//                        postIntent.putExtra("post", "포스팅 받아와서 post객체 담기");
+//                        context.startActivity(postIntent);
                         break;
 
                     default:
@@ -236,7 +241,7 @@ public class ChatActivity extends BaseActivity {
         if(postNum!=-1){
             msgEditText.setText(postTitle+"_"+postNum);
             msgEditText.setEnabled(false);
-            msgEditText.setBackgroundColor(Color.GRAY);
+            msgEditText.setBackgroundColor(getResources().getColor(R.color.concrete));
             messageType = TYPE_SHARE;
         }
 
@@ -418,8 +423,9 @@ public class ChatActivity extends BaseActivity {
                 // TODO 현재 주소를 messageEditText에 채워줍니다.
                 if (messageType.equals(TYPE_MESSAGE) || messageType.equals(TYPE_LOUDSPEAKER)) {
                     msgLocationBtn.setTextColor(getResources().getColor(R.color.colorRipple));
-                    msgEditText.setText("서울시 광진구 화양동 1 건국대학교");
+                    msgEditText.setText(dbhelper.getMyAddress());
                     msgEditText.setEnabled(false);
+                    msgEditText.setBackgroundColor(getResources().getColor(R.color.concrete));
                     messageType = TYPE_LOCATION;
                 } else {
                     DialogSimple();
@@ -446,6 +452,9 @@ public class ChatActivity extends BaseActivity {
 
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
 
+                if(messageType == TYPE_LOCATION){
+                    msgEditText.setText("{\"lat\":"+gpsTracker.getLatitude()+",\"lng\":"+gpsTracker.getLongitude()+"}");
+                }
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
                 SocketConnection.emit("save_msg", sendMsgJson);
 
@@ -480,6 +489,7 @@ public class ChatActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         msgLocationBtn.setTextColor(getResources().getColor(R.color.concrete));
                         msgImageBtn.setTextColor(getResources().getColor(R.color.concrete));
+                        msgEditText.setBackgroundColor(Color.WHITE);
                         msgEditText.setEnabled(true);
                         msgEditText.setText(null);
                         messageType = (messageType == TYPE_LOUDSPEAKER) ? TYPE_LOUDSPEAKER : TYPE_MESSAGE;

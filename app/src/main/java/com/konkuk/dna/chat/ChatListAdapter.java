@@ -1,6 +1,10 @@
 package com.konkuk.dna.chat;
 
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -160,6 +164,10 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                     }
                     break;
                 case TYPE_LOCATION:
+                    if (msgText != null) {
+                        msgText.setVisibility(View.VISIBLE);
+                        msgText.setText(message.getContents());
+                    }
 //                if (msgLocationWrapper != null) {
 //                    msgLocationWrapper.setVisibility(View.VISIBLE);
 //                    msgLocationWrapper.setId(message.getIdx());
