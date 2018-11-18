@@ -189,7 +189,7 @@ public class ChatActivity extends BaseActivity {
         String postTitle = getIntent().getStringExtra("postTitle");
         int postNum = getIntent().getIntExtra("postNum",-1);
         if(postNum!=-1){
-            msgEditText.setText("포스팅["+postNum+"]: "+postTitle);
+            msgEditText.setText(postTitle+"_"+postNum);
             msgEditText.setEnabled(false);
             msgEditText.setBackgroundColor(Color.GRAY);
             messageType = TYPE_SHARE;
@@ -257,14 +257,14 @@ public class ChatActivity extends BaseActivity {
                 break;
             case SOCKET_APPLY_LIKE:
                 Log.e("Socket GET Like", "Apply Like COME!!!" + event.args);
-                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent,
-                        bestChatNickname, bestChatDate, msgListEmpty, chatMessages,1);
-
-                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
-                    csat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, longitude, latitude);
-                }else{
-                    csat.execute(longitude, latitude);
-                }
+//                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent,
+//                        bestChatNickname, bestChatDate, msgListEmpty, chatMessages,1);
+//
+//                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+//                    csat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, longitude, latitude);
+//                }else{
+//                    csat.execute(longitude, latitude);
+//                }
                 break;
             case SOCKET_SPEAKER:
                 Log.e("Socket PUSH", "PUSH COME!!!");
