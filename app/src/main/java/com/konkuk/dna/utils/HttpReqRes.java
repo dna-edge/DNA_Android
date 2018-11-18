@@ -324,7 +324,8 @@ public class HttpReqRes {
 
         String twoHyphens = "--";
         //String boundary =  "*****"+Long.toString(System.currentTimeMillis())+"*****";
-        String boundary =  "";
+        String boundary =  "---------------------------"+Long.toString(System.currentTimeMillis());
+        Log.e("boundary", boundary);
         String lineEnd = "\r\n";
 
         String result = "";
@@ -335,6 +336,7 @@ public class HttpReqRes {
 
         String[] q = imgURL.split("/");
         int idx = q.length - 1;
+        String ext = android.webkit.MimeTypeMap.getFileExtensionFromUrl(imgURL);
 
         try {
             File file = new File(imgURL);
@@ -348,18 +350,16 @@ public class HttpReqRes {
             connection.setUseCaches(false);
 
             connection.setRequestMethod("POST");
-            //connection.setRequestProperty("Connection", "Keep-Alive");
+            connection.setRequestProperty("Connection", "Keep-Alive");
             //connection.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0");
             connection.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
 
             outputStream = new DataOutputStream(connection.getOutputStream());
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            //outputStream.writeBytes("Content-Disposition: form-data; name=\"" + "image" + "\"; filename=\"" + q[idx] +"\"" + lineEnd);
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"" + "image" + "\"" + lineEnd);
-            //outputStream.writeBytes("Content-Type: image/jpeg" + lineEnd);
-            //outputStream.writeBytes("Content-Transfer-Encoding: binary" + lineEnd);
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"" + "image" + "\"; filename=\"" + q[idx] +"\"" + lineEnd);
+            outputStream.writeBytes("Content-Type: image/" + ext + lineEnd);
             outputStream.writeBytes(lineEnd);
-            Log.e("Content type", q[idx]);
+            //Log.e("Content-type", q[idx]);
 
             bytesAvailable = fileInputStream.available();
             bufferSize = Math.min(bytesAvailable, maxBufferSize);
