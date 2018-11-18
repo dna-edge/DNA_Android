@@ -1,6 +1,7 @@
 package com.konkuk.dna.post;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
+import com.konkuk.dna.chat.ChatActivity;
 import com.konkuk.dna.utils.helpers.AnimHelpers;
 
 public class PostShareFragment extends DialogFragment implements View.OnClickListener{
@@ -91,6 +93,16 @@ public class PostShareFragment extends DialogFragment implements View.OnClickLis
         switch (view.getId()) {
             case R.id.shareChatBtn:
                 Log.d("PostShare", "share chat");
+                PostDetailActivity pdactivity = (PostDetailActivity) getActivity();
+                int postNum = pdactivity.getPost().getPostingIdx();
+                String postTitle = pdactivity.getPost().getTitle();
+
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("postNum", postNum);
+                intent.putExtra("postTitle", postTitle);
+
+                startActivity(intent);
+
                 break;
 
             case R.id.shareDMBtn:

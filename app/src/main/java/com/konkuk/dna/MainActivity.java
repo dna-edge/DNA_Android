@@ -254,10 +254,10 @@ public class MainActivity extends BaseActivity {
         // TODO 반경, 위치 초기값 설정해줘야 합니다!
         radius = dbhelper.getMyRadius();
         // 에뮬레이터가 위치를 못잡아서 임시로 넣어놨슴다
-        longitude = 127.17934280;
-        latitude = 37.56076250;
-//        longitude = gpsTracker.getLongitude();
-//        latitude = gpsTracker.getLatitude();
+//        longitude = 127.17934280;
+//        latitude = 37.56076250;
+        longitude = gpsTracker.getLongitude();
+        latitude = gpsTracker.getLatitude();
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
 //        posts = new ArrayList<Post>();

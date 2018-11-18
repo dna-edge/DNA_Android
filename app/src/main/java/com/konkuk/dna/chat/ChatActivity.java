@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -185,6 +186,17 @@ public class ChatActivity extends BaseActivity {
 
 //        생성된 후 바닥으로 메시지 리스트를 내려줍니다.
 //        scrollMyListViewToBottom();
+
+        // TODO: 공유 일경우, 메세지 세팅하기
+        String postTitle = getIntent().getStringExtra("postTitle");
+        int postNum = getIntent().getIntExtra("postNum",-1);
+        if(postNum!=-1){
+            msgEditText.setText("포스팅["+postNum+"]: "+postTitle);
+            msgEditText.setEnabled(false);
+            msgEditText.setBackgroundColor(Color.GRAY);
+            messageType = TYPE_SHARE;
+        }
+
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
 
@@ -380,6 +392,7 @@ public class ChatActivity extends BaseActivity {
                     // Guide : activityResult로 가시오.
 //                    msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
 //                    msgEditText.setText("사진 첨부됨");
+//                    msgEditText.setBackgroundColor(Color.GRAY);
 //                    msgEditText.setEnabled(false);
 //                    messageType = TYPE_IMAGE;
                 } else {
@@ -393,7 +406,9 @@ public class ChatActivity extends BaseActivity {
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
                 SocketConnection.emit("save_msg", sendMsgJson);
 
+                msgSpeakerBtn.setTextColor(getResources().getColor(R.color.concrete));
                 msgEditText.setText("");
+                msgEditText.setBackgroundColor(Color.WHITE);
                 msgEditText.setEnabled(true);
                 messageType = TYPE_MESSAGE;
                 break;

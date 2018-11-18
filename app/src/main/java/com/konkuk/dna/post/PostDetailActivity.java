@@ -49,6 +49,10 @@ public class PostDetailActivity extends BaseActivity {
     private CommentAdapter commentAdapter;
     private int idx;
 
+    public Post getPost() {
+        return post;
+    }
+
     private Post post;
 
     @Override
