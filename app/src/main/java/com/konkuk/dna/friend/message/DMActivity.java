@@ -124,7 +124,7 @@ public class DMActivity extends BaseActivity {
             String postTitle = getIntent().getStringExtra("postTitle");
             int postNum = getIntent().getIntExtra("postNum",-1);
             if(postNum!=-1){
-                dmEditText.setText("포스팅["+postNum+"]: "+postTitle);
+                dmEditText.setText(postTitle+"_"+postNum);
                 dmEditText.setEnabled(false);
                 dmEditText.setBackgroundColor(Color.GRAY);
                 messageType = TYPE_SHARE;
