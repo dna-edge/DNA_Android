@@ -3,6 +3,7 @@ package com.konkuk.dna.friend.message;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,6 +20,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.konkuk.dna.post.Post;
+import com.konkuk.dna.post.PostDetailActivity;
 import com.konkuk.dna.utils.EventListener;
 import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.utils.ServerURL;
@@ -42,6 +46,7 @@ import io.socket.emitter.Emitter;
 import static com.konkuk.dna.utils.ConvertType.DatetoStr;
 import static com.konkuk.dna.utils.JsonToObj.ChatAllJsonToObj;
 import static com.konkuk.dna.utils.JsonToObj.DMMsgJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
 import static com.konkuk.dna.utils.ObjToJson.SendDMObjToJson;
 import static com.konkuk.dna.utils.ObjToJson.SendMsgObjToJson;
 
@@ -132,6 +137,37 @@ public class DMActivity extends BaseActivity {
         }
 
         dmListAdapter = new DMListAdapter(this, R.layout.chat_item_left, dmMessages);
+
+        dmListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DMMessage clicked_msg = (DMMessage) adapterView.getAdapter().getItem(i);
+                String clicked_type = clicked_msg.getType();
+
+                switch (clicked_type){
+                    case TYPE_LOCATION:
+                        //TODO : 지도 위치 보여주기
+                        break;
+
+                    case TYPE_IMAGE:
+                        //TODO : 사진 확대하기(할 수있으면)
+                        break;
+
+                    case TYPE_SHARE:
+                        //TODO : 공유된 포스팅 들어가기
+                        String[] parse = clicked_msg.getContents().split("_");
+                        int idx = parse.length - 1;
+                        Log.e("check", parse[idx]);
+
+                        DMgetSelectedPostAsync gspa = new DMgetSelectedPostAsync(context);
+                        gspa.execute(Integer.parseInt(parse[idx]));
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        });
 //        dmListView.setAdapter(dmListAdapter);
 //
 //        // 생성된 후 바닥으로 메시지 리스트를 내려줍니다.
@@ -373,5 +409,39 @@ class DMSetAsyncTask extends AsyncTask<String, Integer, ArrayList<DMMessage>> {
                 dmListView.setSelection(now_pos);
             }
         });
+    }
+}
+
+class DMgetSelectedPostAsync extends AsyncTask<Integer, Void, Post>{
+
+    private Context context;
+    private Dbhelper dbhelper;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    public DMgetSelectedPostAsync(Context context){
+        this.context = context;
+    }
+
+    @Override
+    protected Post doInBackground(Integer... integers){
+
+        HttpReqRes httpReqRes = new HttpReqRes();
+        String result1 = httpReqRes.requestHttpGetPosting(ServerURL.DNA_SERVER+ServerURL.PORT_WAS_API+"/posting/show/" + integers[0]);
+
+        //Log.e("URL", ServerURL.PORT_WAS_API+"/posting/show/" + integers);
+        return PostingJsonToObj(result1, 2).get(0);
+    }
+
+    @Override
+    protected void onPostExecute(Post posting) {
+
+        Intent postIntent = new Intent(context, PostDetailActivity.class);
+        postIntent.putExtra("post", posting);
+        context.startActivity(postIntent);
+        super.onPostExecute(posting);
     }
 }

@@ -72,6 +72,8 @@ import io.socket.emitter.Emitter;
 
 import static com.konkuk.dna.utils.HttpReqRes.requestHttpPostLambda;
 import static com.konkuk.dna.utils.JsonToObj.ChatAllJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.PostingCntJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
 import static com.konkuk.dna.utils.ObjToJson.SendMsgObjToJson;
 import static com.konkuk.dna.utils.ObjToJson.StoreObjToJson;
 
@@ -198,9 +200,13 @@ public class ChatActivity extends BaseActivity {
 
                     case TYPE_SHARE:
                         //TODO : 공유된 포스팅 들어가기
-//                        Intent postIntent = new Intent(context, PostDetailActivity.class);
-//                        postIntent.putExtra("post", "포스팅 받아와서 post객체 담기");
-//                        context.startActivity(postIntent);
+                        String[] parse = clicked_msg.getContents().split("_");
+                        int idx = parse.length - 1;
+                        Log.e("check", parse[idx]);
+
+                        getSelectedPostAsync gspa = new getSelectedPostAsync(context);
+                        gspa.execute(Integer.parseInt(parse[idx]));
+
                         break;
 
                     default:
@@ -771,5 +777,39 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
                 msgListView.setSelection(now_pos);
             }
         });
+    }
+}
+
+class getSelectedPostAsync extends AsyncTask<Integer, Void, Post>{
+
+    private Context context;
+    private Dbhelper dbhelper;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    public getSelectedPostAsync(Context context){
+        this.context = context;
+    }
+
+    @Override
+    protected Post doInBackground(Integer... integers){
+
+        HttpReqRes httpReqRes = new HttpReqRes();
+        String result1 = httpReqRes.requestHttpGetPosting(ServerURL.DNA_SERVER+ServerURL.PORT_WAS_API+"/posting/show/" + integers[0]);
+
+        //Log.e("URL", ServerURL.PORT_WAS_API+"/posting/show/" + integers);
+        return PostingJsonToObj(result1, 2).get(0);
+    }
+
+    @Override
+    protected void onPostExecute(Post posting) {
+
+        Intent postIntent = new Intent(context, PostDetailActivity.class);
+        postIntent.putExtra("post", posting);
+        context.startActivity(postIntent);
+        super.onPostExecute(posting);
     }
 }
