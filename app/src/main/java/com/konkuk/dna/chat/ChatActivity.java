@@ -174,11 +174,30 @@ public class ChatActivity extends BaseActivity {
 
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
 
-        //TODO : 채팅 중 하나를 눌렀을 경우 (좋아요는 별모양 레이아웃을 눌렀을때 작동해야함. 사진확대 및 공유메세지 확인용)
+
         msgListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //TODO : 채팅 중 하나를 눌렀을 경우 동작 구현
+                ChatMessage clicked_msg = (ChatMessage) adapterView.getAdapter().getItem(i);
+                String clicked_type = clicked_msg.getType();
 
+                switch (clicked_type){
+                    case TYPE_LOCATION:
+                        //TODO : 지도 위치 보여주기
+                        break;
+
+                    case TYPE_IMAGE:
+                        //TODO : 사진 확대하기(할 수있으면)
+                        break;
+
+                    case TYPE_SHARE:
+                        //TODO : 공유된 포스팅 들어가기
+                        break;
+
+                    default:
+                        break;
+                }
             }
         });
 
@@ -266,10 +285,10 @@ public class ChatActivity extends BaseActivity {
 //                    csat.execute(longitude, latitude);
 //                }
                 break;
-            case SOCKET_SPEAKER:
-                Log.e("Socket PUSH", "PUSH COME!!!");
-
-                break;
+//            case SOCKET_SPEAKER:
+//                Log.e("Socket PUSH", "PUSH COME!!!");
+//
+//                break;
             default:
                 break;
         }
