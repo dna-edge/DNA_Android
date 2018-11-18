@@ -117,12 +117,18 @@ public class MapFragment extends Fragment
             public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {
                 Log.v("mapgragment", "posting idx? : " + posts.get(nMapPOIitem.getId()).getPostingIdx());
 
+//                Intent postIntent = new Intent(getActivity(), PostDetailActivity.class);
+//                postIntent.putExtra("post", (Post) posts.get(nMapPOIitem.getId()));
+//                postIntent.putExtra("pidx", posts.get(nMapPOIitem.getId()).getPostingIdx());
+//                getActivity().startActivity(postIntent);
+//                nMapPOIdataOverlay.setHidden(true);
                 Intent postIntent = new Intent(getActivity(), PostDetailActivity.class);
                 postIntent.putExtra("post", (Post) posts.get(nMapPOIitem.getId()));
-                postIntent.putExtra("pidx", posts.get(nMapPOIitem.getId()).getPostingIdx());
+//                postIntent.putExtra("pidx", (Integer) posts.get(nMapPOIitem.getId()).getPostingIdx());
                 getActivity().startActivity(postIntent);
                 nMapPOIdataOverlay.setHidden(true);
             }
+
         });
     }
 
