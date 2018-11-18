@@ -174,13 +174,11 @@ public class ChatActivity extends BaseActivity {
 
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
 
+        //TODO : 채팅 중 하나를 눌렀을 경우 (좋아요는 별모양 레이아웃을 눌렀을때 작동해야함. 사진확대 및 공유메세지 확인용)
         msgListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ChatMessage cm = (ChatMessage) adapterView.getAdapter().getItem(i);
 
-                SocketConnection.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
-                //mSocket.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
             }
         });
 

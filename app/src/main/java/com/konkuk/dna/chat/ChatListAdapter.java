@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.konkuk.dna.R;
+import com.konkuk.dna.utils.SocketConnection;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.NameHelpers;
 import com.squareup.picasso.Picasso;
@@ -83,7 +84,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View v, @NonNull ViewGroup parent) {
-        ChatMessage message = messages.get(position);
+        final ChatMessage message = messages.get(position);
 
         v = null;
         if (v == null) {
@@ -142,6 +143,14 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
             TextView likeStar = (TextView) v.findViewById(R.id.likeStar);
 
 
+            messageLikeWrapper.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Dbhelper dbhelper = new Dbhelper(context);
+                    SocketConnection.emit("like", dbhelper.getAccessToken(), message.getMsg_idx());
+                }
+            });
+            
             switch(message.getType()) {
                 case TYPE_LOUDSPEAKER:
                 case TYPE_MESSAGE:
