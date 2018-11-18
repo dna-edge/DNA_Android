@@ -25,6 +25,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import static java.lang.Integer.parseInt;
+
 public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
     Context context;
     ArrayList<ChatMessage> messages;
@@ -133,24 +135,16 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                 }
             }
 
-            LinearLayout messageLikeWrapper = (LinearLayout) v.findViewById(R.id.likeWrapper);
+           final LinearLayout messageLikeWrapper = (LinearLayout) v.findViewById(R.id.likeWrapper);
             RelativeLayout msgLocationWrapper = (RelativeLayout) v.findViewById(R.id.msgLocationWrapper);
             ImageView msgImage = (ImageView) v.findViewById(R.id.msgImage);
             TextView msgText = (TextView) v.findViewById(R.id.msgText);
             TextView msgShare = (TextView) v.findViewById(R.id.msgShare);
-            TextView likeCount = (TextView) v.findViewById(R.id.likeCount);
+            final TextView likeCount = (TextView) v.findViewById(R.id.likeCount);
             TextView dateText = (TextView) v.findViewById(R.id.dateText);
-            TextView likeStar = (TextView) v.findViewById(R.id.likeStar);
+            final TextView likeStar = (TextView) v.findViewById(R.id.likeStar);
 
 
-            messageLikeWrapper.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Dbhelper dbhelper = new Dbhelper(context);
-                    SocketConnection.emit("like", dbhelper.getAccessToken(), message.getMsg_idx());
-                }
-            });
-            
             switch(message.getType()) {
                 case TYPE_LOUDSPEAKER:
                 case TYPE_MESSAGE:
@@ -193,6 +187,34 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
             dateText.setTypeface(NSB);
             likeStar.setTypeface(fontAwesomeS);
 
+            //좋아요 누름 처리
+            messageLikeWrapper.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //좋아요 처리
+                    Dbhelper dbhelper = new Dbhelper(context);
+                    SocketConnection.emit("like", dbhelper.getAccessToken(), message.getMsg_idx());
+                    dbhelper.close();
+
+                    int likenow = Integer.parseInt(message.getLike());
+                    if (message.isAmILike()) { // 내가 눌렀던 것일 경우
+                        likeCount.setTextColor(context.getResources().getColor(R.color.grayDark));
+                        likeStar.setTextColor(context.getResources().getColor(R.color.grayLighter));
+                        messageLikeWrapper.setBackgroundResource(R.drawable.button_like_default);
+                        message.setAmILike(false);
+                        likenow--;
+                    }else{
+                        likeCount.setTextColor(context.getResources().getColor(R.color.yellow));
+                        likeStar.setTextColor(context.getResources().getColor(R.color.yellow));
+                        messageLikeWrapper.setBackgroundResource(R.drawable.button_like_clicked);
+                        message.setAmILike(true);
+                        likenow++;
+                    }
+
+                    message.setLike(String.valueOf(likenow));
+                    likeCount.setText(String.valueOf(likenow));
+                }
+            });
 
             // TODO 내가 좋아요를 클릭했을 경우와 클릭하지 않았을 경우 다른 뷰를 보여줘야 합니다.
             if (messages.get(position).isAmILike()) { // 클릭했을 경우
@@ -207,6 +229,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                 //messageLikeWrapper.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.button_like_default));
                 messageLikeWrapper.setBackgroundResource(R.drawable.button_like_default);
             }
+
 
         }
 
