@@ -20,6 +20,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
@@ -33,6 +36,7 @@ import org.json.JSONStringer;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.BufferedWriter;
@@ -313,99 +317,49 @@ public class HttpReqRes {
      * */
     public static String requestHttpPostLambda(String requrl, String imgURL) {
 
+        String ext = android.webkit.MimeTypeMap.getFileExtensionFromUrl(imgURL);
+        String boundary = "====================";
         /*
          await axios.post(`${AWS_LAMBDA_API_URL}?type=${type}`, formData,
     { headers: { 'Content-Type': 'multipart/form-data' }})
     .then((response) => {result = response});
          */
         //TODO: js에서 file으로 넘기는게 무슨 객체인지, 어떤 형식인지 알아야 풀 수 있을 것 같다.
-        HttpURLConnection connection = null;
-        DataOutputStream outputStream = null;
-        InputStream inputStream = null;
+        try{
+            HttpClient client = new DefaultHttpClient();
 
-        String twoHyphens = "--";
-        //String boundary =  "*****"+Long.toString(System.currentTimeMillis())+"*****";
-        String boundary =  "---------------------------"+Long.toString(System.currentTimeMillis());
-        Log.e("boundary", boundary);
-        String lineEnd = "\r\n";
-
-        String result = "";
-
-        int bytesRead, bytesAvailable, bufferSize;
-        byte[] buffer;
-        int maxBufferSize = 1*1024*1024;
-
-        String[] q = imgURL.split("/");
-        int idx = q.length - 1;
-        String ext = android.webkit.MimeTypeMap.getFileExtensionFromUrl(imgURL);
-
-        try {
             File file = new File(imgURL);
-            FileInputStream fileInputStream = new FileInputStream(file);
+            HttpPost post = new HttpPost(requrl +"?type=image");
 
-            URL url = new URL(requrl+"?type=image");
-            connection = (HttpURLConnection) url.openConnection();
 
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setUseCaches(false);
+            MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
+            //entityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            entityBuilder.addPart("image", new FileBody(file, "image/png"));
+            // add more key/value pairs here as needed
 
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Connection", "Keep-Alive");
-            //connection.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0");
-            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
+            HttpEntity entity = entityBuilder.build();
+            post.setEntity(entity);
 
-            outputStream = new DataOutputStream(connection.getOutputStream());
-            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"" + "image" + "\"; filename=\"" + q[idx] +"\"" + lineEnd);
-            outputStream.writeBytes("Content-Type: image/" + ext + lineEnd);
-            outputStream.writeBytes(lineEnd);
-            //Log.e("Content-type", q[idx]);
 
-            bytesAvailable = fileInputStream.available();
-            bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            buffer = new byte[bufferSize];
+            // 리퀘스트 로우 쿼리문 확인용
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            entity.writeTo(bytes);
+            String content = bytes.toString();
+            Log.e("MultiPartEntityRequest",content);
 
-            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-            while(bytesRead > 0) {
-                outputStream.write(buffer, 0, bufferSize);
-                bytesAvailable = fileInputStream.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-            }
+            String[] getBoundary = content.split("\r\n");
 
-            outputStream.writeBytes(lineEnd);
+            post.addHeader("Content-Type", "multipart/form-data; boundary="+getBoundary[0]);
 
-            outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-            inputStream = connection.getInputStream();
+            HttpResponse response = client.execute(post);
+            HttpEntity httpEntity = response.getEntity();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder sb = new StringBuilder();
-
-            String line = null;
-            try {
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            result = sb.toString();
-
-            fileInputStream.close();
-            inputStream.close();
-            outputStream.flush();
-            outputStream.close();
+            String result = EntityUtils.toString(httpEntity);
 
             return result;
-        } catch(Exception e) {
+
+        }  catch(Exception e) {
             Log.e("MultipartRequest","Multipart Form Upload Error");
             e.printStackTrace();
             return "error";
