@@ -72,15 +72,25 @@ public class UserPostListAdapter extends ArrayAdapter<Post> {
         TextView postScrapCntIcon = v.findViewById(R.id.postScrapCntIcon);
         LinearLayout bookmarkDeleteBtn = v.findViewById(R.id.bookmarkDeleteBtn);
 
+
+        TextView bookmarkDeleteBtnText = v.findViewById(R.id.bookmarkDeleteBtnText);
+        bookmarkDeleteBtnText.setTypeface(fontAwesomeS);
+        bookmarkDeleteBtn.setVisibility(View.VISIBLE);
+
         if (isBookMark) {
-            TextView bookmarkDeleteBtnText = v.findViewById(R.id.bookmarkDeleteBtnText);
-            bookmarkDeleteBtnText.setTypeface(fontAwesomeS);
-            bookmarkDeleteBtn.setVisibility(View.VISIBLE);
             bookmarkDeleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     DialogSimple();
                     new deleteBookmarkAsync(context).execute(idx);
+                }
+            });
+        }else{
+            //TODO : 내 포스팅 삭제 리스너 구현
+            bookmarkDeleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
                 }
             });
         }
