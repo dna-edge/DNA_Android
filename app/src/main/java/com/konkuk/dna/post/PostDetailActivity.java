@@ -3,6 +3,7 @@ package com.konkuk.dna.post;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -40,6 +42,7 @@ public class PostDetailActivity extends BaseActivity {
     private ScrollView postScrollView;
     private ImageView postAvatar;
     private ImageButton addFriendBtn;
+    private LinearLayout deletPostBtn;
     private Button commentSaveBtn;
     private TextView postNickname, postDate, postTitle, postContent,
     postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText,
@@ -49,11 +52,14 @@ public class PostDetailActivity extends BaseActivity {
     private CommentAdapter commentAdapter;
     private int idx;
 
+    private static Typeface fontAwesomeS;
+
     public Post getPost() {
         return post;
     }
 
     private Post post;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +82,22 @@ public class PostDetailActivity extends BaseActivity {
     }
 
     public void init() {
+        if(fontAwesomeS == null) {
+            fontAwesomeS = Typeface.createFromAsset(this.getAssets(), "fonts/fa-solid-900.ttf");
+        }
+
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         InitHelpers.initDrawer(this, menuDrawer, 2);
 
         postScrollView = (ScrollView) findViewById(R.id.postScrollView);
         postAvatar = (ImageView) findViewById(R.id.postAvatar);
         postNickname = (TextView) findViewById(R.id.postNickname);
+
+        deletPostBtn = (LinearLayout) findViewById(R.id.myPostDeleteBtn);
+        TextView postDeleteBtnText = findViewById(R.id.myPostDeleteBtnText);
+        postDeleteBtnText.setTypeface(fontAwesomeS);
+        deletPostBtn.setVisibility(View.VISIBLE);
+
         addFriendBtn = (ImageButton) findViewById(R.id.addFriendBtn);
 
         postDate = (TextView) findViewById(R.id.postDate);
@@ -121,8 +137,20 @@ public class PostDetailActivity extends BaseActivity {
         }
         postNickname.setText(post.getNickname());
 
-        // TODO 해당 유저가 나와 친구 관계인지 아닌지 확인하고, 친구 추가 버튼을 보여줍니다.
-        if (false) { // TODO 여기에 [친구 관계가 아닌] 조건을 추가해주면 됩니다.
+        //내 인덱스와 포스팅의 인덱스를 비교한다.
+        Dbhelper dbhelper = new Dbhelper(this);
+        int myIdx = dbhelper.getMyIdx(); //dbhelper에서 내 인덱스값 저장
+        dbhelper.close();
+
+        if(post.getIdx()!= myIdx){
+            //내 글이 아니라면 삭제할 수 없으므로 삭제버튼 제거
+            deletPostBtn.setVisibility(View.GONE);
+
+            if (false) { // TODO 여기에 [친구 관계가 아닌] 조건을 추가해주면 됩니다.
+                addFriendBtn.setVisibility(View.GONE);
+            }
+        }else{
+            //작성자가 내가 맞다면 삭제버튼은 유지, 친구관계 버튼은 제거
             addFriendBtn.setVisibility(View.GONE);
         }
 
@@ -177,6 +205,11 @@ public class PostDetailActivity extends BaseActivity {
             case R.id.addFriendBtn: // 친구 추가 버튼 클릭
                 Log.d("PostDetail", "add friend");
                 new addFriendAsync(this).execute(post.getIdx());
+                break;
+
+            case R.id.myPostDeleteBtn: // 포스트 삭제 버튼
+                Log.d("PostDetail", "delete post");
+                //TODO : 포스팅 삭제시 동작 구현해야 합니다.
                 break;
 
             case R.id.postLikeBtn: // 좋아요 버튼 클릭 : 1
