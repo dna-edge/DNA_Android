@@ -12,6 +12,7 @@ import com.konkuk.dna.friend.message.DMMessage;
 import com.konkuk.dna.friend.message.DMRoom;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
+import com.konkuk.dna.utils.dbmanage.Dbhelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -655,118 +656,49 @@ public class JsonToObj {
     /*
      * Friends 조회로 받아온 Json변환 메소드
      */
-//    public static ArrayList<Friend> FriendsJsonToObj(String jsonResult, int num){
-//        Log.v("jsontoobj", "jsonresult at fjtoo : " + jsonResult);
-//        ArrayList<Friend> friends = new ArrayList<>();
-//
-//        JsonParser jsonParser = new JsonParser();
-//        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
-//
-//        int user1_idx, user2_idx;
-//        String avatar, nickname;
-//        String date, title, content;
-//        Double longitude, latitude;
-//        int likeCount;
-//        Boolean onlyme;
-//        JsonArray commentList;
-//        ArrayList<Comment> comments = new ArrayList<>();
-//        int user_idx, reply_idx;
-//        String rdate;
-//        String comment;
-//        String ravatar, rnickname;
-//
-//        if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
-//            switch(num) {
-//                case 1:
-//                    JsonArray resultArray = (JsonArray) jsonObject.get("result");
-//
-//                    for (int i = 0; i < resultArray.size(); i++) {
-//                        JsonObject oneObject = (JsonObject) resultArray.get(i);
-//
-//                        Log.v("jsontoobj", "oneobject : " + oneObject.toString());
-//
-////                        posting_idx = Integer.parseInt(oneObject.get("posting_idx").toString());
-////                        writer_idx = Integer.parseInt(oneObject.get("writer_idx").toString());
-////                        nickname = getStringNoQuote(String.valueOf(oneObject.get("nickname")));
-////                        avatar = getStringNoQuote(String.valueOf(oneObject.get("avatar")));
-////                        date = getStringNoQuote(oneObject.get("posting_date").toString());
-////                        title = getStringNoQuote(oneObject.get("title").toString());
-////                        content = getStringNoQuote(oneObject.get("contents").toString());
-////                        likeCount = Integer.parseInt(oneObject.get("likes_cnt").toString());
-////                        longitude = Double.parseDouble(oneObject.get("longitude").toString());
-////                        latitude = Double.parseDouble(oneObject.get("latitude").toString());
-////                        onlyme = Boolean.parseBoolean(oneObject.get("onlyme").toString());
-////
-////                        postings.add(new Post(posting_idx, writer_idx, avatar, nickname, date, title, content, longitude, latitude, likeCount, onlyme, comments));
-//
-//                    }
-//
-//                    break;
-//
-//                case 2:
-//                    JsonObject resultObject = (JsonObject) jsonObject.get("result");
-//                    if((JsonObject)resultObject.get("pContents")!=null) {
-//                        JsonObject postObject = (JsonObject) resultObject.get("pContents");
-//
-//                        posting_idx = Integer.parseInt(postObject.get("posting_idx").toString());
-//                        writer_idx = Integer.parseInt(postObject.get("writer_idx").toString());
-//                        nickname = getStringNoQuote(String.valueOf(postObject.get("nickname")));
-//                        avatar = getStringNoQuote(String.valueOf(postObject.get("avatar")));
-//                        date = getStringNoQuote(postObject.get("posting_date").toString());
-//                        title = getStringNoQuote(postObject.get("title").toString());
-//                        content = getStringNoQuote(postObject.get("contents").toString());
-//                        likeCount = Integer.parseInt(postObject.get("likes_cnt").toString());
-//                        longitude = Double.parseDouble(postObject.get("longitude").toString());
-//                        latitude = Double.parseDouble(postObject.get("latitude").toString());
-//                        onlyme = Boolean.parseBoolean(postObject.get("onlyme").toString());
-//
-//                        commentList = (JsonArray) resultObject.get("pReply");
-//                        for (int j = 0; j < commentList.size(); j++) {
-//                            JsonObject oneCommentObject = (JsonObject) commentList.get(j);
-//
-//                            reply_idx = j;
-//                            rnickname = getStringNoQuote(oneCommentObject.get("nickname").toString());
-//                            ravatar = getStringNoQuote(oneCommentObject.get("avatar").toString());
-//                            comment = getStringNoQuote(oneCommentObject.get("reply_contents").toString());
-//                            rdate = getStringNoQuote(oneCommentObject.get("date").toString());
-//
-//                            comments.add(new Comment(reply_idx, ravatar, rnickname, rdate, comment));
-//                            Log.v("jsontoobj", "avatar and nick : " + ravatar + " &&&& " + comments.get(j).getAvatar());
-//                        }
-//
-//                        postings.add(new Post(posting_idx, writer_idx, avatar, nickname, date, title, content, longitude, latitude, likeCount, onlyme, comments));
-//
-//                        postings.get(0).setCommentCount(commentList.size());
-//
-//                    }
-//                    else{
-//                        posting_idx = Integer.parseInt(resultObject.get("posting_idx").toString());
-//                        writer_idx = Integer.parseInt(resultObject.get("writer_idx").toString());
-//                        nickname = getStringNoQuote(String.valueOf(resultObject.get("nickname")));
-//                        avatar = getStringNoQuote(String.valueOf(resultObject.get("avatar")));
-//                        date = getStringNoQuote(resultObject.get("posting_date").toString());
-//                        title = getStringNoQuote(resultObject.get("title").toString());
-//                        content = getStringNoQuote(resultObject.get("contents").toString());
-//                        likeCount = Integer.parseInt(resultObject.get("likes_cnt").toString());
-//                        longitude = Double.parseDouble(resultObject.get("longitude").toString());
-//                        latitude = Double.parseDouble(resultObject.get("latitude").toString());
-//                        onlyme = Boolean.parseBoolean(resultObject.get("onlyme").toString());
-//
-//                        Log.v("jsontoobj", "without reply : " + posting_idx + " : " + content);
-//
-//
-//                        postings.add(new Post(posting_idx, writer_idx, avatar, nickname, date, title, content, longitude, latitude, likeCount, onlyme, comments));
-//                    }
-//
-//                    break;
-//
-//            }
-//        }else{
-//            Log.e("!!!=", "No Postings");
-//        }
-//
-//        return postings;
-//    }
+    public static int[] FriendsJsonToObj(String jsonResult, Dbhelper dbhelper){
+        Log.v("jsontoobj", "jsonresult at fjtoo : " + jsonResult);
+        ArrayList<Friend> friends = new ArrayList<>();
+        int[] friends_idx;
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+        int user1_idx, user2_idx;
+
+        if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
+            JsonObject resultObject = (JsonObject) jsonObject.get("user");
+
+            JsonArray resultArray = (JsonArray) jsonObject.get("result");
+
+            friends_idx = new int[resultArray.size()];
+
+            for (int i = 0; i < resultArray.size(); i++) {
+                JsonObject oneObject = (JsonObject) resultArray.get(i);
+
+                Log.v("jsontoobj", "oneobject : " + oneObject.toString());
+
+                user1_idx = Integer.parseInt(oneObject.get("user1_idx").toString());
+                user2_idx = Integer.parseInt(oneObject.get("user2_idx").toString());
+
+                Log.v("jsontoobj", "friendjtoo, u1idx : " + user1_idx + ", u2idx : " + user2_idx);
+
+                if(dbhelper.getMyIdx() == user1_idx) {
+//                    friends.add(new Friend(user2_idx));
+                    friends_idx[i] = user2_idx;
+                }
+                else{
+//                    friends.add(new Friend(user1_idx));
+                    friends_idx[i] = user1_idx;
+                }
+            }
+            return friends_idx;
+        }else{
+            Log.e("!!!=", "No Postings");
+        }
+
+        return null;
+    }
 }
 
 
