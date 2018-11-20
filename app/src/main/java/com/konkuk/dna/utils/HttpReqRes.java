@@ -46,9 +46,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -58,6 +60,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -65,9 +68,13 @@ import javax.net.ssl.HttpsURLConnection;
 
 import okhttp3.Headers;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import static android.support.constraint.Constraints.TAG;
 import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
 import static junit.framework.Assert.assertEquals;
 
@@ -316,48 +323,43 @@ public class HttpReqRes {
      * 사진 람다업로드 후 주소받아오기 - post
      * */
     public static String requestHttpPostLambda(String requrl, String imgURL) {
-
-        String ext = android.webkit.MimeTypeMap.getFileExtensionFromUrl(imgURL);
-        String boundary = "====================";
         /*
          await axios.post(`${AWS_LAMBDA_API_URL}?type=${type}`, formData,
     { headers: { 'Content-Type': 'multipart/form-data' }})
     .then((response) => {result = response});
          */
+
+        //URLConnection.guessContentTypeFromName(fileName) : image/png
+        //String fileName = new File(imgURL).getName();
         //TODO: js에서 file으로 넘기는게 무슨 객체인지, 어떤 형식인지 알아야 풀 수 있을 것 같다.
+
         try{
-            HttpClient client = new DefaultHttpClient();
+            File sourceFile = new File(imgURL);
+            String filename = sourceFile.getName();
+            //Log.d(TAG, "File...::::" + sourceFile + " : " + sourceFile.exists());
 
-            File file = new File(imgURL);
-            HttpPost post = new HttpPost(requrl +"?type=image");
+            final MediaType MEDIA_TYPE = imgURL.endsWith("png") ?
+                    MediaType.parse("image/png") : MediaType.parse("image/jpeg");
 
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addPart(
+                            Headers.of("Content-Disposition", "form-data; name=\"image\""),
+                            RequestBody.create(MEDIA_TYPE, new File(imgURL)))
+                    .build();
 
-            MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
-            //entityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-            entityBuilder.addPart("image", new FileBody(file, "image/png"));
-            // add more key/value pairs here as needed
+            Request request = new Request.Builder()
+                    .header("Content-Type", "multipart/form-data")
+                    .url(requrl+"?type=image")
+                    .post(requestBody)
+                    .build();
 
-            HttpEntity entity = entityBuilder.build();
-            post.setEntity(entity);
+            Log.e("request", request.body().toString());
 
+            OkHttpClient client = new OkHttpClient();
+            Response response = client.newCall(request).execute();
 
-            // 리퀘스트 로우 쿼리문 확인용
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            entity.writeTo(bytes);
-            String content = bytes.toString();
-            Log.e("MultiPartEntityRequest",content);
-
-            String[] getBoundary = content.split("\r\n");
-
-            post.addHeader("Content-Type", "multipart/form-data; boundary="+getBoundary[0]);
-
-
-            HttpResponse response = client.execute(post);
-            HttpEntity httpEntity = response.getEntity();
-
-            String result = EntityUtils.toString(httpEntity);
-
-            return result;
+            return response.body().string();
 
         }  catch(Exception e) {
             Log.e("MultipartRequest","Multipart Form Upload Error");
