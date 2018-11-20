@@ -1,6 +1,7 @@
 package com.konkuk.dna.friend.manage;
 
 public class Friend {
+    private int idx;
     private String id;
     private String nickname;
     private String avatar;
@@ -15,8 +16,16 @@ public class Friend {
         this.status = status;
     }
 
+    public Friend(int idx, boolean status) {
+        this.idx = idx;
+        this.status = status;
+    }
+
     public String getID() { return id; }
     public void setID(String id) { this.id = id; }
+
+    public int getIdx() { return idx; }
+    public void setIdx(int idx) { this.idx = idx; }
 
     public String getNickname() {
         return nickname;
