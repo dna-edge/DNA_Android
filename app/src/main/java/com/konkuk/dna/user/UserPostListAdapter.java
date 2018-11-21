@@ -70,27 +70,45 @@ public class UserPostListAdapter extends ArrayAdapter<Post> {
         TextView postCommentCntIcon = v.findViewById(R.id.postCommentCntIcon);
         TextView postScrapCntText = v.findViewById(R.id.postScrapCntText);
         TextView postScrapCntIcon = v.findViewById(R.id.postScrapCntIcon);
+
         LinearLayout bookmarkDeleteBtn = v.findViewById(R.id.bookmarkDeleteBtn);
-
-
         TextView bookmarkDeleteBtnText = v.findViewById(R.id.bookmarkDeleteBtnText);
         bookmarkDeleteBtnText.setTypeface(fontAwesomeS);
         bookmarkDeleteBtn.setVisibility(View.VISIBLE);
 
+        LinearLayout postMineDeleteBtn = v.findViewById(R.id.postmineDeleteBtn);
+        TextView postMineDeleteBtnText = v.findViewById(R.id.postmineDeleteBtnText);
+        postMineDeleteBtnText.setTypeface(fontAwesomeS);
+        postMineDeleteBtn.setVisibility(View.VISIBLE);
+
+        //북마크인지 내 포스팅인지 확인
         if (isBookMark) {
+            if(postMineDeleteBtn!=null){
+                postMineDeleteBtn.setVisibility(View.GONE);
+            }
+            if(postMineDeleteBtnText!=null){
+                postMineDeleteBtnText.setVisibility(View.GONE);
+            }
             bookmarkDeleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Log.e("Clicked", "Bookmark delete");
                     DialogSimple();
                     new deleteBookmarkAsync(context).execute(idx);
                 }
             });
         }else{
+            if(bookmarkDeleteBtn!=null){
+                bookmarkDeleteBtn.setVisibility(View.GONE);
+            }
+            if(bookmarkDeleteBtnText!=null){
+                bookmarkDeleteBtnText.setVisibility(View.GONE);
+            }
             //TODO : 내 포스팅 삭제 리스너 구현
-            bookmarkDeleteBtn.setOnClickListener(new View.OnClickListener() {
+            postMineDeleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Log.e("Clicked", "My Post delete");
                 }
             });
         }

@@ -152,13 +152,13 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
             case SOCKET_DIRECT:
                 Log.e("Socket ON", "direct(friends list)");
 //                allFriends = new showFriendAsyncTask(getContext()).execute().get();
-                showFriendAsyncTask sfat = new showFriendAsyncTask(getContext(), allFriendListAdapter, allFriendList);
-
-                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
-                    sfat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.args);
-                }else{
-                    sfat.execute(event.args);
-                }
+//                showFriendAsyncTask sfat = new showFriendAsyncTask(getContext(), allFriendListAdapter, allFriendList);
+//
+//                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+//                    sfat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.args);
+//                }else{
+//                    sfat.execute(event.args);
+//                }
 
                 FriendListAsyncTask flas = new FriendListAsyncTask(getContext(), onFriendListAdapter, onFriendList);
 
