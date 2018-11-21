@@ -79,7 +79,7 @@ public class JsonToObj {
     public static Friend SearchUserJsonToObj(String jsonResult){
 
         String id, nickname, avatar, description;
-        boolean status=true;
+        boolean status = false;
 
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
@@ -91,7 +91,9 @@ public class JsonToObj {
             nickname = getStringNoQuote(String.valueOf(resultObject.get("nickname")));
             avatar = getStringNoQuote(String.valueOf(resultObject.get("avatar")));
             description = getStringNoQuote(String.valueOf(resultObject.get("description")));
-            nickname = getStringNoQuote(String.valueOf(resultObject.get("nickname")));
+            if(description.equals("null")){
+                description = "";
+            }
 
         }else{
             //리스폰스에 하자가 있다면
