@@ -1,6 +1,7 @@
 package com.konkuk.dna.friend.fragments;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -162,7 +163,7 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
 
                 //모든 친구 목록
                 //allFriends = new showFriendAsyncTask(getContext()).execute().get();
-                showFriendAsyncTask sfat = new showFriendAsyncTask(getContext(), allFriendListAdapter, allFriendList);
+                showFriendAsyncTask sfat = new showFriendAsyncTask(getActivity(), getContext(), allFriendListAdapter, allFriendList);
 
                 if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
                     sfat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.args);
@@ -229,11 +230,13 @@ class OnlineFriendListAsyncTask extends AsyncTask<String, Integer, ArrayList<Fri
 }
 
 class showFriendAsyncTask extends AsyncTask<String, Void, ArrayList<Friend>> {
+    private Activity activity;
     private Context context;
     private FriendListAdapter allFriendListAdapter;
     private ListView allFriendList;
 
-    public showFriendAsyncTask(Context context, FriendListAdapter allFriendListAdapter, ListView allFriendList) {
+    public showFriendAsyncTask(Activity activity, Context context, FriendListAdapter allFriendListAdapter, ListView allFriendList) {
+        this.activity = activity;
         this.context = context;
         this.allFriendListAdapter = allFriendListAdapter;
         this.allFriendList = allFriendList;
@@ -287,22 +290,22 @@ class showFriendAsyncTask extends AsyncTask<String, Void, ArrayList<Friend>> {
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Friend> fs) {
+    protected void onPostExecute(final ArrayList<Friend> fs) {
         super.onPostExecute(fs);
 
         allFriendListAdapter = new FriendListAdapter(context, 0, fs);
         allFriendList.setAdapter(allFriendListAdapter);
         AnimHelpers.setListViewHeight(allFriendList);
-//        allFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                FragmentManager fragmentManager = getActivity().getFragmentManager();
-//                FriendDetailFragment friendDetailFragment = new FriendDetailFragment();
-//
-//                friendDetailFragment.setData(allFriends.get(i));
-//                friendDetailFragment.show(fragmentManager, "friendDetailFragment");
-//            }
-//        });
+        allFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FragmentManager fragmentManager = activity.getFragmentManager();
+                FriendDetailFragment friendDetailFragment = new FriendDetailFragment();
+
+                friendDetailFragment.setData(fs.get(i));
+                friendDetailFragment.show(fragmentManager, "friendDetailFragment");
+            }
+        });
 
     }
 }
