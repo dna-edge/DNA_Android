@@ -151,22 +151,25 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
         switch (event.message){
             case SOCKET_DIRECT:
                 Log.e("Socket ON", "direct(friends list)");
-//                allFriends = new showFriendAsyncTask(getContext()).execute().get();
-//                showFriendAsyncTask sfat = new showFriendAsyncTask(getContext(), allFriendListAdapter, allFriendList);
-//
-//                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
-//                    sfat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.args);
-//                }else{
-//                    sfat.execute(event.args);
-//                }
 
-                FriendListAsyncTask flas = new FriendListAsyncTask(getContext(), onFriendListAdapter, onFriendList);
+                OnlineFriendListAsyncTask flas = new OnlineFriendListAsyncTask(getContext(), onFriendListAdapter, onFriendList);
 
                 if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
                     flas.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.args, dbhelper.getAccessToken());
                 }else{
                     flas.execute(event.args, dbhelper.getAccessToken());
                 }
+
+                //모든 친구 목록
+                //allFriends = new showFriendAsyncTask(getContext()).execute().get();
+                showFriendAsyncTask sfat = new showFriendAsyncTask(getContext(), allFriendListAdapter, allFriendList);
+
+                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+                    sfat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.args);
+                }else{
+                    sfat.execute(event.args);
+                }
+
 
                 break;
             default:
@@ -181,12 +184,12 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     }
 }
 
-class FriendListAsyncTask extends AsyncTask<String, Integer, ArrayList<Friend>> {
+class OnlineFriendListAsyncTask extends AsyncTask<String, Integer, ArrayList<Friend>> {
     private Context context;
     private OnFriendListAdapter onFriendListAdapter;
     private RecyclerView onFriendList;
 
-    public FriendListAsyncTask(Context context, OnFriendListAdapter onFriendListAdapter, RecyclerView onFriendList) {
+    public OnlineFriendListAsyncTask(Context context, OnFriendListAdapter onFriendListAdapter, RecyclerView onFriendList) {
         this.context = context;
         this.onFriendListAdapter = onFriendListAdapter;
         this.onFriendList = onFriendList;
@@ -194,8 +197,6 @@ class FriendListAsyncTask extends AsyncTask<String, Integer, ArrayList<Friend>> 
 
     @Override
     protected ArrayList<Friend> doInBackground(String... strings) {
-        Dbhelper dbhelper = new Dbhelper(context);
-
 
         // 접속 친구
         ArrayList<Friend> friends = new ArrayList<>();
@@ -239,17 +240,11 @@ class showFriendAsyncTask extends AsyncTask<String, Void, ArrayList<Friend>> {
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    @Override
     protected ArrayList<Friend> doInBackground(String... strings) {
         Dbhelper dbhelper = new Dbhelper(context);
         HttpReqRes httpReqRes = new HttpReqRes();
 
         ArrayList<Friend> friends = new ArrayList<>();
-        int idx[];
 
         String res1 = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/friends/show", dbhelper.getAccessToken());
 
@@ -258,45 +253,35 @@ class showFriendAsyncTask extends AsyncTask<String, Void, ArrayList<Friend>> {
         int[] friends_idx = FriendsJsonToObj(res1, dbhelper);
 //        friends = FriendsJsonToObj(res1, dbhelper);
         for(int i=0;i<friends_idx.length;i++){
-            Log.v("friendfragment", "sfat fridx1 = " + friends_idx[i]);
+            Log.e("friendfragment", "sfat fridx"+i+" = " + friends_idx[i]);
         }
+
+        for(int i=0; i<friends_idx.length; i++){
+            String res2 = requestHttpGETUserInfo(ServerURL.DNA_SERVER+ServerURL.PORT_USER_API+"/user/"+friends_idx[i], dbhelper.getAccessToken());
+            friends.add(SearchUserJsonToObj(res2));
+            //Log.v("friendfragment", "sfat fridx2 = " + idx[i]);
+        }
+        // 여기까지가 일단 모든친구 정보(접속상태 전부 false로 불러옴)를 불러오는 과정
+        // 이 밑에서 부터는 해당 인원이 온라인인지 체크하는 동작
+
+        // 접속 친구
+        int idx = -1;
 
         JsonParser jp = new JsonParser();
         JsonArray ja = (JsonArray) jp.parse(strings[0]);
 
-        idx = new int[ja.size()];
-
-        for(int i=0; i<ja.size(); i++){
+        for(int i=1; i<ja.size(); i++) {
             JsonObject jo = (JsonObject) ja.get(i);
-            idx[i] = jo.get("idx").getAsInt();
-//            String res2 = requestHttpGETUserInfo(ServerURL.DNA_SERVER+ServerURL.PORT_USER_API+"/user/"+idx, strings[1]);
-//            Log.e("after http", res2);
-//            friends.add(SearchUserJsonToObj(res2));
-            Log.v("friendfragment", "sfat fridx2 = " + idx[i]);
-        }
+            idx = jo.get("idx").getAsInt();
 
-        String res2;
+            for(int j=0; j<friends.size(); j++){
+                Log.e("check idx", friends_idx[j] + " " + idx);
 
-        for(int i=0;i<friends_idx.length;i++){
-            res2 = requestHttpGETUserInfo(ServerURL.DNA_SERVER+ServerURL.PORT_USER_API+"/user/"+friends_idx[i], strings[1]);
-            friends.add(SearchUserJsonToObj(res2));
-            for(int j=0;j<idx.length;j++){
-                if(friends_idx[i]==idx[j]){
-//                    friends.add(new Friend(friends_idx[i], true));
-                    friends.get(i).setStatus(true);
-                }
-                else{
-//                    friends.add(new Friend(friends_idx[i], false));
-                    friends.get(i).setStatus(false);
+                if(friends_idx[j] == idx){
+                    friends.get(j).setStatus(true);
                 }
             }
         }
-//        Log.v("friendfragment", "showf2 : " + friends.get(0).getIdx());
-
-//        String[] friends = null;
-//        for(int i=0;i<friends_idx.length;i++){
-//            friends[i] = String.valueOf(friends_idx[i]);
-//        }
 
         return friends;
     }
