@@ -208,7 +208,7 @@ public class PostDetailActivity extends BaseActivity {
                 break;
 
             case R.id.myPostDeleteBtn: // 포스트 삭제 버튼
-                Log.d("PostDetail", "delete post");
+                Log.e("PostDetail", "delete post");
                 //TODO : 포스팅 삭제시 동작 구현해야 합니다.
                 break;
 
