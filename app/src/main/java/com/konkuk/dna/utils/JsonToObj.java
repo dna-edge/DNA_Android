@@ -768,6 +768,51 @@ public class JsonToObj {
 
         return null;
     }
+
+    public static ArrayList<Double> getLocationContents(String contents){
+
+        contents = contents.replace("\\", "");
+        Log.e("Check str", contents);
+        ArrayList<Double> location = new ArrayList<>();
+
+        try{
+            JsonParser jsonParser = new JsonParser();
+            JsonObject jsonObject = (JsonObject) jsonParser.parse(contents);
+            Double lat = jsonObject.get("lat").getAsDouble();
+            Double lng = jsonObject.get("lng").getAsDouble();
+            location.add(lat);
+            location.add(lng);
+        }catch (Exception e){
+            return null;
+        }
+
+        return location;
+    }
+
+    public static String getAddressContents(String jsonResult){
+        String address = null;
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+        JsonArray resultArray = (JsonArray) jsonObject.get("results");
+        JsonObject oneObject = (JsonObject) resultArray.get(0);
+
+        JsonObject regionObject = (JsonObject) oneObject.get("region");
+        JsonObject area1Object = (JsonObject) regionObject.get("area1");
+        JsonObject area2Object = (JsonObject) regionObject.get("area2");
+        JsonObject area3Object = (JsonObject) regionObject.get("area3");
+        JsonObject area4Object = (JsonObject) regionObject.get("area4");
+        String area1 = getStringNoQuote(String.valueOf(area1Object.get("name")));
+        String area2 = getStringNoQuote(String.valueOf(area2Object.get("name")));
+        String area3 = getStringNoQuote(String.valueOf(area3Object.get("name")));
+        String area4 = getStringNoQuote(String.valueOf(area4Object.get("name")));
+
+        address = area1 + " " + area2 + " " + area3 + " " + area4;
+        return address;
+    }
+
+    //
 }
 
 

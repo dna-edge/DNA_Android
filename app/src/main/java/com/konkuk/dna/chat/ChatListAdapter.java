@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -21,14 +22,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.konkuk.dna.R;
 import com.konkuk.dna.utils.SocketConnection;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.NameHelpers;
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
+import static com.konkuk.dna.utils.JsonToObj.getAddressContents;
+import static com.konkuk.dna.utils.JsonToObj.getLocationContents;
 import static java.lang.Integer.parseInt;
 
 public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
@@ -56,6 +66,9 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
     private final int VTYPE_MINE = 0;
     private final int VTYPE_OTHER_AVATAR = 1;
     private final int VTYPE_OTHER_NONE = 2;
+
+    private static final String CLIENT_ID = "rp1dh7ukaj"; // 애플리케이션 클라이언트 아이디 값
+    private static final String CLIENT_SECRET = "EO4SWXVVVYQhoJ33jpsTO4Mteil5GEamBnDn1qfM"; // 애플리케이션 클라이언트 시크릿 값
 
     public ChatListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<ChatMessage> objects) {
         super(context, resource, objects);
@@ -164,9 +177,30 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                     }
                     break;
                 case TYPE_LOCATION:
-                    if (msgText != null) {
-                        msgText.setVisibility(View.VISIBLE);
-                        msgText.setText(message.getContents());
+                    if (msgShare != null) {
+                        msgShare.setVisibility(View.VISIBLE);
+
+                        //TODO : 지도 위치 가져오기!
+                        ArrayList<Double> loc = getLocationContents(message.getContents());
+                        if(loc!=null){
+                            Log.e("getLocation", "success");
+                            Double lat = loc.get(0);
+                            Double lng = loc.get(1);
+
+                            getLocationAsync glc = new getLocationAsync(CLIENT_ID, CLIENT_SECRET);
+                            try {
+                                String address = glc.execute(lat, lng).get();
+                                msgShare.setText("[위치] " + address);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else{
+                            msgShare.setText(message.getContents());
+                        }
+
                     }
 //                if (msgLocationWrapper != null) {
 //                    msgLocationWrapper.setVisibility(View.VISIBLE);
@@ -242,5 +276,61 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
         }
 
         return v;
+    }
+}
+
+
+class getLocationAsync extends AsyncTask<Double, Void, String> {
+
+    private String clientId;
+    private String clientSecret;
+
+    public getLocationAsync(String clientId, String clientSecret) {
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+    }
+
+    @Override
+    protected String doInBackground(Double... doubles) {
+        Double lat = doubles[0];
+        Double lng = doubles[1];
+        String apiURL = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?request=coordsToaddr&output=json&coords="+String.valueOf(lng)+","+String.valueOf(lat);
+
+        Log.e("URL", apiURL);
+        try {
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
+            con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
+
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+            if(responseCode==200) { // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  // 에러 발생
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+
+            Log.e("Where", response.toString());
+            String result = getAddressContents(response.toString());
+
+            return result;
+
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
     }
 }

@@ -60,8 +60,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,6 +78,7 @@ import static com.konkuk.dna.utils.HttpReqRes.requestHttpPostLambda;
 import static com.konkuk.dna.utils.JsonToObj.ChatAllJsonToObj;
 import static com.konkuk.dna.utils.JsonToObj.PostingCntJsonToObj;
 import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
+import static com.konkuk.dna.utils.ObjToJson.LocationObjToJson;
 import static com.konkuk.dna.utils.ObjToJson.SendMsgObjToJson;
 import static com.konkuk.dna.utils.ObjToJson.StoreObjToJson;
 
@@ -120,6 +125,7 @@ public class ChatActivity extends BaseActivity {
     private static final int SOCKET_NEW_MSG = 3;
     private static final int SOCKET_APPLY_LIKE = 4;
     private static final int SOCKET_SPEAKER = 5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -459,7 +465,8 @@ public class ChatActivity extends BaseActivity {
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
 
                 if(messageType == TYPE_LOCATION){
-                    msgEditText.setText("{\"lat\":"+gpsTracker.getLatitude()+",\"lng\":"+gpsTracker.getLongitude()+"}");
+                    JsonObject jdata = LocationObjToJson(gpsTracker.getLatitude(),gpsTracker.getLongitude());
+                    msgEditText.setText(jdata.toString());
                 }
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
                 SocketConnection.emit("save_msg", sendMsgJson);
