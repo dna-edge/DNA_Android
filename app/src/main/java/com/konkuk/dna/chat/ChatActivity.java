@@ -78,6 +78,7 @@ import static com.konkuk.dna.utils.HttpReqRes.requestHttpPostLambda;
 import static com.konkuk.dna.utils.JsonToObj.ChatAllJsonToObj;
 import static com.konkuk.dna.utils.JsonToObj.PostingCntJsonToObj;
 import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.getLocationContents;
 import static com.konkuk.dna.utils.ObjToJson.LocationObjToJson;
 import static com.konkuk.dna.utils.ObjToJson.SendMsgObjToJson;
 import static com.konkuk.dna.utils.ObjToJson.StoreObjToJson;
@@ -198,6 +199,14 @@ public class ChatActivity extends BaseActivity {
                 switch (clicked_type){
                     case TYPE_LOCATION:
                         //TODO : 지도 위치 보여주기
+                        ArrayList<Double> loc = getLocationContents(clicked_msg.getContents());
+                        if(loc!=null){
+                            FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+                            ChatListMapFragment chatListMapFragment = ChatListMapFragment.newInstance(loc.get(1), loc.get(0));
+
+                            chatListMapFragment.show(fragmentManager, "chatListMapFragment");
+                        }
+
                         break;
 
                     case TYPE_IMAGE:
