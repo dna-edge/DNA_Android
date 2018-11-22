@@ -454,45 +454,44 @@ public class JsonToObj {
         if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
             JsonObject oneObject = (JsonObject) jsonObject.get("result");
 
-                JsonArray blindarray = (JsonArray) oneObject.get("blind");
-                for(int j=0; j<blindarray.size(); j++){
-                    //blind 무엇? blind 배열 안에 현재 유저의 idx에 포함되어 있을 경우 해당 채팅방을 리스트에 보여주지 않습니다.
+            JsonArray blindarray = (JsonArray) oneObject.get("blind");
+            for(int j=0; j<blindarray.size(); j++){
+                //blind 무엇? blind 배열 안에 현재 유저의 idx에 포함되어 있을 경우 해당 채팅방을 리스트에 보여주지 않습니다.
+            }
+            _id = getStringNoQuote(oneObject.get("_id").toString());
+            room_idx = Integer.parseInt(oneObject.get("idx").toString());
+
+            JsonArray usersarray = (JsonArray) oneObject.get("users");
+            for(int j=0; j<2; j++){
+                JsonObject userObject = (JsonObject) usersarray.get(j);
+                if(myIdx == Integer.parseInt(userObject.get("idx").toString())){
+
+                    m__id =  getStringNoQuote(userObject.get("_id").toString());
+                    m_idx = Integer.parseInt(userObject.get("idx").toString());
+                    m_nickname =  getStringNoQuote(userObject.get("nickname").toString());
+                    m_avatar =  getStringNoQuote(userObject.get("avatar").toString());
+                }else{
+                    f__id =  getStringNoQuote(userObject.get("_id").toString());
+                    f_idx = Integer.parseInt(userObject.get("idx").toString());
+                    f_nickname =  getStringNoQuote(userObject.get("nickname").toString());
+                    f_avatar =  getStringNoQuote(userObject.get("avatar").toString());
                 }
-                _id = getStringNoQuote(oneObject.get("_id").toString());
-                room_idx = Integer.parseInt(oneObject.get("idx").toString());
+            }
+            created_at = getStringNoQuote(oneObject.get("created_at").toString());
+            updated_at = getStringNoQuote(oneObject.get("updated_at").toString());
+            __v = Integer.parseInt(oneObject.get("__v").toString());
 
-                JsonArray usersarray = (JsonArray) oneObject.get("users");
-                for(int j=0; j<2; j++){
-                    JsonObject userObject = (JsonObject) usersarray.get(j);
-                    if(myIdx == Integer.parseInt(userObject.get("idx").toString())){
+            last_message = "";
+            if (oneObject.get("last_message")!=null) {
+                last_message = getStringNoQuote(oneObject.get("last_message").toString());
+            }
 
-                        m__id =  getStringNoQuote(userObject.get("_id").toString());
-                        m_idx = Integer.parseInt(userObject.get("idx").toString());
-                        m_nickname =  getStringNoQuote(userObject.get("nickname").toString());
-                        m_avatar =  getStringNoQuote(userObject.get("avatar").toString());
-                    }else{
-                        f__id =  getStringNoQuote(userObject.get("_id").toString());
-                        f_idx = Integer.parseInt(userObject.get("idx").toString());
-                        f_nickname =  getStringNoQuote(userObject.get("nickname").toString());
-                        f_avatar =  getStringNoQuote(userObject.get("avatar").toString());
-                    }
-                }
-                created_at = getStringNoQuote(oneObject.get("created_at").toString());
-                updated_at = getStringNoQuote(oneObject.get("updated_at").toString());
-                __v = Integer.parseInt(oneObject.get("__v").toString());
-
-                last_message = "";
-                if (oneObject.get("last_message")!=null) {
-                    last_message = getStringNoQuote(oneObject.get("last_message").toString());
-                }
-
-                last_type = "";
-                if (oneObject.get("last_type")!=null) {
-                    last_type = getStringNoQuote(oneObject.get("last_type").toString());
-                }
-
-
-        }else{
+            last_type = "";
+            if (oneObject.get("last_type")!=null) {
+                last_type = getStringNoQuote(oneObject.get("last_type").toString());
+            }
+        }
+        else{
             return null;
         }
 
