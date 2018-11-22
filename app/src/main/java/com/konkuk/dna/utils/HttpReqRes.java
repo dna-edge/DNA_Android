@@ -110,6 +110,52 @@ public class HttpReqRes {
         return result;
     }
 
+    /*
+     * Signup, Check ID - POST
+     * */
+    public String requestHttpPostSignup(String url, String id, String password, String conform_password, String email, String nickname, String description, String avatar) {
+
+        HttpsURLConnection urlConn = null;
+        BufferedReader reader = null;
+
+        String result = null;
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpPost post = new HttpPost(postURL);
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("id", id));
+            params.add(new BasicNameValuePair("password", password));
+            params.add(new BasicNameValuePair("conform_password", conform_password));
+            params.add(new BasicNameValuePair("email", email));
+            if(nickname==null || nickname==""){
+                nickname = id;
+            }
+            params.add(new BasicNameValuePair("nickname", nickname));
+            params.add(new BasicNameValuePair("description", description));
+            //params.add(new BasicNameValuePair("avater", password));
+
+            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+            post.setEntity(ent);
+            HttpResponse responsePOST = client.execute(post);
+            HttpEntity resEntity = responsePOST.getEntity();
+            Log.e("RESPONSE", EntityUtils.toString(resEntity));
+//            if(responsePOST.getStatusLine().getStatusCode()==200){
+//                HttpEntity resEntity = responsePOST.getEntity();
+//                if (resEntity != null) {
+//                    result = EntityUtils.toString(resEntity);
+//                    Log.i("RESPONSE", result);
+//                }
+//            }else{
+//                result = null;
+//            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     /*
      * Login - POST
@@ -315,6 +361,7 @@ public class HttpReqRes {
             HttpEntity resEntity = responseGET.getEntity();
             if (resEntity != null) {
                 result = EntityUtils.toString(resEntity);
+                Log.v("httpreqres", "getuserinfo res : " + result);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -647,142 +694,84 @@ public class HttpReqRes {
         return result;
     }
 
+
     /*
-     * Signup, Check ID - POST
-     * */
-    public String requestHttpPostSignup(String url, String id, String password, String conform_password, String email, String nickname, String description, String avatar) {
-
-        HttpsURLConnection urlConn = null;
-        BufferedReader reader = null;
-
+     * Friend Requests = put/delete
+     */
+    public String requestHttpDoRequests(String url, String token) {
         String result = null;
+//        JSONObject json = null;
+//        Post posting;
+
         try {
             HttpClient client = new DefaultHttpClient();
-            String postURL = url;
-            HttpPost post = new HttpPost(postURL);
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("id", id));
-            params.add(new BasicNameValuePair("password", password));
-            params.add(new BasicNameValuePair("conform_password", conform_password));
-            params.add(new BasicNameValuePair("email", email));
-            if(nickname==null || nickname==""){
-                nickname = id;
+            Log.v("httpreqres", "url when get req lists : " + url);
+            String getURL = url;
+            HttpGet get = new HttpGet(getURL);
+
+            get.setHeader("token", token);
+
+            HttpResponse responseGET = client.execute(get);
+            HttpEntity resEntity = responseGET.getEntity();
+            if (resEntity != null) {
+                result = EntityUtils.toString(resEntity);
             }
-            params.add(new BasicNameValuePair("nickname", nickname));
-            params.add(new BasicNameValuePair("description", description));
-            //params.add(new BasicNameValuePair("avater", password));
-
-            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
-            post.setEntity(ent);
-            HttpResponse responsePOST = client.execute(post);
-            HttpEntity resEntity = responsePOST.getEntity();
-            Log.e("RESPONSE", EntityUtils.toString(resEntity));
-//            if(responsePOST.getStatusLine().getStatusCode()==200){
-//                HttpEntity resEntity = responsePOST.getEntity();
-//                if (resEntity != null) {
-//                    result = EntityUtils.toString(resEntity);
-//                    Log.i("RESPONSE", result);
-//                }
-//            }else{
-//                result = null;
-//            }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
     }
 
-//    /*
-//     * Friend Requests = put/delete
-//     */
-//    public String requestHttpDoRequests(String url, String token, int rCase) {
-//        String result = null;
-////        JSONObject json = null;
-////        Post posting;
-//
-//        switch(rCase) {
-//            case 1:        // accept
-//                try {
-//                    HttpClient client = new DefaultHttpClient();
-//                    String putURL = url;
-//                    HttpPost post = new HttpPost(putURL);
-//
-//                    post.setHeader("token", token);
-//
-//                    HttpResponse response = client.execute(post);
-//                    HttpEntity resEntity = response.getEntity();
-//                    result = EntityUtils.toString(resEntity);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    return result;
-//                }
-//
-//                break;
-//
-//            case 2:        // bookmark
-//                try {
-//                    HttpClient client = new DefaultHttpClient();
-//                    String postURL = url;
-//                    HttpPost post = new HttpPost(postURL);
-//
-//                    post.setHeader("token", token);
-//
-//                    HttpResponse response = client.execute(post);
-//                    HttpEntity resEntity = response.getEntity();
-//                    result = EntityUtils.toString(resEntity);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    return result;
-//                }
-//
-//                break;
-//
-//            case 3:        // unlike
-//                try {
-//                    HttpClient client = new DefaultHttpClient();
-//                    String deleteURL = url;
-//                    HttpDelete del = new HttpDelete(deleteURL);
-//
-//
-//                    del.setHeader("token", token);
-//
-//                    HttpResponse response = client.execute(del);
-//                    HttpEntity resEntity = response.getEntity();
-//                    result = EntityUtils.toString(resEntity);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    return result;
-//                }
-//
-//                break;
-//
-//            case 4:        // dbookmark
-//                try {
-//                    HttpClient client = new DefaultHttpClient();
-//                    String deleteURL = url;
-//                    HttpDelete del = new HttpDelete(deleteURL);
-//
-//                    del.setHeader("token", token);
-//
-//                    HttpResponse response = client.execute(del);
-//                    HttpEntity resEntity = response.getEntity();
-//                    result = EntityUtils.toString(resEntity);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    return result;
-//                }
-//
-//                break;
-//        }
-//        Log.v("posting httpreqres", "get server result : " + result);
-//
-//        return result;
-//    }
-//
+    /*
+     * Post DETAILS = Post
+     */
+    public String requestHttpNotifyFriend(String url, String token, int fCase) {
+        String result = null;
+//        JSONObject json = null;
+//        Post posting;
 
+        switch(fCase) {
+            case 1:        // accept
+                try {
+                    HttpClient client = new DefaultHttpClient();
+                    String putURL = url;
+                    HttpPut put = new HttpPut(putURL);
+
+                    put.setHeader("token", token);
+
+                    HttpResponse response = client.execute(put);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+
+                break;
+
+            case 2:        // deny, delete
+                try {
+                    Log.v("httpreqres", "url : " + url);
+                    HttpClient client = new DefaultHttpClient();
+                    String deleteURL = url;
+                    HttpDelete del = new HttpDelete(deleteURL);
+
+                    del.setHeader("token", token);
+
+                    HttpResponse response = client.execute(del);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+
+                break;
+        }
+        Log.v("posting httpreqres", "get server result : " + result);
+
+        return result;
+    }
 }

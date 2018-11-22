@@ -8,14 +8,17 @@ import com.google.gson.JsonParser;
 import com.konkuk.dna.chat.ChatMessage;
 import com.konkuk.dna.chat.ChatUser;
 import com.konkuk.dna.friend.manage.Friend;
+import com.konkuk.dna.friend.manage.Request;
 import com.konkuk.dna.friend.message.DMMessage;
 import com.konkuk.dna.friend.message.DMRoom;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 
 import static com.konkuk.dna.utils.ConvertType.DatetoStr;
@@ -793,7 +796,6 @@ public class JsonToObj {
 
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
-
         JsonArray resultArray = (JsonArray) jsonObject.get("results");
         JsonObject oneObject = (JsonObject) resultArray.get(0);
 
@@ -811,7 +813,83 @@ public class JsonToObj {
         return address;
     }
 
-    //
+    /*
+     * 유저정보 검색 Jsn변환 메소드
+     * */
+    public static Request SearchReqUserJsonToObj(String jsonResult){
+
+        String nickname, avatar, date;
+        int idx;
+        boolean status = false;
+
+        Date dt = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+        if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")){
+            // 리스폰스가 정상이고 서버 응답이 200이라면?
+            JsonObject resultObject = (JsonObject) jsonObject.get("result");
+            idx = Integer.parseInt(resultObject.get("idx").toString());
+            nickname = getStringNoQuote(String.valueOf(resultObject.get("nickname")));
+            avatar = getStringNoQuote(String.valueOf(resultObject.get("avatar")));
+            date = sdf.format(dt).toString();
+            Log.v("jsontoobj", "searchrequser date : " + date);
+
+        }else{
+            //리스폰스에 하자가 있다면
+            Log.e(jsonObject.get("code").toString(), jsonObject.get("message").toString());
+            return null;
+        }
+
+        return new Request(idx, nickname, avatar, date);
+    }
+
+
+    /*
+     * Posting 조회로 받아온 Json변환 메소드
+     */
+    public static int[] FriendsJsonToObj(String jsonResult, int num){
+        Log.v("jsontoobj", "jsonresult at fjtoo : " + jsonResult);
+        ArrayList<Request> reqs = new ArrayList<>();
+
+        int[] sender_idx, receiver_idx;
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+        if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
+            JsonArray resultArray = (JsonArray) jsonObject.get("result");
+
+            sender_idx = new int[resultArray.size()];
+            receiver_idx = new int[resultArray.size()];
+
+            for (int i = 0; i < resultArray.size(); i++) {
+                JsonObject oneObject = (JsonObject) resultArray.get(i);
+
+                Log.v("jsontoobj", "oneobject : " + oneObject.toString());
+
+                sender_idx[i] = Integer.parseInt(oneObject.get("sender_idx").toString());
+                receiver_idx[i] = Integer.parseInt(oneObject.get("receiver_idx").toString());
+
+                if(num==1){     // 내가 받은 요청 조회
+                    return sender_idx;
+                }else {             // 내가 보낸 요청 조회
+                    return receiver_idx;
+                }
+
+            }
+
+        }else{
+            Log.e("!!!=", "No Postings");
+        }
+
+        return null;
+    }
+
+
+
 }
 
 

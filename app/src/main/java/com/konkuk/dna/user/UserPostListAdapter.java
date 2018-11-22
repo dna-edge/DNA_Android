@@ -172,7 +172,6 @@ class deleteMyPostingkAsync extends AsyncTask<Integer, Integer, Void> {
         switch (ints[1]) {
             case 1:
                 httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/" + ints[0], dbhelper.getAccessToken(), 2);
-                Log.v("userpost..", "successed");
                 break;
 
             case 2:
@@ -182,9 +181,9 @@ class deleteMyPostingkAsync extends AsyncTask<Integer, Integer, Void> {
         return null;
     }
 
-//    @Override
-//    protected void onPostExecute(ArrayList<Post> postings) {
-//
-//        super.onPostExecute(postings);
-//    }
+    @Override
+    protected void onPostExecute(Void voids) {
+
+        super.onPostExecute(voids);
+    }
 }
