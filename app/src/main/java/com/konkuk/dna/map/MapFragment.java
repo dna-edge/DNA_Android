@@ -1,10 +1,17 @@
 package com.konkuk.dna.map;
 
+import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.konkuk.dna.MainActivity;
+import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.GPSTracker;
 import com.konkuk.dna.R;
@@ -40,8 +49,16 @@ import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
+import static com.konkuk.dna.utils.JsonToObj.PostingCntJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
 import static com.konkuk.dna.utils.helpers.InitHelpers.updateDrawer;
 
 /**
@@ -232,6 +249,18 @@ public class MapFragment extends Fragment
                 Dbhelper dbhelper = new Dbhelper(getActivity());
                 gpsTracker = new GPSTracker(getActivity());
                 updateRadiusCircle(gpsTracker.getLongitude(), gpsTracker.getLatitude(), dbhelper.getMyRadius());
+
+//                ArrayList<Post> posts = null;
+//                try {
+//                    posts = new showPostingAll2Async(getActivity()).execute().get();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                }
+                MainActivity ac = (MainActivity) getActivity();
+                drawPostLocations(ac.getPosts());
+
             }
         });
 
@@ -469,4 +498,49 @@ public class MapFragment extends Fragment
 
     @Override
     public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem) {return;}
+}
+
+
+class showPostingAll2Async extends AsyncTask<Void, Void, ArrayList<Post>> {
+
+    private Context context;
+    private Dbhelper dbhelper;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    public showPostingAll2Async(Context context){
+        this.context = context;
+    }
+
+    @Override
+    protected ArrayList<Post> doInBackground(Void... voids){
+        ArrayList<Post> postings = new ArrayList<>();
+        int[] pidx;
+
+        HttpReqRes httpReqRes = new HttpReqRes();
+        dbhelper = new Dbhelper(context);
+
+        String result = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/posting/showAll/", dbhelper.getAccessToken());
+
+//        Log.v("mainactivity", "show allr httpreq result" + result);
+        pidx = PostingCntJsonToObj(result);
+
+        for(int i=0;i<pidx.length;i++){
+            String result1 = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + pidx[i]);
+            postings.add(PostingJsonToObj(result1, 2).get(0));
+
+        }
+//        postings = PostingJsonToObj(result, 2);
+
+        return postings;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<Post> postings) {
+
+        super.onPostExecute(postings);
+    }
 }

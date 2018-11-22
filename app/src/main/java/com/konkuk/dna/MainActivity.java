@@ -76,6 +76,10 @@ public class MainActivity extends BaseActivity {
     private View mapFragmentView;
     private FloatingActionButton gotoChatBtn, postWriteBtn;
 
+    public ArrayList<Post> getPosts() {
+        return posts;
+    }
+
     private ArrayList<Post> posts;
 
     private ValueAnimator slideAnimator;
