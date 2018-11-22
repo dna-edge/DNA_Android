@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.konkuk.dna.post.PostDetailActivity;
 import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.BaseActivity;
@@ -79,6 +81,24 @@ public class MyPageActivity extends BaseActivity {
         /* 스크랩한 포스팅 */
         scrapPostListAdatper = new UserPostListAdapter(this, R.layout.post_list_item, scrapPosts, true);
         scrapPostList.setAdapter(scrapPostListAdatper);
+
+        myPostList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent postIntent = new Intent(MyPageActivity.this, PostDetailActivity.class);
+                postIntent.putExtra("post", myPosts.get(i));
+                startActivity(postIntent);
+            }
+        });
+
+        scrapPostList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent postIntent = new Intent(MyPageActivity.this, PostDetailActivity.class);
+                postIntent.putExtra("post", scrapPosts.get(i));
+                startActivity(postIntent);
+            }
+        });
     }
 
     public void onClick(View v) {

@@ -280,6 +280,7 @@ public class HttpReqRes {
             HttpEntity resEntity = responseGET.getEntity();
             if (resEntity != null) {
                 result = EntityUtils.toString(resEntity);
+                Log.v("httpreqres", "getuserinfo res : " + result);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -612,96 +613,83 @@ public class HttpReqRes {
         return result;
     }
 
-//    /*
-//     * Friend Requests = put/delete
-//     */
-//    public String requestHttpDoRequests(String url, String token, int rCase) {
-//        String result = null;
-////        JSONObject json = null;
-////        Post posting;
-//
-//        switch(rCase) {
-//            case 1:        // accept
-//                try {
-//                    HttpClient client = new DefaultHttpClient();
-//                    String putURL = url;
-//                    HttpPost post = new HttpPost(putURL);
-//
-//                    post.setHeader("token", token);
-//
-//                    HttpResponse response = client.execute(post);
-//                    HttpEntity resEntity = response.getEntity();
-//                    result = EntityUtils.toString(resEntity);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    return result;
-//                }
-//
-//                break;
-//
-//            case 2:        // bookmark
-//                try {
-//                    HttpClient client = new DefaultHttpClient();
-//                    String postURL = url;
-//                    HttpPost post = new HttpPost(postURL);
-//
-//                    post.setHeader("token", token);
-//
-//                    HttpResponse response = client.execute(post);
-//                    HttpEntity resEntity = response.getEntity();
-//                    result = EntityUtils.toString(resEntity);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    return result;
-//                }
-//
-//                break;
-//
-//            case 3:        // unlike
-//                try {
-//                    HttpClient client = new DefaultHttpClient();
-//                    String deleteURL = url;
-//                    HttpDelete del = new HttpDelete(deleteURL);
-//
-//
-//                    del.setHeader("token", token);
-//
-//                    HttpResponse response = client.execute(del);
-//                    HttpEntity resEntity = response.getEntity();
-//                    result = EntityUtils.toString(resEntity);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    return result;
-//                }
-//
-//                break;
-//
-//            case 4:        // dbookmark
-//                try {
-//                    HttpClient client = new DefaultHttpClient();
-//                    String deleteURL = url;
-//                    HttpDelete del = new HttpDelete(deleteURL);
-//
-//                    del.setHeader("token", token);
-//
-//                    HttpResponse response = client.execute(del);
-//                    HttpEntity resEntity = response.getEntity();
-//                    result = EntityUtils.toString(resEntity);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    return result;
-//                }
-//
-//                break;
-//        }
-//        Log.v("posting httpreqres", "get server result : " + result);
-//
-//        return result;
-//    }
-//
+    /*
+     * Friend Requests = put/delete
+     */
+    public String requestHttpDoRequests(String url, String token) {
+        String result = null;
+//        JSONObject json = null;
+//        Post posting;
 
+        try {
+            HttpClient client = new DefaultHttpClient();
+            Log.v("httpreqres", "url when get req lists : " + url);
+            String getURL = url;
+            HttpGet get = new HttpGet(getURL);
+
+            get.setHeader("token", token);
+
+            HttpResponse responseGET = client.execute(get);
+            HttpEntity resEntity = responseGET.getEntity();
+            if (resEntity != null) {
+                result = EntityUtils.toString(resEntity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /*
+     * Post DETAILS = Post
+     */
+    public String requestHttpNotifyFriend(String url, String token, int fCase) {
+        String result = null;
+//        JSONObject json = null;
+//        Post posting;
+
+        switch(fCase) {
+            case 1:        // accept
+                try {
+                    HttpClient client = new DefaultHttpClient();
+                    String putURL = url;
+                    HttpPut put = new HttpPut(putURL);
+
+                    put.setHeader("token", token);
+
+                    HttpResponse response = client.execute(put);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+
+                break;
+
+            case 2:        // deny, delete
+                try {
+                    Log.v("httpreqres", "url : " + url);
+                    HttpClient client = new DefaultHttpClient();
+                    String deleteURL = url;
+                    HttpDelete del = new HttpDelete(deleteURL);
+
+                    del.setHeader("token", token);
+
+                    HttpResponse response = client.execute(del);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+
+                break;
+        }
+        Log.v("posting httpreqres", "get server result : " + result);
+
+        return result;
+    }
 }
