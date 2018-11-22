@@ -94,7 +94,7 @@ public class UserPostListAdapter extends ArrayAdapter<Post> {
                 public void onClick(View view) {
                     Log.e("Clicked", "Bookmark delete");
                     DialogSimple();
-                    new deleteBookmarkAsync(context).execute(idx);
+                    new deleteMyPostingkAsync(context).execute(idx, 2);
                 }
             });
         }else{
@@ -108,7 +108,8 @@ public class UserPostListAdapter extends ArrayAdapter<Post> {
             postMineDeleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.e("Clicked", "My Post delete");
+                    Log.v("userpostlistadapter", "mypost del??");
+                    new deleteMyPostingkAsync(context).execute(idx, 1);
                 }
             });
         }
@@ -147,7 +148,7 @@ public class UserPostListAdapter extends ArrayAdapter<Post> {
     }
 }
 
-class deleteBookmarkAsync extends AsyncTask<Integer, Integer, Void> {
+class deleteMyPostingkAsync extends AsyncTask<Integer, Integer, Void> {
 
     private Context context;
     private Dbhelper dbhelper;
@@ -157,7 +158,7 @@ class deleteBookmarkAsync extends AsyncTask<Integer, Integer, Void> {
         super.onPreExecute();
     }
 
-    public deleteBookmarkAsync(Context context){
+    public deleteMyPostingkAsync(Context context){
         this.context = context;
     }
 
@@ -168,8 +169,16 @@ class deleteBookmarkAsync extends AsyncTask<Integer, Integer, Void> {
         HttpReqRes httpReqRes = new HttpReqRes();
         dbhelper = new Dbhelper(context);
 
-        httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[0], dbhelper.getAccessToken(), 4);
+        switch (ints[1]) {
+            case 1:
+                httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/" + ints[0], dbhelper.getAccessToken(), 2);
+                Log.v("userpost..", "successed");
+                break;
 
+            case 2:
+                httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[0], dbhelper.getAccessToken(), 2);
+                break;
+        }
         return null;
     }
 

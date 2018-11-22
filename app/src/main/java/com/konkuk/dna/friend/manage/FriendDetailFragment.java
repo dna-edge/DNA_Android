@@ -153,6 +153,7 @@ public class FriendDetailFragment extends DialogFragment implements View.OnClick
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                        // TODO 삭제 버튼 클릭 이벤트 처
+                        new FriendDeleteAsyncTask(getActivity()).execute(id);
                         dialog.cancel();
                     }
                 }).setNegativeButton("NO",

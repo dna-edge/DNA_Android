@@ -62,12 +62,12 @@ public class MyPageActivity extends BaseActivity {
 
         // TODO 내가 작성한 포스트와 스크랩한 포스트의 리스트를 서버에서 불러와 추가해줘야 합니다.
         try {
-            myPosts = new showPostingBookmarkAsync(this).execute(0).get();
+            myPosts = new myPostingAsync(this).execute(0).get();
         } catch (Exception e){
             e.printStackTrace();
         }
         try {
-            scrapPosts = new showPostingBookmarkAsync(this).execute(1).get();
+            scrapPosts = new myPostingAsync(this).execute(1).get();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -123,7 +123,7 @@ public class MyPageActivity extends BaseActivity {
     }
 }
 
-class showPostingBookmarkAsync extends AsyncTask<Integer, Void, ArrayList<Post>> {
+class myPostingAsync extends AsyncTask<Integer, Void, ArrayList<Post>> {
 
     private Context context;
     private Dbhelper dbhelper;
@@ -133,7 +133,7 @@ class showPostingBookmarkAsync extends AsyncTask<Integer, Void, ArrayList<Post>>
         super.onPreExecute();
     }
 
-    public showPostingBookmarkAsync(Context context){
+    public myPostingAsync(Context context){
         this.context = context;
     }
 
@@ -146,11 +146,11 @@ class showPostingBookmarkAsync extends AsyncTask<Integer, Void, ArrayList<Post>>
         dbhelper = new Dbhelper(context);
 
         switch(ints[0]){
-            case 1:
-                result = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/posting/bookmark/", dbhelper.getAccessToken());
-                break;
             case 0:
                 result = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/posting/showMine/", dbhelper.getAccessToken());
+                break;
+            case 1:
+                result = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/posting/bookmark/", dbhelper.getAccessToken());
                 break;
         }
 

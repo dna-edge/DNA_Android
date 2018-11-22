@@ -358,6 +358,7 @@
                                     android:onClick="onClick">
 
                                     <TextView
+                                        android:id="@+id/postShareBtnIcon"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginRight="7dp"
@@ -367,6 +368,7 @@
                                         android:tag="fas"/>
 
                                     <TextView
+                                        android:id="@+id/postShareBtnText"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textColor="@color/concrete"

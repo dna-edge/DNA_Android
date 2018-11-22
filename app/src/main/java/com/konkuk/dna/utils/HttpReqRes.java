@@ -471,7 +471,7 @@ public class HttpReqRes {
 //        Post posting;
 
         switch(postCase) {
-            case 1:        // like
+            case 1:        // post
                 try {
                     HttpClient client = new DefaultHttpClient();
                     String postURL = url;
@@ -490,47 +490,9 @@ public class HttpReqRes {
 
                 break;
 
-            case 2:        // bookmark
+            case 2:        // del
                 try {
-                    HttpClient client = new DefaultHttpClient();
-                    String postURL = url;
-                    HttpPost post = new HttpPost(postURL);
-
-                    post.setHeader("token", token);
-
-                    HttpResponse response = client.execute(post);
-                    HttpEntity resEntity = response.getEntity();
-                    result = EntityUtils.toString(resEntity);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return result;
-                }
-
-                break;
-
-            case 3:        // unlike
-                try {
-                    HttpClient client = new DefaultHttpClient();
-                    String deleteURL = url;
-                    HttpDelete del = new HttpDelete(deleteURL);
-
-
-                    del.setHeader("token", token);
-
-                    HttpResponse response = client.execute(del);
-                    HttpEntity resEntity = response.getEntity();
-                    result = EntityUtils.toString(resEntity);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return result;
-                }
-
-                break;
-
-            case 4:        // dbookmark
-                try {
+                    Log.v("httpreqres", "url : " + url);
                     HttpClient client = new DefaultHttpClient();
                     String deleteURL = url;
                     HttpDelete del = new HttpDelete(deleteURL);
@@ -622,6 +584,32 @@ public class HttpReqRes {
         Log.v("httpreqres", "result of reply : " + result);
         return result;
 
+    }
+
+    /*
+     * delete friends = DELETE
+     */
+    public String requestHttpFriendDelete(String url, String token){
+
+        String result = null;
+
+        try{
+            HttpClient client = new DefaultHttpClient();
+            Log.v("httpreqres", "url when delete friends : " + url);
+            String delURL = url;
+            HttpDelete del = new HttpDelete(delURL);
+
+            del.setHeader("token", token);
+
+            HttpResponse responseDelete = client.execute(del);
+            HttpEntity resEntity = responseDelete.getEntity();
+            if(resEntity != null){
+                result = EntityUtils.toString(resEntity);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
 //    /*
