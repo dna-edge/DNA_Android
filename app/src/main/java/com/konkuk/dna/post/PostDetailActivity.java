@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.konkuk.dna.MainActivity;
 import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.BaseActivity;
@@ -30,6 +31,8 @@ import com.konkuk.dna.utils.helpers.InitHelpers;
 import com.konkuk.dna.R;
 import com.konkuk.dna.map.MapFragment;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -46,7 +49,7 @@ public class PostDetailActivity extends BaseActivity {
     private Button commentSaveBtn;
     private TextView postNickname, postDate, postTitle, postContent,
     postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText,
-    postLikeCnt, postCommentCnt;
+    postLikeCnt, postCommentCnt, postShareBtnIcon, postShareBtnText;
     private EditText commentEdit;
     private ListView commentList;
     private CommentAdapter commentAdapter;
@@ -107,6 +110,8 @@ public class PostDetailActivity extends BaseActivity {
         postLikeBtnText = (TextView) findViewById(R.id.postLikeBtnText);
         postScrapBtnIcon = (TextView) findViewById(R.id.postScrapBtnIcon);
         postScrapBtnText = (TextView) findViewById(R.id.postScrapBtnText);
+        postShareBtnIcon = (TextView) findViewById(R.id.postShareBtnIcon);
+        postShareBtnText = (TextView) findViewById(R.id.postShareBtnText);
 
         postLikeCnt = (TextView) findViewById(R.id.postLikeCnt);
         postCommentCnt = (TextView) findViewById(R.id.postCommentCnt);
@@ -166,6 +171,8 @@ public class PostDetailActivity extends BaseActivity {
         postLikeBtnText.setTextColor(getResources().getColor(R.color.grayLight));
         postScrapBtnIcon.setTextColor(getResources().getColor(R.color.grayLight));
         postScrapBtnText.setTextColor(getResources().getColor(R.color.grayLight));
+        postShareBtnIcon.setTextColor(getResources().getColor(R.color.colorChatPurple));
+        postShareBtnText.setTextColor(getResources().getColor(R.color.colorChatPurple));
 
         postLikeCnt.setText(post.getLikeCount()+"개");
         postCommentCnt.setText(post.getCommentCount()+"개");
@@ -209,12 +216,12 @@ public class PostDetailActivity extends BaseActivity {
 
             case R.id.myPostDeleteBtn: // 포스트 삭제 버튼
                 Log.d("PostDetail", "delete post");
-                new PostingAsyncTask(this, postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText).execute(3, idx);
+                new PostingAsyncTask(this, post, postLikeCnt, postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText).execute(3, idx);
                 break;
 
             case R.id.postLikeBtn: // 좋아요 버튼 클릭 : 1
                 Log.d("PostDetail", "like");
-                new PostingAsyncTask(this, postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText).execute(1, idx);
+                new PostingAsyncTask(this, post, postLikeCnt, postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText).execute(1, idx);
                 break;
 
             case R.id.postShareBtn:
@@ -226,14 +233,15 @@ public class PostDetailActivity extends BaseActivity {
 
             case R.id.postScrapBtn: // 스크랩 버튼 클릭 : 2
                 Log.d("PostDetail", "scrap");
-                new PostingAsyncTask(this, postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText).execute(2, idx);
+                new PostingAsyncTask(this, post, postLikeCnt, postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText).execute(2, idx);
                 break;
 
             case R.id.commentSaveBtn:
                 Log.d("PostDetail", "save comment");
-                new writeCommentAsync(this).execute(String.valueOf(idx), commentEdit.getText().toString());
+                new writeCommentAsync(this, postCommentCnt, post, commentAdapter, commentList, postScrollView, commentEdit).execute(String.valueOf(idx), commentEdit.getText().toString());
                 break;
         }
+        onStop();
     }
 
     @Override
@@ -241,6 +249,7 @@ public class PostDetailActivity extends BaseActivity {
         super.onResume();
         mapFragment.initMapCenter(post.getLongitude(), post.getLatitude(), 0);
     }
+
 }
 
 class showPostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
@@ -275,15 +284,18 @@ class showPostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
 class PostingAsyncTask extends AsyncTask<Integer, Integer, Integer> {
     Context context;
     Dbhelper dbhelper;
-    TextView postLikeBtnIcon,postLikeBtnText,postScrapBtnIcon, postScrapBtnText;
+    TextView postLikeBtnIcon,postLikeBtnText,postScrapBtnIcon, postScrapBtnText, postLikeCnt;
+    Post post;
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
     }
 
-    public PostingAsyncTask(Context context, TextView postLikeBtnIcon, TextView postLikeBtnText, TextView postScrapBtnIcon, TextView postScrapBtnText){
+    public PostingAsyncTask(Context context, Post post, TextView postLikeCnt, TextView postLikeBtnIcon, TextView postLikeBtnText, TextView postScrapBtnIcon, TextView postScrapBtnText){
         this.context = context;
+        this.post = post;
+        this.postLikeCnt = postLikeCnt;
         this.postLikeBtnIcon = postLikeBtnIcon;
         this.postLikeBtnText = postLikeBtnText;
         this.postScrapBtnIcon = postScrapBtnIcon;
@@ -294,13 +306,13 @@ class PostingAsyncTask extends AsyncTask<Integer, Integer, Integer> {
     protected Integer doInBackground(Integer... ints) {
         dbhelper = new Dbhelper(context);
         HttpReqRes httpReqRes = new HttpReqRes();
-        Post post = new Post();
+//        Post post = new Post();
         int num = ints[0];
         String res = null;
         int ret = 0;
 
         switch (num) {
-            case 1:     // 포스팅 북마크
+            case 1:     // 포스팅 라잌
                 res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/like/" + ints[1], dbhelper.getAccessToken(), 1);
 
                 if (res.matches("(.*)201(.*)")) {
@@ -334,6 +346,9 @@ class PostingAsyncTask extends AsyncTask<Integer, Integer, Integer> {
                 break;
         }
 
+        String result = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + ints[1]);
+        post = PostingJsonToObj(result, 2).get(0);
+
         return ret;
     }
 
@@ -342,73 +357,111 @@ class PostingAsyncTask extends AsyncTask<Integer, Integer, Integer> {
         super.onPostExecute(num);
 
         switch(num) {
-            case 1: // 북마크
-                postScrapBtnIcon.setTextColor(context.getResources().getColor(R.color.sunflower));
-                postScrapBtnText.setTextColor(context.getResources().getColor(R.color.sunflower));
-                break;
-
-            case 2: // 언북맠
-                postScrapBtnIcon.setTextColor(context.getResources().getColor(R.color.grayLight));
-                postScrapBtnText.setTextColor(context.getResources().getColor(R.color.grayLight));
-                break;
-
-            case 3: // 라잌
+            case 1: // 라잌
+//                postLikeCnt.setText(post.getLikeCount());
                 postLikeBtnIcon.setTextColor(context.getResources().getColor(R.color.alizarin));
                 postLikeBtnText.setTextColor(context.getResources().getColor(R.color.alizarin));
                 break;
 
-            case 4: //언라잌
+            case 2: //언라잌
+//                postLikeCnt.setText(post.getLikeCount());
                 postLikeBtnIcon.setTextColor(context.getResources().getColor(R.color.grayLight));
                 postLikeBtnText.setTextColor(context.getResources().getColor(R.color.grayLight));
+                break;
+
+            case 3: // 북마크
+                postScrapBtnIcon.setTextColor(context.getResources().getColor(R.color.sunflower));
+                postScrapBtnText.setTextColor(context.getResources().getColor(R.color.sunflower));
+                break;
+
+            case 4: // 언북맠
+                postScrapBtnIcon.setTextColor(context.getResources().getColor(R.color.grayLight));
+                postScrapBtnText.setTextColor(context.getResources().getColor(R.color.grayLight));
                 break;
         }
     }
 }
 
-class writeCommentAsync extends AsyncTask<String, String, String> {
+class writeCommentAsync extends AsyncTask<String, String, Post> {
     private Context context;
     private Dbhelper dbhelper;
+    TextView postCommentCnt;
+    Post post;
+    CommentAdapter commentAdapter;
+    ListView commentList;
+    ScrollView postScrollView;
+    EditText commentEdit;
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
     }
-    public writeCommentAsync(Context context){
+    public writeCommentAsync(Context context, TextView postCommentCnt, Post post, CommentAdapter commentAdapter, ListView commentList, ScrollView postScrollView, EditText commentEdit){
         this.context = context;
+        this.postCommentCnt = postCommentCnt;
+        this.post = post;
+        this.commentAdapter = commentAdapter;
+        this.commentList = commentList;
+        this.postScrollView = postScrollView;
+        this.commentEdit = commentEdit;
     }
 
     @Override
-    protected String doInBackground(String... strings){
+    protected Post doInBackground(String... strings){
         HttpReqRes httpReqRes = new HttpReqRes();
         dbhelper = new Dbhelper(context);
-        try{
-            httpReqRes.requestHttpPostWriteComment("https://dna.soyoungpark.me:9013/api/posting/reply/" + Integer.parseInt(strings[0]), dbhelper, strings[1]);
-        }finally {
-        }
-        return null;
+        httpReqRes.requestHttpPostWriteComment("https://dna.soyoungpark.me:9013/api/posting/reply/" + Integer.parseInt(strings[0]), dbhelper, strings[1]);
+
+        String res = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + Integer.parseInt(strings[0]));
+        Post posting = PostingJsonToObj(res, 2).get(0);
+        return posting;
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(Post posting) {
+        super.onPostExecute(posting);
+        post = posting;
+        postCommentCnt.setText(post.getCommentCount()+"개");
+//        postScrapCnt.setText(post.getScrapCount()+"개");
+        commentAdapter = new CommentAdapter(context, R.layout.post_comment_item, post.getComments());
+        commentList.setAdapter(commentAdapter);
 
-        super.onPostExecute(result);
+        // 댓글 갯수에 맞춰서 height 설정하기
+        final int UNBOUNDED = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        for (int i = 0; i < commentAdapter.getCount(); i++) {
+            View childView = commentAdapter.getView(i, null, commentList);
+            childView.measure(UNBOUNDED, UNBOUNDED);
+            totalHeight += childView.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = commentList.getLayoutParams();
+        params.height = totalHeight + (commentList.getDividerHeight() * (commentList.getCount() - 1));
+        commentList.setLayoutParams(params);
+        commentList.requestLayout();
+
+        commentEdit.setText("");
+
+        // 생성된 후 최상단으로 스크롤을 올려줍니다
+        postScrollView.smoothScrollTo(0, 0);
+//        HttpReqRes httpReqRes = new HttpReqRes();
+//        httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + idx);
     }
 }
 
-class addFriendAsync extends AsyncTask<Integer, String, String> {
+class addFriendAsync extends AsyncTask<Integer, String, Void> {
     private Context context;
     private Dbhelper dbhelper;
 
-//    @Override
+    //    @Override
 //    protected void onPreExecute() {
 //        super.onPreExecute();
 //    }
-    public addFriendAsync(Context context){
+    public addFriendAsync(Context context) {
         this.context = context;
     }
 
     @Override
-    protected String doInBackground(Integer... ints){
+    protected Void doInBackground(Integer... ints) {
         HttpReqRes httpReqRes = new HttpReqRes();
         dbhelper = new Dbhelper(context);
 
@@ -417,9 +470,9 @@ class addFriendAsync extends AsyncTask<Integer, String, String> {
         return null;
     }
 
-//    @Override
-//    protected void onPostExecute() {
-//
-//        super.onPostExecute();
+    @Override
+    protected void onPostExecute(Void voids) {
+
+        super.onPostExecute(voids);
     }
 }
