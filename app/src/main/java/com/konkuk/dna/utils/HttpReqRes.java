@@ -217,6 +217,41 @@ public class HttpReqRes {
         return result;
     }
 
+    /*
+     * DM방 개설하기 - post
+     * */
+    public String requestHttpPostCreateDM(String url, String token, String nickname, int idx, String avatar) {
+
+        String result = null;
+        try {
+            HttpClient client = new DefaultHttpClient();
+            client.getParams().setParameter("http.protocol.expect-continue", false);
+            client.getParams().setParameter("http.connection.timeout", 2000);
+            client.getParams().setParameter("http.socket.timeout", 2000);
+
+            String postURL = url;
+            HttpPost post = new HttpPost(postURL);
+            post.setHeader("token", token);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("nickname", nickname));
+            params.add(new BasicNameValuePair("idx", String.valueOf(idx)));
+            params.add(new BasicNameValuePair("avatar", avatar));
+
+            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+            post.setEntity(ent);
+            HttpResponse responsePOST = client.execute(post);
+            HttpEntity resEntity = responsePOST.getEntity();
+            if (resEntity != null) {
+                result = EntityUtils.toString(resEntity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //Log.e("requestHttpPostBestChat", "res: "+result);
+        return result;
+    }
+
 
     /*
      * get DM Rooms- GET

@@ -8,8 +8,9 @@ public class Friend {
     private String info;
     private Boolean status;
 
-    public Friend(String id, String nickname, String avatar, String info, Boolean status) {
+    public Friend(String id, int idx, String nickname, String avatar, String info, Boolean status) {
         this.id = id;
+        this.idx = idx;
         this.nickname = nickname;
         this.avatar = avatar;
         this.info = info;

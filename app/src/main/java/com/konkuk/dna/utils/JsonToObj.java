@@ -79,6 +79,7 @@ public class JsonToObj {
     public static Friend SearchUserJsonToObj(String jsonResult){
 
         String id, nickname, avatar, description;
+        int idx;
         boolean status = false;
 
         JsonParser jsonParser = new JsonParser();
@@ -88,6 +89,7 @@ public class JsonToObj {
             // 리스폰스가 정상이고 서버 응답이 200이라면?
             JsonObject resultObject = (JsonObject) jsonObject.get("result");
             id = getStringNoQuote(String.valueOf(resultObject.get("id")));
+            idx = Integer.parseInt(String.valueOf(resultObject.get("idx")));
             nickname = getStringNoQuote(String.valueOf(resultObject.get("nickname")));
             avatar = getStringNoQuote(String.valueOf(resultObject.get("avatar")));
             description = getStringNoQuote(String.valueOf(resultObject.get("description")));
@@ -105,7 +107,7 @@ public class JsonToObj {
         }
 
 //        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
-        return new Friend(id, nickname, avatar, description, status);
+        return new Friend(id, idx, nickname, avatar, description, status);
     }
 
     /*
@@ -429,6 +431,72 @@ public class JsonToObj {
         }
 
         return Dmrooms;
+    }
+
+    /*
+     * DM방 목록 검색으로 날아온 Json변환 메소드
+     * */
+    public static DMRoom NewDMRoomJsonToObj(String jsonResult, int myIdx){
+
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(jsonResult);
+
+
+        String _id, created_at, updated_at;
+        int room_idx, __v;
+        String m__id, m_nickname, m_avatar;
+        int m_idx;
+        String f__id="", f_nickname="", f_avatar="";
+        int f_idx=0;
+        String last_message, last_type;
+
+
+        if(jsonObject.get("status")!=null && jsonObject.get("status").toString().equals("200")) {
+            JsonObject oneObject = (JsonObject) jsonObject.get("result");
+
+                JsonArray blindarray = (JsonArray) oneObject.get("blind");
+                for(int j=0; j<blindarray.size(); j++){
+                    //blind 무엇? blind 배열 안에 현재 유저의 idx에 포함되어 있을 경우 해당 채팅방을 리스트에 보여주지 않습니다.
+                }
+                _id = getStringNoQuote(oneObject.get("_id").toString());
+                room_idx = Integer.parseInt(oneObject.get("idx").toString());
+
+                JsonArray usersarray = (JsonArray) oneObject.get("users");
+                for(int j=0; j<2; j++){
+                    JsonObject userObject = (JsonObject) usersarray.get(j);
+                    if(myIdx == Integer.parseInt(userObject.get("idx").toString())){
+
+                        m__id =  getStringNoQuote(userObject.get("_id").toString());
+                        m_idx = Integer.parseInt(userObject.get("idx").toString());
+                        m_nickname =  getStringNoQuote(userObject.get("nickname").toString());
+                        m_avatar =  getStringNoQuote(userObject.get("avatar").toString());
+                    }else{
+                        f__id =  getStringNoQuote(userObject.get("_id").toString());
+                        f_idx = Integer.parseInt(userObject.get("idx").toString());
+                        f_nickname =  getStringNoQuote(userObject.get("nickname").toString());
+                        f_avatar =  getStringNoQuote(userObject.get("avatar").toString());
+                    }
+                }
+                created_at = getStringNoQuote(oneObject.get("created_at").toString());
+                updated_at = getStringNoQuote(oneObject.get("updated_at").toString());
+                __v = Integer.parseInt(oneObject.get("__v").toString());
+
+                last_message = "";
+                if (oneObject.get("last_message")!=null) {
+                    last_message = getStringNoQuote(oneObject.get("last_message").toString());
+                }
+
+                last_type = "";
+                if (oneObject.get("last_type")!=null) {
+                    last_type = getStringNoQuote(oneObject.get("last_type").toString());
+                }
+
+
+        }else{
+            return null;
+        }
+
+        return new DMRoom(room_idx, f_idx, f_nickname, f_avatar, last_message, last_type, DatetoStr(updated_at));
     }
 
 
