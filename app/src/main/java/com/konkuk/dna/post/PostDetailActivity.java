@@ -162,10 +162,10 @@ public class PostDetailActivity extends BaseActivity {
         // TODO 내가 좋아요를 누른 글인지, 스크랩 한 글인지에 따라 버튼 색깔이 달라져야 합니다.
         // TODO 지금은 좋아요와 스크랩 둘 다 해당하도록 설정되어 있는데,
         // TODO 해당하지 않을 경우 R.color.concrete를 적용해주면 됩니다!
-        postLikeBtnIcon.setTextColor(getResources().getColor(R.color.alizarin));
-        postLikeBtnText.setTextColor(getResources().getColor(R.color.alizarin));
-        postScrapBtnIcon.setTextColor(getResources().getColor(R.color.sunflower));
-        postScrapBtnText.setTextColor(getResources().getColor(R.color.sunflower));
+        postLikeBtnIcon.setTextColor(getResources().getColor(R.color.grayLight));
+        postLikeBtnText.setTextColor(getResources().getColor(R.color.grayLight));
+        postScrapBtnIcon.setTextColor(getResources().getColor(R.color.grayLight));
+        postScrapBtnText.setTextColor(getResources().getColor(R.color.grayLight));
 
         postLikeCnt.setText(post.getLikeCount()+"개");
         postCommentCnt.setText(post.getCommentCount()+"개");
@@ -209,12 +209,12 @@ public class PostDetailActivity extends BaseActivity {
 
             case R.id.myPostDeleteBtn: // 포스트 삭제 버튼
                 Log.d("PostDetail", "delete post");
-                //TODO : 포스팅 삭제시 동작 구현해야 합니다.
+                new PostingAsyncTask(this, postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText).execute(3, idx);
                 break;
 
             case R.id.postLikeBtn: // 좋아요 버튼 클릭 : 1
                 Log.d("PostDetail", "like");
-                new PostingAsyncTask(this).execute(1, idx);
+                new PostingAsyncTask(this, postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText).execute(1, idx);
                 break;
 
             case R.id.postShareBtn:
@@ -226,7 +226,7 @@ public class PostDetailActivity extends BaseActivity {
 
             case R.id.postScrapBtn: // 스크랩 버튼 클릭 : 2
                 Log.d("PostDetail", "scrap");
-                new PostingAsyncTask(this).execute(2, idx);
+                new PostingAsyncTask(this, postLikeBtnIcon, postLikeBtnText, postScrapBtnIcon, postScrapBtnText).execute(2, idx);
                 break;
 
             case R.id.commentSaveBtn:
@@ -272,60 +272,96 @@ class showPostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
 //    }
 }
 
-class PostingAsyncTask extends AsyncTask<Integer, Integer, Post> {
+class PostingAsyncTask extends AsyncTask<Integer, Integer, Integer> {
     Context context;
     Dbhelper dbhelper;
+    TextView postLikeBtnIcon,postLikeBtnText,postScrapBtnIcon, postScrapBtnText;
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
     }
 
-    public PostingAsyncTask(Context context){ this.context = context; }
+    public PostingAsyncTask(Context context, TextView postLikeBtnIcon, TextView postLikeBtnText, TextView postScrapBtnIcon, TextView postScrapBtnText){
+        this.context = context;
+        this.postLikeBtnIcon = postLikeBtnIcon;
+        this.postLikeBtnText = postLikeBtnText;
+        this.postScrapBtnIcon = postScrapBtnIcon;
+        this.postScrapBtnText = postScrapBtnText;
+    }
 
     @Override
-    protected Post doInBackground(Integer... ints) {
+    protected Integer doInBackground(Integer... ints) {
         dbhelper = new Dbhelper(context);
         HttpReqRes httpReqRes = new HttpReqRes();
         Post post = new Post();
         int num = ints[0];
         String res = null;
+        int ret = 0;
 
-        switch(num){
+        switch (num) {
             case 1:     // 포스팅 북마크
                 res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/like/" + ints[1], dbhelper.getAccessToken(), 1);
 
-                if(res.matches("(.*)201(.*)")){
+                if (res.matches("(.*)201(.*)")) {
                     Log.v("postdetail", "status : 201");
+                    ret = 1;
                     break;
-                }
-                else if(res.matches("(.*)400(.*)")){
+                } else if (res.matches("(.*)400(.*)")) {
                     Log.v("postdetail", "status : 400");
-                    res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/like/" + ints[1], dbhelper.getAccessToken(), 3);
+                    res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/like/" + ints[1], dbhelper.getAccessToken(), 2);
+                    ret = 2;
                 }
                 break;
 
             case 2:     // 포스팅 북마크
-                res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[1], dbhelper.getAccessToken(), 2);
+                res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[1], dbhelper.getAccessToken(), 1);
 
-                if(res.matches("(.*)201(.*)")){
+                if (res.matches("(.*)201(.*)")) {
                     Log.v("postdetail", "status : 201");
+                    ret = 3;
                     break;
-                }
-                else if(res.matches("(.*)400(.*)")){
+                } else if (res.matches("(.*)400(.*)")) {
                     Log.v("postdetail", "status : 400");
-                    res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[1], dbhelper.getAccessToken(), 4);
+                    res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[1], dbhelper.getAccessToken(), 2);
+                    ret = 4;
                 }
+                break;
+
+            case 3:
+                res = httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/" + ints[1], dbhelper.getAccessToken(), 2);
+                Log.v("postdetail", "delete res : " + res);
                 break;
         }
 
-        return post;
+        return ret;
     }
 
     @Override
-    protected void onPostExecute(Post posting) {
-        super.onPostExecute(posting);
+    protected void onPostExecute(Integer num) {
+        super.onPostExecute(num);
 
+        switch(num) {
+            case 1: // 북마크
+                postScrapBtnIcon.setTextColor(context.getResources().getColor(R.color.sunflower));
+                postScrapBtnText.setTextColor(context.getResources().getColor(R.color.sunflower));
+                break;
+
+            case 2: // 언북맠
+                postScrapBtnIcon.setTextColor(context.getResources().getColor(R.color.grayLight));
+                postScrapBtnText.setTextColor(context.getResources().getColor(R.color.grayLight));
+                break;
+
+            case 3: // 라잌
+                postLikeBtnIcon.setTextColor(context.getResources().getColor(R.color.alizarin));
+                postLikeBtnText.setTextColor(context.getResources().getColor(R.color.alizarin));
+                break;
+
+            case 4: //언라잌
+                postLikeBtnIcon.setTextColor(context.getResources().getColor(R.color.grayLight));
+                postLikeBtnText.setTextColor(context.getResources().getColor(R.color.grayLight));
+                break;
+        }
     }
 }
 
@@ -382,8 +418,8 @@ class addFriendAsync extends AsyncTask<Integer, String, String> {
     }
 
 //    @Override
-//    protected void onPostExecute(String result) {
+//    protected void onPostExecute() {
 //
 //        super.onPostExecute();
-//    }
+    }
 }

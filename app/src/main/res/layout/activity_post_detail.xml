@@ -138,6 +138,7 @@
                                             android:layout_centerVertical="true"
                                             android:visibility="invisible"
                                             android:background="@drawable/layout_button_bookmark_delete"
+                                            android:onClick="onClick"
                                             android:gravity="center">
 
                                             <TextView
