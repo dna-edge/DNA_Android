@@ -203,10 +203,8 @@ public class ChatActivity extends BaseActivity {
                         if(loc!=null){
                             FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
                             ChatListMapFragment chatListMapFragment = ChatListMapFragment.newInstance(loc.get(1), loc.get(0));
-
                             chatListMapFragment.show(fragmentManager, "chatListMapFragment");
                         }
-
                         break;
 
                     case TYPE_IMAGE:

@@ -86,8 +86,6 @@ public class ChatListMapFragment extends DialogFragment
         mapContext = new NMapContext(super.getActivity());
         mapContext.onCreate();
 
-        ChatActivity context = (ChatActivity) getActivity();
-
         init();
     }
 

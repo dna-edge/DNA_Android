@@ -647,6 +647,52 @@ public class HttpReqRes {
         return result;
     }
 
+    /*
+     * Signup, Check ID - POST
+     * */
+    public String requestHttpPostSignup(String url, String id, String password, String conform_password, String email, String nickname, String description, String avatar) {
+
+        HttpsURLConnection urlConn = null;
+        BufferedReader reader = null;
+
+        String result = null;
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpPost post = new HttpPost(postURL);
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("id", id));
+            params.add(new BasicNameValuePair("password", password));
+            params.add(new BasicNameValuePair("conform_password", conform_password));
+            params.add(new BasicNameValuePair("email", email));
+            if(nickname==null || nickname==""){
+                nickname = id;
+            }
+            params.add(new BasicNameValuePair("nickname", nickname));
+            params.add(new BasicNameValuePair("description", description));
+            //params.add(new BasicNameValuePair("avater", password));
+
+            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+            post.setEntity(ent);
+            HttpResponse responsePOST = client.execute(post);
+            HttpEntity resEntity = responsePOST.getEntity();
+            Log.e("RESPONSE", EntityUtils.toString(resEntity));
+//            if(responsePOST.getStatusLine().getStatusCode()==200){
+//                HttpEntity resEntity = responsePOST.getEntity();
+//                if (resEntity != null) {
+//                    result = EntityUtils.toString(resEntity);
+//                    Log.i("RESPONSE", result);
+//                }
+//            }else{
+//                result = null;
+//            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 //    /*
 //     * Friend Requests = put/delete
 //     */

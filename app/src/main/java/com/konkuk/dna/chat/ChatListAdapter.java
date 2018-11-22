@@ -183,7 +183,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                         //TODO : 지도 위치 가져오기!
                         ArrayList<Double> loc = getLocationContents(message.getContents());
                         if(loc!=null){
-                            Log.e("getLocation", "success");
                             Double lat = loc.get(0);
                             Double lng = loc.get(1);
 
@@ -202,17 +201,6 @@ public class ChatListAdapter extends ArrayAdapter<ChatMessage> {
                         }
 
                     }
-//                if (msgLocationWrapper != null) {
-//                    msgLocationWrapper.setVisibility(View.VISIBLE);
-//                    msgLocationWrapper.setId(message.getIdx());
-//                    FragmentManager manager = ((Activity) context).getFragmentManager();
-//                    FragmentTransaction fragTransaction = manager.beginTransaction();
-//                    ChatListMapFragment newFragment =
-//                            ChatListMapFragment.newInstance(message.getLng(), message.getLat());
-//                    Log.d("test", newFragment.toString());
-//                    fragTransaction.add(msgLocationWrapper.getId(), (Fragment) newFragment, "mapFragment" + message.getIdx());
-//                    fragTransaction.commit();
-//                }
 
                     break;
                 case TYPE_SHARE:

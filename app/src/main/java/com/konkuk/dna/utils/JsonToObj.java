@@ -772,7 +772,6 @@ public class JsonToObj {
     public static ArrayList<Double> getLocationContents(String contents){
 
         contents = contents.replace("\\", "");
-        Log.e("Check str", contents);
         ArrayList<Double> location = new ArrayList<>();
 
         try{
