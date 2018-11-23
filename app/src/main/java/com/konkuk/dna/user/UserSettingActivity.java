@@ -64,8 +64,9 @@ public class UserSettingActivity extends BaseActivity {
         dbhelper = new Dbhelper(this);
         radius = dbhelper.getMyRadius();
         isanony = dbhelper.getMyAnonymity()==1 ? true : false;
+        issearchable = dbhelper.getMySearchable()==1 ? true : false;
         int_anony = dbhelper.getMyAnonymity();
-        int_search = 1;
+        int_search = dbhelper.getMySearchable();
 
         longitude = gpsTracker.getLongitude();
         latitude = gpsTracker.getLatitude();
@@ -101,7 +102,6 @@ public class UserSettingActivity extends BaseActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        isAnonymity = findViewById(R.id.isAnonymity);
         isAnonymity.setChecked(isanony);
         isAnonymity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -112,6 +112,20 @@ public class UserSettingActivity extends BaseActivity {
                 }else{
                     isanony = false;
                     int_anony = 0;
+                }
+            }
+        });
+
+        isFindable.setChecked(issearchable);
+        isFindable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    issearchable = true;
+                    int_search = 1;
+                }else{
+                    issearchable = false;
+                    int_search = 0;
                 }
             }
         });
@@ -138,6 +152,7 @@ public class UserSettingActivity extends BaseActivity {
 
                 dbhelper.updateRadius(radius);
                 dbhelper.updateAnonymity(int_anony);
+                dbhelper.updateSearchable(int_search);
 
                 JsonObject storeJson = StoreObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude());
                 SocketConnection.emit("store", storeJson);

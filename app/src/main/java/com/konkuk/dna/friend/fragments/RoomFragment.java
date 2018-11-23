@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.konkuk.dna.R;
+import com.konkuk.dna.utils.EventListener;
 import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.utils.ServerURL;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
@@ -23,6 +24,9 @@ import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.friend.message.DMActivity;
 import com.konkuk.dna.friend.message.DMRoom;
 import com.konkuk.dna.friend.message.DMRoomListAdapter;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -40,6 +44,8 @@ public class RoomFragment extends Fragment {
     private final String TYPE_MESSAGE = "Message";     // 일반 메시지 전송
     private final String TYPE_LOCATION = "Location";    // 현재 위치 전송
     private final String TYPE_IMAGE = "Image";       // 이미지 전송
+
+    private static final int SOCKET_DIRECT = 7;
 
     public RoomFragment() {}
 
@@ -100,11 +106,32 @@ public class RoomFragment extends Fragment {
                 intent.putExtra("roomIdx", room.getIdx());
                 intent.putExtra("roomWho", room.getNickname());
                 intent.putExtra("roomUpdated", room.getUpdateDate());
+
+                if(getActivity().getIntent().getIntExtra("postNum", -1) != -1) {
+                    intent.putExtra("postNum", getActivity().getIntent().getIntExtra("postNum", -1));
+                    intent.putExtra("postTitle", getActivity().getIntent().getStringExtra("postTitle"));
+                }
                 startActivity(intent);
             }
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void OnEventListener(EventListener event) {
+
+        switch (event.message) {
+            case SOCKET_DIRECT:
+                DMRoomAsyncTask dmrat = new DMRoomAsyncTask(getActivity(), dmRoomListAdapter, roomList);
+                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+                    dmrat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }else{
+                    dmrat.execute();
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 

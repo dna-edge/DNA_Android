@@ -75,4 +75,18 @@ public class ObjToJson {
         return mdataObj;
     }
 
+    /*
+     * 위치정보 전송 용 Json 생성
+     * */
+    public static JsonObject LocationObjToJson(Double lat, Double lng) {
+
+        //JsonObject jObj = new JsonObject();
+        JsonObject jObj = new JsonObject();
+
+        jObj.addProperty("lat", lat);
+        jObj.addProperty("lng", lng);
+
+        return jObj;
+    }
+
 }

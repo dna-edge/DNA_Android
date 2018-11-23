@@ -1,6 +1,7 @@
 package com.konkuk.dna.friend.fragments;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -23,6 +24,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.konkuk.dna.utils.EventListener;
+import com.konkuk.dna.utils.HttpReqRes;
 import com.konkuk.dna.utils.ServerURL;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.konkuk.dna.utils.helpers.AnimHelpers;
@@ -37,9 +39,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static com.konkuk.dna.utils.HttpReqRes.requestHttpGETUserInfo;
+import static com.konkuk.dna.utils.JsonToObj.FriendsJsonToObj;
 import static com.konkuk.dna.utils.JsonToObj.SearchUserJsonToObj;
 
 /**
@@ -87,22 +91,28 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
 
         if (friendSearchBtn != null) friendSearchBtn.setOnClickListener(this);
 
+//        try {
+//            allFriends = new showFriendAsyncTask(getContext()).execute().get();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
 //        onFriends.add(new Friend("3457soso", "socoing", "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg", "자기소개", true));
 //        onFriends.add(new Friend("3457soso", "socoing", null, "ㅋㅋ", true));
 //        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
-            onFriends.add(new Friend("", "", null, "", false));
+//            onFriends.add(new Friend("", "", null, "", false));
 
 //        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
 //        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
 //        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
 //        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
 
-        allFriends.add(new Friend("3457soso", "socoing", "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg", "상태 메시지", true));
-        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
-        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
-        allFriends.add(new Friend("3457soso", "socoing", null, "ㅋㅋㅎㅁ", true));
-        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
-        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
+//        allFriends.add(new Friend("3457soso", "socoing", "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg", "상태 메시지", true));
+//        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
+//        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
+//        allFriends.add(new Friend("3457soso", "socoing", null, "ㅋㅋㅎㅁ", true));
+//        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
+//        allFriends.add(new Friend("3457soso", "socoing", null, "", false));
 
         /* 접속 중인 친구 */
         RecyclerView.LayoutManager layoutManager;
@@ -142,13 +152,25 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
         switch (event.message){
             case SOCKET_DIRECT:
                 Log.e("Socket ON", "direct(friends list)");
-                FriendListAsyncTask flas = new FriendListAsyncTask(getContext(), onFriendListAdapter, onFriendList);
+
+                OnlineFriendListAsyncTask flas = new OnlineFriendListAsyncTask(getContext(), onFriendListAdapter, onFriendList);
 
                 if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
                     flas.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.args, dbhelper.getAccessToken());
                 }else{
                     flas.execute(event.args, dbhelper.getAccessToken());
                 }
+
+                //모든 친구 목록
+                //allFriends = new showFriendAsyncTask(getContext()).execute().get();
+                showFriendAsyncTask sfat = new showFriendAsyncTask(getActivity(), getContext(), allFriendListAdapter, allFriendList);
+
+                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+                    sfat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.args);
+                }else{
+                    sfat.execute(event.args);
+                }
+
 
                 break;
             default:
@@ -163,37 +185,35 @@ public class FriendFragment extends BaseFragment implements View.OnClickListener
     }
 }
 
-class FriendListAsyncTask extends AsyncTask<String, Integer, ArrayList<Friend>> {
+class OnlineFriendListAsyncTask extends AsyncTask<String, Integer, ArrayList<Friend>> {
     private Context context;
     private OnFriendListAdapter onFriendListAdapter;
     private RecyclerView onFriendList;
 
-    public FriendListAsyncTask(Context context, OnFriendListAdapter onFriendListAdapter, RecyclerView onFriendList) {
+    public OnlineFriendListAsyncTask(Context context, OnFriendListAdapter onFriendListAdapter, RecyclerView onFriendList) {
         this.context = context;
         this.onFriendListAdapter = onFriendListAdapter;
         this.onFriendList = onFriendList;
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    @Override
     protected ArrayList<Friend> doInBackground(String... strings) {
-        //Dbhelper dbhelper = new Dbhelper(context);
+
+        // 접속 친구
         ArrayList<Friend> friends = new ArrayList<>();
         int idx=-1;
         JsonParser jp = new JsonParser();
         JsonArray ja = (JsonArray) jp.parse(strings[0]);
 
-        for(int i=0; i<ja.size(); i++){
+        for(int i=1; i<ja.size(); i++){
             JsonObject jo = (JsonObject) ja.get(i);
             idx = jo.get("idx").getAsInt();
+
             String res = requestHttpGETUserInfo(ServerURL.DNA_SERVER+ServerURL.PORT_USER_API+"/user/"+idx, strings[1]);
-            Log.e("after http", res);
+            //Log.e("after http", res);
             friends.add(SearchUserJsonToObj(res));
         }
+        Log.e("String", strings[0]);
         return friends;
     }
 
@@ -206,12 +226,86 @@ class FriendListAsyncTask extends AsyncTask<String, Integer, ArrayList<Friend>> 
         onFriendList.setLayoutManager(layoutManager);
         onFriendListAdapter = new OnFriendListAdapter(context, fs);
         onFriendList.setAdapter(onFriendListAdapter);
+    }
+}
 
+class showFriendAsyncTask extends AsyncTask<String, Void, ArrayList<Friend>> {
+    private Activity activity;
+    private Context context;
+    private FriendListAdapter allFriendListAdapter;
+    private ListView allFriendList;
 
+    public showFriendAsyncTask(Activity activity, Context context, FriendListAdapter allFriendListAdapter, ListView allFriendList) {
+        this.activity = activity;
+        this.context = context;
+        this.allFriendListAdapter = allFriendListAdapter;
+        this.allFriendList = allFriendList;
+    }
 
-//        onFriends.add(new Friend("3457soso", "socoing", null, "", true));
-//        allFriends.add(new Friend("3457soso", "socoing",
-//              "http://slingshotesports.com/wp-content/uploads/2017/07/34620595595_b4c90a2e22_b.jpg", "상태 메시지", true));
+    @Override
+    protected ArrayList<Friend> doInBackground(String... strings) {
+        Dbhelper dbhelper = new Dbhelper(context);
+        HttpReqRes httpReqRes = new HttpReqRes();
+
+        ArrayList<Friend> friends = new ArrayList<>();
+
+        String res1 = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/friends/show", dbhelper.getAccessToken());
+
+        Log.v("friendfragment", "showf1 : " + res1);
+
+        int[] friends_idx = FriendsJsonToObj(res1, dbhelper);
+//        friends = FriendsJsonToObj(res1, dbhelper);
+        for(int i=0;i<friends_idx.length;i++){
+            Log.e("friendfragment", "sfat fridx"+i+" = " + friends_idx[i]);
+        }
+
+        for(int i=0; i<friends_idx.length; i++){
+            String res2 = requestHttpGETUserInfo(ServerURL.DNA_SERVER+ServerURL.PORT_USER_API+"/user/"+friends_idx[i], dbhelper.getAccessToken());
+            friends.add(SearchUserJsonToObj(res2));
+            //Log.v("friendfragment", "sfat fridx2 = " + idx[i]);
+        }
+        // 여기까지가 일단 모든친구 정보(접속상태 전부 false로 불러옴)를 불러오는 과정
+        // 이 밑에서 부터는 해당 인원이 온라인인지 체크하는 동작
+
+        // 접속 친구
+        int idx = -1;
+
+        JsonParser jp = new JsonParser();
+        JsonArray ja = (JsonArray) jp.parse(strings[0]);
+
+        for(int i=1; i<ja.size(); i++) {
+            JsonObject jo = (JsonObject) ja.get(i);
+            idx = jo.get("idx").getAsInt();
+
+            for(int j=0; j<friends.size(); j++){
+                Log.e("check idx", friends_idx[j] + " " + idx);
+
+                if(friends_idx[j] == idx){
+                    friends.get(j).setStatus(true);
+                }
+            }
+        }
+
+        return friends;
+    }
+
+    @Override
+    protected void onPostExecute(final ArrayList<Friend> fs) {
+        super.onPostExecute(fs);
+
+        allFriendListAdapter = new FriendListAdapter(context, 0, fs);
+        allFriendList.setAdapter(allFriendListAdapter);
+        AnimHelpers.setListViewHeight(allFriendList);
+        allFriendList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FragmentManager fragmentManager = activity.getFragmentManager();
+                FriendDetailFragment friendDetailFragment = new FriendDetailFragment();
+
+                friendDetailFragment.setData(fs.get(i));
+                friendDetailFragment.show(fragmentManager, "friendDetailFragment");
+            }
+        });
 
     }
 }

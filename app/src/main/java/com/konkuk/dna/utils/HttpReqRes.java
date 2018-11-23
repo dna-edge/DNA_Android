@@ -4,6 +4,7 @@ import android.icu.util.Output;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.utils.dbmanage.Dbhelper;
@@ -19,6 +20,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
@@ -32,6 +36,7 @@ import org.json.JSONStringer;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.BufferedWriter;
@@ -41,9 +46,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -53,6 +60,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -60,9 +68,13 @@ import javax.net.ssl.HttpsURLConnection;
 
 import okhttp3.Headers;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import static android.support.constraint.Constraints.TAG;
 import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
 import static junit.framework.Assert.assertEquals;
 
@@ -98,6 +110,52 @@ public class HttpReqRes {
         return result;
     }
 
+    /*
+     * Signup, Check ID - POST
+     * */
+    public String requestHttpPostSignup(String url, String id, String password, String conform_password, String email, String nickname, String description, String avatar) {
+
+        HttpsURLConnection urlConn = null;
+        BufferedReader reader = null;
+
+        String result = null;
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpPost post = new HttpPost(postURL);
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("id", id));
+            params.add(new BasicNameValuePair("password", password));
+            params.add(new BasicNameValuePair("conform_password", conform_password));
+            params.add(new BasicNameValuePair("email", email));
+            if(nickname==null || nickname==""){
+                nickname = id;
+            }
+            params.add(new BasicNameValuePair("nickname", nickname));
+            params.add(new BasicNameValuePair("description", description));
+            //params.add(new BasicNameValuePair("avater", password));
+
+            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+            post.setEntity(ent);
+            HttpResponse responsePOST = client.execute(post);
+            HttpEntity resEntity = responsePOST.getEntity();
+            Log.e("RESPONSE", EntityUtils.toString(resEntity));
+//            if(responsePOST.getStatusLine().getStatusCode()==200){
+//                HttpEntity resEntity = responsePOST.getEntity();
+//                if (resEntity != null) {
+//                    result = EntityUtils.toString(resEntity);
+//                    Log.i("RESPONSE", result);
+//                }
+//            }else{
+//                result = null;
+//            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     /*
      * Login - POST
@@ -205,6 +263,41 @@ public class HttpReqRes {
         return result;
     }
 
+    /*
+     * DM방 개설하기 - post
+     * */
+    public String requestHttpPostCreateDM(String url, String token, String nickname, int idx, String avatar) {
+
+        String result = null;
+        try {
+            HttpClient client = new DefaultHttpClient();
+            client.getParams().setParameter("http.protocol.expect-continue", false);
+            client.getParams().setParameter("http.connection.timeout", 2000);
+            client.getParams().setParameter("http.socket.timeout", 2000);
+
+            String postURL = url;
+            HttpPost post = new HttpPost(postURL);
+            post.setHeader("token", token);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("nickname", nickname));
+            params.add(new BasicNameValuePair("idx", String.valueOf(idx)));
+            params.add(new BasicNameValuePair("avatar", avatar));
+
+            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(params, HTTP.UTF_8);
+            post.setEntity(ent);
+            HttpResponse responsePOST = client.execute(post);
+            HttpEntity resEntity = responsePOST.getEntity();
+            if (resEntity != null) {
+                result = EntityUtils.toString(resEntity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //Log.e("requestHttpPostBestChat", "res: "+result);
+        return result;
+    }
+
 
     /*
      * get DM Rooms- GET
@@ -268,6 +361,7 @@ public class HttpReqRes {
             HttpEntity resEntity = responseGET.getEntity();
             if (resEntity != null) {
                 result = EntityUtils.toString(resEntity);
+                Log.v("httpreqres", "getuserinfo res : " + result);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -311,100 +405,45 @@ public class HttpReqRes {
      * 사진 람다업로드 후 주소받아오기 - post
      * */
     public static String requestHttpPostLambda(String requrl, String imgURL) {
-
         /*
          await axios.post(`${AWS_LAMBDA_API_URL}?type=${type}`, formData,
     { headers: { 'Content-Type': 'multipart/form-data' }})
     .then((response) => {result = response});
          */
+
+        //URLConnection.guessContentTypeFromName(fileName) : image/png
+        //String fileName = new File(imgURL).getName();
         //TODO: js에서 file으로 넘기는게 무슨 객체인지, 어떤 형식인지 알아야 풀 수 있을 것 같다.
-        HttpURLConnection connection = null;
-        DataOutputStream outputStream = null;
-        InputStream inputStream = null;
 
-        String twoHyphens = "--";
-        //String boundary =  "*****"+Long.toString(System.currentTimeMillis())+"*****";
-        String boundary =  "";
-        String lineEnd = "\r\n";
+        try{
+            File sourceFile = new File(imgURL);
+            String filename = sourceFile.getName();
+            //Log.d(TAG, "File...::::" + sourceFile + " : " + sourceFile.exists());
 
-        String result = "";
+            final MediaType MEDIA_TYPE = imgURL.endsWith("png") ?
+                    MediaType.parse("image/png") : MediaType.parse("image/jpeg");
 
-        int bytesRead, bytesAvailable, bufferSize;
-        byte[] buffer;
-        int maxBufferSize = 1*1024*1024;
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addPart(
+                            Headers.of("Content-Disposition", "form-data; name=\"image\""),
+                            RequestBody.create(MEDIA_TYPE, new File(imgURL)))
+                    .build();
 
-        String[] q = imgURL.split("/");
-        int idx = q.length - 1;
+            Request request = new Request.Builder()
+                    .header("Content-Type", "multipart/form-data")
+                    .url(requrl+"?type=image")
+                    .post(requestBody)
+                    .build();
 
-        try {
-            File file = new File(imgURL);
-            FileInputStream fileInputStream = new FileInputStream(file);
+            Log.e("request", request.body().toString());
 
-            URL url = new URL(requrl+"?type=image");
-            connection = (HttpURLConnection) url.openConnection();
+            OkHttpClient client = new OkHttpClient();
+            Response response = client.newCall(request).execute();
 
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setUseCaches(false);
+            return response.body().string();
 
-            connection.setRequestMethod("POST");
-            //connection.setRequestProperty("Connection", "Keep-Alive");
-            //connection.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0");
-            connection.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
-
-            outputStream = new DataOutputStream(connection.getOutputStream());
-            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            //outputStream.writeBytes("Content-Disposition: form-data; name=\"" + "image" + "\"; filename=\"" + q[idx] +"\"" + lineEnd);
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"" + "image" + "\"" + lineEnd);
-            //outputStream.writeBytes("Content-Type: image/jpeg" + lineEnd);
-            //outputStream.writeBytes("Content-Transfer-Encoding: binary" + lineEnd);
-            outputStream.writeBytes(lineEnd);
-            Log.e("Content type", q[idx]);
-
-            bytesAvailable = fileInputStream.available();
-            bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            buffer = new byte[bufferSize];
-
-            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-            while(bytesRead > 0) {
-                outputStream.write(buffer, 0, bufferSize);
-                bytesAvailable = fileInputStream.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-            }
-
-            outputStream.writeBytes(lineEnd);
-
-            outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-            inputStream = connection.getInputStream();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder sb = new StringBuilder();
-
-            String line = null;
-            try {
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            result = sb.toString();
-
-            fileInputStream.close();
-            inputStream.close();
-            outputStream.flush();
-            outputStream.close();
-
-            return result;
-        } catch(Exception e) {
+        }  catch(Exception e) {
             Log.e("MultipartRequest","Multipart Form Upload Error");
             e.printStackTrace();
             return "error";
@@ -413,17 +452,14 @@ public class HttpReqRes {
     }
 
     /*
-     * get PostsAll = GET
+     * get WAS APIs = GET
      */
-    public String requestHttpGetPostingAll(String url, String token){
+    public String requestHttpGetWASPIwToken(String url, String token){
 
         String result = null;
 
         try{
             HttpClient client = new DefaultHttpClient();
-            HttpParams params = client.getParams();
-            HttpConnectionParams.setConnectionTimeout(params, 5000);
-            HttpConnectionParams.setSoTimeout(params, 5000);
 
             String getURL = url;
             HttpGet get = new HttpGet(getURL);
@@ -437,6 +473,7 @@ public class HttpReqRes {
         }catch(Exception e){
             e.printStackTrace();
         }
+
         return result;
     }
 
@@ -452,6 +489,7 @@ public class HttpReqRes {
 //            HttpParams params = client.getParams();
 //            HttpConnectionParams.setConnectionTimeout(params, 5000);
 //            HttpConnectionParams.setSoTimeout(params, 5000);
+            Log.v("httpreqres", "url when get posting : " + url);
             String getURL = url;
             HttpGet get = new HttpGet(getURL);
 
@@ -515,7 +553,7 @@ public class HttpReqRes {
 //        Post posting;
 
         switch(postCase) {
-            case 1:        // like
+            case 1:        // post
                 try {
                     HttpClient client = new DefaultHttpClient();
                     String postURL = url;
@@ -534,47 +572,9 @@ public class HttpReqRes {
 
                 break;
 
-            case 2:        // bookmark
+            case 2:        // del
                 try {
-                    HttpClient client = new DefaultHttpClient();
-                    String postURL = url;
-                    HttpPost post = new HttpPost(postURL);
-
-                    post.setHeader("token", token);
-
-                    HttpResponse response = client.execute(post);
-                    HttpEntity resEntity = response.getEntity();
-                    result = EntityUtils.toString(resEntity);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return result;
-                }
-
-                break;
-
-            case 3:        // unlike
-                try {
-                    HttpClient client = new DefaultHttpClient();
-                    String deleteURL = url;
-                    HttpDelete del = new HttpDelete(deleteURL);
-
-
-                    del.setHeader("token", token);
-
-                    HttpResponse response = client.execute(del);
-                    HttpEntity resEntity = response.getEntity();
-                    result = EntityUtils.toString(resEntity);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return result;
-                }
-
-                break;
-
-            case 4:        // dbookmark
-                try {
+                    Log.v("httpreqres", "url : " + url);
                     HttpClient client = new DefaultHttpClient();
                     String deleteURL = url;
                     HttpDelete del = new HttpDelete(deleteURL);
@@ -600,12 +600,12 @@ public class HttpReqRes {
     /*
      * write comments = Post
      */
-    public String requestHttpPostWritePosting(String url, Dbhelper dbhelper, String content) {
+    public String requestHttpPostWriteComment(String url, Dbhelper dbhelper, String content) {
+        Log.v("httpreqrs", "url : "  + url);
         String result = null;
         Date dt = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         JSONObject json = null;
-
 
         try {
             HttpClient client = new DefaultHttpClient();
@@ -614,10 +614,9 @@ public class HttpReqRes {
             post.setHeader("token", dbhelper.getAccessToken());
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 
-            Log.v("httpreqres", "contents : " + content + "\n nick : " + dbhelper.getMyNickname() + "\n avatar : " + dbhelper.getMyAvatar());
             nameValuePairs.add(new BasicNameValuePair("rcontents", content));
-            nameValuePairs.add(new BasicNameValuePair("nickname", dbhelper.getMyNickname()));
-            nameValuePairs.add(new BasicNameValuePair("avatar", dbhelper.getMyAvatar()));
+            nameValuePairs.add(new BasicNameValuePair("userNick", dbhelper.getMyNickname()));
+            nameValuePairs.add(new BasicNameValuePair("userAvatar", dbhelper.getMyAvatar()));
             nameValuePairs.add(new BasicNameValuePair("rdate", sdf.format(dt).toString()));
 
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -631,6 +630,148 @@ public class HttpReqRes {
             return result;
         }
         Log.v("httpreqres", "result of reply : " + result);
+        return result;
+    }
+
+    /*
+     * Friend Accepts = post
+     */
+    public String requestHttpPostAddFriend(String url, Dbhelper dbhelper, int ridx){
+        String result = null;
+        JSONObject json = null;
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            String postURL = url;
+            HttpPost post = new HttpPost(postURL);
+            post.setHeader("token", dbhelper.getAccessToken());
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+
+            String recidx = String.valueOf(ridx);
+
+            nameValuePairs.add(new BasicNameValuePair("receiverIdx", recidx));
+
+            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            HttpResponse response = client.execute(post);
+            HttpEntity resEntity = response.getEntity();
+            result = EntityUtils.toString(resEntity);
+            Log.v("httpreq", "status : " + response.getStatusLine());
+            Log.v("httpreqres", "result after parsing : " + result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return result;
+        }
+        Log.v("httpreqres", "result of reply : " + result);
+        return result;
+
+    }
+
+    /*
+     * delete friends = DELETE
+     */
+    public String requestHttpFriendDelete(String url, String token){
+
+        String result = null;
+
+        try{
+            HttpClient client = new DefaultHttpClient();
+            Log.v("httpreqres", "url when delete friends : " + url);
+            String delURL = url;
+            HttpDelete del = new HttpDelete(delURL);
+
+            del.setHeader("token", token);
+
+            HttpResponse responseDelete = client.execute(del);
+            HttpEntity resEntity = responseDelete.getEntity();
+            if(resEntity != null){
+                result = EntityUtils.toString(resEntity);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    /*
+     * Friend Requests = put/delete
+     */
+    public String requestHttpDoRequests(String url, String token) {
+        String result = null;
+//        JSONObject json = null;
+//        Post posting;
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            Log.v("httpreqres", "url when get req lists : " + url);
+            String getURL = url;
+            HttpGet get = new HttpGet(getURL);
+
+            get.setHeader("token", token);
+
+            HttpResponse responseGET = client.execute(get);
+            HttpEntity resEntity = responseGET.getEntity();
+            if (resEntity != null) {
+                result = EntityUtils.toString(resEntity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /*
+     * Post DETAILS = Post
+     */
+    public String requestHttpNotifyFriend(String url, String token, int fCase) {
+        String result = null;
+//        JSONObject json = null;
+//        Post posting;
+
+        switch(fCase) {
+            case 1:        // accept
+                try {
+                    HttpClient client = new DefaultHttpClient();
+                    String putURL = url;
+                    HttpPut put = new HttpPut(putURL);
+
+                    put.setHeader("token", token);
+
+                    HttpResponse response = client.execute(put);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+
+                break;
+
+            case 2:        // deny, delete
+                try {
+                    Log.v("httpreqres", "url : " + url);
+                    HttpClient client = new DefaultHttpClient();
+                    String deleteURL = url;
+                    HttpDelete del = new HttpDelete(deleteURL);
+
+                    del.setHeader("token", token);
+
+                    HttpResponse response = client.execute(del);
+                    HttpEntity resEntity = response.getEntity();
+                    result = EntityUtils.toString(resEntity);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return result;
+                }
+
+                break;
+        }
+        Log.v("posting httpreqres", "get server result : " + result);
+
         return result;
     }
 }

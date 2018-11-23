@@ -19,6 +19,7 @@ public class Dbhelper extends SQLiteOpenHelper {
     * */
     public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "DNATokenDB.db";
+    public static Boolean isNewbie = true;
 
     public static class DNAEntry implements BaseColumns{
         public static final String TABLE_NAME = "userinfo";
@@ -96,6 +97,8 @@ public class Dbhelper extends SQLiteOpenHelper {
         * */
         db.delete(DNAEntry.TABLE_NAME,null, null);
         db.insert(DNAEntry.TABLE_NAME, null, values);
+
+        isNewbie = false;
     }
 
     /*
@@ -108,6 +111,8 @@ public class Dbhelper extends SQLiteOpenHelper {
          * 기존에 있는 내용을 딜리트
          * */
         db.delete(DNAEntry.TABLE_NAME,null, null);
+
+        isNewbie = true;
     }
 
     /*
@@ -148,6 +153,21 @@ public class Dbhelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(DNAEntry.COLUME_NAME_ANONIMITY, anonymity);
+
+        /*
+         * 받아온 엑세스 토큰을 갱신함..
+         * */
+        db.update(DNAEntry.TABLE_NAME, values, null, null);
+    }
+
+    /*
+     * 채팅 반경 변경 메소드
+     * */
+    public void updateSearchable(int searchable){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(DNAEntry.COLUME_NAME_SEARCHABLE, searchable);
 
         /*
          * 받아온 엑세스 토큰을 갱신함..
@@ -326,4 +346,7 @@ public class Dbhelper extends SQLiteOpenHelper {
         return address;
     }
 
+    public static Boolean getIsNewbie() {
+        return isNewbie;
+    }
 }

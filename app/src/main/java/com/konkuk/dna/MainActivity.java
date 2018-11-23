@@ -4,15 +4,23 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -40,17 +48,26 @@ import com.konkuk.dna.map.MapFragment;
 import com.konkuk.dna.post.Comment;
 import com.konkuk.dna.post.Post;
 import com.konkuk.dna.post.PostFormActivity;
+import com.konkuk.dna.utils.helpers.NameHelpers;
 import com.nhn.android.maps.NMapView;
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
+import static com.konkuk.dna.utils.JsonToObj.PostingCntJsonToObj;
 import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.PushJsonToObj;
 import static com.konkuk.dna.utils.ObjToJson.StoreObjToJson;
 
 public class MainActivity extends BaseActivity {
@@ -58,6 +75,10 @@ public class MainActivity extends BaseActivity {
     private MapFragment mapFragment;
     private View mapFragmentView;
     private FloatingActionButton gotoChatBtn, postWriteBtn;
+
+    public ArrayList<Post> getPosts() {
+        return posts;
+    }
 
     private ArrayList<Post> posts;
 
@@ -173,14 +194,24 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void call(Object... args) {
-                NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(getApplicationContext())
-                                .setSmallIcon(R.mipmap.dna)
-                                .setContentTitle("Notification")
-                                .setContentText(args[0].toString());
+                ArrayList<String> result = PushJsonToObj(args[0].toString());
 
-                NotificationManager mnm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                mnm.notify(0, mBuilder.build());
+                //TODO : add Asynctask
+                String name = "";
+                String avatar = null;
+                String contents = result.get(3);
+
+                if(Integer.parseInt(result.get(2))==0){
+                    //when anonymity = 0
+                    name = result.get(0);
+                    avatar = result.get(1);
+                }else{
+                    //when anonymity = 1
+                    name = NameHelpers.makeName(Integer.parseInt(result.get(4)));
+                    avatar = null;
+                }
+                new generatePictureStyleNotification(getApplicationContext(), name, contents,
+                        avatar).execute();
 
                 EventBus.getDefault().post(new EventListener(SOCKET_SPEAKER, null));
             }
@@ -227,10 +258,10 @@ public class MainActivity extends BaseActivity {
         // TODO 반경, 위치 초기값 설정해줘야 합니다!
         radius = dbhelper.getMyRadius();
         // 에뮬레이터가 위치를 못잡아서 임시로 넣어놨슴다
-        longitude = 127.17934280;
-        latitude = 37.56076250;
-//        longitude = gpsTracker.getLongitude();
-//        latitude = gpsTracker.getLatitude();
+//        longitude = 127.17934280;
+//        latitude = 37.56076250;
+        longitude = gpsTracker.getLongitude();
+        latitude = gpsTracker.getLatitude();
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
 
 //        posts = new ArrayList<Post>();
@@ -389,14 +420,22 @@ class showPostingAllAsync extends AsyncTask<Void, Void, ArrayList<Post>>{
     @Override
     protected ArrayList<Post> doInBackground(Void... voids){
         ArrayList<Post> postings = new ArrayList<>();
+        int[] pidx;
 
         HttpReqRes httpReqRes = new HttpReqRes();
         dbhelper = new Dbhelper(context);
 
-        String result = httpReqRes.requestHttpGetPostingAll("https://dna.soyoungpark.me:9013/api/posting/showAll/", dbhelper.getAccessToken());
+        String result = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/posting/showAll/", dbhelper.getAccessToken());
 
-        Log.v("mainactivity", "show allr httpreq result" + result);
-        postings = PostingJsonToObj(result, 1);
+//        Log.v("mainactivity", "show allr httpreq result" + result);
+        pidx = PostingCntJsonToObj(result);
+
+        for(int i=0;i<pidx.length;i++){
+            String result1 = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + pidx[i]);
+            postings.add(PostingJsonToObj(result1, 2).get(0));
+
+        }
+//        postings = PostingJsonToObj(result, 2);
 
         return postings;
     }
@@ -405,5 +444,72 @@ class showPostingAllAsync extends AsyncTask<Void, Void, ArrayList<Post>>{
     protected void onPostExecute(ArrayList<Post> postings) {
 
         super.onPostExecute(postings);
+    }
+}
+
+class generatePictureStyleNotification extends AsyncTask<String, Void, Bitmap> {
+
+    private Context mContext;
+    private String user, message, imageUrl;
+
+    public generatePictureStyleNotification(Context context, String user, String message, String imageUrl) {
+        super();
+        this.mContext = context;
+        this.user = user;
+        this.message = message;
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
+    protected Bitmap doInBackground(String... params) {
+
+        InputStream in;
+        if(imageUrl!=null) {
+            try {
+                URL url = new URL(imageUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                in = connection.getInputStream();
+                Bitmap myBitmap = BitmapFactory.decodeStream(in);
+                return myBitmap;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Bitmap icon = BitmapFactory.decodeResource(mContext.getResources(),
+                    R.drawable.avatar);
+            return icon;
+        }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Bitmap result) {
+        super.onPostExecute(result);
+
+        Intent intent = new Intent(mContext, SplashActivity.class);
+        intent.putExtra("key", "value");
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 100, intent, PendingIntent.FLAG_ONE_SHOT);
+
+
+        long[] vPattern = {100, 1000, 200, 1000}; //쉼,진동,쉼,진동
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(mContext)
+                        .setPriority(NotificationCompat.PRIORITY_MAX)
+                        .setVibrate(vPattern)
+                        .setContentIntent(pendingIntent)
+                        .setSmallIcon(R.mipmap.dna)
+                        .setLargeIcon(result)
+                        .setContentTitle(user+"님의 확성기") //nickname
+                        .setContentText(message);
+
+        NotificationManager mnm = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+        mnm.notify(0, mBuilder.build());
     }
 }

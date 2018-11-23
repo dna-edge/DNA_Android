@@ -36,6 +36,7 @@ import com.konkuk.dna.utils.dbmanage.Dbhelper;
 import com.nhn.android.maps.nmapmodel.NMapPlacemark;
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -80,27 +81,32 @@ public class InitHelpers {
         pfID.setText(dbhelper.getMyId());
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void OnEventListener(EventListener event) {
-        DrawyerAsyncTask dat;
-        switch (event.message) {
-            case SOCKET_GEO:
-                Log.e("Socket ON", "geo");
-                dat = new DrawyerAsyncTask(cont, ccuListView, view);
-                dat.execute(event.args, String.valueOf(dbhelper.getMyIdx()));
-                break;
-            case SOCKET_DIRECT:
-                Log.e("Socket ON", "direct");
-                break;
-            default:
-                break;
-        }
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void OnEventListener(EventListener event) {
+//        DrawyerAsyncTask dat = new DrawyerAsyncTask(cont, ccuListView, view);
+//        switch (event.message) {
+//            case SOCKET_GEO:
+//                Log.e("Socket ON", "geo");
+//                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+//                    dat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.args, String.valueOf(dbhelper.getMyIdx()));
+//                }else{
+//                    dat.execute(event.args, String.valueOf(dbhelper.getMyIdx()));
+//                }
+//                break;
+//            case SOCKET_DIRECT:
+//                Log.e("Socket ON", "direct");
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     public static void initDrawer(final Context context, final View v, int type) {
         cont = context;
         view = v;
         dbhelper = new Dbhelper(context);
+
+
         setProfile(v);
         LinearLayout drawerForUserList = (LinearLayout) v.findViewById(R.id.drawerForUserList);
         LinearLayout drawerForFriend = (LinearLayout) v.findViewById(R.id.drawerForFriend);
@@ -129,15 +135,16 @@ public class InitHelpers {
 
                 AlertDialog.Builder alt_bld = new AlertDialog.Builder(context);
                 alt_bld.setMessage("정말 로그아웃 하실건가요?").setCancelable(
-                        false).setPositiveButton("YES",
+                        false).setPositiveButton("네",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                dbhelper.logoutUser();
                                 Intent intent = new Intent(context, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
                                 dialog.cancel();
                             }
-                        }).setNegativeButton("NO",
+                        }).setNegativeButton("아니오",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -215,11 +222,11 @@ public class InitHelpers {
                     Log.e("Socket Ping-direct", args[0].toString());
                     DrawyerAsyncTask dat = new DrawyerAsyncTask(context, ccuListView, v);
 
-                    if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
-                        dat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
-                    }else{
-                        dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
-                    }
+//                    if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+//                        dat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+//                    }else{
+//                        dat.execute(args[0].toString(), String.valueOf(dbhelper.getMyIdx()));
+//                    }
                 }
             });
             // TODO 해당 친구의 프로필을 입력해줘야 합니다.

@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,10 +14,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -34,8 +37,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.konkuk.dna.post.Post;
+import com.konkuk.dna.post.PostDetailActivity;
 import com.konkuk.dna.utils.EventListener;
 import com.konkuk.dna.utils.helpers.BaseActivity;
 import com.konkuk.dna.utils.ServerURL;
@@ -54,8 +60,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,6 +76,10 @@ import io.socket.emitter.Emitter;
 
 import static com.konkuk.dna.utils.HttpReqRes.requestHttpPostLambda;
 import static com.konkuk.dna.utils.JsonToObj.ChatAllJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.PostingCntJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.PostingJsonToObj;
+import static com.konkuk.dna.utils.JsonToObj.getLocationContents;
+import static com.konkuk.dna.utils.ObjToJson.LocationObjToJson;
 import static com.konkuk.dna.utils.ObjToJson.SendMsgObjToJson;
 import static com.konkuk.dna.utils.ObjToJson.StoreObjToJson;
 
@@ -112,6 +126,7 @@ public class ChatActivity extends BaseActivity {
     private static final int SOCKET_NEW_MSG = 3;
     private static final int SOCKET_APPLY_LIKE = 4;
     private static final int SOCKET_SPEAKER = 5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,18 +188,82 @@ public class ChatActivity extends BaseActivity {
 
         chatListAdapter = new ChatListAdapter(context, R.layout.chat_item_left, chatMessages);
 
+
         msgListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ChatMessage cm = (ChatMessage) adapterView.getAdapter().getItem(i);
+                //TODO : 채팅 중 하나를 눌렀을 경우 동작 구현
+                ChatMessage clicked_msg = (ChatMessage) adapterView.getAdapter().getItem(i);
+                String clicked_type = clicked_msg.getType();
 
-                SocketConnection.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
-                //mSocket.emit("like", dbhelper.getAccessToken(), cm.getMsg_idx());
+                switch (clicked_type){
+                    case TYPE_LOCATION:
+                        //TODO : 지도 위치 보여주기
+                        ArrayList<Double> loc = getLocationContents(clicked_msg.getContents());
+                        if(loc!=null){
+                            FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+                            ChatListMapFragment chatListMapFragment = ChatListMapFragment.newInstance(loc.get(1), loc.get(0));
+                            chatListMapFragment.show(fragmentManager, "chatListMapFragment");
+                        }
+                        break;
+
+                    case TYPE_IMAGE:
+                        //TODO : 사진 확대하기(할 수있으면)
+                        break;
+
+                    case TYPE_SHARE:
+                        //TODO : 공유된 포스팅 들어가기
+                        String[] parse = clicked_msg.getContents().split("_");
+                        int idx = parse.length - 1;
+                        Log.e("check", parse[idx]);
+
+                        getSelectedPostAsync gspa = new getSelectedPostAsync(context);
+                        gspa.execute(Integer.parseInt(parse[idx]));
+
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        });
+
+        //TODO : 채팅 길게 눌렀을 때 구현
+        msgListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Vibrator vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vib.vibrate(50);
+
+                ChatMessage clicked_msg = (ChatMessage) adapterView.getAdapter().getItem(i);
+
+                if(clicked_msg.getIdx() != dbhelper.getMyIdx()) {
+                    FragmentManager fragmentManager = ((Activity) context).getFragmentManager();
+                    ChatUserDetailFragment chatUserDetailFragment = new ChatUserDetailFragment();
+
+                    //TODO : 해당 유저 정보 받아서 세팅하기
+                    chatUserDetailFragment.setData(new ChatUser(clicked_msg.getIdx(), clicked_msg.getUserName(), clicked_msg.getAvatar(), clicked_msg.getAnonymity(), true));
+                    chatUserDetailFragment.show(fragmentManager, "chatUserDetailFragment");
+                }else{
+                    Toast.makeText(context, "스스로가 왜 궁금하시죠?^~^", Toast.LENGTH_SHORT).show();
+                }
+                return false;
             }
         });
 
 //        생성된 후 바닥으로 메시지 리스트를 내려줍니다.
 //        scrollMyListViewToBottom();
+
+        // TODO: 공유 일경우, 메세지 세팅하기
+        String postTitle = getIntent().getStringExtra("postTitle");
+        int postNum = getIntent().getIntExtra("postNum",-1);
+        if(postNum!=-1){
+            msgEditText.setText(postTitle+"_"+postNum);
+            msgEditText.setEnabled(false);
+            msgEditText.setBackgroundColor(getResources().getColor(R.color.concrete));
+            messageType = TYPE_SHARE;
+        }
+
 
         timeFormat = new SimpleDateFormat("a h:m", Locale.KOREA);
 
@@ -247,19 +326,19 @@ public class ChatActivity extends BaseActivity {
                 break;
             case SOCKET_APPLY_LIKE:
                 Log.e("Socket GET Like", "Apply Like COME!!!" + event.args);
-                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent,
-                        bestChatNickname, bestChatDate, msgListEmpty, chatMessages,1);
-
-                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
-                    csat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, longitude, latitude);
-                }else{
-                    csat.execute(longitude, latitude);
-                }
+//                csat = new ChatSetAsyncTask(context, radius, msgListView, bestChatAvatar, bestChatContent,
+//                        bestChatNickname, bestChatDate, msgListEmpty, chatMessages,1);
+//
+//                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+//                    csat.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, longitude, latitude);
+//                }else{
+//                    csat.execute(longitude, latitude);
+//                }
                 break;
-            case SOCKET_SPEAKER:
-                Log.e("Socket PUSH", "PUSH COME!!!");
-
-                break;
+//            case SOCKET_SPEAKER:
+//                Log.e("Socket PUSH", "PUSH COME!!!");
+//
+//                break;
             default:
                 break;
         }
@@ -363,8 +442,9 @@ public class ChatActivity extends BaseActivity {
                 // TODO 현재 주소를 messageEditText에 채워줍니다.
                 if (messageType.equals(TYPE_MESSAGE) || messageType.equals(TYPE_LOUDSPEAKER)) {
                     msgLocationBtn.setTextColor(getResources().getColor(R.color.colorRipple));
-                    msgEditText.setText("서울시 광진구 화양동 1 건국대학교");
+                    msgEditText.setText(dbhelper.getMyAddress());
                     msgEditText.setEnabled(false);
+                    msgEditText.setBackgroundColor(getResources().getColor(R.color.concrete));
                     messageType = TYPE_LOCATION;
                 } else {
                     DialogSimple();
@@ -380,6 +460,7 @@ public class ChatActivity extends BaseActivity {
                     // Guide : activityResult로 가시오.
 //                    msgImageBtn.setTextColor(getResources().getColor(R.color.colorRipple));
 //                    msgEditText.setText("사진 첨부됨");
+//                    msgEditText.setBackgroundColor(Color.GRAY);
 //                    msgEditText.setEnabled(false);
 //                    messageType = TYPE_IMAGE;
                 } else {
@@ -390,10 +471,16 @@ public class ChatActivity extends BaseActivity {
 
             case R.id.msgSendBtn: // 메시지 전송 버튼 클릭
 
+                if(messageType == TYPE_LOCATION){
+                    JsonObject jdata = LocationObjToJson(gpsTracker.getLatitude(),gpsTracker.getLongitude());
+                    msgEditText.setText(jdata.toString());
+                }
                 JsonObject sendMsgJson = SendMsgObjToJson(dbhelper, gpsTracker.getLongitude(), gpsTracker.getLatitude(), messageType, msgEditText.getText().toString());
                 SocketConnection.emit("save_msg", sendMsgJson);
 
+                msgSpeakerBtn.setTextColor(getResources().getColor(R.color.concrete));
                 msgEditText.setText("");
+                msgEditText.setBackgroundColor(Color.WHITE);
                 msgEditText.setEnabled(true);
                 messageType = TYPE_MESSAGE;
                 break;
@@ -422,6 +509,7 @@ public class ChatActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         msgLocationBtn.setTextColor(getResources().getColor(R.color.concrete));
                         msgImageBtn.setTextColor(getResources().getColor(R.color.concrete));
+                        msgEditText.setBackgroundColor(Color.WHITE);
                         msgEditText.setEnabled(true);
                         msgEditText.setText(null);
                         messageType = (messageType == TYPE_LOUDSPEAKER) ? TYPE_LOUDSPEAKER : TYPE_MESSAGE;
@@ -703,5 +791,39 @@ class ChatSetAsyncTask extends AsyncTask <Double, Integer, ArrayList<String>>  {
                 msgListView.setSelection(now_pos);
             }
         });
+    }
+}
+
+class getSelectedPostAsync extends AsyncTask<Integer, Void, Post>{
+
+    private Context context;
+    private Dbhelper dbhelper;
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    public getSelectedPostAsync(Context context){
+        this.context = context;
+    }
+
+    @Override
+    protected Post doInBackground(Integer... integers){
+
+        HttpReqRes httpReqRes = new HttpReqRes();
+        String result1 = httpReqRes.requestHttpGetPosting(ServerURL.DNA_SERVER+ServerURL.PORT_WAS_API+"/posting/show/" + integers[0]);
+
+        //Log.e("URL", ServerURL.PORT_WAS_API+"/posting/show/" + integers);
+        return PostingJsonToObj(result1, 2).get(0);
+    }
+
+    @Override
+    protected void onPostExecute(Post posting) {
+
+        Intent postIntent = new Intent(context, PostDetailActivity.class);
+        postIntent.putExtra("post", posting);
+        context.startActivity(postIntent);
+        super.onPostExecute(posting);
     }
 }
