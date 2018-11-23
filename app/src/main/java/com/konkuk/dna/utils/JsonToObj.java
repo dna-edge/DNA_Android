@@ -145,7 +145,7 @@ public class JsonToObj {
     /*
      * 회원가입 Json변환 메소드
      * */
-    public HashMap RegisterJsonToObj(String jsonResult){
+    public static HashMap RegisterJsonToObj(String jsonResult){
 
         HashMap<String, String> hm = new HashMap<>();
         JsonParser jsonParser = new JsonParser();
