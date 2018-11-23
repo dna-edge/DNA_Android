@@ -48,6 +48,7 @@ public class MyPageActivity extends BaseActivity {
     }
 
     public void init() {
+        Dbhelper dbhelper = new Dbhelper(this);
         menuDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         InitHelpers.initDrawer(this, menuDrawer, 2);
 
@@ -58,6 +59,9 @@ public class MyPageActivity extends BaseActivity {
         myPostList = (ListView) findViewById(R.id.myPostList);
         scrapPostList = (ListView) findViewById(R.id.scrapPostList);
         InitHelpers.setProfile(myPageProfile);
+
+        myPageInfo.setText(dbhelper.getMyDescription());
+        dbhelper.close();
 
         myPosts = new ArrayList<Post>();
         scrapPosts = new ArrayList<Post>();
@@ -174,6 +178,7 @@ class myPostingAsync extends AsyncTask<Integer, Void, ArrayList<Post>> {
                 break;
         }
 
+        dbhelper.close();
         Log.v("mypageactivity", "show bookmark httpreq result" + result);
         postings = PostingJsonToObj(result, 1);
 
