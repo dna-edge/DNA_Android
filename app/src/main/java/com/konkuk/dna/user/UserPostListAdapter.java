@@ -184,6 +184,8 @@ class deleteMyPostingkAsync extends AsyncTask<Integer, Integer, Void> {
 
     @Override
     protected void onPostExecute(Void voids) {
+        MyPageActivity mpa = (MyPageActivity) context;
+        mpa.init();
 
         super.onPostExecute(voids);
     }

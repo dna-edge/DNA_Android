@@ -145,6 +145,13 @@ public class MyPageActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        scrapPostListAdatper.notifyDataSetChanged();
+        myPostListAdatper.notifyDataSetChanged();
+        super.onResume();
+    }
 }
 
 class myPostingAsync extends AsyncTask<Integer, Void, ArrayList<Post>> {
