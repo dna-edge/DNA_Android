@@ -21,6 +21,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -247,7 +248,7 @@ class addFriendAsync extends AsyncTask<Integer, String, Void> {
 
     @Override
     protected void onPostExecute(Void voids) {
-
+        Toast.makeText(context, "친구 요청을 전송했습니다.", Toast.LENGTH_SHORT).show();
         super.onPostExecute(voids);
     }
 }
