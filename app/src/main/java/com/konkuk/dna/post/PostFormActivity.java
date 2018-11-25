@@ -68,8 +68,8 @@ public class PostFormActivity extends BaseActivity {
         });
 
         // TODO 위치 초기값 설정해줘야 합니다!
-        longitude = 127.07934279999995;
-        latitude = 37.5407625;
+        longitude = gpsTracker.getLongitude();
+        latitude = gpsTracker.getLatitude();
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
         post = new Post();
 //        isChecked = false;

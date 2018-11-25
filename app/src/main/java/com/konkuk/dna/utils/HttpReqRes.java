@@ -566,7 +566,9 @@ public class HttpReqRes {
             nameValuePairs.add(new BasicNameValuePair("nickname", dbhelper.getMyNickname()));
             nameValuePairs.add(new BasicNameValuePair("avatar", dbhelper.getMyAvatar()));
 
-            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8);
+            post.setEntity(ent);
+            //post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
             HttpResponse response = client.execute(post);
             HttpEntity resEntity = response.getEntity();
