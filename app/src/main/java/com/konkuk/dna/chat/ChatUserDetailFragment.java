@@ -200,6 +200,7 @@ class chatFriendAsyncTask extends AsyncTask<Integer, Integer, Boolean> {
 
         String res = httpReqRes.requestHttpGetWASPIwToken("https://dna.soyoungpark.me:9013/api/friends/showWait/" + ints[0], dbhelper.getAccessToken());
 
+        dbhelper.close();
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = (JsonObject) jsonParser.parse(res);
 
@@ -240,6 +241,7 @@ class addFriendAsync extends AsyncTask<Integer, String, Void> {
 
         httpReqRes.requestHttpPostAddFriend("https://dna.soyoungpark.me:9013/api/friends/", dbhelper, ints[0]);
 
+        dbhelper.close();
         return null;
     }
 

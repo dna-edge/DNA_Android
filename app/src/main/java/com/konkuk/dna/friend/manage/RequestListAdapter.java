@@ -162,6 +162,7 @@ class NotifyFriendAsync extends AsyncTask<Integer, String, Integer> {
 
         httpReqRes.requestHttpNotifyFriend("https://dna.soyoungpark.me:9013/api/friends/" + ints[0], dbhelper.getAccessToken(), ints[1]);
 
+        dbhelper.close();
         return ints[1];
     }
 

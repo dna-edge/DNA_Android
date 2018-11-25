@@ -134,6 +134,7 @@ class writePostingAsync extends AsyncTask<Post, Post, String> {
             httpReqRes.requestHttpPostWritePosting("https://dna.soyoungpark.me:9013/api/posting/", dbhelper, posts[0]);
         }finally {
         }
+        dbhelper.close();
         return null;
     }
 

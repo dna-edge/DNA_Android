@@ -178,6 +178,7 @@ class deleteMyPostingkAsync extends AsyncTask<Integer, Integer, Void> {
                 httpReqRes.requestHttpPosting("https://dna.soyoungpark.me:9013/api/posting/bookmark/" + ints[0], dbhelper.getAccessToken(), 2);
                 break;
         }
+        dbhelper.close();
         return null;
     }
 

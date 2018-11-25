@@ -176,6 +176,7 @@ class AuthAsyncTask extends AsyncTask<Integer, Boolean, Integer> {
             isSuccess = 0;
         }
 
+        dbhelper.close();
         return isSuccess;
     }
 

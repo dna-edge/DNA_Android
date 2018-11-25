@@ -349,6 +349,7 @@ class PostingAsyncTask extends AsyncTask<Integer, Integer, Integer> {
         String result = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + ints[1]);
         post = PostingJsonToObj(result, 2).get(0);
 
+        dbhelper.close();
         return ret;
     }
 
@@ -414,6 +415,7 @@ class writeCommentAsync extends AsyncTask<String, String, Post> {
 
         String res = httpReqRes.requestHttpGetPosting("https://dna.soyoungpark.me:9013/api/posting/show/" + Integer.parseInt(strings[0]));
         Post posting = PostingJsonToObj(res, 2).get(0);
+        dbhelper.close();
         return posting;
     }
 
@@ -467,6 +469,7 @@ class addFriendAsync extends AsyncTask<Integer, String, Void> {
 
         httpReqRes.requestHttpPostAddFriend("https://dna.soyoungpark.me:9013/api/friends/", dbhelper, ints[0]);
 
+        dbhelper.close();
         return null;
     }
 
