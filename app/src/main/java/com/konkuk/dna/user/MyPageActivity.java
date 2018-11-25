@@ -60,7 +60,11 @@ public class MyPageActivity extends BaseActivity {
         scrapPostList = (ListView) findViewById(R.id.scrapPostList);
         InitHelpers.setProfile(myPageProfile);
 
-        myPageInfo.setText(dbhelper.getMyDescription());
+        String myInfo = dbhelper.getMyDescription();
+        if(myInfo.equals("null")){
+            myInfo = "아직 내 정보를 입력하지 않았습니다ㅠㅠ";
+        }
+        myPageInfo.setText(myInfo);
         dbhelper.close();
 
         myPosts = new ArrayList<Post>();
