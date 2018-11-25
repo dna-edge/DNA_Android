@@ -839,7 +839,8 @@ public class JsonToObj {
 
         }else{
             //리스폰스에 하자가 있다면
-            Log.e(jsonObject.get("code").toString(), jsonObject.get("message").toString());
+            Log.e("Check", jsonResult);
+            //Log.e(jsonObject.get("code").toString(), jsonObject.get("message").toString());
             return null;
         }
 

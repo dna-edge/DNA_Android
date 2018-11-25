@@ -656,7 +656,8 @@ public class HttpReqRes {
             nameValuePairs.add(new BasicNameValuePair("userAvatar", dbhelper.getMyAvatar()));
             nameValuePairs.add(new BasicNameValuePair("rdate", sdf.format(dt).toString()));
 
-            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8);
+            post.setEntity(ent);
 
             HttpResponse response = client.execute(post);
             HttpEntity resEntity = response.getEntity();
@@ -688,7 +689,8 @@ public class HttpReqRes {
 
             nameValuePairs.add(new BasicNameValuePair("receiverIdx", recidx));
 
-            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            UrlEncodedFormEntity ent = new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8);
+            post.setEntity(ent);
 
             HttpResponse response = client.execute(post);
             HttpEntity resEntity = response.getEntity();
