@@ -238,7 +238,8 @@ class addFriendAsync extends AsyncTask<Integer, String, Void> {
         HttpReqRes httpReqRes = new HttpReqRes();
         dbhelper = new Dbhelper(context);
 
-        httpReqRes.requestHttpPostAddFriend("https://dna.soyoungpark.me:9013/api/friends/", dbhelper, ints[0]);
+        String res = httpReqRes.requestHttpPostAddFriend("https://dna.soyoungpark.me:9013/api/friends/", dbhelper, ints[0]);
+        Log.v("chatuserdetailfrag", "addfriend res : " + res);
 
         return null;
     }
