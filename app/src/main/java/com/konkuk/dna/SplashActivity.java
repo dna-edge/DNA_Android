@@ -158,6 +158,9 @@ class AuthAsyncTask extends AsyncTask<Integer, Boolean, Integer> {
         HttpReqRes httpreq = new HttpReqRes();
         String responseResult = httpreq.requestHttpGETAuth("https://dna.soyoungpark.me:9011/api/auth/refresh", dbhelper.getRefreshToken());
 
+        if(responseResult == null){
+            return 0;
+        }
         JsonToObj jto = new JsonToObj();
         HashMap<String, String> map = jto.TokenJsonToObj(responseResult);
 
